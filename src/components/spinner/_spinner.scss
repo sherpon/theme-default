@@ -1,0 +1,35 @@
+#sherpon-spinner {
+    background: #4C4C4C;
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0.5;
+    z-index: 2000;
+
+    #sherpon-loader {
+        position: relative;
+        top: 50%;
+    }
+
+    #loader {
+        width: 56px;
+        height: 56px;
+        border: 8px solid #999999;
+        border-top-color: #FFFFFF;
+        border-radius: 50%;
+        position: relative;
+        animation: loader-rotate 1s linear infinite;
+        top: 50%;
+        margin: -28px auto 0;
+    }
+}
+
+    
+
+@keyframes loader-rotate{
+    0%{transform:rotate(0);}
+    100%{transform:rotate(360deg);}
+}

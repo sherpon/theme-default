@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+@import './styles/materialize/materialize.scss';
+@import './styles/variables.scss';
+@import './styles/style.scss';
+@import './styles/helpers.scss';
+
+/******** components *********/
+@import './components/spinner/spinner.scss';
+@import './components/navbar/navbar.scss';
+@import './components/breadcrumbs/breadcrumbs.scss';
+@import './components/pagination/pagination.scss';
+@import './components/contact/contact.scss';
+@import './components/footer/footer.scss';
+
+/******** hero's components *********/
+@import './components/profile/profile.scss';
+@import './components/tabsHero/tabsHero.scss';
+
+/******** categories's components *********/
+@import './components/categories/categories.scss';
+
+/******** search and category's components *********/
+@import './components/resultCount/resultCount.scss';
+@import './components/previewListPlaceholder/previewListPlaceholder.scss';
+@import './components/previewList/previewList.scss';
+@import './components/previewItem/previewItem.scss';
+
+/******** cart's components *********/
+@import './components/emptyCartView/emptyCartView.scss';
+@import './components/cartView/cartView.scss';
+@import './components/cartItemView/cartItemView.scss';
+
+/******** item's components *********/
+@import './components/itemViewPlaceholder/itemViewPlaceholder.scss';
+@import './components/itemView/itemView.scss';
+@import './components/itemCarousel/itemCarousel.scss';
+@import './components/itemContent/itemContent.scss';
+@import './components/itemContentShipping/itemContentShipping.scss';
+@import './components/itemContentAttributes/itemContentAttributes.scss';
+
+/******** terms' components *********/
+@import './components/terms/terms.scss';

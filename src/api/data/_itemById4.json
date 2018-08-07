@@ -1,0 +1,32 @@
+{
+	"id":"Hu3fU02Bdhgpo476Fej4",
+	"type":"item",
+	"shortTitle":"4 Warm And Bright Top, Blush",
+	"longTitle":"4 Warm And Bright Top, Blush night, Black",
+	"tags":"",
+	"categories":[
+		{
+			"name":"Ropa para mujeres",
+			"orden":1,
+			"type":"primary",
+			"parent":""
+		}
+	],
+	"description":"This dress is so perfect for brides to be! It's will look amazing at any shower you have! It is also great for a romantic date night! The fit is so flattering and the look ultra classy! This lace is a must have for any girl's closet! Material has no amount of stretch. Whitney is wearing the small. Sizes fit: Small- 0-4; Medium- 6; Large- 8-10 ",
+	"include":"One dress",
+	"characteristics":"Adjustable: No \nAttributesClosure Type: Zipper \nAttributesClosure Location: Back \nAttributesLining: Full \nAttributesMain Color: Ivory \nAttributesLength: 35\" \nAttributesBust: 32\" ",
+	"currency":"USD",
+	"symbol":"$",
+	"price":40.00,
+	"stock":5,
+	"shipping":[],
+	"attributes":[],
+	"variations":[],
+	"picture1":"/images/store/mockup/item3/picture1.jpg",
+	"picture2":"/images/store/mockup/item3/picture2.jpg",
+	"picture3":"/images/store/mockup/item3/picture3.jpg",
+	"picture4":"/images/store/mockup/item3/picture5.jpg",
+	"picture5":"/images/store/mockup/item3/picture6.jpg",
+	"picture6":"/images/store/mockup/item3/picture7.jpg",
+	"picture7":"/images/store/mockup/item3/picture4.jpg"
+}

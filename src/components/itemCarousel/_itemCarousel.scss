@@ -1,0 +1,19 @@
+.item-carousel__title {
+	margin-top: 0.5em;
+    margin-bottom: 2em;
+}
+
+.item-carousel__title h4 {
+	margin: 0px !important;
+}
+
+.item-carousel__id {
+	font-size: 0.75em;
+	margin-top: 0.75em;
+}
+
+.item-carousel__pictures-list {
+	@extend .row;
+	margin-bottom: 0px !important;
+	margin-top: 1em;
+}

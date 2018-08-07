@@ -1,0 +1,68 @@
+
+.sherpon-color-text-body {
+  color: $sherpon-color-text-body !important;
+}
+
+.sherpon-color-text-body-secundary {
+  color: $sherpon-color-text-body-secundary !important;
+}
+
+.sherpon-color-text-primary {
+	color: $primary-color
+}
+
+.sherpon-margin-top-2em {
+  margin-top: 2em;
+}
+
+.sherpon-margin-top-bottom-1em {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.sherpon-margin-bottom-0px {
+	margin-bottom: 0px !important;
+}
+
+.sherpon-margin-bottom-5px {
+  margin-bottom: 5px !important;
+}
+
+.sherpon-position-relative {
+	position: relative;
+}
+
+.sherpon-row {
+	@extend .row;
+	margin-bottom: 0px !important;
+}
+
+.sherpon-font-style-normal {
+  font-style: normal;
+}
+
+.sherpon-padding-1em {
+  padding: 1em !important;
+}
+
+.sherpon-padding-left-0px {
+  padding-left: 0px !important;
+}
+
+.sherpon-background-color-white {
+  background-color: white !important;
+}
+
+.sherpon-border-0px {
+  border: 0px !important;
+}
+
+.sherpon-box {
+	background-color: white;
+  border: 1px solid $sherpon-color-box-border;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  margin-bottom: 10px;
+}

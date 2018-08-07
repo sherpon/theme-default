@@ -1,0 +1,60 @@
+.item-content__title {
+	margin-top: 0.5em;
+    margin-bottom: 2em;
+}
+
+.item-content__title h4 {
+	margin: 0px !important;
+}
+
+.item-content__id {
+	font-size: 0.75em;
+	margin-top: 0.75em;
+}
+
+.item-content__price {
+	color: $primary-color;
+	font-size: 1.5em;
+	margin: 1em 0em;
+}
+
+.item-content__warning {
+	margin: 2em 0em;
+	color: $error-color;
+}
+
+.item-content__addToCart {
+	@extend .row;
+	margin: 2em 0em !important;
+	background-color: lighten($primary-color, 30%);
+	padding: 1em;
+}
+
+.item-content__addToCart-col {
+	margin-top: 6px;
+}
+
+.item-content__addToCart-button {
+	color: white;
+}
+
+.item-content__share {
+	@extend .row;
+	margin: 2em 0em !important;
+}
+
+.item-content__share-label {
+	margin-top: 6px;
+}
+
+.item-content__share-icon {
+}
+
+.item-content__information {
+	margin: 2em 0em;
+}
+
+.item-content__information-tabs a{
+	font-size: 0.8em !important;
+	padding: 0em !important;
+}

@@ -1,0 +1,95 @@
+{
+	"store":{
+		"text1":"text"
+	},
+	"navbar":{
+		"searchInputPlaceholder":"Estoy buscando...",
+		"iconMenu":"menu",
+		"navbarItemAccount":"Mi cuenta"
+	},
+	"cover":{
+		"labelEdit":"Editar",
+		"labelSave":"Guardar"
+	},
+	"profile":{
+		"labelEdit":"Editar",
+		"labelSave":"Guardar"
+	},
+	"tabsHero":{
+		"tabHome":"Inicio",
+		"tabCategories":"Categorías",
+		"tabCart":"Carrito",
+		"tabContact":"Contacto",
+		"tabTerms":"Términos y Condiciones"
+	},
+	"homePage":{
+		"labelEdit":"Editar",
+		"labelSave":"Guardar"
+	},
+	"itemPage":{
+		"breadcrumbHome":"Inicio",
+		"labelId":"Id",
+		"labelShipping":"Método de envío",
+		"labelFree":"Gratis",
+		"labelModel":"Modelo",
+		"labelSize":"Tamaño",
+		"labelColor":"Color",
+		"buttonAddToCart":"Agregar al carrito",
+		"labelShare":"Compartir",
+		"tabDescription":"Descripción",
+		"tabCharacteristics":"Características",
+		"tabInclude":"Incluye",
+		"errorShippingEmpty":"Debes seleccionar una opción de envío",
+		"errorModelEmpty":"Debes seleccionar una opción de modelo",
+		"errorSizeEmpty":"Debes seleccionar una opción de tamaño",
+		"errorColorEmpty":"Debes seleccionar una opción de color",
+		"errorNoStock":"No hay cantidad disponible para la opción seleccionada",
+		"errorItemNoStock":"No hay cantidad disponible para el artículo",
+		"errorAmount":"La cantidad solicitada debe ser mayor o igual a uno",
+		"errorNegativeStock":"La cantidad solicitada excede a la disponibilidad del artículo"
+	},
+	"categoryPage":{
+		"breadcrumbHome":"Inicio",
+		"labelResult":"resultados para"
+	},
+	"searchPage":{
+		"breadcrumbHome":"Inicio",
+		"labelResult":"resultados para",
+		"labelSearch":"Búsqueda"
+	},
+	"cartPage":{
+		"breadcrumbHome":"Inicio",
+		"labelCartEmpty":"Tu carrito de compra está vacía",
+		"labelCartSummary":"Resumen del carrito",
+		"labelSummarySubTotal":"Sub total",
+		"labelSummaryShipping":"Costo de envío",
+		"labelSummaryTaxes":"Impuestos",
+		"labelSummaryTotal":"Total",
+		"buttonCheckout":"Confirmar compra",
+		"itemView": {
+			"labelId":"Id",
+			"labelModel":"Modelo",
+			"labelSize":"Tamaño",
+			"labelColor":"Color",
+			"labelFree":"Gratis",
+			"labelDelete":"Eliminar",
+			"price":"Precio",
+			"amount":"Cantidad",
+			"total":"Cantidad"
+		}
+	},
+	"contact":{
+		"labelEdit":"Editar",
+		"labelSave":"Guardar"
+	},
+	"footer":{
+		"message":"Una tienda creada en sherpon",
+		"copyright":"© 2018 sherpon.com"
+	},
+	"terms":{
+		"labelEdit":"Editar",
+		"labelSave":"Guardar",
+		"title":"Términos y Condiciones Generales de sherpon",
+		"terms":"El presente documento contiene los términos y condiciones de uso (en adelante “TCU”), los cuales serán aplicables a los actos celebrados y acciones ejecutadas a través de, o en relación directa o indirecta con, el sitio web de propiedad de SHERPON.COM (en adelante “SHERPON”), que opera con el nombre de dominio sherpon.com y sus derivados relacionados (en adelante “El Sitio”). Las TCU contenidas en el presente instrumento, se aplicarán especialmente a los siguientes actos y acciones: (i) La compra y venta de los Productos y Servicios ofrecidos y prestados por las empresas contratantes (en adelante “Los Proveedores”) con SHERPON, a través de “El Sitio”; (ii) El acceso y uso de El Sitio de cualquier forma y para cualquier efecto previamente autorizado por SHERPON, salvo acuerdo expreso en contrario que conste por escrito; (iii) El acceso y uso de otros espacios relacionados que se formen en asociación o con ocasión a El Sitio, tales como chats, foros, páginas entre otros. Las personas naturales o jurídicas debidamente representadas, (en adelante el Usuario o el Comprador) que deseen comprar los productos o servicios y acceder y/o usar El Sitio, podrán hacerlo siempre y cuando se registren y acepten los TCU contenidas en este documento, así como también las demás políticas y principios que rigen El Sitio y que son incorporados al presente documento. Los TCU son vinculantes y obligatorios. En caso de que las TCU no sean aceptadas, quedará prohibido a la persona de que se trate hacer uso de El Sitio. La prohibición indicada será de carácter absoluto y se referirá al uso directo o indirectamente y para cualquier fin, incluyendo el acceso a El Sitio, la compra de los productos y servicios ofrecidos a través del mismo y de sus tiendas relacionadas, el acceso a la información publicada en el Sitio, etc."
+	}
+}

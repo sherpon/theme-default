@@ -1,0 +1,85 @@
+{
+	"id":"Hu3fU02Bdhgpo476Fej1",
+	"type":"clothes",
+	"shortTitle":"1 Black dress night",
+	"longTitle":"1 Best Of Black dress night, Black",
+	"tags":"",
+	"categories":[
+		{
+			"name":"Vestido de noche",
+			"orden":1,
+			"type":"secundary",
+			"parent":"Ropa para mujeres"
+		}
+	],
+	"description":"This dress is so perfect for brides to be! It's will look amazing at any shower you have! It is also great for a romantic date night! The fit is so flattering and the look ultra classy! This lace is a must have for any girl's closet! Material has no amount of stretch. Whitney is wearing the small. Sizes fit: Small- 0-4; Medium- 6; Large- 8-10 ",
+	"include":"One dress",
+	"characteristics":"Adjustable: No \nAttributesClosure Type: Zipper \nAttributesClosure Location: Back \nAttributesLining: Full \nAttributesMain Color: Ivory \nAttributesLength: 35\" \nAttributesBust: 32\" ",
+	"currency":"USD",
+	"symbol":"$",
+	"price":50.00,
+	"shipping":[
+		{
+			"description":"Destination USA",
+			"currency":"USD",
+			"symbol":"$",
+			"price":5,
+			"days":"5-7 days",
+		},
+		{
+			"description":"Destination Brazil",
+			"currency":"USD",
+			"symbol":"$",
+			"price":10,
+			"days":"5-7 days",
+		},
+		{
+			"description":"Destination Canada",
+			"currency":"USD",
+			"symbol":"$",
+			"price":0,
+			"days":"5-7 days",
+		}
+	],
+	"attributes":[
+		["small","medium"],
+		["white","black","blue"]
+	],
+	"variations":[
+		{
+			"attributes":["small","white"],
+			"stock":6,
+			"currency":"USD",
+			"symbol":"$",
+			"price":50.00
+		},
+		{
+			"attributes":["medium","white"],
+			"stock":1,
+			"currency":"USD",
+			"symbol":"$",
+			"price":55.00
+		},
+		{
+			"attributes":["medium","black"],
+			"stock":2,
+			"currency":"USD",
+			"symbol":"$",
+			"price":60.00
+		},
+		{
+			"attributes":["medium","blue"],
+			"stock":0,
+			"currency":"USD",
+			"symbol":"$",
+			"price":40.00
+		}
+	],
+	"picture1":"/images/store/mockup/item1/picture1.jpg",
+	"picture2":"/images/store/mockup/item1/picture2.jpg",
+	"picture3":"/images/store/mockup/item1/picture3.jpg",
+	"picture4":"/images/store/mockup/item1/picture4.jpg",
+	"picture5":"",
+	"picture6":"",
+	"picture7":""
+}

@@ -1,0 +1,16 @@
+.sherpon-box .breadcrumb {
+    font-size: 14px !important;
+}
+
+.sherpon-breadcrumb-padding-top-bottom-05em {
+  padding-top: 0.5em !important;
+  padding-bottom: 0.5em !important;
+}
+
+.sherpon-box .breadcrumb:last-child {
+    color: $sherpon-color-text-body-secundary !important;
+}
+
+.sherpon-box .breadcrumb:before {
+    color: $sherpon-color-text-body-secundary !important;
+}

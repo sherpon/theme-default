@@ -1,0 +1,10 @@
+{
+	"store":{
+		"text1":"text"
+	},
+	"navbar":{
+		"searchInputPlaceholder":"Estoy buscando...",
+		"iconMenu":"menu",
+		"navbarItemAccount":"Mi cuenta"
+	}
+}
