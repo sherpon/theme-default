@@ -84,7 +84,7 @@ CategoryPage.propTypes = {
 
 const mapStateToProps = ( state, ownProps ) => ({
   strings: Strings(state.language).categoryPage,
-  username: state.storeState.username,
+  username: state.store.username,
   parent: ownProps.match.params.parent !== undefined ? noLinkUnderscore(ownProps.match.params.parent) : null ,
   category: noLinkUnderscore(ownProps.match.params.category),
   isResultLoaded: state.isResultLoaded,

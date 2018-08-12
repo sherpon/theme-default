@@ -27,19 +27,19 @@ const _loadStore = () => (
 )
 
 export const loadStore = () => (dispatch) => {
-  sortCategories( () => dispatch(_loadStore()) ) // primero ordena las categorias y luego guarda al storeState
+  sortCategories( () => dispatch(_loadStore()) ) // primero ordena las categorias y luego guarda al store
 }
 
 export const search = (event) => (dispatch, getState) => {
   if (event.key === 'Enter') {
     //dispatch(startFetching())
-    const { storeState } = getState()
+    const { store } = getState()
     const tag = document.getElementById('search-input').value
     fbq('track', 'Search', {search_string: tag})
-    // window.location.href = getEnv().ENDPOINT + storeState.username + '/search/?search=' + tag.split(" ").join("_")
-    // history.push( storeState.username + '/search/?search=' + tag.split(" ").join("_") )
+    // window.location.href = getEnv().ENDPOINT + store.username + '/search/?search=' + tag.split(" ").join("_")
+    // history.push( store.username + '/search/?search=' + tag.split(" ").join("_") )
     history.push({
-      pathname: "/" + storeState.username + '/search',
+      pathname: "/" + store.username + '/search',
       search: "?search=" + tag,  //  search: "?search=" + tag.split(" ").join("_")
       state: { some: "state" }
     })
@@ -52,8 +52,8 @@ export const loadSearch = (search) => (dispatch, getState) => {
   dispatch(startFetching())
   dispatch(pushResultLoadedFalse())
   dispatch(clearPagination())
-  const { storeState } = getState()
-  getItemsBySearch(storeState.id, search, (result) => {
+  const { store } = getState()
+  getItemsBySearch(store.id, search, (result) => {
     //console.log('result is %s', result) // ================================================>> debug
     const itemsByPage = 30 // cantidad de items por pagina
     const itemsCount = result.length // cantidad de items totales
@@ -123,8 +123,8 @@ export const loadCategory = (category) => (dispatch, getState) => {
   dispatch(startFetching())
   dispatch(pushResultLoadedFalse())
   dispatch(clearPagination())
-  const { storeState } = getState()
-  getItemsByCategory(storeState.id, category, (result) => {
+  const { store } = getState()
+  getItemsByCategory(store.id, category, (result) => {
     const itemsByPage = 30 // cantidad de items por pagina
     const itemsCount = result.length // cantidad de items totales
     let pages = []

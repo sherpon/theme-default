@@ -18,6 +18,10 @@
   ],
   "author": "Grover Lee",
   "license": "ISC",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/sherpon/theme-default.git"
+  },
   "dependencies": {
     "history": "^4.7.2",
     "jquery": "^3.3.1",

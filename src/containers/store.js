@@ -18,6 +18,7 @@ import ItemPage from './itemPage.js'
 import Categories from '../components/categories/categories.js' // import Categories from './categories.js'
 import CategoryPage from './categoryPage.js'
 import CartPage from './cartPage.js'
+import CheckoutPage from './checkoutPage.js'
 import SearchPage from './searchPage.js'
 import Terms from './terms.js'
 
@@ -55,9 +56,11 @@ class Store extends React.Component {
             <Route exact path="/:storeusername/terms" component={ Terms } />
             <Route exact path="/:storeusername/contact" component={ () => (<span/>) } />
             <Route exact path="/:storeusername/cart" component={ CartPage } />
-            <Route exact path="/:storeusername/checkout" component={ () => (<span/>) } />
+            <Route exact path="/:storeusername/checkout" component={ CheckoutPage } />
             <Route exact path="/:storeusername/categories" component={ () => (<Categories username={username} categories={categories} />) } />
-            <Route exact path="/:storeusername/login" component={LoginPage} />
+            <Route exact path="/:storeusername/login/checkout" component={ () => <LoginPage guest={true} mode={"login"} /> } />
+            <Route exact path="/:storeusername/login" component={ () => <LoginPage guest={false} mode={"login"} /> } />
+            <Route exact path="/:storeusername/signup" component={ () => <LoginPage guest={false} mode={"signup"} /> } />
             <Route exact path="/:storeusername" component={HomePage} />
             <Route component={HomePage}/>
           </Switch>
@@ -94,11 +97,11 @@ const mapStateToProps = state => ({
   isFetching: state.isFetching,
   isEditable: state.isEditable,
   stringsContact: Strings(state.language).contact,
-  contact: state.storeState.contact,
+  contact: state.store.contact,
   stringsFooter: Strings(state.language).footer,
   stringsNavbar: Strings(state.language).navbar,
-  username: state.storeState.username,
-  categories: state.storeState.categories
+  username: state.store.username,
+  categories: state.store.categories
 })
 
 const mapDispatchToProps = dispatch => ({

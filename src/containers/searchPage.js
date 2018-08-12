@@ -83,7 +83,7 @@ ResultSearch.propTypes = {
 
 const mapStateToProps = ( state, ownProps ) => ({
   strings: Strings(state.language).searchPage,
-  username: state.storeState.username,
+  username: state.store.username,
   query: getQueryValue('search'),
   isResultLoaded: state.isResultLoaded,
   pagination: {

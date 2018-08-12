@@ -45,11 +45,11 @@ Hero.propTypes = {
 
 const mapStateToProps = state => ({
   isEditable: state.isEditable,
-  cover: state.storeState.cover,
-  logo: state.storeState.logo,
-  name: state.storeState.name,
-  username: state.storeState.username,
-  shortdescription: state.storeState.shortDescription,
+  cover: state.store.cover,
+  logo: state.store.logo,
+  name: state.store.name,
+  username: state.store.username,
+  shortdescription: state.store.shortDescription,
   stringsTabs: Strings(state.language).tabsHero,
   quantityCart: state.cart.quantity,
   display: true

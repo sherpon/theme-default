@@ -3,7 +3,7 @@ import { LOAD_STORE } from '../constants/ActionTypes'
 const initStateStore = {
   'name':'',
   'username':'',
-  'shortdescription':'',
+  'shortDescription':'',
   'description':'',
   'cover':'/images/store/placeholderCover.png',
   'logo':'/images/store/placeholderLogo.png',

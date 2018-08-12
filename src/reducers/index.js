@@ -8,7 +8,7 @@ import result from './result'
 import language from './language'
 import item from './item'
 import cart from './cart'
-import storeState from './storeState'
+import store from './store'
 
 export default combineReducers({
   isFetching,
@@ -20,5 +20,5 @@ export default combineReducers({
   language,
   item,
   cart,
-  storeState
+  store
 })

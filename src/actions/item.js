@@ -51,8 +51,8 @@ const isInCart = (item, cart) => {
 export const loadItem = (itemId) => (dispatch, getState) => {
   dispatch(startFetching())
   dispatch(clearItem())
-  const { storeState } = getState()
-  getItemById(storeState.id, itemId, (result) => {
+  const { store } = getState()
+  getItemById(store.id, itemId, (result) => {
     result['warning'] = ''
     result = isInCart(result, getState().cart)
     if ( result.stock !== undefined ) {
@@ -164,7 +164,7 @@ const addToCartState = (item) => {
     // and optimizing in addition to audience building)
     //fbq('track', 'AddToCart', {currency: 'PEN', value: amount});
 
-    return goToCart(getState().cart, getState().storeState.username)
+    return goToCart(getState().cart, getState().store.username)
   }
 }
 

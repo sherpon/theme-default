@@ -62,9 +62,9 @@ HomePage.propTypes = {
 
 const mapStateToProps = state => ({
   strings: Strings(state.language).homePage,
-  username: state.storeState.username,
+  username: state.store.username,
   isEditable: state.isEditable,
-  sections: state.storeState.design.sections
+  sections: state.store.theme.sections
 })
 
 const mapDispatchToProps = dispatch => ({

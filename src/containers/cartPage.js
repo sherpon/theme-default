@@ -38,9 +38,7 @@ class CartPage extends React.Component {
           />
         </section>
       )
-    }
-
-      
+    }  
   }
 }
 
@@ -57,7 +55,7 @@ CartPage.propTypes = {
 
 const mapStateToProps = ( state, ownProps ) => ({
   strings: Strings(state.language).cartPage,
-  username: state.storeState.username,
+  username: state.store.username,
   quantityCart: state.cart.quantity,
   cart: state.cart
 })

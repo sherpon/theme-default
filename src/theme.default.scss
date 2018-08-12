@@ -17,6 +17,9 @@
 @import './components/profile/profile.scss';
 @import './components/tabsHero/tabsHero.scss';
 
+/******** login's components *********/
+@import './components/loginView/loginView.scss';
+
 /******** categories's components *********/
 @import './components/categories/categories.scss';
 
@@ -30,6 +33,7 @@
 @import './components/emptyCartView/emptyCartView.scss';
 @import './components/cartView/cartView.scss';
 @import './components/cartItemView/cartItemView.scss';
+@import './components/checkoutView/checkoutView.scss';
 
 /******** item's components *********/
 @import './components/itemViewPlaceholder/itemViewPlaceholder.scss';

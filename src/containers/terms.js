@@ -8,7 +8,7 @@ import Terms from '../components/terms/terms.js'
 const mapStateToProps = state => ({
   strings: Strings(state.language).terms,
   isEditable: state.isEditable,
-  terms: state.storeState.terms
+  terms: state.store.terms
 })
 
 const mapDispatchToProps = dispatch => ({

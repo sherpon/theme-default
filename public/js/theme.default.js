@@ -36748,7 +36748,7 @@ module.exports = warning;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.checkout = exports.deleteItemCart = undefined;
+exports.placeOrder = exports.checkout = exports.deleteItemCart = undefined;
 
 var _ActionTypes = require('../constants/ActionTypes');
 
@@ -36764,6 +36764,14 @@ var _session = require('../models/session');
 
 var _session2 = _interopRequireDefault(_session);
 
+var _culqi = require('../models/paymentGateway/culqi');
+
+var _purchase = require('../api/purchase');
+
+var _strings = require('../strings');
+
+var _strings2 = _interopRequireDefault(_strings);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -36772,6 +36780,15 @@ var updateCart = function updateCart() {
   return function (dispatch, getState) {
     _session2.default.setCart(getState().cart);
     dispatch((0, _fetching.stopFetching)());
+  };
+};
+
+var cleanCart = function cleanCart() {
+  return function (dispatch, getState) {
+    _session2.default.unsetCart();
+    dispatch({
+      type: types.CLEAN_CART
+    });
   };
 };
 
@@ -36815,8 +36832,8 @@ var deleteItemCart = exports.deleteItemCart = function deleteItemCart(index) {
 
 var checkout = exports.checkout = function checkout() {
   return function (dispatch, getState) {
-    var checkoutUrl = '/' + getState().storeState.username + '/checkout';
-    var loginUrl = '/' + getState().storeState.username + '/login';
+    var checkoutUrl = '/' + getState().store.username + '/checkout';
+    var loginUrl = '/' + getState().store.username + '/login/checkout';
 
     if (_session2.default.inUserSession()) {
       // si existe session de usuario manda al checkout
@@ -36835,7 +36852,160 @@ var checkout = exports.checkout = function checkout() {
   };
 };
 
-},{"../constants/ActionTypes":142,"../models/history":153,"../models/session":154,"./fetching":108}],108:[function(require,module,exports){
+var placeOrder = exports.placeOrder = function placeOrder() {
+  return function (dispatch, getState) {
+    var _name = document.getElementById('checkout-view__form__name__input').value;
+    var _lastname = document.getElementById('checkout-view__form__lastname__input').value;
+    var _phone = document.getElementById('checkout-view__form__phone__input').value;
+    var _email = document.getElementById('checkout-view__form__email__input').value;
+
+    if (_name === '' || _lastname === '' || _phone === '' || _email === '') {
+      M.toast({ html: (0, _strings2.default)(getState().language).checkoutPage.errorIncompletedForm });
+      return false;
+    }
+    var personalInformation = {
+      id: null,
+      name: _name,
+      lastname: _lastname,
+      phone: _phone,
+      email: _email
+    };
+
+    var _shipping_name = document.getElementById('checkout-view__form__shipping-name__input').value;
+    var _shipping_lastname = document.getElementById('checkout-view__form__shipping-lastname__input').value;
+    var _address1 = document.getElementById('checkout-view__form__address1__input').value;
+    var _address2 = document.getElementById('checkout-view__form__address2__input').value;
+    var _city = document.getElementById('checkout-view__form__city__input').value;
+    var _state = document.getElementById('checkout-view__form__state__input').value;
+    var _zip_code = document.getElementById('checkout-view__form__zip-code__input').value;
+    var _country = document.getElementById('checkout-view__form__country__input').value;
+
+    if (_shipping_name === '' || _shipping_lastname === '' || _address1 === '' || _address2 === '' || _city === '' || _state === '' || _zip_code === '' || _country === '') {
+      M.toast({ html: (0, _strings2.default)(getState().language).checkoutPage.errorIncompletedForm });
+      return false;
+    }
+    var shippingInformation = {
+      name: _shipping_name,
+      lastname: _shipping_lastname,
+      address1: _address1,
+      address2: _address2,
+      city: _city,
+      state: _state,
+      zipCode: _zip_code,
+      country: _country
+    };
+
+    var _billing_checkbox = document.getElementById('checkout-view__form__billing-checkbox').checked;
+
+    var _billing_name = document.getElementById('checkout-view__form__billing-name__input').value;
+    var _billing_lastname = document.getElementById('checkout-view__form__billing-lastname__input').value;
+    var _billing_address1 = document.getElementById('checkout-view__form__billing-address1__input').value;
+    var _billing_address2 = document.getElementById('checkout-view__form__billing-address2__input').value;
+    var _billing_city = document.getElementById('checkout-view__form__billing-city__input').value;
+    var _billing_state = document.getElementById('checkout-view__form__billing-state__input').value;
+    var _billing_zip_code = document.getElementById('checkout-view__form__billing-zip-code__input').value;
+    var _billing_country = document.getElementById('checkout-view__form__billing-country__input').value;
+
+    if (_billing_checkbox) {
+      // se usa la misma informacion de shipping
+      _billing_name = _shipping_name;
+      _billing_lastname = _shipping_lastname;
+      _billing_address1 = _address1;
+      _billing_address2 = _address2;
+      _billing_city = _city;
+      _billing_state = _state;
+      _billing_zip_code = _zip_code;
+      _billing_country = _country;
+    } else {
+      // se usa informacion distinta
+      if (_billing_name === '' || _billing_lastname === '' || _billing_address1 === '' || _billing_address2 === '' || _billing_city === '' || _billing_state === '' || _billing_zip_code === '' || _billing_country === '') {
+        M.toast({ html: (0, _strings2.default)(getState().language).checkoutPage.errorIncompletedForm });
+        return false;
+      }
+    }
+    var billingInformation = {
+      name: _billing_name,
+      lastname: _billing_lastname,
+      address1: _billing_address1,
+      address2: _billing_address2,
+      city: _billing_city,
+      state: _billing_state,
+      zipCode: _billing_zip_code,
+      country: _billing_country
+
+      // segun la antiguedad del cart, verifica el stock de los articulos antes de pasar la compra
+      // ...
+
+      /*
+      ReactGA.event({
+        category: 'Item',
+        action: 'pay',
+        value: amount
+      });
+       // Standard event (can be used for conversion tracking
+      // and optimizing in addition to audience building)
+      fbq('track', 'Purchase', {currency: 'PEN', value: amount});
+       */
+
+      // lanza la pasarela de pago
+      // segun resultado, registra la comprar con el token
+    };switch (getState().store.paymentGateway.name) {
+      case 'culqi':
+        dispatch((0, _fetching.startFetching)());
+        (0, _culqi.culqi)(getState().store.name, getState().store.shortDescription, getState().cart, getState().store.paymentGateway.publicKey, function () {
+          // callback
+          //$("#loading").show()
+          if (Culqi.token) {
+            // Token creado exitosamente!
+            // Obtener el token ID
+            var token = Culqi.token.id;
+            console.log('Se ha creado un token: ' + token);
+            console.log('Culqi.token: ');
+            console.log(Culqi.token);
+
+            var _order = {
+              user: personalInformation,
+              cart: getState().cart,
+              payment: {
+                token: token,
+                card_number: Culqi.token.card_number
+              },
+              shippingInformation: shippingInformation,
+              billingInformation: billingInformation
+            };
+
+            console.log(_order);
+            //console.log(Culqi.error)
+            //console.log(Culqi.error.mensaje)
+
+            (0, _purchase.createPurchase)(_order, function (response) {
+              // .......limpiar carrito
+              // session.unsetCart()
+              dispatch(cleanCart());
+              dispatch((0, _fetching.stopFetching)());
+              _history2.default.replace({
+                pathname: "/" + getState().store.username + '/congratulation/purchase',
+                state: { some: "state" }
+              });
+            });
+          } else {
+            // Hubo algun problema!
+            // Mostramos JSON de objeto error en consola
+            console.log(Culqi.error);
+            console.log(Culqi.error.mensaje);
+            //$("#loading").hide()
+            dispatch((0, _fetching.stopFetching)());
+            M.toast({ html: 'Se produjo un error con el pago' });
+          }
+        });
+        break;
+      default:
+        return false;
+    }
+  };
+};
+
+},{"../api/purchase":122,"../constants/ActionTypes":149,"../models/history":161,"../models/paymentGateway/culqi":162,"../models/session":163,"../strings":178,"./fetching":108}],108:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -36861,7 +37031,7 @@ var stopFetching = exports.stopFetching = function stopFetching() {
   };
 };
 
-},{"../constants/ActionTypes":142}],109:[function(require,module,exports){
+},{"../constants/ActionTypes":149}],109:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -36922,7 +37092,7 @@ var loadStore = exports.loadStore = function loadStore() {
   return function (dispatch) {
     (0, _tools.sortCategories)(function () {
       return dispatch(_loadStore());
-    }); // primero ordena las categorias y luego guarda al storeState
+    }); // primero ordena las categorias y luego guarda al store
   };
 };
 
@@ -36931,14 +37101,14 @@ var search = exports.search = function search(event) {
     if (event.key === 'Enter') {
       //dispatch(startFetching())
       var _getState = getState(),
-          storeState = _getState.storeState;
+          store = _getState.store;
 
       var tag = document.getElementById('search-input').value;
       fbq('track', 'Search', { search_string: tag });
-      // window.location.href = getEnv().ENDPOINT + storeState.username + '/search/?search=' + tag.split(" ").join("_")
-      // history.push( storeState.username + '/search/?search=' + tag.split(" ").join("_") )
+      // window.location.href = getEnv().ENDPOINT + store.username + '/search/?search=' + tag.split(" ").join("_")
+      // history.push( store.username + '/search/?search=' + tag.split(" ").join("_") )
       _history2.default.push({
-        pathname: "/" + storeState.username + '/search',
+        pathname: "/" + store.username + '/search',
         search: "?search=" + tag, //  search: "?search=" + tag.split(" ").join("_")
         state: { some: "state" }
       });
@@ -36955,9 +37125,9 @@ var loadSearch = exports.loadSearch = function loadSearch(search) {
     dispatch(clearPagination());
 
     var _getState2 = getState(),
-        storeState = _getState2.storeState;
+        store = _getState2.store;
 
-    (0, _item.getItemsBySearch)(storeState.id, search, function (result) {
+    (0, _item.getItemsBySearch)(store.id, search, function (result) {
       //console.log('result is %s', result) // ================================================>> debug
       var itemsByPage = 30; // cantidad de items por pagina
       var itemsCount = result.length; // cantidad de items totales
@@ -37033,9 +37203,9 @@ var loadCategory = exports.loadCategory = function loadCategory(category) {
     dispatch(clearPagination());
 
     var _getState3 = getState(),
-        storeState = _getState3.storeState;
+        store = _getState3.store;
 
-    (0, _item.getItemsByCategory)(storeState.id, category, function (result) {
+    (0, _item.getItemsByCategory)(store.id, category, function (result) {
       var itemsByPage = 30; // cantidad de items por pagina
       var itemsCount = result.length; // cantidad de items totales
       var pages = [];
@@ -37054,7 +37224,7 @@ var loadCategory = exports.loadCategory = function loadCategory(category) {
   };
 };
 
-},{"../api/item":117,"../config":141,"../constants/ActionTypes":142,"../constants/codes.json":143,"../models/history":153,"../models/session":154,"../models/tools":155,"../strings":169}],110:[function(require,module,exports){
+},{"../api/item":120,"../config":148,"../constants/ActionTypes":149,"../constants/codes.json":150,"../models/history":161,"../models/session":163,"../models/tools":164,"../strings":178}],110:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37150,9 +37320,9 @@ var loadItem = exports.loadItem = function loadItem(itemId) {
     dispatch(clearItem());
 
     var _getState = getState(),
-        storeState = _getState.storeState;
+        store = _getState.store;
 
-    (0, _item5.getItemById)(storeState.id, itemId, function (result) {
+    (0, _item5.getItemById)(store.id, itemId, function (result) {
       result['warning'] = '';
       result = isInCart(result, getState().cart);
       if (result.stock !== undefined) {
@@ -37270,7 +37440,7 @@ var addToCartState = function addToCartState(item) {
     // and optimizing in addition to audience building)
     //fbq('track', 'AddToCart', {currency: 'PEN', value: amount});
 
-    return goToCart(getState().cart, getState().storeState.username);
+    return goToCart(getState().cart, getState().store.username);
   };
 };
 
@@ -37511,7 +37681,116 @@ var shareWhatsapp = exports.shareWhatsapp = function shareWhatsapp() {
   window.location.href = "https://api.whatsapp.com/send?text=" + window.location.href + "?utm_source%3Dsherpon_store%26utm_medium%3Dwhatsapp_link%26utm_campaign%3Dsocial_shared_item";
 };
 
-},{"../api/item":117,"../config":141,"../constants/ActionTypes":142,"../models/history":153,"../models/session":154,"../strings":169,"./fetching":108}],111:[function(require,module,exports){
+},{"../api/item":120,"../config":148,"../constants/ActionTypes":149,"../models/history":161,"../models/session":163,"../strings":178,"./fetching":108}],111:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.signup = exports.login = undefined;
+
+var _ActionTypes = require('../constants/ActionTypes');
+
+var types = _interopRequireWildcard(_ActionTypes);
+
+var _fetching = require('./fetching');
+
+var _history = require('../models/history');
+
+var _history2 = _interopRequireDefault(_history);
+
+var _session = require('../models/session');
+
+var _session2 = _interopRequireDefault(_session);
+
+var _strings = require('../strings');
+
+var _strings2 = _interopRequireDefault(_strings);
+
+var _codes = require('../constants/codes.json');
+
+var _codes2 = _interopRequireDefault(_codes);
+
+var _login = require('../api/login');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var login = exports.login = function login(email, password) {
+  return function (dispatch, getState) {
+    dispatch((0, _fetching.startFetching)());
+
+    if (email === "" || password === "") {
+      dispatch((0, _fetching.stopFetching)());
+      M.toast({ html: (0, _strings2.default)(getState().language).loginPage.errorIncompletedForm });
+      return false;
+    }
+
+    (0, _login.login)({ email: email, password: password }, function (response) {
+      if (response.error === _codes2.default.API_USER_LOGIN_NO_FOUND) {
+        console.log('error code: ', _codes2.default.API_USER_LOGIN_NO_FOUND);
+        dispatch((0, _fetching.stopFetching)());
+        M.toast({ html: (0, _strings2.default)(getState().language).loginPage.errorNotFoundUser });
+      } else {
+        _session2.default.setUser(response.user);
+        if (localStorage.getItem("NEXT_URL") === null) {
+          dispatch((0, _fetching.stopFetching)()); // oculta el loading
+          _history2.default.replace({
+            pathname: "/" + getState().store.username + '',
+            state: { some: "state" }
+          });
+        } else {
+          var mUrl = localStorage.getItem("NEXT_URL");
+          localStorage.removeItem("NEXT_URL");
+          _history2.default.replace({
+            pathname: mUrl,
+            state: { some: "state" }
+          });
+          dispatch((0, _fetching.stopFetching)()); // oculta el loading
+        }
+      }
+    });
+  };
+};
+//import { getEnv } from '../config'
+var signup = exports.signup = function signup(name, lastname, phone, email, password) {
+  return function (dispatch, getState) {
+    dispatch((0, _fetching.startFetching)());
+
+    if (name === "" || lastname === "" || phone === "" || email === "" || password === "") {
+      dispatch((0, _fetching.stopFetching)());
+      M.toast({ html: (0, _strings2.default)(getState().language).loginPage.errorIncompletedForm });
+    } else {
+      (0, _login.signup)({ name: name, lastname: lastname, phone: phone, email: email, password: password }, function (response) {
+
+        if (response.error === _codes2.default.API_USER_SIGNUP_EMAIL_EXIST) {
+          dispatch((0, _fetching.stopFetching)());
+          M.toast({ html: (0, _strings2.default)(getState().language).loginPage.errorEmailAlreadyUsed });
+        } else {
+          _session2.default.setUser(response.user);
+          if (localStorage.getItem("NEXT_URL") === null) {
+            dispatch((0, _fetching.stopFetching)()); // oculta el loading
+            _history2.default.replace({
+              pathname: "/" + getState().store.username + '',
+              state: { some: "state" }
+            });
+          } else {
+            var mUrl = localStorage.getItem("NEXT_URL");
+            localStorage.removeItem("NEXT_URL");
+            _history2.default.replace({
+              pathname: mUrl,
+              state: { some: "state" }
+            });
+            dispatch((0, _fetching.stopFetching)()); // oculta el loading
+          }
+        }
+      });
+    }
+  };
+};
+
+},{"../api/login":121,"../constants/ActionTypes":149,"../constants/codes.json":150,"../models/history":161,"../models/session":163,"../strings":178,"./fetching":108}],112:[function(require,module,exports){
 module.exports={
 	"id":"Hu3fU02Bdhgpo476Fej1",
 	"type":"clothes",
@@ -37597,7 +37876,7 @@ module.exports={
 	"picture6":"",
 	"picture7":""
 }
-},{}],112:[function(require,module,exports){
+},{}],113:[function(require,module,exports){
 module.exports={
 	"id":"Hu3fU02Bdhgpo476Fej2",
 	"type":"models",
@@ -37668,7 +37947,7 @@ module.exports={
 	"picture6":"/images/store/mockup/item3/picture7.jpg",
 	"picture7":"/images/store/mockup/item3/picture4.jpg"
 }
-},{}],113:[function(require,module,exports){
+},{}],114:[function(require,module,exports){
 module.exports={
 	"id":"Hu3fU02Bdhgpo476Fej3",
 	"type":"item",
@@ -37723,7 +38002,7 @@ module.exports={
 	"picture6":"/images/store/mockup/item3/picture7.jpg",
 	"picture7":"/images/store/mockup/item3/picture4.jpg"
 }
-},{}],114:[function(require,module,exports){
+},{}],115:[function(require,module,exports){
 module.exports={
 	"id":"Hu3fU02Bdhgpo476Fej4",
 	"type":"item",
@@ -37756,7 +38035,7 @@ module.exports={
 	"picture6":"/images/store/mockup/item3/picture7.jpg",
 	"picture7":"/images/store/mockup/item3/picture4.jpg"
 }
-},{}],115:[function(require,module,exports){
+},{}],116:[function(require,module,exports){
 module.exports=[
   	{ "id":"Hu3fU02Bdhgpo476Fej1","picture1":"/images/store/mockup/item1.jpg","shortTitle":"1 Black dress night","currency":"USD","symbol":"$","price":50.00 },
 	{ "id":"Hu3fU02Bdhgpo476Fej2","picture1":"/images/store/mockup/item3.jpg","shortTitle":"2 Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
@@ -37856,12 +38135,28 @@ module.exports=[
 	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item7.jpg","shortTitle":"My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
 	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item8.jpg","shortTitle":"Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 }
 ]
-},{}],116:[function(require,module,exports){
+},{}],117:[function(require,module,exports){
 module.exports=[
   	{ "id":"Hu3fU02Bdhgpo476Fej1","picture1":"/images/store/mockup/item1.jpg","shortTitle":"1 Black dress night","currency":"USD","symbol":"$","price":50.00 },
 	{ "id":"Hu3fU02Bdhgpo476Fej2","picture1":"/images/store/mockup/item3.jpg","shortTitle":"2 Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 }
 ]
-},{}],117:[function(require,module,exports){
+},{}],118:[function(require,module,exports){
+module.exports={
+	"error":5010,
+	"user":null
+}
+},{}],119:[function(require,module,exports){
+module.exports={
+	"error":null,
+	"user":{
+		"id":"AAA",
+		"name":"Carlos",
+		"lastname":"Sanchez",
+		"phone":"949799020",
+		"email":"carlos@gmail.com"
+	}
+}
+},{}],120:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37941,7 +38236,61 @@ var getItemById = exports.getItemById = function getItemById(storeId, itemId, ca
 
  */
 
-},{"./data/_itemById1.json":111,"./data/_itemById2.json":112,"./data/_itemById3.json":113,"./data/_itemById4.json":114,"./data/_itemsByCategory.json":115,"./data/_itemsBySearch.json":116}],118:[function(require,module,exports){
+},{"./data/_itemById1.json":112,"./data/_itemById2.json":113,"./data/_itemById3.json":114,"./data/_itemById4.json":115,"./data/_itemsByCategory.json":116,"./data/_itemsBySearch.json":117}],121:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.signup = exports.login = undefined;
+
+var _loginSuccess2 = require('./data/loginSuccess.json');
+
+var _loginSuccess3 = _interopRequireDefault(_loginSuccess2);
+
+var _loginError2 = require('./data/loginError.json');
+
+var _loginError3 = _interopRequireDefault(_loginError2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var TIMEOUT = 500;
+
+var login = exports.login = function login(payload, callback) {
+  setTimeout(function () {
+    if (payload.email === 'a' && payload.password === 'a') {
+      callback(_loginSuccess3.default);
+    } else {
+      callback(_loginError3.default);
+    }
+  }, TIMEOUT);
+};
+
+var signup = exports.signup = function signup(payload, callback) {
+  setTimeout(function () {
+    if (payload.email !== 'a') {
+      callback(_loginSuccess3.default);
+    } else {
+      callback(_loginError3.default);
+    }
+  }, TIMEOUT);
+};
+
+},{"./data/loginError.json":118,"./data/loginSuccess.json":119}],122:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var TIMEOUT = 500;
+
+var createPurchase = exports.createPurchase = function createPurchase(payload, callback) {
+  setTimeout(function () {
+    callback(true);
+  }, TIMEOUT);
+};
+
+},{}],123:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -38025,7 +38374,7 @@ Breadcrumbs.propTypes = {
 
 exports.default = Breadcrumbs;
 
-},{"../../models/tools":155,"prop-types":43,"react":92,"react-router-dom":75}],119:[function(require,module,exports){
+},{"../../models/tools":164,"prop-types":43,"react":92,"react-router-dom":75}],124:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -38200,7 +38549,7 @@ CartItemView.propTypes = {
 
 exports.default = CartItemView;
 
-},{"../../models/tools":155,"prop-types":43,"react":92,"react-router-dom":75}],120:[function(require,module,exports){
+},{"../../models/tools":164,"prop-types":43,"react":92,"react-router-dom":75}],125:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -38349,7 +38698,7 @@ CartView.propTypes = {
 
 exports.default = CartView;
 
-},{"../../models/tools":155,"../cartItemView/cartItemView":119,"prop-types":43,"react":92}],121:[function(require,module,exports){
+},{"../../models/tools":164,"../cartItemView/cartItemView":124,"prop-types":43,"react":92}],126:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -38449,7 +38798,438 @@ Categories.propTypes = {
 
 exports.default = Categories;
 
-},{"../../models/tools":155,"prop-types":43,"react":92,"react-router-dom":75}],122:[function(require,module,exports){
+},{"../../models/tools":164,"prop-types":43,"react":92,"react-router-dom":75}],127:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _tools = require('../../models/tools');
+
+var _session = require('../../models/session');
+
+var _session2 = _interopRequireDefault(_session);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var CheckoutView = function CheckoutView(_ref) {
+  var strings = _ref.strings,
+      cart = _ref.cart,
+      placeOrder = _ref.placeOrder;
+
+  var useShippingInformation = function useShippingInformation() {
+    $('#checkout-view__form__billing__information-content').toggleClass('checkout-view__form__billing__information--display-none');
+  };
+
+  var checkTermsAndConditions = function checkTermsAndConditions() {
+    $('#checkout-button').toggleClass('disabled');
+  };
+
+  var _name = void 0,
+      _lastname = void 0,
+      _phone = void 0,
+      _email = void 0;
+
+  if (_session2.default.inUserSession()) {
+    _name = _session2.default.getUser().name;
+    _lastname = _session2.default.getUser().lastname;
+    _phone = _session2.default.getUser().phone;
+    _email = _session2.default.getUser().email;
+
+    // activa los text inputs
+    $(document).ready(function () {
+      M.updateTextFields();
+    });
+  } else {
+    _name = '';
+    _lastname = '';
+    _phone = '';
+    _email = '';
+  }
+
+  return _react2.default.createElement(
+    'div',
+    { className: 'checkout-view__container' },
+    _react2.default.createElement(
+      'div',
+      { className: 'col s12 m12 l7 checkout-view__form' },
+      _react2.default.createElement(
+        'div',
+        { className: 'checkout-view__form__personal__information' },
+        _react2.default.createElement(
+          'div',
+          { className: 'checkout-view__form__title' },
+          strings.personalInformation.labelTitle
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'input-field' },
+          _react2.default.createElement('input', { id: 'checkout-view__form__name__input', type: 'text', defaultValue: _name }),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'checkout-view__form__name__input' },
+            strings.personalInformation.labelName
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'input-field' },
+          _react2.default.createElement('input', { id: 'checkout-view__form__lastname__input', type: 'text', defaultValue: _lastname }),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'checkout-view__form__lastname__input' },
+            strings.personalInformation.labelLastname
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'input-field' },
+          _react2.default.createElement('input', { id: 'checkout-view__form__phone__input', type: 'text', defaultValue: _phone }),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'checkout-view__form__phone__input' },
+            strings.personalInformation.labelPhone
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'input-field' },
+          _react2.default.createElement('input', { id: 'checkout-view__form__email__input', type: 'text', defaultValue: _email }),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'checkout-view__form__email__input' },
+            strings.personalInformation.labelEmail
+          )
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'checkout-view__form__shipping__information' },
+        _react2.default.createElement(
+          'div',
+          { className: 'checkout-view__form__title' },
+          strings.shippingInformation.labelTitle
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'input-field' },
+          _react2.default.createElement('input', { id: 'checkout-view__form__shipping-name__input', type: 'text' }),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'checkout-view__form__shipping-name__input' },
+            strings.shippingInformation.labelName
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'input-field' },
+          _react2.default.createElement('input', { id: 'checkout-view__form__shipping-lastname__input', type: 'text' }),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'checkout-view__form__shipping-lastname__input' },
+            strings.shippingInformation.labelLastname
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'input-field' },
+          _react2.default.createElement('input', { id: 'checkout-view__form__address1__input', type: 'text' }),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'checkout-view__form__address1__input' },
+            strings.shippingInformation.labelAddress1
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'input-field' },
+          _react2.default.createElement('input', { id: 'checkout-view__form__address2__input', type: 'text' }),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'checkout-view__form__address2__input' },
+            strings.shippingInformation.labelAddress2
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'input-field' },
+          _react2.default.createElement('input', { id: 'checkout-view__form__city__input', type: 'text' }),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'checkout-view__form__city__input' },
+            strings.shippingInformation.labelCity
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'input-field' },
+          _react2.default.createElement('input', { id: 'checkout-view__form__state__input', type: 'text' }),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'checkout-view__form__state__input' },
+            strings.shippingInformation.labelState
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'input-field' },
+          _react2.default.createElement('input', { id: 'checkout-view__form__zip-code__input', type: 'text' }),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'checkout-view__form__zip-code__input' },
+            strings.shippingInformation.labelZipCode
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'input-field' },
+          _react2.default.createElement('input', { id: 'checkout-view__form__country__input', type: 'text' }),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'checkout-view__form__country__input' },
+            strings.shippingInformation.labelCountry
+          )
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'checkout-view__form__billing__information' },
+        _react2.default.createElement(
+          'div',
+          { className: 'checkout-view__form__title' },
+          strings.billingInformation.labelTitle
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: '' },
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'checkout-view__form__billing-checkbox' },
+            _react2.default.createElement('input', { id: 'checkout-view__form__billing-checkbox', type: 'checkbox', onClick: function onClick() {
+                return useShippingInformation();
+              } }),
+            _react2.default.createElement(
+              'span',
+              null,
+              strings.billingInformation.labelOption
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { id: 'checkout-view__form__billing__information-content' },
+          _react2.default.createElement(
+            'div',
+            { className: 'input-field' },
+            _react2.default.createElement('input', { id: 'checkout-view__form__billing-name__input', type: 'text' }),
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'checkout-view__form__billing-name__input' },
+              strings.shippingInformation.labelName
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'input-field' },
+            _react2.default.createElement('input', { id: 'checkout-view__form__billing-lastname__input', type: 'text' }),
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'checkout-view__form__billing-lastname__input' },
+              strings.shippingInformation.labelLastname
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'input-field' },
+            _react2.default.createElement('input', { id: 'checkout-view__form__billing-address1__input', type: 'text' }),
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'checkout-view__form__billing-address1__input' },
+              strings.shippingInformation.labelAddress1
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'input-field' },
+            _react2.default.createElement('input', { id: 'checkout-view__form__billing-address2__input', type: 'text' }),
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'checkout-view__form__billing-address2__input' },
+              strings.shippingInformation.labelAddress2
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'input-field' },
+            _react2.default.createElement('input', { id: 'checkout-view__form__billing-city__input', type: 'text' }),
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'checkout-view__form__billing-city__input' },
+              strings.shippingInformation.labelCity
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'input-field' },
+            _react2.default.createElement('input', { id: 'checkout-view__form__billing-state__input', type: 'text' }),
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'checkout-view__form__billing-state__input' },
+              strings.shippingInformation.labelState
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'input-field' },
+            _react2.default.createElement('input', { id: 'checkout-view__form__billing-zip-code__input', type: 'text' }),
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'checkout-view__form__billing-zip-code__input' },
+              strings.shippingInformation.labelZipCode
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'input-field' },
+            _react2.default.createElement('input', { id: 'checkout-view__form__billing-country__input', type: 'text' }),
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'checkout-view__form__billing-country__input' },
+              strings.shippingInformation.labelCountry
+            )
+          )
+        )
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'col s12 m12 l5 checkout-view__summary' },
+      _react2.default.createElement(
+        'div',
+        { className: 'checkout-view__summary__title' },
+        _react2.default.createElement(
+          'div',
+          { className: 'col s12' },
+          strings.labelCartSummary
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'checkout-view__summary__line' },
+        _react2.default.createElement(
+          'div',
+          { className: 'col s8' },
+          strings.labelSummarySubTotal
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col s4 checkout-view__summary__line__price' },
+          cart.subTotal.symbol + ' ' + (0, _tools.getPriceFormat)(cart.subTotal.price)
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'checkout-view__summary__line' },
+        _react2.default.createElement(
+          'div',
+          { className: 'col s8' },
+          strings.labelSummaryShipping
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col s4 checkout-view__summary__line__price' },
+          cart.shipping.symbol + ' ' + (0, _tools.getPriceFormat)(cart.shipping.price)
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'checkout-view__summary__line' },
+        _react2.default.createElement(
+          'div',
+          { className: 'col s8' },
+          strings.labelSummaryTaxes
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col s4 checkout-view__summary__line__price' },
+          cart.total.symbol + ' ' + (0, _tools.getPriceFormat)(0)
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'checkout-view__summary__line-total' },
+        _react2.default.createElement(
+          'div',
+          { className: 'col s8' },
+          strings.labelSummaryTotal
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col s4 checkout-view__summary__line__price' },
+          cart.total.symbol + ' ' + (0, _tools.getPriceFormat)(cart.total.price)
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'checkout-view__summary__line' },
+        _react2.default.createElement(
+          'div',
+          { className: 'col s12' },
+          _react2.default.createElement(
+            'label',
+            null,
+            _react2.default.createElement('input', { type: 'checkbox', onClick: function onClick() {
+                return checkTermsAndConditions();
+              } }),
+            _react2.default.createElement(
+              'span',
+              null,
+              strings.labelSummaryTerms
+            )
+          )
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'checkout-view__summary__line' },
+        _react2.default.createElement(
+          'div',
+          { className: 'col s12' },
+          _react2.default.createElement(
+            'button',
+            {
+              id: 'checkout-button',
+              onClick: function onClick() {
+                return placeOrder();
+              },
+              className: 'waves-effect waves-light btn-small z-depth-0 disabled checkout-view__summary__button'
+            },
+            strings.buttonCheckout
+          )
+        )
+      )
+    )
+  );
+};
+
+CheckoutView.propTypes = {
+  strings: _propTypes2.default.object.isRequired,
+  cart: _propTypes2.default.object.isRequired,
+  placeOrder: _propTypes2.default.func.isRequired
+};
+
+exports.default = CheckoutView;
+
+},{"../../models/session":163,"../../models/tools":164,"prop-types":43,"react":92}],128:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -38577,7 +39357,7 @@ Contact.propTypes = {
 
 exports.default = Contact;
 
-},{"prop-types":43,"react":92}],123:[function(require,module,exports){
+},{"prop-types":43,"react":92}],129:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -38610,7 +39390,7 @@ EmptyCartView.propTypes = {
 
 exports.default = EmptyCartView;
 
-},{"prop-types":43,"react":92}],124:[function(require,module,exports){
+},{"prop-types":43,"react":92}],130:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -38649,7 +39429,7 @@ Cover.propTypes = {
 
 exports.default = Cover;
 
-},{"prop-types":43,"react":92}],125:[function(require,module,exports){
+},{"prop-types":43,"react":92}],131:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -38765,7 +39545,7 @@ ItemCarousel.propTypes = {
 
 exports.default = ItemCarousel;
 
-},{"../../models/tools":155,"prop-types":43,"react":92}],126:[function(require,module,exports){
+},{"../../models/tools":164,"prop-types":43,"react":92}],132:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -38987,7 +39767,7 @@ ItemContent.propTypes = {
 
 exports.default = ItemContent;
 
-},{"../../models/tools":155,"../itemContentAttributes/itemContentAttributes":127,"../itemContentShipping/itemContentShipping":128,"prop-types":43,"react":92}],127:[function(require,module,exports){
+},{"../../models/tools":164,"../itemContentAttributes/itemContentAttributes":133,"../itemContentShipping/itemContentShipping":134,"prop-types":43,"react":92}],133:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39152,7 +39932,7 @@ ItemContentAttributes.propTypes = {
 
 exports.default = ItemContentAttributes;
 
-},{"../../models/tools":155,"prop-types":43,"react":92}],128:[function(require,module,exports){
+},{"../../models/tools":164,"prop-types":43,"react":92}],134:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39232,7 +40012,7 @@ ItemContentShipping.propTypes = {
 
 exports.default = ItemContentShipping;
 
-},{"../../models/tools":155,"prop-types":43,"react":92}],129:[function(require,module,exports){
+},{"../../models/tools":164,"prop-types":43,"react":92}],135:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39315,7 +40095,7 @@ ItemView.propTypes = {
 
 exports.default = ItemView;
 
-},{"../itemCarousel/itemCarousel":125,"../itemContent/itemContent":126,"prop-types":43,"react":92}],130:[function(require,module,exports){
+},{"../itemCarousel/itemCarousel":131,"../itemContent/itemContent":132,"prop-types":43,"react":92}],136:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -39351,7 +40131,312 @@ var ItemViewPlaceholder = function ItemViewPlaceholder(_ref) {
 
 exports.default = ItemViewPlaceholder;
 
-},{"react":92}],131:[function(require,module,exports){
+},{"react":92}],137:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactRouterDom = require('react-router-dom');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var LoginView = function LoginView(_ref) {
+  var strings = _ref.strings,
+      basename = _ref.basename,
+      login = _ref.login,
+      signup = _ref.signup,
+      guest = _ref.guest,
+      mode = _ref.mode;
+
+  var _login = function _login() {
+    var _email = document.getElementById('login-view__login__email__input').value;
+    var _password = document.getElementById('login-view__login__password__input').value;
+    login(_email, _password);
+  };
+
+  var _signup = function _signup() {
+    var _name = document.getElementById('login-view__signup__name__input').value;
+    var _lastname = document.getElementById('login-view__signup__lastname__input').value;
+    var _phone = document.getElementById('login-view__signup__phone__input').value;
+    var _email = document.getElementById('login-view__signup__email__input').value;
+    var _password = document.getElementById('login-view__signup__password__input').value;
+    signup(_name, _lastname, _phone, _email, _password);
+  };
+  //const guestComp
+
+  var loginComp = void 0,
+      signupComp = void 0,
+      guestComp = void 0;
+
+  if (guest) {
+    guestComp = _react2.default.createElement(
+      'div',
+      { className: 'login-view__guest' },
+      _react2.default.createElement(
+        'div',
+        { className: 'login-view__guest__title' },
+        strings.guest.labelTitle
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'login-view__guest__comment' },
+        strings.guest.labelComment
+      ),
+      _react2.default.createElement(
+        _reactRouterDom.Link,
+        {
+          to: basename + '/checkout',
+          className: 'waves-effect waves-light btn-small z-depth-0 teal accent-3',
+          style: { 'width': '100%' }
+        },
+        strings.guest.buttonGuest
+      )
+    );
+  } else {
+    guestComp = _react2.default.createElement('div', null);
+  }
+
+  if (mode === 'login') {
+    loginComp = _react2.default.createElement(
+      'div',
+      { className: 'login-view__login' },
+      _react2.default.createElement(
+        'div',
+        { className: 'login-view__login__title' },
+        strings.login.labelTitle
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'login-view__login__comment' },
+        strings.login.labelComment
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'login-view__login__email' },
+        _react2.default.createElement(
+          'div',
+          { className: 'input-field' },
+          _react2.default.createElement('input', { id: 'login-view__login__email__input', type: 'text' }),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'login-view__login__email__input' },
+            strings.login.labelEmail
+          )
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'login-view__login__password' },
+        _react2.default.createElement(
+          'div',
+          { className: 'input-field' },
+          _react2.default.createElement('input', { id: 'login-view__login__password__input', type: 'password' }),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'login-view__login__password__input' },
+            strings.login.labelPassword
+          )
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'login-view__login__button' },
+        _react2.default.createElement(
+          'a',
+          {
+            onClick: function onClick() {
+              return _login();
+            },
+            className: 'waves-effect waves-light btn-small z-depth-0'
+          },
+          strings.login.buttonLogin
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'login-view__login__forgot-password' },
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          {
+            to: basename + '/password'
+          },
+          strings.login.labelForgotPassword
+        )
+      )
+    );
+
+    signupComp = _react2.default.createElement(
+      'div',
+      { className: 'login-view__signup' },
+      _react2.default.createElement(
+        'div',
+        { className: 'login-view__signup__title' },
+        strings.signup.labelTitle
+      ),
+      _react2.default.createElement(
+        _reactRouterDom.Link,
+        {
+          to: basename + '/signup',
+          className: 'waves-effect waves-light btn-small z-depth-0',
+          style: { 'width': '100%' }
+        },
+        strings.signup.buttonSignup
+      )
+    );
+  } else {
+    loginComp = _react2.default.createElement(
+      'div',
+      { className: 'login-view__login' },
+      _react2.default.createElement(
+        'div',
+        { className: 'login-view__login__title' },
+        strings.login.labelTitle
+      ),
+      _react2.default.createElement(
+        _reactRouterDom.Link,
+        {
+          to: basename + '/login',
+          className: 'waves-effect waves-light btn-small z-depth-0',
+          style: { 'width': '100%' }
+        },
+        strings.login.buttonLogin
+      )
+    );
+
+    signupComp = _react2.default.createElement(
+      'div',
+      { className: 'login-view__signup' },
+      _react2.default.createElement(
+        'div',
+        { className: 'login-view__signup__title' },
+        strings.signup.labelTitle
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'login-view__signup__name' },
+        _react2.default.createElement(
+          'div',
+          { className: 'input-field' },
+          _react2.default.createElement('input', { id: 'login-view__signup__name__input', type: 'text' }),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'login-view__signup__name__input' },
+            strings.signup.labelName
+          )
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'login-view__signup__lastname' },
+        _react2.default.createElement(
+          'div',
+          { className: 'input-field' },
+          _react2.default.createElement('input', { id: 'login-view__signup__lastname__input', type: 'text' }),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'login-view__signup__lastname__input' },
+            strings.signup.labelLastname
+          )
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'login-view__signup__phone' },
+        _react2.default.createElement(
+          'div',
+          { className: 'input-field' },
+          _react2.default.createElement('input', { id: 'login-view__signup__phone__input', type: 'text' }),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'login-view__signup__phone__input' },
+            strings.signup.labelPhone
+          )
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'login-view__signup__email' },
+        _react2.default.createElement(
+          'div',
+          { className: 'input-field' },
+          _react2.default.createElement('input', { id: 'login-view__signup__email__input', type: 'text' }),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'login-view__signup__email__input' },
+            strings.signup.labelEmail
+          )
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'login-view__signup__password' },
+        _react2.default.createElement(
+          'div',
+          { className: 'input-field' },
+          _react2.default.createElement('input', { id: 'login-view__signup__password__input', type: 'password' }),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'login-view__signup__password__input' },
+            strings.signup.labelPassword
+          )
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'login-view__signup__button' },
+        _react2.default.createElement(
+          'a',
+          {
+            onClick: function onClick() {
+              return _signup();
+            },
+            className: 'waves-effect waves-light btn-small z-depth-0'
+          },
+          strings.signup.buttonSignup
+        )
+      )
+    );
+  }
+
+  return _react2.default.createElement(
+    'div',
+    { className: 'login-view' },
+    _react2.default.createElement(
+      'div',
+      { className: 'col s12 m12 l6' },
+      loginComp
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'col s12 m12 l6' },
+      guestComp,
+      signupComp
+    )
+  );
+};
+
+LoginView.propTypes = {
+  strings: _propTypes2.default.object.isRequired,
+  basename: _propTypes2.default.string.isRequired,
+  login: _propTypes2.default.func.isRequired,
+  signup: _propTypes2.default.func.isRequired,
+  guest: _propTypes2.default.bool.isRequired,
+  mode: _propTypes2.default.string.isRequired
+};
+
+exports.default = LoginView;
+
+},{"prop-types":43,"react":92,"react-router-dom":75}],138:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39465,7 +40550,7 @@ Navbar.propTypes = {
 
 exports.default = Navbar;
 
-},{"prop-types":43,"react":92,"react-router-dom":75}],132:[function(require,module,exports){
+},{"prop-types":43,"react":92,"react-router-dom":75}],139:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39613,7 +40698,7 @@ Pagination.propTypes = {
 
 exports.default = Pagination;
 
-},{"prop-types":43,"react":92}],133:[function(require,module,exports){
+},{"prop-types":43,"react":92}],140:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39673,7 +40758,7 @@ PreviewItem.propTypes = {
 
 exports.default = PreviewItem;
 
-},{"../../models/tools.js":155,"prop-types":43,"react":92,"react-router-dom":75}],134:[function(require,module,exports){
+},{"../../models/tools.js":164,"prop-types":43,"react":92,"react-router-dom":75}],141:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39766,7 +40851,7 @@ return (
 
  */
 
-},{"../previewItem/previewItem":133,"prop-types":43,"react":92}],135:[function(require,module,exports){
+},{"../previewItem/previewItem":140,"prop-types":43,"react":92}],142:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -39807,7 +40892,7 @@ var PreviewListPlaceholder = function PreviewListPlaceholder(_ref) {
 
 exports.default = PreviewListPlaceholder;
 
-},{"react":92}],136:[function(require,module,exports){
+},{"react":92}],143:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39866,7 +40951,7 @@ Profile.propTypes = {
 
 exports.default = Profile;
 
-},{"prop-types":43,"react":92}],137:[function(require,module,exports){
+},{"prop-types":43,"react":92}],144:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39902,7 +40987,7 @@ ResultCount.propTypes = {
 
 exports.default = ResultCount;
 
-},{"prop-types":43,"react":92}],138:[function(require,module,exports){
+},{"prop-types":43,"react":92}],145:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39943,7 +41028,7 @@ Spinner.propTypes = {
 
 exports.default = Spinner;
 
-},{"prop-types":43,"react":92}],139:[function(require,module,exports){
+},{"prop-types":43,"react":92}],146:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40070,7 +41155,7 @@ TabsHero.propTypes = {
 
 exports.default = TabsHero;
 
-},{"prop-types":43,"react":92,"react-router-dom":75}],140:[function(require,module,exports){
+},{"prop-types":43,"react":92,"react-router-dom":75}],147:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40118,7 +41203,7 @@ Terms.propTypes = {
 
 exports.default = Terms;
 
-},{"prop-types":43,"react":92}],141:[function(require,module,exports){
+},{"prop-types":43,"react":92}],148:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40204,7 +41289,7 @@ var getEnv = exports.getEnv = function getEnv() {
   }
 };
 
-},{}],142:[function(require,module,exports){
+},{}],149:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40238,8 +41323,9 @@ var ADD_TO_CART = exports.ADD_TO_CART = 'ADD_TO_CART';
 
 /****** cart ******/
 var DELETE_ITEM_CART = exports.DELETE_ITEM_CART = 'DELETE_ITEM_CART';
+var CLEAN_CART = exports.CLEAN_CART = 'CLEAN_CART';
 
-},{}],143:[function(require,module,exports){
+},{}],150:[function(require,module,exports){
 module.exports={
   "API_AUTH_SET_SUCCEED":4000,
   "API_AUTH_SET_FAILED":4001,
@@ -40248,7 +41334,7 @@ module.exports={
   "API_USER_LOGIN_NO_FOUND":5010,
   "API_STORE_CREATE_USERNAME_EXIST":6000
 }
-},{}],144:[function(require,module,exports){
+},{}],151:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40357,7 +41443,7 @@ CartPage.propTypes = {
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     strings: (0, _strings2.default)(state.language).cartPage,
-    username: state.storeState.username,
+    username: state.store.username,
     quantityCart: state.cart.quantity,
     cart: state.cart
   };
@@ -40379,7 +41465,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CartPage));
 
-},{"../actions/cart":107,"../components/cartView/cartView":120,"../components/emptyCartView/emptyCartView":123,"../strings":169,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],145:[function(require,module,exports){
+},{"../actions/cart":107,"../components/cartView/cartView":125,"../components/emptyCartView/emptyCartView":129,"../strings":178,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],152:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40534,7 +41620,7 @@ CategoryPage.propTypes = {
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     strings: (0, _strings2.default)(state.language).categoryPage,
-    username: state.storeState.username,
+    username: state.store.username,
     parent: ownProps.match.params.parent !== undefined ? (0, _tools.noLinkUnderscore)(ownProps.match.params.parent) : null,
     category: (0, _tools.noLinkUnderscore)(ownProps.match.params.category),
     isResultLoaded: state.isResultLoaded,
@@ -40563,7 +41649,111 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CategoryPage));
 
-},{"../actions":109,"../components/breadcrumbs/breadcrumbs":118,"../components/pagination/pagination":132,"../components/previewList/previewList":134,"../components/previewListPlaceholder/previewListPlaceholder":135,"../components/resultCount/resultCount":137,"../models/tools":155,"../strings":169,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],146:[function(require,module,exports){
+},{"../actions":109,"../components/breadcrumbs/breadcrumbs":123,"../components/pagination/pagination":139,"../components/previewList/previewList":141,"../components/previewListPlaceholder/previewListPlaceholder":142,"../components/resultCount/resultCount":144,"../models/tools":164,"../strings":178,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],153:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactRedux = require('react-redux');
+
+var _reactRouterDom = require('react-router-dom');
+
+var _cart = require('../actions/cart');
+
+var _strings = require('../strings');
+
+var _strings2 = _interopRequireDefault(_strings);
+
+var _checkoutView = require('../components/checkoutView/checkoutView');
+
+var _checkoutView2 = _interopRequireDefault(_checkoutView);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CheckoutPage = function (_React$Component) {
+  _inherits(CheckoutPage, _React$Component);
+
+  function CheckoutPage(props) {
+    _classCallCheck(this, CheckoutPage);
+
+    var _this = _possibleConstructorReturn(this, (CheckoutPage.__proto__ || Object.getPrototypeOf(CheckoutPage)).call(this, props));
+
+    var _this$props = _this.props,
+        analytics = _this$props.analytics,
+        facebookPixel = _this$props.facebookPixel;
+
+    analytics();
+    facebookPixel();
+    return _this;
+  }
+
+  _createClass(CheckoutPage, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          strings = _props.strings,
+          cart = _props.cart,
+          placeOrder = _props.placeOrder;
+
+
+      return _react2.default.createElement(_checkoutView2.default, {
+        strings: strings,
+        cart: cart,
+        placeOrder: placeOrder
+      });
+    }
+  }]);
+
+  return CheckoutPage;
+}(_react2.default.Component);
+
+CheckoutPage.propTypes = {
+  strings: _propTypes2.default.object.isRequired,
+  cart: _propTypes2.default.object.isRequired,
+  analytics: _propTypes2.default.func.isRequired,
+  facebookPixel: _propTypes2.default.func.isRequired,
+  placeOrder: _propTypes2.default.func.isRequired
+};
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {
+    strings: (0, _strings2.default)(state.language).checkoutPage,
+    cart: state.cart
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    analytics: function analytics() {},
+    facebookPixel: function facebookPixel() {},
+    placeOrder: function placeOrder() {
+      return dispatch((0, _cart.placeOrder)());
+    }
+  };
+};
+
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
+mapDispatchToProps)(CheckoutPage));
+
+},{"../actions/cart":107,"../components/checkoutView/checkoutView":127,"../strings":178,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],154:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40645,11 +41835,11 @@ Hero.propTypes = {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     isEditable: state.isEditable,
-    cover: state.storeState.cover,
-    logo: state.storeState.logo,
-    name: state.storeState.name,
-    username: state.storeState.username,
-    shortdescription: state.storeState.shortDescription,
+    cover: state.store.cover,
+    logo: state.store.logo,
+    name: state.store.name,
+    username: state.store.username,
+    shortdescription: state.store.shortDescription,
     stringsTabs: (0, _strings2.default)(state.language).tabsHero,
     quantityCart: state.cart.quantity,
     display: true
@@ -40664,7 +41854,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Hero));
 
-},{"../components/profile/profile.js":136,"../components/tabsHero/tabsHero.js":139,"../strings":169,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],147:[function(require,module,exports){
+},{"../components/profile/profile.js":143,"../components/tabsHero/tabsHero.js":146,"../strings":178,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],155:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40775,9 +41965,9 @@ HomePage.propTypes = {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     strings: (0, _strings2.default)(state.language).homePage,
-    username: state.storeState.username,
+    username: state.store.username,
     isEditable: state.isEditable,
-    sections: state.storeState.design.sections
+    sections: state.store.theme.sections
   };
 };
 
@@ -40791,7 +41981,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(HomePage);
 
-},{"../models/tools":155,"../strings":169,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],148:[function(require,module,exports){
+},{"../models/tools":164,"../strings":178,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],156:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40937,7 +42127,7 @@ ItemPage.propTypes = {
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     strings: (0, _strings2.default)(state.language).itemPage,
-    username: state.storeState.username,
+    username: state.store.username,
     itemId: ownProps.match.params.id,
     isFetching: state.isFetching,
     item: state.item
@@ -40975,7 +42165,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(ItemPage));
 
-},{"../actions":109,"../actions/item":110,"../components/breadcrumbs/breadcrumbs":118,"../components/itemView/itemView":129,"../components/itemViewPlaceholder/itemViewPlaceholder":130,"../strings":169,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],149:[function(require,module,exports){
+},{"../actions":109,"../actions/item":110,"../components/breadcrumbs/breadcrumbs":123,"../components/itemView/itemView":135,"../components/itemViewPlaceholder/itemViewPlaceholder":136,"../strings":178,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],157:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40996,9 +42186,17 @@ var _reactRedux = require('react-redux');
 
 var _reactRouterDom = require('react-router-dom');
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _login2 = require('../actions/login');
 
-function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("Cannot destructure undefined"); }
+var _strings = require('../strings');
+
+var _strings2 = _interopRequireDefault(_strings);
+
+var _loginView = require('../components/loginView/loginView');
+
+var _loginView2 = _interopRequireDefault(_loginView);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -41026,9 +42224,27 @@ var LoginPage = function (_React$Component) {
   _createClass(LoginPage, [{
     key: 'render',
     value: function render() {
-      _objectDestructuringEmpty(this.props);
+      var _props = this.props,
+          strings = _props.strings,
+          basename = _props.basename,
+          guest = _props.guest,
+          mode = _props.mode,
+          login = _props.login,
+          signup = _props.signup;
 
-      return _react2.default.createElement('div', null);
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'login-page' },
+        _react2.default.createElement(_loginView2.default, {
+          strings: strings,
+          basename: basename,
+          login: login,
+          signup: signup,
+          guest: guest,
+          mode: mode
+        })
+      );
     }
   }]);
 
@@ -41036,26 +42252,38 @@ var LoginPage = function (_React$Component) {
 }(_react2.default.Component);
 
 LoginPage.propTypes = {
-  //strings: PropTypes.object.isRequired
+  strings: _propTypes2.default.object.isRequired,
+  basename: _propTypes2.default.string.isRequired,
+  login: _propTypes2.default.func.isRequired,
+  signup: _propTypes2.default.func.isRequired,
+  guest: _propTypes2.default.bool,
+  mode: _propTypes2.default.string
 };
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
-    //strings: Strings(state.language).loginPage
+    strings: (0, _strings2.default)(state.language).loginPage,
+    basename: '/' + state.store.username
   };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     analytics: function analytics() {},
-    facebookPixel: function facebookPixel() {}
+    facebookPixel: function facebookPixel() {},
+    login: function login(email, password) {
+      return dispatch((0, _login2.login)(email, password));
+    },
+    signup: function signup(name, lastname, phone, email, password) {
+      return dispatch((0, _login2.signup)(name, lastname, phone, email, password));
+    }
   };
 };
 
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(LoginPage));
 
-},{"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],150:[function(require,module,exports){
+},{"../actions/login":111,"../components/loginView/loginView":137,"../strings":178,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],158:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41208,7 +42436,7 @@ ResultSearch.propTypes = {
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     strings: (0, _strings2.default)(state.language).searchPage,
-    username: state.storeState.username,
+    username: state.store.username,
     query: (0, _tools.getQueryValue)('search'),
     isResultLoaded: state.isResultLoaded,
     pagination: {
@@ -41236,7 +42464,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(ResultSearch));
 
-},{"../actions":109,"../components/breadcrumbs/breadcrumbs":118,"../components/pagination/pagination":132,"../components/previewList/previewList":134,"../components/previewListPlaceholder/previewListPlaceholder":135,"../components/resultCount/resultCount":137,"../models/tools":155,"../strings":169,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],151:[function(require,module,exports){
+},{"../actions":109,"../components/breadcrumbs/breadcrumbs":123,"../components/pagination/pagination":139,"../components/previewList/previewList":141,"../components/previewListPlaceholder/previewListPlaceholder":142,"../components/resultCount/resultCount":144,"../models/tools":164,"../strings":178,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],159:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41306,6 +42534,10 @@ var _categoryPage2 = _interopRequireDefault(_categoryPage);
 var _cartPage = require('./cartPage.js');
 
 var _cartPage2 = _interopRequireDefault(_cartPage);
+
+var _checkoutPage = require('./checkoutPage.js');
+
+var _checkoutPage2 = _interopRequireDefault(_checkoutPage);
 
 var _searchPage = require('./searchPage.js');
 
@@ -41383,13 +42615,19 @@ var Store = function (_React$Component) {
                 return _react2.default.createElement('span', null);
               } }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/cart', component: _cartPage2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/checkout', component: function component() {
-                return _react2.default.createElement('span', null);
-              } }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/checkout', component: _checkoutPage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/categories', component: function component() {
                 return _react2.default.createElement(_categories2.default, { username: username, categories: categories });
               } }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/login', component: _loginPage2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/login/checkout', component: function component() {
+                return _react2.default.createElement(_loginPage2.default, { guest: true, mode: "login" });
+              } }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/login', component: function component() {
+                return _react2.default.createElement(_loginPage2.default, { guest: false, mode: "login" });
+              } }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/signup', component: function component() {
+                return _react2.default.createElement(_loginPage2.default, { guest: false, mode: "signup" });
+              } }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername', component: _homePage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { component: _homePage2.default })
           ),
@@ -41429,11 +42667,11 @@ var mapStateToProps = function mapStateToProps(state) {
     isFetching: state.isFetching,
     isEditable: state.isEditable,
     stringsContact: (0, _strings2.default)(state.language).contact,
-    contact: state.storeState.contact,
+    contact: state.store.contact,
     stringsFooter: (0, _strings2.default)(state.language).footer,
     stringsNavbar: (0, _strings2.default)(state.language).navbar,
-    username: state.storeState.username,
-    categories: state.storeState.categories
+    username: state.store.username,
+    categories: state.store.categories
   };
 };
 
@@ -41451,7 +42689,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(Store));
 
-},{"../actions":109,"../components/categories/categories.js":121,"../components/contact/contact.js":122,"../components/footer/footer.js":124,"../components/navbar/navbar.js":131,"../components/spinner/spinner.js":138,"../strings":169,"./cartPage.js":144,"./categoryPage.js":145,"./hero.js":146,"./homePage.js":147,"./itemPage.js":148,"./loginPage.js":149,"./searchPage.js":150,"./terms.js":152,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],152:[function(require,module,exports){
+},{"../actions":109,"../components/categories/categories.js":126,"../components/contact/contact.js":128,"../components/footer/footer.js":130,"../components/navbar/navbar.js":138,"../components/spinner/spinner.js":145,"../strings":178,"./cartPage.js":151,"./categoryPage.js":152,"./checkoutPage.js":153,"./hero.js":154,"./homePage.js":155,"./itemPage.js":156,"./loginPage.js":157,"./searchPage.js":158,"./terms.js":160,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],160:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41475,7 +42713,7 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     strings: (0, _strings2.default)(state.language).terms,
     isEditable: state.isEditable,
-    terms: state.storeState.terms
+    terms: state.store.terms
   };
 };
 
@@ -41492,7 +42730,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(_terms2.default);
 
-},{"../components/terms/terms.js":140,"../strings":169,"react-redux":57}],153:[function(require,module,exports){
+},{"../components/terms/terms.js":147,"../strings":178,"react-redux":57}],161:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41503,7 +42741,62 @@ var _history = require("history");
 
 exports.default = (0, _history.createBrowserHistory)({ basename: "/" });
 
-},{"history":22}],154:[function(require,module,exports){
+},{"history":22}],162:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.culqi = undefined;
+
+var _tools = require('../tools');
+
+var culqi = exports.culqi = function culqi(storeName, shortDescription, cart, publicKey, callback) {
+  Culqi.publicKey = publicKey;
+
+  Culqi.settings({
+    title: storeName,
+    currency: cart.total.currency,
+    description: shortDescription,
+    amount: (0, _tools.getPriceFormat)(cart.total.price) * 100
+  });
+
+  // Abre el formulario con las opciones de Culqi.settings
+  Culqi.open();
+  //e.preventDefault()
+  // Recibimos el token desde los servidores de Culqi
+  window.culqi = function () {
+    callback();
+  };
+};
+
+/*
+
+Tarjetas de prueba
+===================
+Visa              4111 1111 1111 1111   09/2020   123   Venta exitosa
+Master Card       5111 1111 1111 1118   06/2020   039   Venta exitosa
+American Express  3712 1212 1212 122    11/2020   2841  Venta exitosa
+Diners Club       360012 1212 1210      04/2020   964   Venta exitosa
+
+Tarjetas con respuestas y errores específicos
+==============================================
+Visa              4000 0200 0000 0000   10/2019   354   stolen_card
+Visa              4000 0300 0000 0009   08/2018   836   lost_card
+Visa              4000 0400 0000 0008   03/2021   295   insufficient_funds
+MasterCard        5400 0000 0000 0005   01/2022   492   contact_issuer
+MasterCard        5400 0100 0000 0004   02/2020   784   invalid_cvv
+MasterCard        5400 0200 0000 0003   07/2022   203   incorrect_cvv
+American Express  3700 010000 00000     06/2019   1701  too_many_attempts_cvv
+American Express  3700 010000 00000     04/2021   2511  issuer_not_available
+American Express  3700 020000 00008     05/2022   1810  issuer_decline_operation
+Diners Club       3600 000000 0008      09/2019   683   invalid_card
+Diners Club       3600 010000 0007      12/2018   820   processing_error
+Diners Club       3600 020000 0006      01/2020   230   fraudulent
+
+ */
+
+},{"../tools":164}],163:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41564,7 +42857,7 @@ exports.default = {
   inCartSession: inCartSession
 };
 
-},{}],155:[function(require,module,exports){
+},{}],164:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41672,7 +42965,7 @@ var json2array = exports.json2array = function json2array(json) {
   return result;
 };
 
-},{}],156:[function(require,module,exports){
+},{}],165:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41697,7 +42990,7 @@ var admin = function admin() {
 
 exports.default = admin;
 
-},{"../constants/ActionTypes":142}],157:[function(require,module,exports){
+},{"../constants/ActionTypes":149}],166:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41819,20 +43112,20 @@ var Cart = function Cart() {
         shipping: action.shipping,
         subTotal: action.subTotal,
         total: action.total
-        //case SET_WARNING:
-        //  const warning = action.warning
-        //  return { ...state, warning }
-        //case UPDATE_PRICE:
-        //  const { currency, symbol, price } = action
-        //  return { ...state, currency, symbol, price }
-      });default:
+      });
+    case _ActionTypes.CLEAN_CART:
+      return _initStateCart;
+    //case UPDATE_PRICE:
+    //  const { currency, symbol, price } = action
+    //  return { ...state, currency, symbol, price }
+    default:
       return state;
   }
 };
 
 exports.default = Cart;
 
-},{"../constants/ActionTypes":142,"../models/session":154}],158:[function(require,module,exports){
+},{"../constants/ActionTypes":149,"../models/session":163}],167:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41877,9 +43170,9 @@ var _cart = require('./cart');
 
 var _cart2 = _interopRequireDefault(_cart);
 
-var _storeState = require('./storeState');
+var _store = require('./store');
 
-var _storeState2 = _interopRequireDefault(_storeState);
+var _store2 = _interopRequireDefault(_store);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -41893,10 +43186,10 @@ exports.default = (0, _redux.combineReducers)({
   language: _language2.default,
   item: _item2.default,
   cart: _cart2.default,
-  storeState: _storeState2.default
+  store: _store2.default
 });
 
-},{"./admin":156,"./cart":157,"./isEditable":159,"./isFetching":160,"./isResultLoaded":161,"./item":162,"./language":163,"./pagination":164,"./result":165,"./storeState":166,"redux":100}],159:[function(require,module,exports){
+},{"./admin":165,"./cart":166,"./isEditable":168,"./isFetching":169,"./isResultLoaded":170,"./item":171,"./language":172,"./pagination":173,"./result":174,"./store":175,"redux":100}],168:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41921,7 +43214,7 @@ var isEditable = function isEditable() {
 
 exports.default = isEditable;
 
-},{"../constants/ActionTypes":142}],160:[function(require,module,exports){
+},{"../constants/ActionTypes":149}],169:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41946,7 +43239,7 @@ var isFetching = function isFetching() {
 
 exports.default = isFetching;
 
-},{"../constants/ActionTypes":142}],161:[function(require,module,exports){
+},{"../constants/ActionTypes":149}],170:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41971,7 +43264,7 @@ var isResultLoaded = function isResultLoaded() {
 
 exports.default = isResultLoaded;
 
-},{"../constants/ActionTypes":142}],162:[function(require,module,exports){
+},{"../constants/ActionTypes":149}],171:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -42034,7 +43327,7 @@ var item = function item() {
 
 exports.default = item;
 
-},{"../constants/ActionTypes":142}],163:[function(require,module,exports){
+},{"../constants/ActionTypes":149}],172:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42059,7 +43352,7 @@ var language = function language() {
 
 exports.default = language;
 
-},{"../constants/ActionTypes":142}],164:[function(require,module,exports){
+},{"../constants/ActionTypes":149}],173:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42104,7 +43397,7 @@ var pagination = function pagination() {
 
 exports.default = pagination;
 
-},{"../constants/ActionTypes":142}],165:[function(require,module,exports){
+},{"../constants/ActionTypes":149}],174:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42127,7 +43420,7 @@ var result = function result() {
 
 exports.default = result;
 
-},{"../constants/ActionTypes":142}],166:[function(require,module,exports){
+},{"../constants/ActionTypes":149}],175:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42139,7 +43432,7 @@ var _ActionTypes = require('../constants/ActionTypes');
 var initStateStore = {
   'name': '',
   'username': '',
-  'shortdescription': '',
+  'shortDescription': '',
   'description': '',
   'cover': '/images/store/placeholderCover.png',
   'logo': '/images/store/placeholderLogo.png',
@@ -42162,7 +43455,7 @@ var storeState = function storeState() {
 
 exports.default = storeState;
 
-},{"../constants/ActionTypes":142}],167:[function(require,module,exports){
+},{"../constants/ActionTypes":149}],176:[function(require,module,exports){
 module.exports={
 	"store":{
 		"text1":"text"
@@ -42173,7 +43466,7 @@ module.exports={
 		"navbarItemAccount":"Mi cuenta"
 	}
 }
-},{}],168:[function(require,module,exports){
+},{}],177:[function(require,module,exports){
 module.exports={
 	"store":{
 		"text1":"text"
@@ -42201,6 +43494,33 @@ module.exports={
 	"homePage":{
 		"labelEdit":"Editar",
 		"labelSave":"Guardar"
+	},
+	"loginPage":{
+		"login":{
+			"labelTitle":"Entrar con mi email",
+			"labelComment":"Ingresa con una cuenta existente para continuar con la compra",
+			"labelEmail":"email",
+			"labelPassword":"contraseña",
+			"buttonLogin":"Entrar",
+			"labelForgotPassword":"¿No recuerdas tu contraseña?"
+		},
+		"signup":{
+			"labelTitle":"Crear cuenta con mi email",
+			"labelName":"nombre",
+			"labelLastname":"apellido",
+			"labelPhone":"teléfono",
+			"labelEmail":"email",
+			"labelPassword":"contraseña",
+			"buttonSignup":"Crear cuenta"
+		},
+		"guest":{
+			"labelTitle":"Continuar como invitado",
+			"labelComment":"Puedes crear una cuenta al finalizar la compra",
+			"buttonGuest":"Continuar como invitado"
+		},
+		"errorIncompletedForm":"Debes completar todos los campos",
+		"errorNotFoundUser":"El usuario no se encuentra registrado",
+		"errorEmailAlreadyUsed":"El email ya se encuentra registrado"
 	},
 	"itemPage":{
 		"breadcrumbHome":"Inicio",
@@ -42254,6 +43574,40 @@ module.exports={
 			"total":"Cantidad"
 		}
 	},
+	"checkoutPage":{
+		"breadcrumbHome":"Inicio",
+		"labelCartEmpty":"Tu carrito de compra está vacía",
+		"labelCartSummary":"Resumen del carrito",
+		"labelSummarySubTotal":"Sub total",
+		"labelSummaryShipping":"Costo de envío",
+		"labelSummaryTaxes":"Impuestos",
+		"labelSummaryTotal":"Total",
+		"labelSummaryTerms":"Acepto los Términos y Condiciones",
+		"buttonCheckout":"Confirmar compra",
+		"personalInformation":{
+			"labelTitle":"Tu información personal",
+			"labelName":"nombre",
+			"labelLastname":"apellido",
+			"labelPhone":"teléfono",
+			"labelEmail":"email"
+		},
+		"shippingInformation":{
+			"labelTitle":"Información de envío",
+			"labelName":"nombre",
+			"labelLastname":"apellido",
+			"labelAddress1":"dirección línea 1",
+			"labelAddress2":"dirección línea 2 (opcional)",
+			"labelCity":"ciudad",
+			"labelState":"estado/provincia",
+			"labelZipCode":"código postal",
+			"labelCountry":"país"
+		},
+		"billingInformation":{
+			"labelTitle":"Información de facturación",
+			"labelOption":"usar la misma información de envío"
+		},
+		"errorIncompletedForm":"Debes completar todos los campos"
+	},
 	"contact":{
 		"labelEdit":"Editar",
 		"labelSave":"Guardar"
@@ -42269,7 +43623,7 @@ module.exports={
 		"terms":"El presente documento contiene los términos y condiciones de uso (en adelante “TCU”), los cuales serán aplicables a los actos celebrados y acciones ejecutadas a través de, o en relación directa o indirecta con, el sitio web de propiedad de SHERPON.COM (en adelante “SHERPON”), que opera con el nombre de dominio sherpon.com y sus derivados relacionados (en adelante “El Sitio”). Las TCU contenidas en el presente instrumento, se aplicarán especialmente a los siguientes actos y acciones: (i) La compra y venta de los Productos y Servicios ofrecidos y prestados por las empresas contratantes (en adelante “Los Proveedores”) con SHERPON, a través de “El Sitio”; (ii) El acceso y uso de El Sitio de cualquier forma y para cualquier efecto previamente autorizado por SHERPON, salvo acuerdo expreso en contrario que conste por escrito; (iii) El acceso y uso de otros espacios relacionados que se formen en asociación o con ocasión a El Sitio, tales como chats, foros, páginas entre otros. Las personas naturales o jurídicas debidamente representadas, (en adelante el Usuario o el Comprador) que deseen comprar los productos o servicios y acceder y/o usar El Sitio, podrán hacerlo siempre y cuando se registren y acepten los TCU contenidas en este documento, así como también las demás políticas y principios que rigen El Sitio y que son incorporados al presente documento. Los TCU son vinculantes y obligatorios. En caso de que las TCU no sean aceptadas, quedará prohibido a la persona de que se trate hacer uso de El Sitio. La prohibición indicada será de carácter absoluto y se referirá al uso directo o indirectamente y para cualquier fin, incluyendo el acceso a El Sitio, la compra de los productos y servicios ofrecidos a través del mismo y de sus tiendas relacionadas, el acceso a la información publicada en el Sitio, etc."
 	}
 }
-},{}],169:[function(require,module,exports){
+},{}],178:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42295,7 +43649,7 @@ Notes
 var userLang = navigator.language || navigator.userLanguage; 
  */
 
-},{"./EN.json":167,"./ES.json":168}],170:[function(require,module,exports){
+},{"./EN.json":176,"./ES.json":177}],179:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -42339,7 +43693,8 @@ if (process.env.NODE_ENV !== 'production') {
   middleware.push((0, _reduxLogger.createLogger)());
 }
 
-var store = (0, _redux.createStore)(_reducers2.default, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), _redux.applyMiddleware.apply(undefined, middleware));
+var store = (0, _redux.createStore)(_reducers2.default, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), // for chrome extension
+_redux.applyMiddleware.apply(undefined, middleware));
 
 (0, _reactDom.render)(_react2.default.createElement(
   _reactRedux.Provider,
@@ -42365,4 +43720,4 @@ Notes
  */
 
 }).call(this,require('_process'))
-},{"./containers/store.js":151,"./models/history":153,"./reducers":158,"_process":39,"jquery":25,"react":92,"react-dom":47,"react-redux":57,"react-router-dom":75,"redux":100,"redux-logger":93,"redux-thunk":94}]},{},[170]);
+},{"./containers/store.js":159,"./models/history":161,"./reducers":167,"_process":39,"jquery":25,"react":92,"react-dom":47,"react-redux":57,"react-router-dom":75,"redux":100,"redux-logger":93,"redux-thunk":94}]},{},[179]);

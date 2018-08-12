@@ -1,0 +1,10 @@
+{
+	"error":null,
+	"user":{
+		"id":"AAA",
+		"name":"Carlos",
+		"lastname":"Sanchez",
+		"phone":"949799020",
+		"email":"carlos@gmail.com"
+	}
+}

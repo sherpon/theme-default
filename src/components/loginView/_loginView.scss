@@ -1,0 +1,45 @@
+.login-view {
+	@extend .row;
+	margin-bottom: 0px !important;
+}
+
+.login-view__login, .login-view__signup, .login-view__guest {
+	@extend .row;
+	background-color: white;
+	border: 1px solid $sherpon-color-box-border;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	margin-bottom: 10px !important;
+	padding: 2em 2em;
+}
+
+.col .login-view__login, .col .login-view__signup, .col .login-view__guest {
+	margin-left: 0rem !important;
+    margin-right: 0rem !important;
+}
+
+.login-view__login__title, .login-view__login__comment, 
+.login-view__login__email, .login-view__login__password, 
+.login-view__login__button {
+	margin-bottom: 1em;
+}
+
+.login-view__login__title, .login-view__signup__title, .login-view__guest__title {
+	color: $primary-color;
+	font-size: 1.3em;
+}
+
+.login-view__login__button a, .login-view__signup__button a{
+	min-width: 100%;
+}
+
+.login-view__signup__title, .login-view__signup__email, 
+.login-view__signup__password, .login-view__signup__button {
+	margin-bottom: 1em;
+}
+
+.login-view__guest__title, .login-view__guest__comment {
+	margin-bottom: 1em;
+}

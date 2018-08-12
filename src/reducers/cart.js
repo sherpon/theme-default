@@ -1,6 +1,7 @@
-import { 
+import {
   ADD_TO_CART,
-  DELETE_ITEM_CART
+  DELETE_ITEM_CART,
+  CLEAN_CART
 } from '../constants/ActionTypes'
 
 import session from '../models/session'
@@ -51,7 +52,7 @@ const addItemToItemsArray = (_itemsArray, item) => {
         if (item.type==='clothes') {
           // si es ropa, se verifica que sean de las mismos atributos
           if (
-            row.attributes[0]===item.attributes[0] && 
+            row.attributes[0]===item.attributes[0] &&
             row.attributes[1]===item.attributes[1] &&
             JSON.stringify(row.shipping) === JSON.stringify(item.shipping)
           ) {
@@ -83,7 +84,7 @@ const addItemToItemsArray = (_itemsArray, item) => {
     }
   }
   return [...itemsArray, item]
-    
+
 }
 
 const Cart = (state = initStateCart, action) => {
@@ -109,16 +110,15 @@ const Cart = (state = initStateCart, action) => {
       }
       return { ...state, quantity, items, shipping, subTotal, total}
     case DELETE_ITEM_CART:
-      return { ...state, 
-        quantity: action.quantity, 
-        items: action.items, 
-        shipping: action.shipping, 
-        subTotal: action.subTotal, 
+      return { ...state,
+        quantity: action.quantity,
+        items: action.items,
+        shipping: action.shipping,
+        subTotal: action.subTotal,
         total: action.total
       }
-    //case SET_WARNING:
-    //  const warning = action.warning
-    //  return { ...state, warning }
+    case CLEAN_CART:
+      return _initStateCart
     //case UPDATE_PRICE:
     //  const { currency, symbol, price } = action
     //  return { ...state, currency, symbol, price }

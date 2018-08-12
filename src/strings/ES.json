@@ -26,6 +26,33 @@
 		"labelEdit":"Editar",
 		"labelSave":"Guardar"
 	},
+	"loginPage":{
+		"login":{
+			"labelTitle":"Entrar con mi email",
+			"labelComment":"Ingresa con una cuenta existente para continuar con la compra",
+			"labelEmail":"email",
+			"labelPassword":"contraseña",
+			"buttonLogin":"Entrar",
+			"labelForgotPassword":"¿No recuerdas tu contraseña?"
+		},
+		"signup":{
+			"labelTitle":"Crear cuenta con mi email",
+			"labelName":"nombre",
+			"labelLastname":"apellido",
+			"labelPhone":"teléfono",
+			"labelEmail":"email",
+			"labelPassword":"contraseña",
+			"buttonSignup":"Crear cuenta"
+		},
+		"guest":{
+			"labelTitle":"Continuar como invitado",
+			"labelComment":"Puedes crear una cuenta al finalizar la compra",
+			"buttonGuest":"Continuar como invitado"
+		},
+		"errorIncompletedForm":"Debes completar todos los campos",
+		"errorNotFoundUser":"El usuario no se encuentra registrado",
+		"errorEmailAlreadyUsed":"El email ya se encuentra registrado"
+	},
 	"itemPage":{
 		"breadcrumbHome":"Inicio",
 		"labelId":"Id",
@@ -77,6 +104,40 @@
 			"amount":"Cantidad",
 			"total":"Cantidad"
 		}
+	},
+	"checkoutPage":{
+		"breadcrumbHome":"Inicio",
+		"labelCartEmpty":"Tu carrito de compra está vacía",
+		"labelCartSummary":"Resumen del carrito",
+		"labelSummarySubTotal":"Sub total",
+		"labelSummaryShipping":"Costo de envío",
+		"labelSummaryTaxes":"Impuestos",
+		"labelSummaryTotal":"Total",
+		"labelSummaryTerms":"Acepto los Términos y Condiciones",
+		"buttonCheckout":"Confirmar compra",
+		"personalInformation":{
+			"labelTitle":"Tu información personal",
+			"labelName":"nombre",
+			"labelLastname":"apellido",
+			"labelPhone":"teléfono",
+			"labelEmail":"email"
+		},
+		"shippingInformation":{
+			"labelTitle":"Información de envío",
+			"labelName":"nombre",
+			"labelLastname":"apellido",
+			"labelAddress1":"dirección línea 1",
+			"labelAddress2":"dirección línea 2 (opcional)",
+			"labelCity":"ciudad",
+			"labelState":"estado/provincia",
+			"labelZipCode":"código postal",
+			"labelCountry":"país"
+		},
+		"billingInformation":{
+			"labelTitle":"Información de facturación",
+			"labelOption":"usar la misma información de envío"
+		},
+		"errorIncompletedForm":"Debes completar todos los campos"
 	},
 	"contact":{
 		"labelEdit":"Editar",
