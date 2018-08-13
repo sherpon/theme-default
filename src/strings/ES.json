@@ -5,7 +5,11 @@
 	"navbar":{
 		"searchInputPlaceholder":"Estoy buscando...",
 		"iconMenu":"menu",
-		"navbarItemAccount":"Mi cuenta"
+		"navbarItemGreeting":"Hola, ",
+		"navbarItemAccount":"Mi cuenta",
+		"navbarItemPurchases":"Compras",
+		"navbarItemLogout":"Salir",
+		"navbarItemLogin":"Entrar"
 	},
 	"cover":{
 		"labelEdit":"Editar",
@@ -138,6 +142,13 @@
 			"labelOption":"usar la misma información de envío"
 		},
 		"errorIncompletedForm":"Debes completar todos los campos"
+	},
+	"congratulationPurchase":{
+		"labelTitle":"¡Muchas gracias por tu compra!",
+		"label1":"Te estamos enviando un email con la información de tu compra.",
+		"label2":"Además, puedes verla en la sección “Compras” en el menú principal.",
+		"label3":"No olvides calificarla al recibirla.",
+		"label4":"Si tienes alguna pregunta o incoveniente no dudes en ponerte en contacto."
 	},
 	"contact":{
 		"labelEdit":"Editar",

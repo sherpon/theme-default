@@ -81,7 +81,7 @@ export const placeOrder = () => (dispatch, getState) => {
     return false
   }
   const personalInformation = {
-    id: null,
+    id: ( session.inUserSession() ) ? ( session.getUser() ) : ( null ), // if there's a session give the user's id, else give 'null'
     name: _name,
     lastname: _lastname,
     phone: _phone,

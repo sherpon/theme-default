@@ -1,7 +1,10 @@
 const TIMEOUT = 500
 
 export const createPurchase = (payload, callback) => {
-  setTimeout( () => { 
+  console.log('API.signup.payload')
+  console.log(payload)
+
+  setTimeout( () => {
     callback(true)
   },TIMEOUT )
 }

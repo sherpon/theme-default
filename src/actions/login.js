@@ -9,13 +9,13 @@ import codes from '../constants/codes.json'
 import { login as apiLogin, signup as apiSignup } from '../api/login'
 
 export const login = (email, password) => (dispatch, getState) => {
-  dispatch(startFetching())
 
   if (email === "" || password === "") {
-    dispatch(stopFetching())
     M.toast({html: Strings(getState().language).loginPage.errorIncompletedForm})
     return false
   }
+
+  dispatch(startFetching())
 
   apiLogin({ email, password }, (response) => {
     if (response.error === codes.API_USER_LOGIN_NO_FOUND) {
@@ -24,13 +24,14 @@ export const login = (email, password) => (dispatch, getState) => {
       M.toast({html: Strings(getState().language).loginPage.errorNotFoundUser})
     } else {
       session.setUser(response.user)
+      dispatch({ type: types.LOGIN })
       if ( localStorage.getItem("NEXT_URL") === null ) {
         dispatch(stopFetching()) // oculta el loading
         history.replace({
           pathname: "/" + getState().store.username + '',
           state: { some: "state" }
         })
-        
+
       } else {
         var mUrl = localStorage.getItem("NEXT_URL")
         localStorage.removeItem("NEXT_URL")
@@ -40,13 +41,12 @@ export const login = (email, password) => (dispatch, getState) => {
         })
         dispatch(stopFetching()) // oculta el loading
       }
-      
+
     }
   })
 }
 
 export const signup = ( name, lastname, phone, email, password ) => (dispatch, getState) => {
-  dispatch(startFetching())
 
   if (
     name === "" ||
@@ -55,34 +55,46 @@ export const signup = ( name, lastname, phone, email, password ) => (dispatch, g
     email === "" ||
     password === ""
   ) {
-    dispatch(stopFetching())
     M.toast({html: Strings(getState().language).loginPage.errorIncompletedForm})
-  } else {
-    apiSignup({ name, lastname, phone, email, password }, (response) => {
-      
-      if (response.error === codes.API_USER_SIGNUP_EMAIL_EXIST) {
-        dispatch(stopFetching())
-        M.toast({html: Strings(getState().language).loginPage.errorEmailAlreadyUsed})
-      } else {
-        session.setUser(response.user)
-        if ( localStorage.getItem("NEXT_URL") === null ) {
-          dispatch(stopFetching()) // oculta el loading
-          history.replace({
-            pathname: "/" + getState().store.username + '',
-            state: { some: "state" }
-          })
-          
-        } else {
-          var mUrl = localStorage.getItem("NEXT_URL")
-          localStorage.removeItem("NEXT_URL")
-          history.replace({
-            pathname: mUrl,
-            state: { some: "state" }
-          })
-          dispatch(stopFetching()) // oculta el loading
-        }
-      }
-    })
+    return false
   }
-    
+
+  dispatch(startFetching())
+
+  apiSignup({ name, lastname, phone, email, password }, (response) => {
+
+    if (response.error === codes.API_USER_SIGNUP_EMAIL_EXIST) {
+      dispatch(stopFetching())
+      M.toast({html: Strings(getState().language).loginPage.errorEmailAlreadyUsed})
+    } else {
+      session.setUser(response.user)
+      dispatch({ type: types.LOGIN })
+      if ( localStorage.getItem("NEXT_URL") === null ) {
+        dispatch(stopFetching()) // oculta el loading
+        history.replace({
+          pathname: "/" + getState().store.username + '',
+          state: { some: "state" }
+        })
+
+      } else {
+        var mUrl = localStorage.getItem("NEXT_URL")
+        localStorage.removeItem("NEXT_URL")
+        history.replace({
+          pathname: mUrl,
+          state: { some: "state" }
+        })
+        dispatch(stopFetching()) // oculta el loading
+      }
+    }
+  })
+
+}
+
+export const logout = () => (dispatch, getState) => {
+  session.unsetUser()
+  dispatch({ type: types.LOGOUT })
+  history.replace({
+    pathname: "/" + getState().store.username + '',
+    state: { some: "state" }
+  }) 
 }
