@@ -26,6 +26,24 @@
 		"tabContact":"Contacto",
 		"tabTerms":"Términos y Condiciones"
 	},
+	"accountPage":{
+		"breadcrumbHome":"Inicio",
+		"breadcrumbAccount":"Mi cuenta",
+		"labelInformationTitle":"Mi cuenta",
+		"labelInformationName":"nombre",
+		"labelInformationlastname":"apellido",
+		"labelInformationPhone":"teléfono",
+		"labelInformationEmail":"email",
+		"buttonInformation":"Actualizar cuenta",
+		"labelPasswordTitle":"Mi contraseña",
+		"labelPassword1":"nueva contraseña",
+		"labelPassword2":"repita la contraseña",
+		"buttonPassword":"Actualizar contraseña",
+		"errorIncompletedForm":"Debes completar todos los campos",
+		"errorSamePassword":"Las contraseñas no son iguales",
+		"errorUpdate":"No se pudo actualizar la información",
+		"successUpdate":"Se actualizó la información"
+	},
 	"homePage":{
 		"labelEdit":"Editar",
 		"labelSave":"Guardar"

@@ -1,0 +1,35 @@
+.account-view {
+	@extend .row;
+	margin-bottom: 0px !important;
+}
+
+.account-view__information {
+  @extend .row;
+	background-color: white;
+	border: 1px solid $sherpon-color-box-border;
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	margin-bottom: 10px !important;
+	padding: 2em 2em;
+}
+
+.col .account-view__information {
+  margin-left: 0rem !important;
+  margin-right: 0rem !important;
+}
+
+.account-view__information__title {
+  color: $primary-color;
+	font-size: 1.3em;
+}
+
+.account-view__information__title,
+.account-view__information__input {
+  margin-bottom: 1em;
+}
+
+.account-view__information__button {
+  min-width: 100%;
+}

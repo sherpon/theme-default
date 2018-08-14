@@ -16,6 +16,7 @@ import Footer from '../components/footer/footer.js'
 import Hero from './hero.js'
 
 import HomePage from './homePage.js'
+import AccountPage from './accountPage.js'
 import LoginPage from './loginPage.js'
 import ItemPage from './itemPage.js'
 import Categories from '../components/categories/categories.js' // import Categories from './categories.js'
@@ -70,6 +71,7 @@ class Store extends React.Component {
             <Route exact path="/:storeusername/login/checkout" component={ () => <LoginPage guest={true} mode={"login"} /> } />
             <Route exact path="/:storeusername/login" component={ () => <LoginPage guest={false} mode={"login"} /> } />
             <Route exact path="/:storeusername/signup" component={ () => <LoginPage guest={false} mode={"signup"} /> } />
+            <Route exact path="/:storeusername/account" component={ AccountPage } />
             <Route exact path="/:storeusername" component={HomePage} />
             <Route component={HomePage}/>
           </Switch>
