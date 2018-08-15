@@ -44,6 +44,14 @@
 		"errorUpdate":"No se pudo actualizar la información",
 		"successUpdate":"Se actualizó la información"
 	},
+	"purchasesPage":{
+		"breadcrumbHome":"Inicio",
+		"breadcrumbPurchases":"Mis compras",
+		"headerDate":"Fecha",
+		"headerId":"Id",
+		"headerState":"Estado",
+		"headerAmount":"Total"
+	},
 	"homePage":{
 		"labelEdit":"Editar",
 		"labelSave":"Guardar"

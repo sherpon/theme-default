@@ -6874,6 +6874,24 @@ input::placeholder {
 .account-view__information__button {
   min-width: 100%; }
 
+.purchases-list {
+  background-color: white;
+  border: 1px solid #e5e5e5;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  margin-bottom: 10px;
+  padding: 1em; }
+
+.purchases-list__purchase-item {
+  text-align: center;
+  color: #757575; }
+
+.purchases-list__purchase-header {
+  text-align: center;
+  font-size: 1.1em; }
+
 /******** categories's components *********/
 .categories__section {
   background-color: white;

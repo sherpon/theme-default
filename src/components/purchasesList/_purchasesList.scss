@@ -1,0 +1,20 @@
+.purchases-list {
+  background-color: white;
+  border: 1px solid $sherpon-color-box-border;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  margin-bottom: 10px;
+  padding: 1em;
+}
+
+.purchases-list__purchase-item {
+  text-align: center;
+  color: $body-text-color-secundary;
+}
+
+.purchases-list__purchase-header {
+  text-align: center;
+  font-size: 1.1em;
+}

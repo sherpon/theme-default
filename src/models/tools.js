@@ -84,3 +84,22 @@ export const json2array = (json) => {
   });
   return result;
 }
+
+/**
+ * get the formatted time from a timestamp
+ * @param {number} timestamp - unix timestamp of 13 digits
+ * @return {string} formatted time. E.g. 2018/12/30
+ */
+export const getFormattedTime = (timestamp) => {
+  const date = new Date(timestamp);
+  // Hours part from the timestamp
+  const year = date.getFullYear()
+  // Minutes part from the timestamp
+  const month = "0" + (date.getMonth()+1)
+  // Seconds part from the timestamp
+  const day = "0" + date.getDate()
+
+  // Will display time in 10:30:23 format
+  const formattedTime = year + '/' + month.substr(-2) + '/' + day.substr(-2)
+  return formattedTime
+}

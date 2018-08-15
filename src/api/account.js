@@ -1,3 +1,5 @@
+import _purchasesList from './data/purchasesList.json'
+
 const TIMEOUT = 500
 
 export const updateAccount = (payload, callback) => {
@@ -19,5 +21,14 @@ export const updatePassword = (payload, callback) => {
     callback({
       error: null
     })
+  },TIMEOUT )
+}
+
+export const loadPurchasesList = (payload, callback) => {
+  console.log('API.loadPurchasesList.payload')
+  console.log(payload)
+
+  setTimeout( () => {
+    callback(_purchasesList)
   },TIMEOUT )
 }

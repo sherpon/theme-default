@@ -1,8 +1,13 @@
 import { startFetching, stopFetching } from './fetching'
+import { setPages } from './pagination'
 import session from '../models/session'
 import Strings from '../strings'
 
-import { updateAccount as apiUpdateAccount, updatePassword as apiUpdatePassword } from '../api/account'
+import {
+  updateAccount as apiUpdateAccount,
+  updatePassword as apiUpdatePassword,
+  loadPurchasesList as apiLoadPurchasesList
+} from '../api/account'
 
 export const updateAccount = (name, lastname, phone, email) => (dispatch, getState) => {
   if (
@@ -53,5 +58,14 @@ export const updatePassword = (password1, password2) => (dispatch, getState) => 
       dispatch(stopFetching())
       M.toast({ html: Strings(getState().language).accountPage.errorUpdate })
     }
+  })
+}
+
+export const loadPurchasesList = () => (dispatch, getState) => {
+  dispatch(startFetching())
+  const userId = session.getUser().id
+  const storeId = getState().store.id
+  apiLoadPurchasesList({ storeId, userId }, (_list) => {
+    dispatch(setPages(_list, 30))
   })
 }
