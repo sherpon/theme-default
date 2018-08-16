@@ -1,0 +1,83 @@
+{
+  "id":"aaaa",
+  "timestamp":1534344986716,
+  "state":"pending",
+  "history":[
+    {
+      "timestamp":1234667890123,
+      "description":"Read",
+      "userId":"ZZZ",
+      "userName":"Alberto"
+    }
+  ],
+  "user":{
+    "id": "AAA",
+    "name": "Carlos",
+    "lastname": "Sanchez",
+    "phone": "949799020",
+    "email": "carlos@gmail.com"
+  },
+  "cart":{
+    "quantity": 1,
+    "items": [
+      {
+        "id": "Hu3fU02Bdhgpo476Fej1",
+        "type": "clothes",
+        "shortTitle": "1 Black dress night",
+        "picture": "/images/store/mockup/item1/picture1.jpg",
+        "currency": "USD",
+        "symbol": "$",
+        "price": 50,
+        "amount": 1,
+        "attributes": [
+          "small",
+          "white"
+        ],
+        "shipping": {
+          "description": "Destination USA",
+          "currency": "USD",
+          "symbol": "$",
+          "price": 5,
+          "days": "5-7 days"
+        }
+      }
+    ],
+    "shipping": {
+      "currency": "USD",
+      "symbol": "$",
+      "price": 5
+    },
+    "subTotal": {
+      "currency": "USD",
+      "symbol": "$",
+      "price": 50
+    },
+    "taxes": [],
+    "total": {
+      "currency": "USD",
+      "symbol": "$",
+      "price": 55
+    }
+  },
+  "payment":{},
+  "shipping":{
+    "name": "Carlos",
+    "lastname": "Sanchez",
+    "address1": "calle santa felicidad 382",
+    "address2": "Urb. Pando",
+    "city": "Lima",
+    "state": "Lima",
+    "zipCode": "01",
+    "country": "peru"
+  },
+  "billing":{
+    "name": "Carlos",
+    "lastname": "Sanchez",
+    "address1": "calle santa felicidad 382",
+    "address2": "Urb. Pando",
+    "city": "Lima",
+    "state": "Lima",
+    "zipCode": "01",
+    "country": "peru"
+  }
+}

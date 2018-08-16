@@ -1,3 +1,4 @@
+import * as types from '../constants/ActionTypes'
 import { startFetching, stopFetching } from './fetching'
 import { setPages } from './pagination'
 import session from '../models/session'
@@ -6,7 +7,8 @@ import Strings from '../strings'
 import {
   updateAccount as apiUpdateAccount,
   updatePassword as apiUpdatePassword,
-  loadPurchasesList as apiLoadPurchasesList
+  loadPurchasesList as apiLoadPurchasesList,
+  loadPurchase as apiLoadPurchase
 } from '../api/account'
 
 export const updateAccount = (name, lastname, phone, email) => (dispatch, getState) => {
@@ -67,5 +69,18 @@ export const loadPurchasesList = () => (dispatch, getState) => {
   const storeId = getState().store.id
   apiLoadPurchasesList({ storeId, userId }, (_list) => {
     dispatch(setPages(_list, 30))
+  })
+}
+
+export const loadPurchase = (purchaseId) => (dispatch, getState) => {
+  dispatch(startFetching())
+  dispatch({ type: types.CLEAN_PURCHASE })
+  const storeId = getState().store.id
+  apiLoadPurchase( storeId, purchaseId, (purchase) => {
+    dispatch({
+      type: types.LOAD_PURCHASE,
+      purchase
+    })
+    dispatch(stopFetching())
   })
 }

@@ -7,10 +7,10 @@ import { getFormattedTime, getPriceFormat } from '../../models/tools.js'
 const PurchaseItem = ({username, item}) => (
   <div className="row">
     <Link to={`/${username}/purchase/${item.id}`}>
-      <div className="col s3 purchases-list__purchase-item">{getFormattedTime(item.timestamp)}</div>
-      <div className="col s3 purchases-list__purchase-item">{item.id}</div>
-      <div className="col s3 purchases-list__purchase-item">{item.state}</div>
-      <div className="col s3 purchases-list__purchase-item">{`${item.symbol} ${getPriceFormat(item.amount)}`}</div>
+      <div className="col s4 m3 purchases-list__purchase-item">{getFormattedTime(item.timestamp)}</div>
+      <div className="col m3 purchases-list__purchase-item hide-on-small-only">{item.id}</div>
+      <div className="col s4 m3 purchases-list__purchase-item">{item.state}</div>
+      <div className="col s4 m3 purchases-list__purchase-item">{`${item.symbol} ${getPriceFormat(item.amount)}`}</div>
     </Link>
   </div>
 )
@@ -30,10 +30,10 @@ const PurchasesList = ({username, list, strings}) => {
   return (
     <div className="purchases-list">
       <div className="row">
-        <div className="col s3 purchases-list__purchase-header">{strings.headerDate}</div>
-        <div className="col s3 purchases-list__purchase-header">{strings.headerId}</div>
-        <div className="col s3 purchases-list__purchase-header">{strings.headerState}</div>
-        <div className="col s3 purchases-list__purchase-header">{strings.headerAmount}</div>
+        <div className="col s4 m3 purchases-list__purchase-header">{strings.headerDate}</div>
+        <div className="col m3 purchases-list__purchase-header hide-on-small-only">{strings.headerId}</div>
+        <div className="col s4 m3 purchases-list__purchase-header">{strings.headerState}</div>
+        <div className="col s4 m3 purchases-list__purchase-header">{strings.headerAmount}</div>
       </div>
       { listComp.map((itemComp)=>(itemComp)) }
     </div>

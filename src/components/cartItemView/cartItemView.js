@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom'
 
 import { noLinkEspace, getPriceFormat } from '../../models/tools'
 
-const CartItemView = ({index, username, strings, item, deleteItemCart}) => {
-  let attributesComp, shippingComp
+const CartItemView = ({index, username, strings, item, deleteItemCart, deleteButton}) => {
+  let attributesComp
+  let shippingComp
+  let deleteButtonComp
 
   if (item.type==='clothes') {
     attributesComp = (
@@ -40,12 +42,27 @@ const CartItemView = ({index, username, strings, item, deleteItemCart}) => {
     shippingComp = (<div/>)
   }
 
+  if (deleteButton) {
+    deleteButtonComp = (
+      <div className="cart-item-view__body__model">
+        <a
+          className="cart-item-view__body__delete"
+          onClick={ () => deleteItemCart(index) }
+        >
+          {strings.labelDelete}
+        </a>
+      </div>
+    )
+  } else {
+    deleteButtonComp = (<div/>)
+  }
+
   return(
     <div className="cart-item-view__container">
       <div className="cart-item-view__body">
         <div className="col s4 m2 l4">
-          <img 
-            className="responsive-img" 
+          <img
+            className="responsive-img"
             src={item.picture}
           />
         </div>
@@ -60,14 +77,7 @@ const CartItemView = ({index, username, strings, item, deleteItemCart}) => {
           </div>
           {attributesComp}
           {shippingComp}
-          <div className="cart-item-view__body__model">
-            <a 
-              className="cart-item-view__body__delete" 
-              onClick={ () => deleteItemCart(index) }
-            >
-              {strings.labelDelete}
-            </a>
-          </div>
+          {deleteButtonComp}
         </div>
       </div>
 
@@ -106,7 +116,12 @@ CartItemView.propTypes = {
   username: PropTypes.string.isRequired,
   strings: PropTypes.object.isRequired,
   item: PropTypes.object.isRequired,
-  deleteItemCart: PropTypes.func.isRequired
+  deleteItemCart: PropTypes.func.isRequired,
+  deleteButton: PropTypes.bool
+}
+
+CartItemView.defaultProps = {
+  deleteButton: true
 }
 
 export default CartItemView

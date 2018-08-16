@@ -110,7 +110,7 @@ export const placeOrder = () => (dispatch, getState) => {
     M.toast({html: Strings(getState().language).checkoutPage.errorIncompletedForm})
     return false
   }
-  const shippingInformation = {
+  const shipping = {
     name: _shipping_name,
     lastname: _shipping_lastname,
     address1: _address1,
@@ -158,7 +158,7 @@ export const placeOrder = () => (dispatch, getState) => {
       return false
     }
   }
-  const billingInformation = {
+  const billing = {
     name: _billing_name,
     lastname: _billing_lastname,
     address1: _billing_address1,
@@ -211,8 +211,8 @@ export const placeOrder = () => (dispatch, getState) => {
                 token:token,
                 card_number:Culqi.token.card_number
               },
-              shippingInformation,
-              billingInformation
+              shipping,
+              billing
             }
 
             console.log(_order)

@@ -118,6 +118,7 @@ gulp.task('server', function () {
     open: false,
     proxies: [
       { source: `/${_storeusername}/congratulation/purchase`, target: `http://${_host}:${_port}` },
+      { source: `/${_storeusername}/purchase/aaaa`, target: `http://${_host}:${_port}` },
       { source: `/${_storeusername}/account`, target: `http://${_host}:${_port}` },
       { source: `/${_storeusername}/purchases`, target: `http://${_host}:${_port}` },
       { source: `/${_storeusername}`, target: `http://${_host}:${_port}` }

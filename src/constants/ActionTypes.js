@@ -31,3 +31,7 @@ export const CLEAN_CART = 'CLEAN_CART'
 /****** session ******/
 export const LOGIN = 'LOGIN'
 export const LOGOUT = 'LOGOUT'
+
+/****** account ******/
+export const CLEAN_PURCHASE = 'CLEAN_PURCHASE'
+export const LOAD_PURCHASE = 'LOAD_PURCHASE'
