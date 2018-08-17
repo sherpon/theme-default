@@ -7,6 +7,7 @@ import { goToPage, loadCategory } from '../actions'
 import Strings from '../strings'
 
 import { noLinkUnderscore } from '../models/tools'
+import { pageView } from '../models/analytics'
 
 import Breadcrumbs from '../components/breadcrumbs/breadcrumbs'
 import Pagination from '../components/pagination/pagination'
@@ -17,8 +18,8 @@ import PreviewList from '../components/previewList/previewList'
 class CategoryPage extends React.Component {
   constructor(props) {
     super(props)
-    const { analytics, facebookPixel, category, loadCategory } = this.props
-    analytics()
+    const { analytics, facebookPixel, analyticsTrackerId, category, loadCategory } = this.props
+    analytics(analyticsTrackerId)
     facebookPixel()
     loadCategory(category)
   }
@@ -67,6 +68,7 @@ class CategoryPage extends React.Component {
 CategoryPage.propTypes = {
   strings: PropTypes.object.isRequired,
   username: PropTypes.string.isRequired,
+  analyticsTrackerId: PropTypes.string.isRequired,
   parent: PropTypes.any,
   category: PropTypes.string.isRequired,
   isResultLoaded: PropTypes.bool.isRequired,
@@ -85,6 +87,7 @@ CategoryPage.propTypes = {
 const mapStateToProps = ( state, ownProps ) => ({
   strings: Strings(state.language).categoryPage,
   username: state.store.username,
+  analyticsTrackerId: state.store.analytics,
   parent: ownProps.match.params.parent !== undefined ? noLinkUnderscore(ownProps.match.params.parent) : null ,
   category: noLinkUnderscore(ownProps.match.params.category),
   isResultLoaded: state.isResultLoaded,
@@ -97,7 +100,7 @@ const mapStateToProps = ( state, ownProps ) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  analytics: () => {},
+  analytics: (analyticsTrackerId) => pageView(analyticsTrackerId),
   facebookPixel: () => {},
   loadCategory: (category) => dispatch(loadCategory(category)),
   goToPage: (index) => dispatch(goToPage(index))

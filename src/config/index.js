@@ -16,6 +16,7 @@ const ENV_PROD = {
   "COLLECTION_PROVIDER":"shProviders",
   "COLLECTION_ITEM":"shItems",
   "COLLECTION_PURCHASE":"shPurchases",
+  "ANALYTICS_TRACK_ID":"UA-54697040-5",
   "APP_ID_FACEBOOK":"123762241591576",
   "FIREBASE_APP":{
     apiKey: "AIzaSyAvS0Q6iuqo1xqzgBFl5ybVUCvu3Qkb1zY",
@@ -42,6 +43,7 @@ const ENV_DEV = {
   "COLLECTION_PROVIDER":"dev_shProviders",
   "COLLECTION_ITEM":"dev_shItems",
   "COLLECTION_PURCHASE":"dev_shPurchases",
+  "ANALYTICS_TRACK_ID":"UA-54697040-5",
   "APP_ID_FACEBOOK":"1594595550592061",
   "FIREBASE_APP":{
     apiKey: "AIzaSyAvS0Q6iuqo1xqzgBFl5ybVUCvu3Qkb1zY",
@@ -55,11 +57,11 @@ const ENV_DEV = {
 
 export const getState = () => {
   //tool.log ( "config.getState ( )", "START.", null, false)
-  if (  location.hostname === "localhost" || 
-        location.hostname === "sherpon.localhost" || 
-        location.hostname === "backoffice.sherpon.localhost" || 
-        location.hostname === "supplier.sherpon.localhost" || 
-        location.hostname === "0.0.0.0" 
+  if (  location.hostname === "localhost" ||
+        location.hostname === "sherpon.localhost" ||
+        location.hostname === "backoffice.sherpon.localhost" ||
+        location.hostname === "supplier.sherpon.localhost" ||
+        location.hostname === "0.0.0.0"
   ) { //DEV
     //console.log("State: " + STATE_DEVELOPMENT)
     //tool.log ( "config.getState ( )", "STATE_DEVELOPMENT: ", STATE_DEVELOPMENT, false)

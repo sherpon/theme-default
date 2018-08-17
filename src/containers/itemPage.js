@@ -7,7 +7,7 @@ import { loadItem, onChangedSelect, addToCart, facebookInit, shareFacebook, shar
 import { loadCategory } from '../actions'
 
 import Strings from '../strings'
-
+import { pageView } from '../models/analytics'
 import Breadcrumbs from '../components/breadcrumbs/breadcrumbs'
 import ItemViewPlaceholder from '../components/itemViewPlaceholder/itemViewPlaceholder'
 import ItemView from '../components/itemView/itemView'
@@ -16,8 +16,8 @@ class ItemPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = { hasError: false }
-    const { analytics, facebookPixel, loadItem, itemId, facebookInit } = this.props
-    analytics()
+    const { analytics, facebookPixel, analyticsTrackerId, loadItem, itemId, facebookInit } = this.props
+    analytics(analyticsTrackerId)
     facebookPixel()
     loadItem(itemId)
   }
@@ -67,6 +67,7 @@ class ItemPage extends React.Component {
 ItemPage.propTypes = {
   strings: PropTypes.object.isRequired,
   username: PropTypes.string.isRequired,
+  analyticsTrackerId: PropTypes.string.isRequired,
   itemId: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,
   item: PropTypes.object.isRequired,
@@ -84,13 +85,14 @@ ItemPage.propTypes = {
 const mapStateToProps = ( state, ownProps ) => ({
   strings: Strings(state.language).itemPage,
   username: state.store.username,
+  analyticsTrackerId: state.store.analytics,
   itemId: ownProps.match.params.id,
   isFetching: state.isFetching,
   item: state.item
 })
 
 const mapDispatchToProps = dispatch => ({
-  analytics: () => {},
+  analytics: (analyticsTrackerId) => pageView(analyticsTrackerId),
   facebookPixel: () => {},
   loadItem: (itemId) => dispatch(loadItem(itemId)),
   loadCategory: (category) => dispatch(loadCategory(category)),

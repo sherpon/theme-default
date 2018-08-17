@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom'
 
 import Strings from '../strings'
 import session from '../models/session'
+import { pageView } from '../models/analytics'
 import { loadPurchasesList } from '../actions/account'
 import { goToPage } from '../actions/pagination'
 
@@ -16,8 +17,8 @@ import PurchasesList from '../components/purchasesList/purchasesList'
 class PurchasesPage extends React.Component {
   constructor(props) {
     super(props)
-    const { analytics, facebookPixel, loadPurchasesList } = this.props
-    analytics()
+    const { analytics, facebookPixel, analyticsTrackerId, loadPurchasesList } = this.props
+    analytics(analyticsTrackerId)
     facebookPixel()
     loadPurchasesList()
   }
@@ -75,6 +76,7 @@ class PurchasesPage extends React.Component {
 PurchasesPage.propsType = {
   strings: PropTypes.object.isRequired,
   username: PropTypes.string.isRequired,
+  analyticsTrackerId: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,
   pagination: PropTypes.object.isRequired,
   analytics: PropTypes.func.isRequired,
@@ -86,6 +88,7 @@ PurchasesPage.propsType = {
 const mapStateToProps = ( state, ownProps ) => ({
   strings: Strings(state.language).purchasesPage,
   username: state.store.username,
+  analyticsTrackerId: state.store.analytics,
   isFetching: state.isFetching,
   pagination: {
     index: state.pagination.index,
@@ -96,7 +99,7 @@ const mapStateToProps = ( state, ownProps ) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  analytics: () => {},
+  analytics: (analyticsTrackerId) => pageView(analyticsTrackerId),
   facebookPixel: () => {},
   loadPurchasesList: () => dispatch(loadPurchasesList()),
   goToPage: (index) => dispatch(goToPage(index))

@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import Strings from '../strings'
 
 import { noLinkEspace } from '../models/tools'
+import { pageView } from '../models/analytics'
 
 const HomeSection = ({ username, section }) => {
   return (
@@ -27,8 +28,8 @@ class HomePage extends React.Component {
   constructor(props) {
     super(props)
     this.state = { hasError: false }
-    const { analytics, facebookPixel } = this.props
-    analytics()
+    const { analytics, facebookPixel, analyticsTrackerId } = this.props
+    analytics(analyticsTrackerId)
     facebookPixel()
   }
 
@@ -54,6 +55,7 @@ class HomePage extends React.Component {
 HomePage.propTypes = {
   strings: PropTypes.object.isRequired,
   username: PropTypes.string.isRequired,
+  analyticsTrackerId: PropTypes.string.isRequired,
   isEditable: PropTypes.bool.isRequired,
   sections: PropTypes.array.isRequired,
   analytics: PropTypes.func.isRequired,
@@ -63,12 +65,13 @@ HomePage.propTypes = {
 const mapStateToProps = state => ({
   strings: Strings(state.language).homePage,
   username: state.store.username,
+  analyticsTrackerId: state.store.analytics,
   isEditable: state.isEditable,
   sections: state.store.theme.sections
 })
 
 const mapDispatchToProps = dispatch => ({
-  analytics: () => {},
+  analytics: (analyticsTrackerId) => pageView(analyticsTrackerId),
   facebookPixel: () => {},
 })
 

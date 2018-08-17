@@ -5,14 +5,15 @@ import { withRouter } from 'react-router-dom'
 
 import { placeOrder } from '../actions/cart'
 import Strings from '../strings'
+import { pageView } from '../models/analytics'
 
 import CheckoutView from '../components/checkoutView/checkoutView'
 
 class CheckoutPage extends React.Component {
   constructor(props) {
     super(props)
-    const { analytics, facebookPixel } = this.props
-    analytics()
+    const { analytics, facebookPixel, analyticsTrackerId } = this.props
+    analytics(analyticsTrackerId)
     facebookPixel()
   }
 
@@ -31,6 +32,7 @@ class CheckoutPage extends React.Component {
 
 CheckoutPage.propTypes = {
   strings: PropTypes.object.isRequired,
+  analyticsTrackerId: PropTypes.string.isRequired,
   cart: PropTypes.object.isRequired,
   analytics: PropTypes.func.isRequired,
   facebookPixel: PropTypes.func.isRequired,
@@ -39,11 +41,12 @@ CheckoutPage.propTypes = {
 
 const mapStateToProps = ( state, ownProps ) => ({
   strings: Strings(state.language).checkoutPage,
+  analyticsTrackerId: state.store.analytics,
   cart: state.cart
 })
 
 const mapDispatchToProps = dispatch => ({
-  analytics: () => {},
+  analytics: (analyticsTrackerId) => pageView(analyticsTrackerId),
   facebookPixel: () => {},
   placeOrder: () => dispatch(placeOrder())
 })

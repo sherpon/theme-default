@@ -36846,7 +36846,7 @@ var loadPurchase = exports.loadPurchase = function loadPurchase(purchaseId) {
   };
 };
 
-},{"../api/account":114,"../constants/ActionTypes":158,"../models/session":175,"../strings":192,"./fetching":109,"./pagination":113}],108:[function(require,module,exports){
+},{"../api/account":114,"../constants/ActionTypes":158,"../models/session":176,"../strings":193,"./fetching":109,"./pagination":113}],108:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37109,7 +37109,7 @@ var placeOrder = exports.placeOrder = function placeOrder() {
   };
 };
 
-},{"../api/purchase":127,"../constants/ActionTypes":158,"../models/history":173,"../models/paymentGateway/culqi":174,"../models/session":175,"../strings":192,"./fetching":109}],109:[function(require,module,exports){
+},{"../api/purchase":127,"../constants/ActionTypes":158,"../models/history":174,"../models/paymentGateway/culqi":175,"../models/session":176,"../strings":193,"./fetching":109}],109:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37328,7 +37328,7 @@ var loadCategory = exports.loadCategory = function loadCategory(category) {
   };
 };
 
-},{"../api/item":125,"../config":157,"../constants/ActionTypes":158,"../constants/codes.json":159,"../models/history":173,"../models/session":175,"../models/tools":176,"../strings":192}],111:[function(require,module,exports){
+},{"../api/item":125,"../config":157,"../constants/ActionTypes":158,"../constants/codes.json":159,"../models/history":174,"../models/session":176,"../models/tools":177,"../strings":193}],111:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37785,7 +37785,7 @@ var shareWhatsapp = exports.shareWhatsapp = function shareWhatsapp() {
   window.location.href = "https://api.whatsapp.com/send?text=" + window.location.href + "?utm_source%3Dsherpon_store%26utm_medium%3Dwhatsapp_link%26utm_campaign%3Dsocial_shared_item";
 };
 
-},{"../api/item":125,"../config":157,"../constants/ActionTypes":158,"../models/history":173,"../models/session":175,"../strings":192,"./fetching":109}],112:[function(require,module,exports){
+},{"../api/item":125,"../config":157,"../constants/ActionTypes":158,"../models/history":174,"../models/session":176,"../strings":193,"./fetching":109}],112:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37908,7 +37908,7 @@ var logout = exports.logout = function logout() {
   };
 };
 
-},{"../api/login":126,"../constants/ActionTypes":158,"../constants/codes.json":159,"../models/history":173,"../models/session":175,"../strings":192,"./fetching":109}],113:[function(require,module,exports){
+},{"../api/login":126,"../constants/ActionTypes":158,"../constants/codes.json":159,"../models/history":174,"../models/session":176,"../strings":193,"./fetching":109}],113:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -38942,7 +38942,7 @@ Breadcrumbs.propTypes = {
 
 exports.default = Breadcrumbs;
 
-},{"../../models/tools":176,"prop-types":43,"react":92,"react-router-dom":75}],130:[function(require,module,exports){
+},{"../../models/tools":177,"prop-types":43,"react":92,"react-router-dom":75}],130:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39130,7 +39130,7 @@ CartItemView.defaultProps = {
 
 exports.default = CartItemView;
 
-},{"../../models/tools":176,"prop-types":43,"react":92,"react-router-dom":75}],131:[function(require,module,exports){
+},{"../../models/tools":177,"prop-types":43,"react":92,"react-router-dom":75}],131:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39279,7 +39279,7 @@ CartView.propTypes = {
 
 exports.default = CartView;
 
-},{"../../models/tools":176,"../cartItemView/cartItemView":130,"prop-types":43,"react":92}],132:[function(require,module,exports){
+},{"../../models/tools":177,"../cartItemView/cartItemView":130,"prop-types":43,"react":92}],132:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39379,7 +39379,7 @@ Categories.propTypes = {
 
 exports.default = Categories;
 
-},{"../../models/tools":176,"prop-types":43,"react":92,"react-router-dom":75}],133:[function(require,module,exports){
+},{"../../models/tools":177,"prop-types":43,"react":92,"react-router-dom":75}],133:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39810,7 +39810,7 @@ CheckoutView.propTypes = {
 
 exports.default = CheckoutView;
 
-},{"../../models/session":175,"../../models/tools":176,"prop-types":43,"react":92}],134:[function(require,module,exports){
+},{"../../models/session":176,"../../models/tools":177,"prop-types":43,"react":92}],134:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39917,7 +39917,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CongratulationPurchase);
 
-},{"../../strings":192,"prop-types":43,"react":92,"react-redux":57}],135:[function(require,module,exports){
+},{"../../strings":193,"prop-types":43,"react":92,"react-redux":57}],135:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40233,7 +40233,7 @@ ItemCarousel.propTypes = {
 
 exports.default = ItemCarousel;
 
-},{"../../models/tools":176,"prop-types":43,"react":92}],139:[function(require,module,exports){
+},{"../../models/tools":177,"prop-types":43,"react":92}],139:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40455,7 +40455,7 @@ ItemContent.propTypes = {
 
 exports.default = ItemContent;
 
-},{"../../models/tools":176,"../itemContentAttributes/itemContentAttributes":140,"../itemContentShipping/itemContentShipping":141,"prop-types":43,"react":92}],140:[function(require,module,exports){
+},{"../../models/tools":177,"../itemContentAttributes/itemContentAttributes":140,"../itemContentShipping/itemContentShipping":141,"prop-types":43,"react":92}],140:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40620,7 +40620,7 @@ ItemContentAttributes.propTypes = {
 
 exports.default = ItemContentAttributes;
 
-},{"../../models/tools":176,"prop-types":43,"react":92}],141:[function(require,module,exports){
+},{"../../models/tools":177,"prop-types":43,"react":92}],141:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40700,7 +40700,7 @@ ItemContentShipping.propTypes = {
 
 exports.default = ItemContentShipping;
 
-},{"../../models/tools":176,"prop-types":43,"react":92}],142:[function(require,module,exports){
+},{"../../models/tools":177,"prop-types":43,"react":92}],142:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41560,7 +41560,7 @@ PreviewItem.propTypes = {
 
 exports.default = PreviewItem;
 
-},{"../../models/tools.js":176,"prop-types":43,"react":92,"react-router-dom":75}],148:[function(require,module,exports){
+},{"../../models/tools.js":177,"prop-types":43,"react":92,"react-router-dom":75}],148:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42041,7 +42041,7 @@ PurchaseView.propTypes = {
 
 exports.default = PurchaseView;
 
-},{"../../models/tools.js":176,"../cartItemView/cartItemView":130,"prop-types":43,"react":92}],152:[function(require,module,exports){
+},{"../../models/tools.js":177,"../cartItemView/cartItemView":130,"prop-types":43,"react":92}],152:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42152,7 +42152,7 @@ PurchasesList.propTypes = {
 
 exports.default = PurchasesList;
 
-},{"../../models/tools.js":176,"prop-types":43,"react":92,"react-router-dom":75}],153:[function(require,module,exports){
+},{"../../models/tools.js":177,"prop-types":43,"react":92,"react-router-dom":75}],153:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42428,6 +42428,7 @@ var ENV_PROD = {
   "COLLECTION_PROVIDER": "shProviders",
   "COLLECTION_ITEM": "shItems",
   "COLLECTION_PURCHASE": "shPurchases",
+  "ANALYTICS_TRACK_ID": "UA-54697040-5",
   "APP_ID_FACEBOOK": "123762241591576",
   "FIREBASE_APP": {
     apiKey: "AIzaSyAvS0Q6iuqo1xqzgBFl5ybVUCvu3Qkb1zY",
@@ -42454,6 +42455,7 @@ var ENV_DEV = {
   "COLLECTION_PROVIDER": "dev_shProviders",
   "COLLECTION_ITEM": "dev_shItems",
   "COLLECTION_PURCHASE": "dev_shPurchases",
+  "ANALYTICS_TRACK_ID": "UA-54697040-5",
   "APP_ID_FACEBOOK": "1594595550592061",
   "FIREBASE_APP": {
     apiKey: "AIzaSyAvS0Q6iuqo1xqzgBFl5ybVUCvu3Qkb1zY",
@@ -42572,6 +42574,8 @@ var _session = require('../models/session');
 
 var _session2 = _interopRequireDefault(_session);
 
+var _analytics = require('../models/analytics');
+
 var _account = require('../actions/account');
 
 var _breadcrumbs = require('../components/breadcrumbs/breadcrumbs');
@@ -42600,9 +42604,10 @@ var AccountPage = function (_React$Component) {
 
     var _this$props = _this.props,
         analytics = _this$props.analytics,
-        facebookPixel = _this$props.facebookPixel;
+        facebookPixel = _this$props.facebookPixel,
+        analyticsTrackerId = _this$props.analyticsTrackerId;
 
-    analytics();
+    analytics(analyticsTrackerId);
     facebookPixel();
     return _this;
   }
@@ -42652,6 +42657,7 @@ var AccountPage = function (_React$Component) {
 AccountPage.propsType = {
   strings: _propTypes2.default.object.isRequired,
   username: _propTypes2.default.string.isRequired,
+  analyticsTrackerId: _propTypes2.default.string.isRequired,
   user: _propTypes2.default.object.isRequired,
   analytics: _propTypes2.default.func.isRequired,
   facebookPixel: _propTypes2.default.func.isRequired,
@@ -42663,13 +42669,16 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     strings: (0, _strings2.default)(state.language).accountPage,
     username: state.store.username,
+    analyticsTrackerId: state.store.analytics,
     user: _session2.default.getUser()
   };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    analytics: function analytics() {},
+    analytics: function analytics(analyticsTrackerId) {
+      return (0, _analytics.pageView)(analyticsTrackerId);
+    },
     facebookPixel: function facebookPixel() {},
     updateAccount: function updateAccount(name, lastname, phone, email) {
       return dispatch((0, _account.updateAccount)(name, lastname, phone, email));
@@ -42683,7 +42692,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(AccountPage));
 
-},{"../actions/account":107,"../components/accountView/accountView":128,"../components/breadcrumbs/breadcrumbs":129,"../models/session":175,"../strings":192,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],161:[function(require,module,exports){
+},{"../actions/account":107,"../components/accountView/accountView":128,"../components/breadcrumbs/breadcrumbs":129,"../models/analytics":173,"../models/session":176,"../strings":193,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],161:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42709,6 +42718,8 @@ var _cart = require('../actions/cart');
 var _strings = require('../strings');
 
 var _strings2 = _interopRequireDefault(_strings);
+
+var _analytics = require('../models/analytics');
 
 var _emptyCartView = require('../components/emptyCartView/emptyCartView');
 
@@ -42736,9 +42747,10 @@ var CartPage = function (_React$Component) {
 
     var _this$props = _this.props,
         analytics = _this$props.analytics,
-        facebookPixel = _this$props.facebookPixel;
+        facebookPixel = _this$props.facebookPixel,
+        analyticsTrackerId = _this$props.analyticsTrackerId;
 
-    analytics();
+    analytics(analyticsTrackerId);
     facebookPixel();
     return _this;
   }
@@ -42781,6 +42793,7 @@ var CartPage = function (_React$Component) {
 CartPage.propTypes = {
   strings: _propTypes2.default.object.isRequired,
   username: _propTypes2.default.string.isRequired,
+  analyticsTrackerId: _propTypes2.default.string.isRequired,
   quantityCart: _propTypes2.default.number.isRequired,
   cart: _propTypes2.default.object.isRequired,
   analytics: _propTypes2.default.func.isRequired,
@@ -42793,6 +42806,7 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     strings: (0, _strings2.default)(state.language).cartPage,
     username: state.store.username,
+    analyticsTrackerId: state.store.analytics,
     quantityCart: state.cart.quantity,
     cart: state.cart
   };
@@ -42800,7 +42814,9 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    analytics: function analytics() {},
+    analytics: function analytics(analyticsTrackerId) {
+      return (0, _analytics.pageView)(analyticsTrackerId);
+    },
     facebookPixel: function facebookPixel() {},
     deleteItemCart: function deleteItemCart(index) {
       return dispatch((0, _cart.deleteItemCart)(index));
@@ -42814,7 +42830,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CartPage));
 
-},{"../actions/cart":108,"../components/cartView/cartView":131,"../components/emptyCartView/emptyCartView":136,"../strings":192,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],162:[function(require,module,exports){
+},{"../actions/cart":108,"../components/cartView/cartView":131,"../components/emptyCartView/emptyCartView":136,"../models/analytics":173,"../strings":193,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],162:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42842,6 +42858,8 @@ var _strings = require('../strings');
 var _strings2 = _interopRequireDefault(_strings);
 
 var _tools = require('../models/tools');
+
+var _analytics = require('../models/analytics');
 
 var _breadcrumbs = require('../components/breadcrumbs/breadcrumbs');
 
@@ -42882,10 +42900,11 @@ var CategoryPage = function (_React$Component) {
     var _this$props = _this.props,
         analytics = _this$props.analytics,
         facebookPixel = _this$props.facebookPixel,
+        analyticsTrackerId = _this$props.analyticsTrackerId,
         category = _this$props.category,
         loadCategory = _this$props.loadCategory;
 
-    analytics();
+    analytics(analyticsTrackerId);
     facebookPixel();
     loadCategory(category);
     return _this;
@@ -42951,6 +42970,7 @@ var CategoryPage = function (_React$Component) {
 CategoryPage.propTypes = {
   strings: _propTypes2.default.object.isRequired,
   username: _propTypes2.default.string.isRequired,
+  analyticsTrackerId: _propTypes2.default.string.isRequired,
   parent: _propTypes2.default.any,
   category: _propTypes2.default.string.isRequired,
   isResultLoaded: _propTypes2.default.bool.isRequired,
@@ -42970,6 +42990,7 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     strings: (0, _strings2.default)(state.language).categoryPage,
     username: state.store.username,
+    analyticsTrackerId: state.store.analytics,
     parent: ownProps.match.params.parent !== undefined ? (0, _tools.noLinkUnderscore)(ownProps.match.params.parent) : null,
     category: (0, _tools.noLinkUnderscore)(ownProps.match.params.category),
     isResultLoaded: state.isResultLoaded,
@@ -42984,7 +43005,9 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    analytics: function analytics() {},
+    analytics: function analytics(analyticsTrackerId) {
+      return (0, _analytics.pageView)(analyticsTrackerId);
+    },
     facebookPixel: function facebookPixel() {},
     loadCategory: function loadCategory(category) {
       return dispatch((0, _actions.loadCategory)(category));
@@ -42998,7 +43021,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CategoryPage));
 
-},{"../actions":110,"../components/breadcrumbs/breadcrumbs":129,"../components/pagination/pagination":146,"../components/previewList/previewList":148,"../components/previewListPlaceholder/previewListPlaceholder":149,"../components/resultCount/resultCount":153,"../models/tools":176,"../strings":192,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],163:[function(require,module,exports){
+},{"../actions":110,"../components/breadcrumbs/breadcrumbs":129,"../components/pagination/pagination":146,"../components/previewList/previewList":148,"../components/previewListPlaceholder/previewListPlaceholder":149,"../components/resultCount/resultCount":153,"../models/analytics":173,"../models/tools":177,"../strings":193,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],163:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43025,6 +43048,8 @@ var _strings = require('../strings');
 
 var _strings2 = _interopRequireDefault(_strings);
 
+var _analytics = require('../models/analytics');
+
 var _checkoutView = require('../components/checkoutView/checkoutView');
 
 var _checkoutView2 = _interopRequireDefault(_checkoutView);
@@ -43047,9 +43072,10 @@ var CheckoutPage = function (_React$Component) {
 
     var _this$props = _this.props,
         analytics = _this$props.analytics,
-        facebookPixel = _this$props.facebookPixel;
+        facebookPixel = _this$props.facebookPixel,
+        analyticsTrackerId = _this$props.analyticsTrackerId;
 
-    analytics();
+    analytics(analyticsTrackerId);
     facebookPixel();
     return _this;
   }
@@ -43076,6 +43102,7 @@ var CheckoutPage = function (_React$Component) {
 
 CheckoutPage.propTypes = {
   strings: _propTypes2.default.object.isRequired,
+  analyticsTrackerId: _propTypes2.default.string.isRequired,
   cart: _propTypes2.default.object.isRequired,
   analytics: _propTypes2.default.func.isRequired,
   facebookPixel: _propTypes2.default.func.isRequired,
@@ -43085,13 +43112,16 @@ CheckoutPage.propTypes = {
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     strings: (0, _strings2.default)(state.language).checkoutPage,
+    analyticsTrackerId: state.store.analytics,
     cart: state.cart
   };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    analytics: function analytics() {},
+    analytics: function analytics(analyticsTrackerId) {
+      return (0, _analytics.pageView)(analyticsTrackerId);
+    },
     facebookPixel: function facebookPixel() {},
     placeOrder: function placeOrder() {
       return dispatch((0, _cart.placeOrder)());
@@ -43102,7 +43132,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CheckoutPage));
 
-},{"../actions/cart":108,"../components/checkoutView/checkoutView":133,"../strings":192,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],164:[function(require,module,exports){
+},{"../actions/cart":108,"../components/checkoutView/checkoutView":133,"../models/analytics":173,"../strings":193,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],164:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43203,7 +43233,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Hero));
 
-},{"../components/profile/profile.js":150,"../components/tabsHero/tabsHero.js":155,"../strings":192,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],165:[function(require,module,exports){
+},{"../components/profile/profile.js":150,"../components/tabsHero/tabsHero.js":155,"../strings":193,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],165:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43229,6 +43259,8 @@ var _strings = require('../strings');
 var _strings2 = _interopRequireDefault(_strings);
 
 var _tools = require('../models/tools');
+
+var _analytics = require('../models/analytics');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -43268,9 +43300,10 @@ var HomePage = function (_React$Component) {
     _this.state = { hasError: false };
     var _this$props = _this.props,
         analytics = _this$props.analytics,
-        facebookPixel = _this$props.facebookPixel;
+        facebookPixel = _this$props.facebookPixel,
+        analyticsTrackerId = _this$props.analyticsTrackerId;
 
-    analytics();
+    analytics(analyticsTrackerId);
     facebookPixel();
     return _this;
   }
@@ -43305,6 +43338,7 @@ var HomePage = function (_React$Component) {
 HomePage.propTypes = {
   strings: _propTypes2.default.object.isRequired,
   username: _propTypes2.default.string.isRequired,
+  analyticsTrackerId: _propTypes2.default.string.isRequired,
   isEditable: _propTypes2.default.bool.isRequired,
   sections: _propTypes2.default.array.isRequired,
   analytics: _propTypes2.default.func.isRequired,
@@ -43315,6 +43349,7 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     strings: (0, _strings2.default)(state.language).homePage,
     username: state.store.username,
+    analyticsTrackerId: state.store.analytics,
     isEditable: state.isEditable,
     sections: state.store.theme.sections
   };
@@ -43322,7 +43357,9 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    analytics: function analytics() {},
+    analytics: function analytics(analyticsTrackerId) {
+      return (0, _analytics.pageView)(analyticsTrackerId);
+    },
     facebookPixel: function facebookPixel() {}
   };
 };
@@ -43330,7 +43367,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(HomePage);
 
-},{"../models/tools":176,"../strings":192,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],166:[function(require,module,exports){
+},{"../models/analytics":173,"../models/tools":177,"../strings":193,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],166:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43358,6 +43395,8 @@ var _actions = require('../actions');
 var _strings = require('../strings');
 
 var _strings2 = _interopRequireDefault(_strings);
+
+var _analytics = require('../models/analytics');
 
 var _breadcrumbs = require('../components/breadcrumbs/breadcrumbs');
 
@@ -43391,11 +43430,12 @@ var ItemPage = function (_React$Component) {
     var _this$props = _this.props,
         analytics = _this$props.analytics,
         facebookPixel = _this$props.facebookPixel,
+        analyticsTrackerId = _this$props.analyticsTrackerId,
         loadItem = _this$props.loadItem,
         itemId = _this$props.itemId,
         facebookInit = _this$props.facebookInit;
 
-    analytics();
+    analytics(analyticsTrackerId);
     facebookPixel();
     loadItem(itemId);
     return _this;
@@ -43459,6 +43499,7 @@ var ItemPage = function (_React$Component) {
 ItemPage.propTypes = {
   strings: _propTypes2.default.object.isRequired,
   username: _propTypes2.default.string.isRequired,
+  analyticsTrackerId: _propTypes2.default.string.isRequired,
   itemId: _propTypes2.default.string.isRequired,
   isFetching: _propTypes2.default.bool.isRequired,
   item: _propTypes2.default.object.isRequired,
@@ -43477,6 +43518,7 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     strings: (0, _strings2.default)(state.language).itemPage,
     username: state.store.username,
+    analyticsTrackerId: state.store.analytics,
     itemId: ownProps.match.params.id,
     isFetching: state.isFetching,
     item: state.item
@@ -43485,7 +43527,9 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    analytics: function analytics() {},
+    analytics: function analytics(analyticsTrackerId) {
+      return (0, _analytics.pageView)(analyticsTrackerId);
+    },
     facebookPixel: function facebookPixel() {},
     loadItem: function loadItem(itemId) {
       return dispatch((0, _item.loadItem)(itemId));
@@ -43514,7 +43558,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(ItemPage));
 
-},{"../actions":110,"../actions/item":111,"../components/breadcrumbs/breadcrumbs":129,"../components/itemView/itemView":142,"../components/itemViewPlaceholder/itemViewPlaceholder":143,"../strings":192,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],167:[function(require,module,exports){
+},{"../actions":110,"../actions/item":111,"../components/breadcrumbs/breadcrumbs":129,"../components/itemView/itemView":142,"../components/itemViewPlaceholder/itemViewPlaceholder":143,"../models/analytics":173,"../strings":193,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],167:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43541,6 +43585,8 @@ var _strings = require('../strings');
 
 var _strings2 = _interopRequireDefault(_strings);
 
+var _analytics = require('../models/analytics');
+
 var _loginView = require('../components/loginView/loginView');
 
 var _loginView2 = _interopRequireDefault(_loginView);
@@ -43563,9 +43609,10 @@ var LoginPage = function (_React$Component) {
 
     var _this$props = _this.props,
         analytics = _this$props.analytics,
-        facebookPixel = _this$props.facebookPixel;
+        facebookPixel = _this$props.facebookPixel,
+        analyticsTrackerId = _this$props.analyticsTrackerId;
 
-    analytics();
+    analytics(analyticsTrackerId);
     facebookPixel();
     return _this;
   }
@@ -43603,6 +43650,7 @@ var LoginPage = function (_React$Component) {
 LoginPage.propTypes = {
   strings: _propTypes2.default.object.isRequired,
   basename: _propTypes2.default.string.isRequired,
+  analyticsTrackerId: _propTypes2.default.string.isRequired,
   login: _propTypes2.default.func.isRequired,
   signup: _propTypes2.default.func.isRequired,
   guest: _propTypes2.default.bool,
@@ -43612,13 +43660,16 @@ LoginPage.propTypes = {
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     strings: (0, _strings2.default)(state.language).loginPage,
-    basename: '/' + state.store.username
+    basename: '/' + state.store.username,
+    analyticsTrackerId: state.store.analytics
   };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    analytics: function analytics() {},
+    analytics: function analytics(analyticsTrackerId) {
+      return (0, _analytics.pageView)(analyticsTrackerId);
+    },
     facebookPixel: function facebookPixel() {},
     login: function login(email, password) {
       return dispatch((0, _login2.login)(email, password));
@@ -43632,7 +43683,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(LoginPage));
 
-},{"../actions/login":112,"../components/loginView/loginView":144,"../strings":192,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],168:[function(require,module,exports){
+},{"../actions/login":112,"../components/loginView/loginView":144,"../models/analytics":173,"../strings":193,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],168:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43663,6 +43714,8 @@ var _session = require('../models/session');
 
 var _session2 = _interopRequireDefault(_session);
 
+var _analytics = require('../models/analytics');
+
 var _breadcrumbs = require('../components/breadcrumbs/breadcrumbs');
 
 var _breadcrumbs2 = _interopRequireDefault(_breadcrumbs);
@@ -43690,10 +43743,11 @@ var PurchasePage = function (_React$Component) {
     var _this$props = _this.props,
         analytics = _this$props.analytics,
         facebookPixel = _this$props.facebookPixel,
+        analyticsTrackerId = _this$props.analyticsTrackerId,
         loadPurchase = _this$props.loadPurchase,
         purchaseId = _this$props.purchaseId;
 
-    analytics();
+    analytics(analyticsTrackerId);
     facebookPixel();
     loadPurchase(purchaseId);
     return _this;
@@ -43750,6 +43804,7 @@ var PurchasePage = function (_React$Component) {
 PurchasePage.propTypes = {
   strings: _propTypes2.default.object.isRequired,
   username: _propTypes2.default.string.isRequired,
+  analyticsTrackerId: _propTypes2.default.string.isRequired,
   isFetching: _propTypes2.default.bool.isRequired,
   purchaseId: _propTypes2.default.string.isRequired,
   purchase: _propTypes2.default.object.isRequired,
@@ -43762,6 +43817,7 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     strings: (0, _strings2.default)(state.language).purchasePage,
     username: state.store.username,
+    analyticsTrackerId: state.store.analytics,
     isFetching: state.isFetching,
     purchaseId: ownProps.match.params.id,
     purchase: state.purchase
@@ -43770,7 +43826,9 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    analytics: function analytics() {},
+    analytics: function analytics(analyticsTrackerId) {
+      return (0, _analytics.pageView)(analyticsTrackerId);
+    },
     facebookPixel: function facebookPixel() {},
     loadPurchase: function loadPurchase(purchaseId) {
       return dispatch((0, _account.loadPurchase)(purchaseId));
@@ -43781,7 +43839,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(PurchasePage));
 
-},{"../actions/account":107,"../components/breadcrumbs/breadcrumbs":129,"../components/purchaseView/purchaseView":151,"../models/session":175,"../strings":192,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],169:[function(require,module,exports){
+},{"../actions/account":107,"../components/breadcrumbs/breadcrumbs":129,"../components/purchaseView/purchaseView":151,"../models/analytics":173,"../models/session":176,"../strings":193,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],169:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43809,6 +43867,8 @@ var _strings2 = _interopRequireDefault(_strings);
 var _session = require('../models/session');
 
 var _session2 = _interopRequireDefault(_session);
+
+var _analytics = require('../models/analytics');
 
 var _account = require('../actions/account');
 
@@ -43845,9 +43905,10 @@ var PurchasesPage = function (_React$Component) {
     var _this$props = _this.props,
         analytics = _this$props.analytics,
         facebookPixel = _this$props.facebookPixel,
+        analyticsTrackerId = _this$props.analyticsTrackerId,
         loadPurchasesList = _this$props.loadPurchasesList;
 
-    analytics();
+    analytics(analyticsTrackerId);
     facebookPixel();
     loadPurchasesList();
     return _this;
@@ -43913,6 +43974,7 @@ var PurchasesPage = function (_React$Component) {
 PurchasesPage.propsType = {
   strings: _propTypes2.default.object.isRequired,
   username: _propTypes2.default.string.isRequired,
+  analyticsTrackerId: _propTypes2.default.string.isRequired,
   isFetching: _propTypes2.default.bool.isRequired,
   pagination: _propTypes2.default.object.isRequired,
   analytics: _propTypes2.default.func.isRequired,
@@ -43925,6 +43987,7 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     strings: (0, _strings2.default)(state.language).purchasesPage,
     username: state.store.username,
+    analyticsTrackerId: state.store.analytics,
     isFetching: state.isFetching,
     pagination: {
       index: state.pagination.index,
@@ -43937,7 +44000,9 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    analytics: function analytics() {},
+    analytics: function analytics(analyticsTrackerId) {
+      return (0, _analytics.pageView)(analyticsTrackerId);
+    },
     facebookPixel: function facebookPixel() {},
     loadPurchasesList: function loadPurchasesList() {
       return dispatch((0, _account.loadPurchasesList)());
@@ -43951,7 +44016,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(PurchasesPage));
 
-},{"../actions/account":107,"../actions/pagination":113,"../components/breadcrumbs/breadcrumbs":129,"../components/pagination/pagination":146,"../components/purchasesList/purchasesList":152,"../models/session":175,"../strings":192,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],170:[function(require,module,exports){
+},{"../actions/account":107,"../actions/pagination":113,"../components/breadcrumbs/breadcrumbs":129,"../components/pagination/pagination":146,"../components/purchasesList/purchasesList":152,"../models/analytics":173,"../models/session":176,"../strings":193,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],170:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43979,6 +44044,8 @@ var _strings = require('../strings');
 var _strings2 = _interopRequireDefault(_strings);
 
 var _tools = require('../models/tools');
+
+var _analytics = require('../models/analytics');
 
 var _breadcrumbs = require('../components/breadcrumbs/breadcrumbs');
 
@@ -44008,27 +44075,28 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var ResultSearch = function (_React$Component) {
-  _inherits(ResultSearch, _React$Component);
+var SearchPage = function (_React$Component) {
+  _inherits(SearchPage, _React$Component);
 
-  function ResultSearch(props) {
-    _classCallCheck(this, ResultSearch);
+  function SearchPage(props) {
+    _classCallCheck(this, SearchPage);
 
-    var _this = _possibleConstructorReturn(this, (ResultSearch.__proto__ || Object.getPrototypeOf(ResultSearch)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (SearchPage.__proto__ || Object.getPrototypeOf(SearchPage)).call(this, props));
 
     var _this$props = _this.props,
         analytics = _this$props.analytics,
         facebookPixel = _this$props.facebookPixel,
+        analyticsTrackerId = _this$props.analyticsTrackerId,
         query = _this$props.query,
         loadSearch = _this$props.loadSearch;
 
-    analytics();
+    analytics(analyticsTrackerId);
     facebookPixel();
     loadSearch(query);
     return _this;
   }
 
-  _createClass(ResultSearch, [{
+  _createClass(SearchPage, [{
     key: 'render',
     value: function render() {
       var _props = this.props,
@@ -44081,12 +44149,13 @@ var ResultSearch = function (_React$Component) {
     }
   }]);
 
-  return ResultSearch;
+  return SearchPage;
 }(_react2.default.Component);
 
-ResultSearch.propTypes = {
+SearchPage.propTypes = {
   strings: _propTypes2.default.object.isRequired,
   username: _propTypes2.default.string.isRequired,
+  analyticsTrackerId: _propTypes2.default.string.isRequired,
   query: _propTypes2.default.string.isRequired,
   isResultLoaded: _propTypes2.default.bool.isRequired,
   pagination: _propTypes2.default.shape({
@@ -44105,6 +44174,7 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     strings: (0, _strings2.default)(state.language).searchPage,
     username: state.store.username,
+    analyticsTrackerId: state.store.analytics,
     query: (0, _tools.getQueryValue)('search'),
     isResultLoaded: state.isResultLoaded,
     pagination: {
@@ -44118,7 +44188,9 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    analytics: function analytics() {},
+    analytics: function analytics(analyticsTrackerId) {
+      return (0, _analytics.pageView)(analyticsTrackerId);
+    },
     facebookPixel: function facebookPixel() {},
     loadSearch: function loadSearch(query) {
       return dispatch((0, _actions.loadSearch)(query));
@@ -44130,9 +44202,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
-mapDispatchToProps)(ResultSearch));
+mapDispatchToProps)(SearchPage));
 
-},{"../actions":110,"../components/breadcrumbs/breadcrumbs":129,"../components/pagination/pagination":146,"../components/previewList/previewList":148,"../components/previewListPlaceholder/previewListPlaceholder":149,"../components/resultCount/resultCount":153,"../models/tools":176,"../strings":192,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],171:[function(require,module,exports){
+},{"../actions":110,"../components/breadcrumbs/breadcrumbs":129,"../components/pagination/pagination":146,"../components/previewList/previewList":148,"../components/previewListPlaceholder/previewListPlaceholder":149,"../components/resultCount/resultCount":153,"../models/analytics":173,"../models/tools":177,"../strings":193,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],171:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44399,7 +44471,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(Store));
 
-},{"../actions":110,"../actions/login":112,"../components/categories/categories.js":132,"../components/congratulationPurchase/congratulationPurchase.js":134,"../components/contact/contact.js":135,"../components/footer/footer.js":137,"../components/navbar/navbar.js":145,"../components/spinner/spinner.js":154,"../models/session":175,"../strings":192,"./accountPage.js":160,"./cartPage.js":161,"./categoryPage.js":162,"./checkoutPage.js":163,"./hero.js":164,"./homePage.js":165,"./itemPage.js":166,"./loginPage.js":167,"./purchasePage.js":168,"./purchasesPage.js":169,"./searchPage.js":170,"./terms.js":172,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],172:[function(require,module,exports){
+},{"../actions":110,"../actions/login":112,"../components/categories/categories.js":132,"../components/congratulationPurchase/congratulationPurchase.js":134,"../components/contact/contact.js":135,"../components/footer/footer.js":137,"../components/navbar/navbar.js":145,"../components/spinner/spinner.js":154,"../models/session":176,"../strings":193,"./accountPage.js":160,"./cartPage.js":161,"./categoryPage.js":162,"./checkoutPage.js":163,"./hero.js":164,"./homePage.js":165,"./itemPage.js":166,"./loginPage.js":167,"./purchasePage.js":168,"./purchasesPage.js":169,"./searchPage.js":170,"./terms.js":172,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],172:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44440,7 +44512,29 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(_terms2.default);
 
-},{"../components/terms/terms.js":156,"../strings":192,"react-redux":57}],173:[function(require,module,exports){
+},{"../components/terms/terms.js":156,"../strings":193,"react-redux":57}],173:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.pageView = undefined;
+
+var _config = require('../config');
+
+/**
+ * Send a Analytics's pageView hit
+ * @param {string} storeTrackerId - Analytics store tracker id
+ */
+var pageView = exports.pageView = function pageView(storeTrackerId) {
+  ga('create', storeTrackerId, 'auto');
+  ga('create', (0, _config.getEnv)().ANALYTICS_TRACK_ID, 'auto', 'sherponTracker');
+
+  ga('send', 'pageview');
+  ga('sherponTracker.send', 'pageview');
+};
+
+},{"../config":157}],174:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -44451,7 +44545,7 @@ var _history = require("history");
 
 exports.default = (0, _history.createBrowserHistory)({ basename: "/" });
 
-},{"history":22}],174:[function(require,module,exports){
+},{"history":22}],175:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44506,7 +44600,7 @@ Diners Club       3600 020000 0006      01/2020   230   fraudulent
 
  */
 
-},{"../tools":176}],175:[function(require,module,exports){
+},{"../tools":177}],176:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44567,7 +44661,7 @@ exports.default = {
   inCartSession: inCartSession
 };
 
-},{}],176:[function(require,module,exports){
+},{}],177:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -44694,7 +44788,7 @@ var getFormattedTime = exports.getFormattedTime = function getFormattedTime(time
   return formattedTime;
 };
 
-},{}],177:[function(require,module,exports){
+},{}],178:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44719,7 +44813,7 @@ var admin = function admin() {
 
 exports.default = admin;
 
-},{"../constants/ActionTypes":158}],178:[function(require,module,exports){
+},{"../constants/ActionTypes":158}],179:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44854,7 +44948,7 @@ var Cart = function Cart() {
 
 exports.default = Cart;
 
-},{"../constants/ActionTypes":158,"../models/session":175}],179:[function(require,module,exports){
+},{"../constants/ActionTypes":158,"../models/session":176}],180:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44885,7 +44979,7 @@ var inSession = function inSession() {
 
 exports.default = inSession;
 
-},{"../constants/ActionTypes":158,"../models/session":175}],180:[function(require,module,exports){
+},{"../constants/ActionTypes":158,"../models/session":176}],181:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44959,7 +45053,7 @@ exports.default = (0, _redux.combineReducers)({
   store: _store2.default
 });
 
-},{"./admin":177,"./cart":178,"./inSession":179,"./isEditable":181,"./isFetching":182,"./isResultLoaded":183,"./item":184,"./language":185,"./pagination":186,"./purchase":187,"./result":188,"./store":189,"redux":100}],181:[function(require,module,exports){
+},{"./admin":178,"./cart":179,"./inSession":180,"./isEditable":182,"./isFetching":183,"./isResultLoaded":184,"./item":185,"./language":186,"./pagination":187,"./purchase":188,"./result":189,"./store":190,"redux":100}],182:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44984,7 +45078,7 @@ var isEditable = function isEditable() {
 
 exports.default = isEditable;
 
-},{"../constants/ActionTypes":158}],182:[function(require,module,exports){
+},{"../constants/ActionTypes":158}],183:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45009,7 +45103,7 @@ var isFetching = function isFetching() {
 
 exports.default = isFetching;
 
-},{"../constants/ActionTypes":158}],183:[function(require,module,exports){
+},{"../constants/ActionTypes":158}],184:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45034,7 +45128,7 @@ var isResultLoaded = function isResultLoaded() {
 
 exports.default = isResultLoaded;
 
-},{"../constants/ActionTypes":158}],184:[function(require,module,exports){
+},{"../constants/ActionTypes":158}],185:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -45097,7 +45191,7 @@ var item = function item() {
 
 exports.default = item;
 
-},{"../constants/ActionTypes":158}],185:[function(require,module,exports){
+},{"../constants/ActionTypes":158}],186:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45122,7 +45216,7 @@ var language = function language() {
 
 exports.default = language;
 
-},{"../constants/ActionTypes":158}],186:[function(require,module,exports){
+},{"../constants/ActionTypes":158}],187:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45167,7 +45261,7 @@ var pagination = function pagination() {
 
 exports.default = pagination;
 
-},{"../constants/ActionTypes":158}],187:[function(require,module,exports){
+},{"../constants/ActionTypes":158}],188:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -45223,7 +45317,7 @@ var purchase = function purchase() {
 
 exports.default = purchase;
 
-},{"../constants/ActionTypes":158}],188:[function(require,module,exports){
+},{"../constants/ActionTypes":158}],189:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45246,7 +45340,7 @@ var result = function result() {
 
 exports.default = result;
 
-},{"../constants/ActionTypes":158}],189:[function(require,module,exports){
+},{"../constants/ActionTypes":158}],190:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45281,7 +45375,7 @@ var storeState = function storeState() {
 
 exports.default = storeState;
 
-},{"../constants/ActionTypes":158}],190:[function(require,module,exports){
+},{"../constants/ActionTypes":158}],191:[function(require,module,exports){
 module.exports={
 	"store":{
 		"text1":"text"
@@ -45292,7 +45386,7 @@ module.exports={
 		"navbarItemAccount":"Mi cuenta"
 	}
 }
-},{}],191:[function(require,module,exports){
+},{}],192:[function(require,module,exports){
 module.exports={
 	"store":{
 		"text1":"text"
@@ -45517,7 +45611,7 @@ module.exports={
 	}
 }
 
-},{}],192:[function(require,module,exports){
+},{}],193:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45543,7 +45637,7 @@ Notes
 var userLang = navigator.language || navigator.userLanguage; 
  */
 
-},{"./EN.json":190,"./ES.json":191}],193:[function(require,module,exports){
+},{"./EN.json":191,"./ES.json":192}],194:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -45614,4 +45708,4 @@ Notes
  */
 
 }).call(this,require('_process'))
-},{"./containers/store.js":171,"./models/history":173,"./reducers":180,"_process":39,"jquery":25,"react":92,"react-dom":47,"react-redux":57,"react-router-dom":75,"redux":100,"redux-logger":93,"redux-thunk":94}]},{},[193]);
+},{"./containers/store.js":171,"./models/history":174,"./reducers":181,"_process":39,"jquery":25,"react":92,"react-dom":47,"react-redux":57,"react-router-dom":75,"redux":100,"redux-logger":93,"redux-thunk":94}]},{},[194]);

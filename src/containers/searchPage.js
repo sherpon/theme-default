@@ -7,6 +7,7 @@ import { goToPage, loadSearch } from '../actions'
 import Strings from '../strings'
 
 import { getQueryValue, noLinkUnderscore } from '../models/tools'
+import { pageView } from '../models/analytics'
 
 import Breadcrumbs from '../components/breadcrumbs/breadcrumbs'
 import Pagination from '../components/pagination/pagination'
@@ -14,11 +15,11 @@ import ResultCount from '../components/resultCount/resultCount'
 import PreviewListPlaceholder from '../components/previewListPlaceholder/previewListPlaceholder'
 import PreviewList from '../components/previewList/previewList'
 
-class ResultSearch extends React.Component {
+class SearchPage extends React.Component {
   constructor(props) {
     super(props)
-    const { analytics, facebookPixel, query, loadSearch } = this.props
-    analytics()
+    const { analytics, facebookPixel, analyticsTrackerId, query, loadSearch } = this.props
+    analytics(analyticsTrackerId)
     facebookPixel()
     loadSearch(query)
   }
@@ -64,9 +65,10 @@ class ResultSearch extends React.Component {
   }
 }
 
-ResultSearch.propTypes = {
+SearchPage.propTypes = {
   strings: PropTypes.object.isRequired,
   username: PropTypes.string.isRequired,
+  analyticsTrackerId: PropTypes.string.isRequired,
   query: PropTypes.string.isRequired,
   isResultLoaded: PropTypes.bool.isRequired,
   pagination: PropTypes.shape({
@@ -84,6 +86,7 @@ ResultSearch.propTypes = {
 const mapStateToProps = ( state, ownProps ) => ({
   strings: Strings(state.language).searchPage,
   username: state.store.username,
+  analyticsTrackerId: state.store.analytics,
   query: getQueryValue('search'),
   isResultLoaded: state.isResultLoaded,
   pagination: {
@@ -95,7 +98,7 @@ const mapStateToProps = ( state, ownProps ) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  analytics: () => {},
+  analytics: (analyticsTrackerId) => pageView(analyticsTrackerId),
   facebookPixel: () => {},
   loadSearch: (query) => dispatch(loadSearch(query)),
   goToPage: (index) => dispatch(goToPage(index))
@@ -104,4 +107,4 @@ const mapDispatchToProps = dispatch => ({
 export default withRouter(connect(
   mapStateToProps,  // Note 1
   mapDispatchToProps
-)(ResultSearch))
+)(SearchPage))

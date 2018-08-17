@@ -8,6 +8,7 @@ import { loadPurchase } from '../actions/account'
 
 import Strings from '../strings'
 import session from '../models/session'
+import { pageView } from '../models/analytics'
 
 import Breadcrumbs from '../components/breadcrumbs/breadcrumbs'
 import PurchaseView from '../components/purchaseView/purchaseView'
@@ -15,8 +16,8 @@ import PurchaseView from '../components/purchaseView/purchaseView'
 class PurchasePage extends React.Component {
   constructor(props) {
     super(props)
-    const { analytics, facebookPixel, loadPurchase, purchaseId } = this.props
-    analytics()
+    const { analytics, facebookPixel, analyticsTrackerId, loadPurchase, purchaseId } = this.props
+    analytics(analyticsTrackerId)
     facebookPixel()
     loadPurchase(purchaseId)
   }
@@ -64,6 +65,7 @@ class PurchasePage extends React.Component {
 PurchasePage.propTypes = {
   strings: PropTypes.object.isRequired,
   username: PropTypes.string.isRequired,
+  analyticsTrackerId: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,
   purchaseId: PropTypes.string.isRequired,
   purchase: PropTypes.object.isRequired,
@@ -75,13 +77,14 @@ PurchasePage.propTypes = {
 const mapStateToProps = ( state, ownProps ) => ({
   strings: Strings(state.language).purchasePage,
   username: state.store.username,
+  analyticsTrackerId: state.store.analytics,
   isFetching: state.isFetching,
   purchaseId: ownProps.match.params.id,
   purchase: state.purchase
 })
 
 const mapDispatchToProps = dispatch => ({
-  analytics: () => {},
+  analytics: (analyticsTrackerId) => pageView(analyticsTrackerId),
   facebookPixel: () => {},
   loadPurchase: (purchaseId) => dispatch(loadPurchase(purchaseId))
 })

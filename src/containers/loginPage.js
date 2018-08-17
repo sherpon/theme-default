@@ -6,14 +6,14 @@ import { withRouter } from 'react-router-dom'
 import { login, signup } from '../actions/login'
 
 import Strings from '../strings'
-
+import { pageView } from '../models/analytics'
 import LoginView from '../components/loginView/loginView'
 
 class LoginPage extends React.Component {
   constructor(props) {
     super(props)
-    const { analytics, facebookPixel } = this.props
-    analytics()
+    const { analytics, facebookPixel, analyticsTrackerId } = this.props
+    analytics(analyticsTrackerId)
     facebookPixel()
   }
 
@@ -31,13 +31,14 @@ class LoginPage extends React.Component {
           mode={mode}
         />
       </div>
-    )  
+    )
   }
 }
 
 LoginPage.propTypes = {
   strings: PropTypes.object.isRequired,
   basename: PropTypes.string.isRequired,
+  analyticsTrackerId: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,
   signup: PropTypes.func.isRequired,
   guest: PropTypes.bool,
@@ -46,11 +47,12 @@ LoginPage.propTypes = {
 
 const mapStateToProps = ( state, ownProps ) => ({
   strings: Strings(state.language).loginPage,
-  basename: `/${state.store.username}`
+  basename: `/${state.store.username}`,
+  analyticsTrackerId: state.store.analytics
 })
 
 const mapDispatchToProps = dispatch => ({
-  analytics: () => {},
+  analytics: (analyticsTrackerId) => pageView(analyticsTrackerId),
   facebookPixel: () => {},
   login: (email, password) => dispatch(login(email, password)),
   signup: (name, lastname, phone, email, password) => dispatch(signup(name, lastname, phone, email, password))
