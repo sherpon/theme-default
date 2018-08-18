@@ -6455,7 +6455,7 @@ body {
   margin-bottom: 10px; }
 
 .box-white, .purchase-view .purchase-information,
-.purchase-view .personal-information {
+.purchase-view .personal-information, .terms-view {
   background-color: white;
   border: 1px solid #e5e5e5;
   border-bottom-left-radius: 3px;
@@ -7100,5 +7100,7 @@ input::placeholder {
   margin-bottom: 2em; }
 
 /******** terms' components *********/
-.sherpon-terms {
-  padding: 1em; }
+.terms-view {
+  padding: 2em !important; }
+  .terms-view .terms-view__line {
+    padding-top: 2em; }

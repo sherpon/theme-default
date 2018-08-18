@@ -214,6 +214,10 @@
 		"message":"Una tienda creada en sherpon",
 		"copyright":"© 2018 sherpon.com"
 	},
+	"termsPage":{
+		"labelExchange":"Política de cambio",
+		"labelRefund":"Política de reembolso"
+	},
 	"terms":{
 		"labelEdit":"Editar",
 		"labelSave":"Guardar",

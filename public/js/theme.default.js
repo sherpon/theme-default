@@ -42373,36 +42373,50 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Terms = function Terms(_ref) {
+var TermsView = function TermsView(_ref) {
   var strings = _ref.strings,
-      isEditable = _ref.isEditable,
-      terms = _ref.terms,
-      init = _ref.init;
+      terms = _ref.terms;
 
   return _react2.default.createElement(
     'section',
-    { className: 'sherpon-box sherpon-terms' },
+    { className: 'terms-view' },
     _react2.default.createElement(
-      'h5',
-      null,
-      strings.title
+      'div',
+      { className: '' },
+      _react2.default.createElement(
+        'h5',
+        null,
+        strings.labelExchange
+      ),
+      _react2.default.createElement(
+        'div',
+        null,
+        terms.exchange
+      )
     ),
     _react2.default.createElement(
       'div',
-      null,
-      strings.terms
+      { className: 'terms-view__line' },
+      _react2.default.createElement(
+        'h5',
+        null,
+        strings.labelRefund
+      ),
+      _react2.default.createElement(
+        'div',
+        null,
+        terms.refund
+      )
     )
   );
 };
 
-Terms.propTypes = {
+TermsView.propTypes = {
   strings: _propTypes2.default.object.isRequired,
-  isEditable: _propTypes2.default.bool.isRequired,
-  init: _propTypes2.default.func.isRequired,
   terms: _propTypes2.default.object.isRequired
 };
 
-exports.default = Terms;
+exports.default = TermsView;
 
 },{"prop-types":43,"react":92}],157:[function(require,module,exports){
 "use strict";
@@ -44377,9 +44391,9 @@ var _searchPage = require('./searchPage.js');
 
 var _searchPage2 = _interopRequireDefault(_searchPage);
 
-var _terms = require('./terms.js');
+var _termsPage = require('./termsPage.js');
 
-var _terms2 = _interopRequireDefault(_terms);
+var _termsPage2 = _interopRequireDefault(_termsPage);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -44389,6 +44403,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // import Categories from './categories.js'
 // import Categories from './categories.js'
+
+//import Terms from './terms.js'
 
 
 var Store = function (_React$Component) {
@@ -44452,7 +44468,7 @@ var Store = function (_React$Component) {
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/category/:parent/:category', component: _categoryPage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/category/:category', component: _categoryPage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/search', component: _searchPage2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/terms', component: _terms2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/terms', component: _termsPage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/contact', component: function component() {
                 return _react2.default.createElement('span', null);
               } }),
@@ -44543,12 +44559,22 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(Store));
 
-},{"../actions":110,"../actions/login":112,"../components/categories/categories.js":132,"../components/congratulationPurchase/congratulationPurchase.js":134,"../components/contact/contact.js":135,"../components/footer/footer.js":137,"../components/navbar/navbar.js":145,"../components/spinner/spinner.js":154,"../models/session":177,"../strings":194,"./accountPage.js":160,"./cartPage.js":161,"./categoryPage.js":162,"./checkoutPage.js":163,"./hero.js":164,"./homePage.js":165,"./itemPage.js":166,"./loginPage.js":167,"./purchasePage.js":168,"./purchasesPage.js":169,"./searchPage.js":170,"./terms.js":172,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],172:[function(require,module,exports){
+},{"../actions":110,"../actions/login":112,"../components/categories/categories.js":132,"../components/congratulationPurchase/congratulationPurchase.js":134,"../components/contact/contact.js":135,"../components/footer/footer.js":137,"../components/navbar/navbar.js":145,"../components/spinner/spinner.js":154,"../models/session":177,"../strings":194,"./accountPage.js":160,"./cartPage.js":161,"./categoryPage.js":162,"./checkoutPage.js":163,"./hero.js":164,"./homePage.js":165,"./itemPage.js":166,"./loginPage.js":167,"./purchasePage.js":168,"./purchasesPage.js":169,"./searchPage.js":170,"./termsPage.js":172,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],172:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactRedux = require('react-redux');
 
@@ -44556,35 +44582,93 @@ var _strings = require('../strings');
 
 var _strings2 = _interopRequireDefault(_strings);
 
-var _terms = require('../components/terms/terms.js');
+var _analytics = require('../models/analytics');
 
-var _terms2 = _interopRequireDefault(_terms);
+var _facebookPixel = require('../models/facebookPixel');
+
+var _termsView = require('../components/termsView/termsView.js');
+
+var _termsView2 = _interopRequireDefault(_termsView);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//import { search } from '../actions'
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TermsPage = function (_React$Component) {
+  _inherits(TermsPage, _React$Component);
+
+  function TermsPage(props) {
+    _classCallCheck(this, TermsPage);
+
+    var _this = _possibleConstructorReturn(this, (TermsPage.__proto__ || Object.getPrototypeOf(TermsPage)).call(this, props));
+
+    var _this$props = _this.props,
+        analytics = _this$props.analytics,
+        facebookPixel = _this$props.facebookPixel,
+        analyticsTrackerId = _this$props.analyticsTrackerId,
+        facebookPixelId = _this$props.facebookPixelId;
+
+    analytics(analyticsTrackerId);
+    facebookPixel(facebookPixelId);
+    return _this;
+  }
+
+  _createClass(TermsPage, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          strings = _props.strings,
+          terms = _props.terms;
+
+      return _react2.default.createElement(_termsView2.default, {
+        strings: strings,
+        terms: terms
+      });
+    }
+  }]);
+
+  return TermsPage;
+}(_react2.default.Component);
+
+TermsPage.propTypes = {
+  strings: _propTypes2.default.object.isRequired,
+  isEditable: _propTypes2.default.bool.isRequired,
+  terms: _propTypes2.default.object.isRequired,
+  analyticsTrackerId: _propTypes2.default.string.isRequired,
+  facebookPixelId: _propTypes2.default.string.isRequired,
+  analytics: _propTypes2.default.func.isRequired,
+  facebookPixel: _propTypes2.default.func.isRequired
+};
+
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    strings: (0, _strings2.default)(state.language).terms,
+    strings: (0, _strings2.default)(state.language).termsPage,
     isEditable: state.isEditable,
-    terms: state.store.terms
+    terms: state.store.terms,
+    analyticsTrackerId: state.store.analytics,
+    facebookPixelId: state.store.facebookPixel
   };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    init: function init() {
-      //$(document).ready(function(){
-      //  $('.sidenav').sidenav()
-      //})
+    analytics: function analytics(analyticsTrackerId) {
+      return (0, _analytics.pageView)(analyticsTrackerId);
+    },
+    facebookPixel: function facebookPixel(facebookPixelId) {
+      return (0, _facebookPixel.pixelPageView)(facebookPixelId);
     }
   };
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
-mapDispatchToProps)(_terms2.default);
+mapDispatchToProps)(TermsPage);
 
-},{"../components/terms/terms.js":156,"../strings":194,"react-redux":57}],173:[function(require,module,exports){
+},{"../components/termsView/termsView.js":156,"../models/analytics":173,"../models/facebookPixel":174,"../strings":194,"prop-types":43,"react":92,"react-redux":57}],173:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45694,6 +45778,10 @@ module.exports={
 	"footer":{
 		"message":"Una tienda creada en sherpon",
 		"copyright":"© 2018 sherpon.com"
+	},
+	"termsPage":{
+		"labelExchange":"Política de cambio",
+		"labelRefund":"Política de reembolso"
 	},
 	"terms":{
 		"labelEdit":"Editar",

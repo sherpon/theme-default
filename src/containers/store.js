@@ -27,7 +27,8 @@ import CartPage from './cartPage.js'
 import CheckoutPage from './checkoutPage.js'
 import CongratulationPurchase from '../components/congratulationPurchase/congratulationPurchase.js' // import Categories from './categories.js'
 import SearchPage from './searchPage.js'
-import Terms from './terms.js'
+//import Terms from './terms.js'
+import TermsPage from './termsPage.js'
 
 class Store extends React.Component {
   constructor(props) {
@@ -64,7 +65,7 @@ class Store extends React.Component {
             <Route exact path="/:storeusername/category/:parent/:category" component={ CategoryPage } />
             <Route exact path="/:storeusername/category/:category" component={ CategoryPage } />
             <Route exact path="/:storeusername/search" component={ SearchPage } />
-            <Route exact path="/:storeusername/terms" component={ Terms } />
+            <Route exact path="/:storeusername/terms" component={ TermsPage } />
             <Route exact path="/:storeusername/contact" component={ () => (<span/>) } />
             <Route exact path="/:storeusername/cart" component={ CartPage } />
             <Route exact path="/:storeusername/checkout" component={ CheckoutPage } />
