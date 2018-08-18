@@ -7,14 +7,16 @@ import { login, signup } from '../actions/login'
 
 import Strings from '../strings'
 import { pageView } from '../models/analytics'
+import { pixelPageView } from '../models/facebookPixel'
+
 import LoginView from '../components/loginView/loginView'
 
 class LoginPage extends React.Component {
   constructor(props) {
     super(props)
-    const { analytics, facebookPixel, analyticsTrackerId } = this.props
+    const { analytics, facebookPixel, analyticsTrackerId, facebookPixelId } = this.props
     analytics(analyticsTrackerId)
-    facebookPixel()
+    facebookPixel(facebookPixelId)
   }
 
   render() {
@@ -39,6 +41,7 @@ LoginPage.propTypes = {
   strings: PropTypes.object.isRequired,
   basename: PropTypes.string.isRequired,
   analyticsTrackerId: PropTypes.string.isRequired,
+  facebookPixelId: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,
   signup: PropTypes.func.isRequired,
   guest: PropTypes.bool,
@@ -48,12 +51,13 @@ LoginPage.propTypes = {
 const mapStateToProps = ( state, ownProps ) => ({
   strings: Strings(state.language).loginPage,
   basename: `/${state.store.username}`,
-  analyticsTrackerId: state.store.analytics
+  analyticsTrackerId: state.store.analytics,
+  facebookPixelId: state.store.facebookPixel
 })
 
 const mapDispatchToProps = dispatch => ({
   analytics: (analyticsTrackerId) => pageView(analyticsTrackerId),
-  facebookPixel: () => {},
+  facebookPixel: (facebookPixelId) => pixelPageView(facebookPixelId),
   login: (email, password) => dispatch(login(email, password)),
   signup: (name, lastname, phone, email, password) => dispatch(signup(name, lastname, phone, email, password))
 })

@@ -7,6 +7,7 @@ import { withRouter } from 'react-router-dom'
 import Strings from '../strings'
 import session from '../models/session'
 import { pageView } from '../models/analytics'
+import { pixelPageView } from '../models/facebookPixel'
 import { loadPurchasesList } from '../actions/account'
 import { goToPage } from '../actions/pagination'
 
@@ -17,9 +18,9 @@ import PurchasesList from '../components/purchasesList/purchasesList'
 class PurchasesPage extends React.Component {
   constructor(props) {
     super(props)
-    const { analytics, facebookPixel, analyticsTrackerId, loadPurchasesList } = this.props
+    const { analytics, facebookPixel, analyticsTrackerId, facebookPixelId, loadPurchasesList } = this.props
     analytics(analyticsTrackerId)
-    facebookPixel()
+    facebookPixel(facebookPixelId)
     loadPurchasesList()
   }
 
@@ -77,6 +78,7 @@ PurchasesPage.propsType = {
   strings: PropTypes.object.isRequired,
   username: PropTypes.string.isRequired,
   analyticsTrackerId: PropTypes.string.isRequired,
+  facebookPixelId: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,
   pagination: PropTypes.object.isRequired,
   analytics: PropTypes.func.isRequired,
@@ -89,6 +91,7 @@ const mapStateToProps = ( state, ownProps ) => ({
   strings: Strings(state.language).purchasesPage,
   username: state.store.username,
   analyticsTrackerId: state.store.analytics,
+  facebookPixelId: state.store.facebookPixel,
   isFetching: state.isFetching,
   pagination: {
     index: state.pagination.index,
@@ -100,7 +103,7 @@ const mapStateToProps = ( state, ownProps ) => ({
 
 const mapDispatchToProps = dispatch => ({
   analytics: (analyticsTrackerId) => pageView(analyticsTrackerId),
-  facebookPixel: () => {},
+  facebookPixel: (facebookPixelId) => pixelPageView(facebookPixelId),
   loadPurchasesList: () => dispatch(loadPurchasesList()),
   goToPage: (index) => dispatch(goToPage(index))
 })

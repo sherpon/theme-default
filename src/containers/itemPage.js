@@ -8,6 +8,8 @@ import { loadCategory } from '../actions'
 
 import Strings from '../strings'
 import { pageView } from '../models/analytics'
+import { pixelPageView } from '../models/facebookPixel'
+
 import Breadcrumbs from '../components/breadcrumbs/breadcrumbs'
 import ItemViewPlaceholder from '../components/itemViewPlaceholder/itemViewPlaceholder'
 import ItemView from '../components/itemView/itemView'
@@ -16,9 +18,9 @@ class ItemPage extends React.Component {
   constructor(props) {
     super(props)
     this.state = { hasError: false }
-    const { analytics, facebookPixel, analyticsTrackerId, loadItem, itemId, facebookInit } = this.props
+    const { analytics, facebookPixel, analyticsTrackerId, facebookPixelId, loadItem, itemId, facebookInit } = this.props
     analytics(analyticsTrackerId)
-    facebookPixel()
+    facebookPixel(facebookPixelId)
     loadItem(itemId)
   }
 
@@ -68,6 +70,7 @@ ItemPage.propTypes = {
   strings: PropTypes.object.isRequired,
   username: PropTypes.string.isRequired,
   analyticsTrackerId: PropTypes.string.isRequired,
+  facebookPixelId: PropTypes.string.isRequired,
   itemId: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,
   item: PropTypes.object.isRequired,
@@ -86,6 +89,7 @@ const mapStateToProps = ( state, ownProps ) => ({
   strings: Strings(state.language).itemPage,
   username: state.store.username,
   analyticsTrackerId: state.store.analytics,
+  facebookPixelId: state.store.facebookPixel,
   itemId: ownProps.match.params.id,
   isFetching: state.isFetching,
   item: state.item
@@ -93,7 +97,7 @@ const mapStateToProps = ( state, ownProps ) => ({
 
 const mapDispatchToProps = dispatch => ({
   analytics: (analyticsTrackerId) => pageView(analyticsTrackerId),
-  facebookPixel: () => {},
+  facebookPixel: (facebookPixelId) => pixelPageView(facebookPixelId),
   loadItem: (itemId) => dispatch(loadItem(itemId)),
   loadCategory: (category) => dispatch(loadCategory(category)),
   onChangedSelect: () => dispatch(onChangedSelect()),

@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom'
 import { deleteItemCart, checkout } from '../actions/cart'
 import Strings from '../strings'
 import { pageView } from '../models/analytics'
+import { pixelPageView } from '../models/facebookPixel'
 
 import EmptyCartView from '../components/emptyCartView/emptyCartView'
 import CartView from '../components/cartView/cartView'
@@ -13,9 +14,9 @@ import CartView from '../components/cartView/cartView'
 class CartPage extends React.Component {
   constructor(props) {
     super(props)
-    const { analytics, facebookPixel, analyticsTrackerId } = this.props
+    const { analytics, facebookPixel, analyticsTrackerId, facebookPixelId } = this.props
     analytics(analyticsTrackerId)
-    facebookPixel()
+    facebookPixel(facebookPixelId)
   }
 
   render() {
@@ -47,6 +48,7 @@ CartPage.propTypes = {
   strings: PropTypes.object.isRequired,
   username: PropTypes.string.isRequired,
   analyticsTrackerId: PropTypes.string.isRequired,
+  facebookPixelId: PropTypes.string.isRequired,
   quantityCart: PropTypes.number.isRequired,
   cart: PropTypes.object.isRequired,
   analytics: PropTypes.func.isRequired,
@@ -59,13 +61,14 @@ const mapStateToProps = ( state, ownProps ) => ({
   strings: Strings(state.language).cartPage,
   username: state.store.username,
   analyticsTrackerId: state.store.analytics,
+  facebookPixelId: state.store.facebookPixel,
   quantityCart: state.cart.quantity,
   cart: state.cart
 })
 
 const mapDispatchToProps = dispatch => ({
   analytics: (analyticsTrackerId) => pageView(analyticsTrackerId),
-  facebookPixel: () => {},
+  facebookPixel: (facebookPixelId) => pixelPageView(facebookPixelId),
   deleteItemCart: (index) => dispatch(deleteItemCart(index)),
   checkout: () => dispatch(checkout())
 })

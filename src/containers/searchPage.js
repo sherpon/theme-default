@@ -8,6 +8,7 @@ import Strings from '../strings'
 
 import { getQueryValue, noLinkUnderscore } from '../models/tools'
 import { pageView } from '../models/analytics'
+import { pixelPageView } from '../models/facebookPixel'
 
 import Breadcrumbs from '../components/breadcrumbs/breadcrumbs'
 import Pagination from '../components/pagination/pagination'
@@ -18,9 +19,9 @@ import PreviewList from '../components/previewList/previewList'
 class SearchPage extends React.Component {
   constructor(props) {
     super(props)
-    const { analytics, facebookPixel, analyticsTrackerId, query, loadSearch } = this.props
+    const { analytics, facebookPixel, analyticsTrackerId, facebookPixelId, query, loadSearch } = this.props
     analytics(analyticsTrackerId)
-    facebookPixel()
+    facebookPixel(facebookPixelId)
     loadSearch(query)
   }
 
@@ -69,6 +70,7 @@ SearchPage.propTypes = {
   strings: PropTypes.object.isRequired,
   username: PropTypes.string.isRequired,
   analyticsTrackerId: PropTypes.string.isRequired,
+  facebookPixelId: PropTypes.string.isRequired,
   query: PropTypes.string.isRequired,
   isResultLoaded: PropTypes.bool.isRequired,
   pagination: PropTypes.shape({
@@ -87,6 +89,7 @@ const mapStateToProps = ( state, ownProps ) => ({
   strings: Strings(state.language).searchPage,
   username: state.store.username,
   analyticsTrackerId: state.store.analytics,
+  facebookPixelId: state.store.facebookPixel,
   query: getQueryValue('search'),
   isResultLoaded: state.isResultLoaded,
   pagination: {
@@ -99,7 +102,7 @@ const mapStateToProps = ( state, ownProps ) => ({
 
 const mapDispatchToProps = dispatch => ({
   analytics: (analyticsTrackerId) => pageView(analyticsTrackerId),
-  facebookPixel: () => {},
+  facebookPixel: (facebookPixelId) => pixelPageView(facebookPixelId),
   loadSearch: (query) => dispatch(loadSearch(query)),
   goToPage: (index) => dispatch(goToPage(index))
 })

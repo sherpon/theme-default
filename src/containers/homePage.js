@@ -7,6 +7,7 @@ import Strings from '../strings'
 
 import { noLinkEspace } from '../models/tools'
 import { pageView } from '../models/analytics'
+import { pixelPageView } from '../models/facebookPixel'
 
 const HomeSection = ({ username, section }) => {
   return (
@@ -28,9 +29,9 @@ class HomePage extends React.Component {
   constructor(props) {
     super(props)
     this.state = { hasError: false }
-    const { analytics, facebookPixel, analyticsTrackerId } = this.props
+    const { analytics, facebookPixel, analyticsTrackerId, facebookPixelId } = this.props
     analytics(analyticsTrackerId)
-    facebookPixel()
+    facebookPixel(facebookPixelId)
   }
 
   render() {
@@ -56,6 +57,7 @@ HomePage.propTypes = {
   strings: PropTypes.object.isRequired,
   username: PropTypes.string.isRequired,
   analyticsTrackerId: PropTypes.string.isRequired,
+  facebookPixelId: PropTypes.string.isRequired,
   isEditable: PropTypes.bool.isRequired,
   sections: PropTypes.array.isRequired,
   analytics: PropTypes.func.isRequired,
@@ -66,13 +68,14 @@ const mapStateToProps = state => ({
   strings: Strings(state.language).homePage,
   username: state.store.username,
   analyticsTrackerId: state.store.analytics,
+  facebookPixelId: state.store.facebookPixel,
   isEditable: state.isEditable,
   sections: state.store.theme.sections
 })
 
 const mapDispatchToProps = dispatch => ({
   analytics: (analyticsTrackerId) => pageView(analyticsTrackerId),
-  facebookPixel: () => {},
+  facebookPixel: (facebookPixelId) => pixelPageView(facebookPixelId)
 })
 
 export default connect(

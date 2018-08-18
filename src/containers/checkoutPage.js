@@ -4,17 +4,19 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
 import { placeOrder } from '../actions/cart'
+
 import Strings from '../strings'
 import { pageView } from '../models/analytics'
+import { pixelPageView } from '../models/facebookPixel'
 
 import CheckoutView from '../components/checkoutView/checkoutView'
 
 class CheckoutPage extends React.Component {
   constructor(props) {
     super(props)
-    const { analytics, facebookPixel, analyticsTrackerId } = this.props
+    const { analytics, facebookPixel, analyticsTrackerId, facebookPixelId } = this.props
     analytics(analyticsTrackerId)
-    facebookPixel()
+    facebookPixel(facebookPixelId)
   }
 
   render() {
@@ -33,6 +35,7 @@ class CheckoutPage extends React.Component {
 CheckoutPage.propTypes = {
   strings: PropTypes.object.isRequired,
   analyticsTrackerId: PropTypes.string.isRequired,
+  facebookPixelId: PropTypes.string.isRequired,
   cart: PropTypes.object.isRequired,
   analytics: PropTypes.func.isRequired,
   facebookPixel: PropTypes.func.isRequired,
@@ -42,12 +45,13 @@ CheckoutPage.propTypes = {
 const mapStateToProps = ( state, ownProps ) => ({
   strings: Strings(state.language).checkoutPage,
   analyticsTrackerId: state.store.analytics,
+  facebookPixelId: state.store.facebookPixel,
   cart: state.cart
 })
 
 const mapDispatchToProps = dispatch => ({
   analytics: (analyticsTrackerId) => pageView(analyticsTrackerId),
-  facebookPixel: () => {},
+  facebookPixel: (facebookPixelId) => pixelPageView(facebookPixelId),
   placeOrder: () => dispatch(placeOrder())
 })
 
