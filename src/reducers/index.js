@@ -3,7 +3,7 @@ import isFetching from './isFetching'
 import isResultLoaded from './isResultLoaded'
 import isEditable from './isEditable'
 import inSession from './inSession'
-import admin from './admin'
+import isAdmin from './isAdmin'
 import pagination from './pagination'
 import result from './result'
 import language from './language'
@@ -17,7 +17,7 @@ export default combineReducers({
   isResultLoaded,
   isEditable,
   inSession,
-  admin,
+  isAdmin,
   pagination,
   result,
   language,

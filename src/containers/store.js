@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 
 import { loadStore, search } from '../actions'
 import { logout } from '../actions/login'
+import { editStoreSwitch } from '../actions/store'
 import Strings from '../strings'
 import session from '../models/session'
 
@@ -40,7 +41,7 @@ class Store extends React.Component {
 
   render() {
     const { isFetching, isEditable } = this.props
-    const { stringsNavbar, search, inSession, user, logout } = this.props
+    const { stringsNavbar, search, editStoreSwitch, inSession, isAdmin, user, logout } = this.props
     const { username, categories } = this.props
     const { stringsContact, contact } = this.props
     const { stringsFooter } = this.props
@@ -54,6 +55,9 @@ class Store extends React.Component {
           strings={stringsNavbar}
           search={search}
           inSession={inSession}
+          isAdmin={isAdmin}
+          isEditable={isEditable}
+          editStoreSwitch={editStoreSwitch}
           user={user}
           username={username}
           logout={logout}
@@ -99,6 +103,7 @@ Store.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   isEditable: PropTypes.bool.isRequired,
   inSession: PropTypes.bool.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
   user: PropTypes.any,
   stringsContact: PropTypes.object.isRequired,
   contact: PropTypes.object.isRequired,
@@ -106,6 +111,7 @@ Store.propTypes = {
   stringsNavbar: PropTypes.object.isRequired,
   init: PropTypes.func.isRequired,
   search: PropTypes.func.isRequired,
+  editStoreSwitch: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   username: PropTypes.string.isRequired,
   categories: PropTypes.array.isRequired
@@ -116,6 +122,7 @@ const mapStateToProps = state => ({
   isFetching: state.isFetching,
   isEditable: state.isEditable,
   inSession: state.inSession,
+  isAdmin: state.isAdmin,
   user: session.getUser(),
   stringsContact: Strings(state.language).contact,
   contact: state.store.contact,
@@ -130,6 +137,7 @@ const mapDispatchToProps = dispatch => ({
   search: (event) => {
     dispatch(search(event))
   },
+  editStoreSwitch: () => dispatch(editStoreSwitch()),
   logout: () => dispatch(logout())
 })
 

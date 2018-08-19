@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
-const Navbar = ({ strings, search, inSession, user, username, logout }) => {
-  let navItemsComp, sidenavComp
+const Navbar = ({ strings, search, inSession, isAdmin, isEditable, editStoreSwitch, user, username, logout }) => {
+  let navItemsComp, sidenavComp, dropdownComp
 
   if ( inSession ) {
     navItemsComp = (
@@ -17,15 +17,73 @@ const Navbar = ({ strings, search, inSession, user, username, logout }) => {
       </ul>
     )
 
-    sidenavComp = (
-      <ul className="sidenav" id="mobile-demo">
-        <li className="sidenav__user-name">{`${strings.navbarItemGreeting}${user.name}`}</li>
-        <li><Link to={`/${username}/account`}>{strings.navbarItemAccount}</Link></li>
-        <li><Link to={`/${username}/purchases`}>{strings.navbarItemPurchases}</Link></li>
-        <li className="divider"></li>
-        <li><a onClick={ () => logout() }>{strings.navbarItemLogout}</a></li>
-      </ul>
-    )
+    if ( isAdmin ) {
+      let labelEdit
+      if (isEditable) { // if is editable, so turn it down
+        labelEdit = strings.navbarItemEditCompleted
+      } else {  // if isn't at editable mode, so turn it up
+        labelEdit = strings.navbarItemEdit
+      }
+      // Items de menu account dropdown
+      dropdownComp = (
+        <ul id="dropdown1" className="dropdown-content">
+          <li><a onClick={ () => editStoreSwitch() }>{labelEdit}</a></li>
+          <li><Link to={`/${username}/account`}>{strings.navbarItemCategories}</Link></li>
+          <li><Link to={`/${username}/account`}>{strings.navbarItemCatalog}</Link></li>
+          <li><Link to={`/${username}/account`}>{strings.navbarItemSales}</Link></li>
+          <li><Link to={`/${username}/account`}>{strings.navbarItemPayment}</Link></li>
+          <li><Link to={`/${username}/account`}>{strings.navbarItemMarketing}</Link></li>
+          <li className="divider"></li>
+          <li><Link to={`/${username}/account`}>{strings.navbarItemSupportMe}</Link></li>
+          <li className="divider"></li>
+          <li><Link to={`/${username}/account`}>{strings.navbarItemAccount}</Link></li>
+          <li><Link to={`/${username}/purchases`}>{strings.navbarItemPurchases}</Link></li>
+          <li className="divider"></li>
+          <li><a onClick={ () => logout() }>{strings.navbarItemLogout}</a></li>
+        </ul>
+      )
+
+      sidenavComp = (
+        <ul className="sidenav" id="mobile-demo">
+          <li className="sidenav__user-name">{`${strings.navbarItemGreeting}${user.name}`}</li>
+          <li className="divider"></li>
+          <li><a onClick={ () => editStoreSwitch() }>{labelEdit}</a></li>
+          <li><Link to={`/${username}/account`}>{strings.navbarItemCategories}</Link></li>
+          <li><Link to={`/${username}/account`}>{strings.navbarItemCatalog}</Link></li>
+          <li><Link to={`/${username}/account`}>{strings.navbarItemSales}</Link></li>
+          <li><Link to={`/${username}/account`}>{strings.navbarItemPayment}</Link></li>
+          <li><Link to={`/${username}/account`}>{strings.navbarItemMarketing}</Link></li>
+          <li className="divider"></li>
+          <li><Link to={`/${username}/account`}>{strings.navbarItemSupportMe}</Link></li>
+          <li className="divider"></li>
+          <li><Link to={`/${username}/account`}>{strings.navbarItemAccount}</Link></li>
+          <li><Link to={`/${username}/purchases`}>{strings.navbarItemPurchases}</Link></li>
+          <li className="divider"></li>
+          <li><a onClick={ () => logout() }>{strings.navbarItemLogout}</a></li>
+        </ul>
+      )
+    } else {
+      // Items de menu account dropdown
+      dropdownComp = (
+        <ul id="dropdown1" className="dropdown-content">
+          <li><Link to={`/${username}/account`}>{strings.navbarItemAccount}</Link></li>
+          <li><Link to={`/${username}/purchases`}>{strings.navbarItemPurchases}</Link></li>
+          <li className="divider"></li>
+          <li><a onClick={ () => logout() }>{strings.navbarItemLogout}</a></li>
+        </ul>
+      )
+
+      sidenavComp = (
+        <ul className="sidenav" id="mobile-demo">
+          <li className="sidenav__user-name">{`${strings.navbarItemGreeting}${user.name}`}</li>
+          <li><Link to={`/${username}/account`}>{strings.navbarItemAccount}</Link></li>
+          <li><Link to={`/${username}/purchases`}>{strings.navbarItemPurchases}</Link></li>
+          <li className="divider"></li>
+          <li><a onClick={ () => logout() }>{strings.navbarItemLogout}</a></li>
+        </ul>
+      )
+    }
+
   } else {
     navItemsComp = (
       <ul
@@ -35,6 +93,9 @@ const Navbar = ({ strings, search, inSession, user, username, logout }) => {
       </ul>
     )
 
+    // Items de menu account dropdown
+    dropdownComp = (<ul id="dropdown1" className="dropdown-content"/>)
+
     sidenavComp = (
       <ul className="sidenav" id="mobile-demo">
         <li><Link to={`/${username}/login`}>{strings.navbarItemLogin}</Link></li>
@@ -42,15 +103,7 @@ const Navbar = ({ strings, search, inSession, user, username, logout }) => {
     )
   }
 
-  // Items de menu account dropdown
-  const dropdownComp = (
-    <ul id="dropdown1" className="dropdown-content">
-      <li><Link to={`/${username}/account`}>{strings.navbarItemAccount}</Link></li>
-      <li><Link to={`/${username}/purchases`}>{strings.navbarItemPurchases}</Link></li>
-      <li className="divider"></li>
-      <li><a onClick={ () => logout() }>{strings.navbarItemLogout}</a></li>
-    </ul>
-  )
+
 
   const init = () => {
     $(document).ready(function(){
@@ -103,6 +156,9 @@ Navbar.propTypes = {
   strings:PropTypes.object.isRequired,
   search: PropTypes.func.isRequired,
   inSession: PropTypes.bool.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
+  isEditable: PropTypes.bool.isRequired,
+  editStoreSwitch: PropTypes.func.isRequired,
   user: PropTypes.any,
   username: PropTypes.string.isRequired,
   logout: PropTypes.func.isRequired

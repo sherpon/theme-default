@@ -9,7 +9,15 @@
 		"navbarItemAccount":"Mi cuenta",
 		"navbarItemPurchases":"Compras",
 		"navbarItemLogout":"Salir",
-		"navbarItemLogin":"Entrar"
+		"navbarItemLogin":"Entrar",
+		"navbarItemEdit":"Editar tienda",
+		"navbarItemEditCompleted":"Terminar de editar",
+		"navbarItemCategories":"Categorías",
+		"navbarItemCatalog":"Catálogo",
+		"navbarItemSales":"Ventas",
+		"navbarItemPayment":"Método de pago",
+		"navbarItemMarketing":"Marketing",
+		"navbarItemSupportMe":"Apoya a Sherpon"
 	},
 	"cover":{
 		"labelEdit":"Editar",

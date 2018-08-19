@@ -1,0 +1,11 @@
+{
+	"error":null,
+	"user":{
+		"id":"BBB",
+		"name":"Grover",
+		"lastname":"Lee",
+		"phone":"949799020",
+		"email":"grover@gmail.com",
+    "role":"admin"
+	}
+}
