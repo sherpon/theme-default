@@ -48,7 +48,6 @@ export const loadPurchase = (storeId, purchaseId, callback) => {
     callback(_purchaseItem)
   },TIMEOUT )
 }
-
 /**
  * @callback loadPurchase~callback
  * @param {object} purchase - purchase's object

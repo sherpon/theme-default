@@ -1,5 +1,13 @@
 import * as types from '../constants/ActionTypes'
 import { startFetching, stopFetching } from './fetching'
+import Strings from '../strings'
+import session from '../models/session'
+import { getRandomString } from '../models/tools'
+
+import {
+  updateDataTheme as apiUpdateDataTheme,
+  uploadImageStore as apiUploadImageStore
+} from '../api/store'
 
 export const editStoreSwitch = () => (dispatch, getState) => {
   const isEditable = getState().isEditable
@@ -8,4 +16,95 @@ export const editStoreSwitch = () => (dispatch, getState) => {
   } else {
     dispatch({ type: types.EDIT_START })
   }
+}
+/**
+ * Create a new homeSection Object and push to the store's sections array
+ */
+const createNewHomeSection = (pictureMobile, pictureDesktop, pictureAlt, to, dataTheme) => {
+  const newHomeSectionObject = {
+    pictureMobile,
+    pictureDesktop,
+    pictureAlt,
+    to
+  }
+  dataTheme.sections.push(newHomeSectionObject)
+  return dataTheme
+}
+
+export const homeSectionModalPublishButton = (sectionModalId, callback) => (dispatch, getState) => {
+  const id = sectionModalId
+  const storeId = getState().store.id
+
+  const mobileInput = document.getElementById(`${id}__mobileInput`)
+  const desktopInput = document.getElementById(`${id}__desktopInput`)
+  const selectDestination = document.getElementById(`${id}__section-modal__destination__select`).value
+
+  if (!mobileInput.files[0]) {
+    //console.log("Please select a mobile picture before clicking 'publish'")
+    M.toast({html: Strings(getState().language).components.homeSectionModal.errorMobilePicture})
+    return false
+  }
+
+  if (!desktopInput.files[0]) {
+    //console.log("Please select a desktop picture before clicking 'publish'")
+    M.toast({html: Strings(getState().language).components.homeSectionModal.errorDesktopPicture})
+    return false
+  }
+
+  if (selectDestination==='') {
+    M.toast({html: Strings(getState().language).components.homeSectionModal.errorDestination})
+    return false
+  }
+
+  dispatch(startFetching())
+  // get alt img
+  const selectDestinationIndex = document.getElementById(`${id}__section-modal__destination__select`).selectedIndex
+  const pictureAlt = document.getElementById(`${id}__section-modal__destination__select`).options[selectDestinationIndex].text
+  let pictureMobile = ''
+  let pictureDesktop= ''
+  const to = selectDestination
+
+  const uploadMobilePicture = () => {
+    const timestamp = (new Date()).getTime()
+    const fileName = storeId + '_' + timestamp + '_' + getRandomString(5)
+    apiUploadImageStore(mobileInput, fileName, storeId, (downloadURL) => {
+      pictureMobile = downloadURL
+      uploadDesktopPicture()
+    })
+  }
+
+  const uploadDesktopPicture = () => {
+    const timestamp = (new Date()).getTime()
+    const fileName = storeId + '_' + timestamp + '_' + getRandomString(5)
+    apiUploadImageStore(desktopInput, fileName, storeId, (downloadURL) => {
+      pictureDesktop = downloadURL
+      updateTheme()
+    })
+  }
+
+  const updateTheme = () => {
+    /** save new section */
+    const dataTheme = getState().store.theme.data
+    const newDataTheme = createNewHomeSection(pictureMobile, pictureDesktop, pictureAlt, to, dataTheme)
+    const userId = session.getUser().id
+    apiUpdateDataTheme(userId, storeId, newDataTheme, (response) => {
+      // update local dataTheme store state, then...
+      if (response.error!==null) {
+        // if there's an error...
+        dispatch(stopFetching())
+        // show an error message
+        return false
+      }
+      dispatch({
+        type: types.UPDATE_DATA_THEME,
+        dataTheme: newDataTheme
+      })
+      dispatch(stopFetching())
+      callback() // call to close the modal
+    })
+  }
+
+  /** first, upload the mobile picture... */
+  uploadMobilePicture()
+
 }

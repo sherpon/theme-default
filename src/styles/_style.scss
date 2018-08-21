@@ -26,7 +26,7 @@ body {
   border-bottom-right-radius: 3px;
   margin-bottom: 10px;
 }
-
+/** @usage @extend .box-white; */
 .box-white {
 	background-color: white;
 	border: 1px solid $box-white__border-color;

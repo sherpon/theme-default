@@ -59,8 +59,8 @@ export const loadItem = (itemId) => (dispatch, getState) => {
       if ( result.stock < 1 ) {
         result['warning'] = Strings(getState().language).itemPage.errorItemNoStock
       }
-    } 
-    
+    }
+
     dispatch(saveItem(result))
     dispatch(stopFetching())
   })
@@ -97,7 +97,7 @@ export const onChangedSelect = () => (dispatch, getState) => {
           selectedOption = item.variations[i]
           //console.log('selectedOption')
           //console.log(selectedOption)
-          //i = item.variations.length  // 
+          //i = item.variations.length  //
           break
         }
       }
@@ -122,7 +122,7 @@ export const onChangedSelect = () => (dispatch, getState) => {
           selectedOption = item.variations[i]
           //console.log('selectedOption')
           //console.log(selectedOption)
-          //i = item.variations.length  // 
+          //i = item.variations.length  //
           break
         }
       }
@@ -182,7 +182,7 @@ export const addToCart = () => (dispatch, getState) => {
       return null
     }
   }
-  // 
+  //
   // se verifica el tipo de item
   if (item.type==='clothes') {
     // si es clothes, se verifica que se haya seleccionado todos los atributos disponibles
@@ -196,7 +196,7 @@ export const addToCart = () => (dispatch, getState) => {
       M.toast({html: Strings(getState().language).itemPage.errorColorEmpty})
       return null
     }
-    // 
+    //
     // de haber seleccionado los atributos, se verifica su disponibilidad
     const wantedOption = [selectSize,selectColor]
     let selectedOption = null
@@ -210,7 +210,7 @@ export const addToCart = () => (dispatch, getState) => {
         selectedOption = item.variations[i]
         //console.log('selectedOption')
         //console.log(selectedOption)
-        //i = item.variations.length  // 
+        //i = item.variations.length  //
         break
       }
     }
@@ -220,14 +220,14 @@ export const addToCart = () => (dispatch, getState) => {
       return null
     }
 
-    // 
-    // de haber disponibilidad, se verifica que la cantidad que se solicita sea valida 
+    //
+    // de haber disponibilidad, se verifica que la cantidad que se solicita sea valida
     const amount = document.getElementById('item-content__addToCart__amount').value
     if (amount<1) {
       M.toast({html: Strings(getState().language).itemPage.errorAmount})
       return null
     }
-    // 
+    //
     // y no sobrepase a lo disponible
     if ( (selectedOption.stock-amount) < 0 ) {
       M.toast({html: Strings(getState().language).itemPage.errorNegativeStock})
@@ -252,14 +252,14 @@ export const addToCart = () => (dispatch, getState) => {
     //console.log('se agrego al carrito')
 
   } else if (item.type==='models') {
-    
+
     // si es models, se verifica que se haya seleccionado todos los atributos disponibles
     const selectModel = document.getElementById('item-content-attributes__model').value
     if (selectModel==='') {
       M.toast({html: Strings(getState().language).itemPage.errorModelEmpty})
       return null
     }
-    // 
+    //
     // de haber seleccionado los atributos, se verifica su disponibilidad
     const wantedOption = [selectModel]
     let selectedOption = null
@@ -270,7 +270,7 @@ export const addToCart = () => (dispatch, getState) => {
         selectedOption = item.variations[i]
         //console.log('selectedOption')
         //console.log(selectedOption)
-        //i = item.variations.length  // 
+        //i = item.variations.length  //
         break
       }
     }
@@ -280,14 +280,14 @@ export const addToCart = () => (dispatch, getState) => {
       return null
     }
 
-    // 
-    // de haber disponibilidad, se verifica que la cantidad que se solicita sea valida 
+    //
+    // de haber disponibilidad, se verifica que la cantidad que se solicita sea valida
     const amount = document.getElementById('item-content__addToCart__amount').value
     if (amount<1) {
       M.toast({html: Strings(getState().language).itemPage.errorAmount})
       return null
     }
-    // 
+    //
     // y no sobrepase a lo disponible
     if ( (selectedOption.stock-amount) < 0 ) {
       M.toast({html: Strings(getState().language).itemPage.errorNegativeStock})
@@ -319,14 +319,14 @@ export const addToCart = () => (dispatch, getState) => {
       return null
     }
 
-    // 
-    // de haber disponibilidad, se verifica que la cantidad que se solicita sea valida 
+    //
+    // de haber disponibilidad, se verifica que la cantidad que se solicita sea valida
     const amount = document.getElementById('item-content__addToCart__amount').value
     if (amount<1) {
       M.toast({html: Strings(getState().language).itemPage.errorAmount})
       return null
     }
-    // 
+    //
     // y no sobrepase a lo disponible
     if ( (item.stock-amount) < 0 ) {
       M.toast({html: Strings(getState().language).itemPage.errorNegativeStock})
@@ -350,7 +350,7 @@ export const addToCart = () => (dispatch, getState) => {
     dispatch(addToCartState(_item))
     //console.log('se agrego al carrito')
   }
-    
+
 }
 
 export const facebookInit = () => {
@@ -380,14 +380,14 @@ export const shareFacebook = () => {
   });*/
 
   // Custom event (can only be used for audience building)
-  fbq('trackCustom', 'shareItemFacebook', {label: 'facebook_link'});
+  //fbq('trackCustom', 'shareItemFacebook', {label: 'facebook_link'});
 
   FB.ui({
     method: 'share',
     //display: 'popup',
     mobile_iframe: true,
     href: window.location.href + "?utm_source=sherpon_store&utm_medium=facebook_link&utm_campaign=social_shared_item",
-  }, function(response){ 
+  }, function(response){
     //
   });
 }
@@ -401,7 +401,7 @@ export const shareWhatsapp = () => {
   });*/
 
   // Custom event (can only be used for audience building)
-  fbq('trackCustom', 'shareItemWhatsapp', {label: 'whatsapp_link'});
+  //fbq('trackCustom', 'shareItemWhatsapp', {label: 'whatsapp_link'});
 
   window.location.href = "https://api.whatsapp.com/send?text=" + window.location.href + "?utm_source%3Dsherpon_store%26utm_medium%3Dwhatsapp_link%26utm_campaign%3Dsocial_shared_item"
 }

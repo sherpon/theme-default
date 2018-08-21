@@ -36846,7 +36846,7 @@ var loadPurchase = exports.loadPurchase = function loadPurchase(purchaseId) {
   };
 };
 
-},{"../api/account":115,"../constants/ActionTypes":160,"../models/session":179,"../strings":196,"./fetching":109,"./pagination":113}],108:[function(require,module,exports){
+},{"../api/account":115,"../constants/ActionTypes":163,"../models/session":183,"../strings":200,"./fetching":109,"./pagination":113}],108:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37109,7 +37109,7 @@ var placeOrder = exports.placeOrder = function placeOrder() {
   };
 };
 
-},{"../api/purchase":129,"../constants/ActionTypes":160,"../models/history":177,"../models/paymentGateway/culqi":178,"../models/session":179,"../strings":196,"./fetching":109}],109:[function(require,module,exports){
+},{"../api/purchase":129,"../constants/ActionTypes":163,"../models/history":181,"../models/paymentGateway/culqi":182,"../models/session":183,"../strings":200,"./fetching":109}],109:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37135,7 +37135,7 @@ var stopFetching = exports.stopFetching = function stopFetching() {
   };
 };
 
-},{"../constants/ActionTypes":160}],110:[function(require,module,exports){
+},{"../constants/ActionTypes":163}],110:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37328,7 +37328,7 @@ var loadCategory = exports.loadCategory = function loadCategory(category) {
   };
 };
 
-},{"../api/item":127,"../config":159,"../constants/ActionTypes":160,"../constants/codes.json":161,"../models/history":177,"../models/session":179,"../models/tools":180,"../strings":196}],111:[function(require,module,exports){
+},{"../api/item":127,"../config":162,"../constants/ActionTypes":163,"../constants/codes.json":164,"../models/history":181,"../models/session":183,"../models/tools":184,"../strings":200}],111:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37476,7 +37476,7 @@ var onChangedSelect = exports.onChangedSelect = function onChangedSelect() {
             selectedOption = item.variations[i];
             //console.log('selectedOption')
             //console.log(selectedOption)
-            //i = item.variations.length  // 
+            //i = item.variations.length  //
             break;
           }
         }
@@ -37501,7 +37501,7 @@ var onChangedSelect = exports.onChangedSelect = function onChangedSelect() {
             _selectedOption = item.variations[_i];
             //console.log('selectedOption')
             //console.log(selectedOption)
-            //i = item.variations.length  // 
+            //i = item.variations.length  //
             break;
           }
         }
@@ -37566,7 +37566,7 @@ var addToCart = exports.addToCart = function addToCart() {
         return null;
       }
     }
-    // 
+    //
     // se verifica el tipo de item
     if (item.type === 'clothes') {
       // si es clothes, se verifica que se haya seleccionado todos los atributos disponibles
@@ -37580,7 +37580,7 @@ var addToCart = exports.addToCart = function addToCart() {
         M.toast({ html: (0, _strings2.default)(getState().language).itemPage.errorColorEmpty });
         return null;
       }
-      // 
+      //
       // de haber seleccionado los atributos, se verifica su disponibilidad
       var wantedOption = [selectSize, selectColor];
       var selectedOption = null;
@@ -37591,7 +37591,7 @@ var addToCart = exports.addToCart = function addToCart() {
           selectedOption = item.variations[i];
           //console.log('selectedOption')
           //console.log(selectedOption)
-          //i = item.variations.length  // 
+          //i = item.variations.length  //
           break;
         }
       }
@@ -37601,14 +37601,14 @@ var addToCart = exports.addToCart = function addToCart() {
         return null;
       }
 
-      // 
-      // de haber disponibilidad, se verifica que la cantidad que se solicita sea valida 
+      //
+      // de haber disponibilidad, se verifica que la cantidad que se solicita sea valida
       var amount = document.getElementById('item-content__addToCart__amount').value;
       if (amount < 1) {
         M.toast({ html: (0, _strings2.default)(getState().language).itemPage.errorAmount });
         return null;
       }
-      // 
+      //
       // y no sobrepase a lo disponible
       if (selectedOption.stock - amount < 0) {
         M.toast({ html: (0, _strings2.default)(getState().language).itemPage.errorNegativeStock });
@@ -37638,7 +37638,7 @@ var addToCart = exports.addToCart = function addToCart() {
         M.toast({ html: (0, _strings2.default)(getState().language).itemPage.errorModelEmpty });
         return null;
       }
-      // 
+      //
       // de haber seleccionado los atributos, se verifica su disponibilidad
       var _wantedOption2 = [selectModel];
       var _selectedOption2 = null;
@@ -37649,7 +37649,7 @@ var addToCart = exports.addToCart = function addToCart() {
           _selectedOption2 = item.variations[_i2];
           //console.log('selectedOption')
           //console.log(selectedOption)
-          //i = item.variations.length  // 
+          //i = item.variations.length  //
           break;
         }
       }
@@ -37659,14 +37659,14 @@ var addToCart = exports.addToCart = function addToCart() {
         return null;
       }
 
-      // 
-      // de haber disponibilidad, se verifica que la cantidad que se solicita sea valida 
+      //
+      // de haber disponibilidad, se verifica que la cantidad que se solicita sea valida
       var _amount = document.getElementById('item-content__addToCart__amount').value;
       if (_amount < 1) {
         M.toast({ html: (0, _strings2.default)(getState().language).itemPage.errorAmount });
         return null;
       }
-      // 
+      //
       // y no sobrepase a lo disponible
       if (_selectedOption2.stock - _amount < 0) {
         M.toast({ html: (0, _strings2.default)(getState().language).itemPage.errorNegativeStock });
@@ -37696,14 +37696,14 @@ var addToCart = exports.addToCart = function addToCart() {
         return null;
       }
 
-      // 
-      // de haber disponibilidad, se verifica que la cantidad que se solicita sea valida 
+      //
+      // de haber disponibilidad, se verifica que la cantidad que se solicita sea valida
       var _amount2 = document.getElementById('item-content__addToCart__amount').value;
       if (_amount2 < 1) {
         M.toast({ html: (0, _strings2.default)(getState().language).itemPage.errorAmount });
         return null;
       }
-      // 
+      //
       // y no sobrepase a lo disponible
       if (item.stock - _amount2 < 0) {
         M.toast({ html: (0, _strings2.default)(getState().language).itemPage.errorNegativeStock });
@@ -37759,7 +37759,7 @@ var shareFacebook = exports.shareFacebook = function shareFacebook() {
   });*/
 
   // Custom event (can only be used for audience building)
-  fbq('trackCustom', 'shareItemFacebook', { label: 'facebook_link' });
+  //fbq('trackCustom', 'shareItemFacebook', {label: 'facebook_link'});
 
   FB.ui({
     method: 'share',
@@ -37780,12 +37780,12 @@ var shareWhatsapp = exports.shareWhatsapp = function shareWhatsapp() {
   });*/
 
   // Custom event (can only be used for audience building)
-  fbq('trackCustom', 'shareItemWhatsapp', { label: 'whatsapp_link' });
+  //fbq('trackCustom', 'shareItemWhatsapp', {label: 'whatsapp_link'});
 
   window.location.href = "https://api.whatsapp.com/send?text=" + window.location.href + "?utm_source%3Dsherpon_store%26utm_medium%3Dwhatsapp_link%26utm_campaign%3Dsocial_shared_item";
 };
 
-},{"../api/item":127,"../config":159,"../constants/ActionTypes":160,"../models/history":177,"../models/session":179,"../strings":196,"./fetching":109}],112:[function(require,module,exports){
+},{"../api/item":127,"../config":162,"../constants/ActionTypes":163,"../models/history":181,"../models/session":183,"../strings":200,"./fetching":109}],112:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37908,7 +37908,7 @@ var logout = exports.logout = function logout() {
   };
 };
 
-},{"../api/login":128,"../constants/ActionTypes":160,"../constants/codes.json":161,"../models/history":177,"../models/session":179,"../strings":196,"./fetching":109}],113:[function(require,module,exports){
+},{"../api/login":128,"../constants/ActionTypes":163,"../constants/codes.json":164,"../models/history":181,"../models/session":183,"../strings":200,"./fetching":109}],113:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37967,19 +37967,33 @@ var goToPage = exports.goToPage = function goToPage(index) {
   };
 };
 
-},{"../constants/ActionTypes":160,"./fetching":109}],114:[function(require,module,exports){
+},{"../constants/ActionTypes":163,"./fetching":109}],114:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.editStoreSwitch = undefined;
+exports.homeSectionModalPublishButton = exports.editStoreSwitch = undefined;
 
 var _ActionTypes = require('../constants/ActionTypes');
 
 var types = _interopRequireWildcard(_ActionTypes);
 
 var _fetching = require('./fetching');
+
+var _strings = require('../strings');
+
+var _strings2 = _interopRequireDefault(_strings);
+
+var _session = require('../models/session');
+
+var _session2 = _interopRequireDefault(_session);
+
+var _tools = require('../models/tools');
+
+var _store = require('../api/store');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -37993,8 +38007,100 @@ var editStoreSwitch = exports.editStoreSwitch = function editStoreSwitch() {
     }
   };
 };
+/**
+ * Create a new homeSection Object and push to the store's sections array
+ */
+var createNewHomeSection = function createNewHomeSection(pictureMobile, pictureDesktop, pictureAlt, to, dataTheme) {
+  var newHomeSectionObject = {
+    pictureMobile: pictureMobile,
+    pictureDesktop: pictureDesktop,
+    pictureAlt: pictureAlt,
+    to: to
+  };
+  dataTheme.sections.push(newHomeSectionObject);
+  return dataTheme;
+};
 
-},{"../constants/ActionTypes":160,"./fetching":109}],115:[function(require,module,exports){
+var homeSectionModalPublishButton = exports.homeSectionModalPublishButton = function homeSectionModalPublishButton(sectionModalId, callback) {
+  return function (dispatch, getState) {
+    var id = sectionModalId;
+    var storeId = getState().store.id;
+
+    var mobileInput = document.getElementById(id + '__mobileInput');
+    var desktopInput = document.getElementById(id + '__desktopInput');
+    var selectDestination = document.getElementById(id + '__section-modal__destination__select').value;
+
+    if (!mobileInput.files[0]) {
+      //console.log("Please select a mobile picture before clicking 'publish'")
+      M.toast({ html: (0, _strings2.default)(getState().language).components.homeSectionModal.errorMobilePicture });
+      return false;
+    }
+
+    if (!desktopInput.files[0]) {
+      //console.log("Please select a desktop picture before clicking 'publish'")
+      M.toast({ html: (0, _strings2.default)(getState().language).components.homeSectionModal.errorDesktopPicture });
+      return false;
+    }
+
+    if (selectDestination === '') {
+      M.toast({ html: (0, _strings2.default)(getState().language).components.homeSectionModal.errorDestination });
+      return false;
+    }
+
+    dispatch((0, _fetching.startFetching)());
+    // get alt img
+    var selectDestinationIndex = document.getElementById(id + '__section-modal__destination__select').selectedIndex;
+    var pictureAlt = document.getElementById(id + '__section-modal__destination__select').options[selectDestinationIndex].text;
+    var pictureMobile = '';
+    var pictureDesktop = '';
+    var to = selectDestination;
+
+    var uploadMobilePicture = function uploadMobilePicture() {
+      var timestamp = new Date().getTime();
+      var fileName = storeId + '_' + timestamp + '_' + (0, _tools.getRandomString)(5);
+      (0, _store.uploadImageStore)(mobileInput, fileName, storeId, function (downloadURL) {
+        pictureMobile = downloadURL;
+        uploadDesktopPicture();
+      });
+    };
+
+    var uploadDesktopPicture = function uploadDesktopPicture() {
+      var timestamp = new Date().getTime();
+      var fileName = storeId + '_' + timestamp + '_' + (0, _tools.getRandomString)(5);
+      (0, _store.uploadImageStore)(desktopInput, fileName, storeId, function (downloadURL) {
+        pictureDesktop = downloadURL;
+        updateTheme();
+      });
+    };
+
+    var updateTheme = function updateTheme() {
+      /** save new section */
+      var dataTheme = getState().store.theme.data;
+      var newDataTheme = createNewHomeSection(pictureMobile, pictureDesktop, pictureAlt, to, dataTheme);
+      var userId = _session2.default.getUser().id;
+      (0, _store.updateDataTheme)(userId, storeId, newDataTheme, function (response) {
+        // update local dataTheme store state, then...
+        if (response.error !== null) {
+          // if there's an error...
+          dispatch((0, _fetching.stopFetching)());
+          // show an error message
+          return false;
+        }
+        dispatch({
+          type: types.UPDATE_DATA_THEME,
+          dataTheme: newDataTheme
+        });
+        dispatch((0, _fetching.stopFetching)());
+        callback(); // call to close the modal
+      });
+    };
+
+    /** first, upload the mobile picture... */
+    uploadMobilePicture();
+  };
+};
+
+},{"../api/store":130,"../constants/ActionTypes":163,"../models/session":183,"../models/tools":184,"../strings":200,"./fetching":109}],115:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -38059,7 +38165,6 @@ var loadPurchase = exports.loadPurchase = function loadPurchase(storeId, purchas
     callback(_purchaseItem3.default);
   }, TIMEOUT);
 };
-
 /**
  * @callback loadPurchase~callback
  * @param {object} purchase - purchase's object
@@ -38730,6 +38835,51 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var TIMEOUT = 500;
+
+var updateDataTheme = exports.updateDataTheme = function updateDataTheme(userId, storeId, newDataTheme, callback) {
+  console.log('API.updateDataTheme.payload');
+  var payload = { userId: userId, storeId: storeId, newDataTheme: newDataTheme };
+  console.log(payload);
+
+  setTimeout(function () {
+    callback({
+      error: null
+    });
+  }, TIMEOUT);
+};
+
+/**
+ * Upload the store's image
+ * @param {File} file - store's id.
+ * @param {string} fileName - image's name.
+ * @param {string} storeId - store's id.
+ * @param {uploadImageStore~callback} callback - The callback that handles the response.
+ */
+var uploadImageStore = exports.uploadImageStore = function uploadImageStore(file, fileName, storeId, callback) {
+  /**
+  temporalmente se va a mandar la misma url del archivo, luego se implementara firestore
+  */
+  setTimeout(function () {
+    //let fr = new FileReader()
+    //fr.readAsDataURL(file)
+    //console.log('uploadImageStore.callback')
+    //console.log(fr.result)
+    callback(fileName);
+  }, TIMEOUT);
+};
+/**
+ * @callback uploadImageStore~callback
+ * @param {string} downloadURL - picture's download url
+ */
+
+},{}],131:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -38904,7 +39054,7 @@ AccountView.propsType = {
 
 exports.default = AccountView;
 
-},{"prop-types":43,"react":92}],131:[function(require,module,exports){
+},{"prop-types":43,"react":92}],132:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -38988,7 +39138,7 @@ Breadcrumbs.propTypes = {
 
 exports.default = Breadcrumbs;
 
-},{"../../models/tools":180,"prop-types":43,"react":92,"react-router-dom":75}],132:[function(require,module,exports){
+},{"../../models/tools":184,"prop-types":43,"react":92,"react-router-dom":75}],133:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39176,7 +39326,7 @@ CartItemView.defaultProps = {
 
 exports.default = CartItemView;
 
-},{"../../models/tools":180,"prop-types":43,"react":92,"react-router-dom":75}],133:[function(require,module,exports){
+},{"../../models/tools":184,"prop-types":43,"react":92,"react-router-dom":75}],134:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39325,7 +39475,7 @@ CartView.propTypes = {
 
 exports.default = CartView;
 
-},{"../../models/tools":180,"../cartItemView/cartItemView":132,"prop-types":43,"react":92}],134:[function(require,module,exports){
+},{"../../models/tools":184,"../cartItemView/cartItemView":133,"prop-types":43,"react":92}],135:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39425,7 +39575,7 @@ Categories.propTypes = {
 
 exports.default = Categories;
 
-},{"../../models/tools":180,"prop-types":43,"react":92,"react-router-dom":75}],135:[function(require,module,exports){
+},{"../../models/tools":184,"prop-types":43,"react":92,"react-router-dom":75}],136:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39856,7 +40006,7 @@ CheckoutView.propTypes = {
 
 exports.default = CheckoutView;
 
-},{"../../models/session":179,"../../models/tools":180,"prop-types":43,"react":92}],136:[function(require,module,exports){
+},{"../../models/session":183,"../../models/tools":184,"prop-types":43,"react":92}],137:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39963,7 +40113,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CongratulationPurchase);
 
-},{"../../strings":196,"prop-types":43,"react":92,"react-redux":57}],137:[function(require,module,exports){
+},{"../../strings":200,"prop-types":43,"react":92,"react-redux":57}],138:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40091,7 +40241,83 @@ Contact.propTypes = {
 
 exports.default = Contact;
 
-},{"prop-types":43,"react":92}],138:[function(require,module,exports){
+},{"prop-types":43,"react":92}],139:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _homeSectionModal = require('../homeSectionModal/homeSectionModal');
+
+var _homeSectionModal2 = _interopRequireDefault(_homeSectionModal);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var CreateSection = function CreateSection(_ref) {
+  var strings = _ref.strings,
+      loadCanvas = _ref.loadCanvas,
+      loadPicture = _ref.loadPicture,
+      categories = _ref.categories,
+      homeSectionModalPublishButton = _ref.homeSectionModalPublishButton;
+
+
+  return _react2.default.createElement(
+    'div',
+    { className: 'create-section' },
+    _react2.default.createElement(
+      'a',
+      { className: 'modal-trigger', href: '#sectionModal' },
+      _react2.default.createElement(
+        'div',
+        { className: 'create-section__button' },
+        _react2.default.createElement(
+          'div',
+          { className: 'col s3 m2' },
+          _react2.default.createElement('img', { className: 'create-section__icon', src: '/images/store/icons8-add-64.png' })
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col s9 m10' },
+          _react2.default.createElement(
+            'div',
+            { className: 'create-section__title' },
+            strings.title
+          )
+        )
+      )
+    ),
+    _react2.default.createElement(_homeSectionModal2.default, {
+      id: 'sectionModal',
+      strings: strings,
+      loadCanvas: loadCanvas,
+      loadPicture: loadPicture,
+      defaultPicture: '/images/store/placeholderSectionPicture.png',
+      categories: categories,
+      homeSectionModalPublishButton: homeSectionModalPublishButton
+    })
+  );
+};
+
+CreateSection.propTypes = {
+  strings: _propTypes2.default.object.isRequired,
+  loadCanvas: _propTypes2.default.func.isRequired,
+  loadPicture: _propTypes2.default.func.isRequired,
+  categories: _propTypes2.default.array.isRequired,
+  homeSectionModalPublishButton: _propTypes2.default.func.isRequired
+};
+
+exports.default = CreateSection;
+
+},{"../homeSectionModal/homeSectionModal":142,"prop-types":43,"react":92}],140:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40124,7 +40350,7 @@ EmptyCartView.propTypes = {
 
 exports.default = EmptyCartView;
 
-},{"prop-types":43,"react":92}],139:[function(require,module,exports){
+},{"prop-types":43,"react":92}],141:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40163,7 +40389,242 @@ Cover.propTypes = {
 
 exports.default = Cover;
 
-},{"prop-types":43,"react":92}],140:[function(require,module,exports){
+},{"prop-types":43,"react":92}],142:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _tools = require('../../models/tools');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/**
+ * SectionModal component
+ * Needs to use in the parent component after declaration
+ * $(document).ready(function(){
+ *   $('.section-modal').modal()
+ *   $('select').formSelect()
+ * })
+ *
+ *
+ */
+var HomeSectionModal = function (_React$Component) {
+  _inherits(HomeSectionModal, _React$Component);
+
+  function HomeSectionModal(props) {
+    _classCallCheck(this, HomeSectionModal);
+
+    var _this = _possibleConstructorReturn(this, (HomeSectionModal.__proto__ || Object.getPrototypeOf(HomeSectionModal)).call(this, props));
+
+    _this._cancel = _this._cancel.bind(_this);
+    _this._publish = _this._publish.bind(_this);
+    return _this;
+  }
+
+  _createClass(HomeSectionModal, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _props = this.props,
+          id = _props.id,
+          loadCanvas = _props.loadCanvas,
+          defaultPicture = _props.defaultPicture;
+
+
+      loadCanvas(id + '__mobileCanvas', defaultPicture);
+      loadCanvas(id + '__desktopCanvas', defaultPicture);
+
+      /** when a canvas has been clicked, trigger the input's onclick event */
+      $('#' + id + '__mobileCol').click(function () {
+        return $('#' + id + '__mobileInput').trigger('click');
+      });
+      $('#' + id + '__desktopCol').click(function () {
+        return $('#' + id + '__desktopInput').trigger('click');
+      });
+    }
+  }, {
+    key: '_cancel',
+    value: function _cancel() {
+      console.log('cancel');
+      //$(`#${id}`).modal('close')
+    }
+  }, {
+    key: '_publish',
+    value: function _publish() {
+      //console.log('publish')
+      var _props2 = this.props,
+          id = _props2.id,
+          homeSectionModalPublishButton = _props2.homeSectionModalPublishButton;
+
+      homeSectionModalPublishButton(id, function () {
+        $('#' + id).modal('close');
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props3 = this.props,
+          id = _props3.id,
+          strings = _props3.strings,
+          loadPicture = _props3.loadPicture,
+          defaultPicture = _props3.defaultPicture,
+          categories = _props3.categories;
+
+      var cancel = this._cancel;
+      var publish = this._publish;
+
+      var selectDestinationOptions = [];
+      for (var i = 0; i < categories.length; i++) {
+        var parent = categories[i];
+        var parentKey = i * 1000;
+        selectDestinationOptions.push(_react2.default.createElement(
+          'option',
+          {
+            key: parentKey,
+            value: '/category/' + (0, _tools.noLinkEspace)(parent.name)
+          },
+          '' + parent.name
+        ));
+
+        for (var j = 0; j < parent.children.length; j++) {
+          var child = parent.children[j];
+          var childKey = i * 1000 + j + 1;
+          selectDestinationOptions.push(_react2.default.createElement(
+            'option',
+            {
+              key: childKey,
+              value: '/category/' + (0, _tools.noLinkEspace)(parent.name) + '/' + (0, _tools.noLinkEspace)(child.name)
+            },
+            parent.name + ' - ' + child.name
+          ));
+        }
+      }
+
+      return _react2.default.createElement(
+        'div',
+        {
+          id: id,
+          className: 'modal section-modal'
+        },
+        _react2.default.createElement(
+          'div',
+          { className: 'modal-content' },
+          _react2.default.createElement(
+            'h4',
+            null,
+            strings.title
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'section-modal__picture' },
+            _react2.default.createElement(
+              'div',
+              { id: id + '__mobileCol', className: 'col s6 section-modal__picture__col' },
+              _react2.default.createElement('canvas', { id: id + '__mobileCanvas', className: 'section-modal__picture__canvas' }),
+              _react2.default.createElement('input', { type: 'file', id: id + '__mobileInput', className: 'section-modal__picture__input',
+                onChange: function onChange() {
+                  return loadPicture(id + '__mobileInput', id + '__mobileCanvas', defaultPicture);
+                }
+              }),
+              strings.labelMobile + ' (' + strings.labelMobileDimension + ')'
+            ),
+            _react2.default.createElement(
+              'div',
+              { id: id + '__desktopCol', className: 'col s6 section-modal__picture__col' },
+              _react2.default.createElement('canvas', { id: id + '__desktopCanvas', className: 'section-modal__picture__canvas' }),
+              _react2.default.createElement('input', { type: 'file', id: id + '__desktopInput', className: 'section-modal__picture__input',
+                onChange: function onChange() {
+                  return loadPicture(id + '__desktopInput', id + '__desktopCanvas', defaultPicture);
+                }
+              }),
+              strings.labelDesktop + ' (' + strings.labelDesktopDimension + ')'
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'section-modal__destination' },
+            _react2.default.createElement(
+              'div',
+              { className: 'input-field' },
+              _react2.default.createElement(
+                'select',
+                { id: id + '__section-modal__destination__select', defaultValue: '' },
+                _react2.default.createElement(
+                  'option',
+                  { value: '', disabled: true },
+                  '-'
+                ),
+                selectDestinationOptions.map(function (option) {
+                  return option;
+                })
+              ),
+              _react2.default.createElement(
+                'label',
+                { htmlFor: id + '__section-modal__destination__select' },
+                strings.labelDestination
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'modal-footer' },
+          _react2.default.createElement(
+            'a',
+            { className: 'waves-effect btn-flat',
+              onClick: function onClick() {
+                return cancel();
+              }
+            },
+            strings.buttonCancel
+          ),
+          _react2.default.createElement(
+            'a',
+            { className: 'waves-effect waves-light btn-small z-depth-0',
+              onClick: function onClick() {
+                return publish();
+              }
+            },
+            strings.buttonPublish
+          )
+        )
+      );
+    }
+  }]);
+
+  return HomeSectionModal;
+}(_react2.default.Component);
+
+HomeSectionModal.propTypes = {
+  id: _propTypes2.default.string.isRequired,
+  strings: _propTypes2.default.object.isRequired,
+  loadCanvas: _propTypes2.default.func.isRequired,
+  loadPicture: _propTypes2.default.func.isRequired,
+  defaultPicture: _propTypes2.default.string.isRequired,
+  categories: _propTypes2.default.array.isRequired,
+  homeSectionModalPublishButton: _propTypes2.default.func.isRequired
+};
+
+exports.default = HomeSectionModal;
+
+},{"../../models/tools":184,"prop-types":43,"react":92}],143:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40279,7 +40740,7 @@ ItemCarousel.propTypes = {
 
 exports.default = ItemCarousel;
 
-},{"../../models/tools":180,"prop-types":43,"react":92}],141:[function(require,module,exports){
+},{"../../models/tools":184,"prop-types":43,"react":92}],144:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40501,7 +40962,7 @@ ItemContent.propTypes = {
 
 exports.default = ItemContent;
 
-},{"../../models/tools":180,"../itemContentAttributes/itemContentAttributes":142,"../itemContentShipping/itemContentShipping":143,"prop-types":43,"react":92}],142:[function(require,module,exports){
+},{"../../models/tools":184,"../itemContentAttributes/itemContentAttributes":145,"../itemContentShipping/itemContentShipping":146,"prop-types":43,"react":92}],145:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40666,7 +41127,7 @@ ItemContentAttributes.propTypes = {
 
 exports.default = ItemContentAttributes;
 
-},{"../../models/tools":180,"prop-types":43,"react":92}],143:[function(require,module,exports){
+},{"../../models/tools":184,"prop-types":43,"react":92}],146:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40746,7 +41207,7 @@ ItemContentShipping.propTypes = {
 
 exports.default = ItemContentShipping;
 
-},{"../../models/tools":180,"prop-types":43,"react":92}],144:[function(require,module,exports){
+},{"../../models/tools":184,"prop-types":43,"react":92}],147:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40829,7 +41290,7 @@ ItemView.propTypes = {
 
 exports.default = ItemView;
 
-},{"../itemCarousel/itemCarousel":140,"../itemContent/itemContent":141,"prop-types":43,"react":92}],145:[function(require,module,exports){
+},{"../itemCarousel/itemCarousel":143,"../itemContent/itemContent":144,"prop-types":43,"react":92}],148:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40865,7 +41326,7 @@ var ItemViewPlaceholder = function ItemViewPlaceholder(_ref) {
 
 exports.default = ItemViewPlaceholder;
 
-},{"react":92}],146:[function(require,module,exports){
+},{"react":92}],149:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41170,7 +41631,7 @@ LoginView.propTypes = {
 
 exports.default = LoginView;
 
-},{"prop-types":43,"react":92,"react-router-dom":75}],147:[function(require,module,exports){
+},{"prop-types":43,"react":92,"react-router-dom":75}],150:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41629,7 +42090,7 @@ Navbar.propTypes = {
 
 exports.default = Navbar;
 
-},{"prop-types":43,"react":92,"react-router-dom":75}],148:[function(require,module,exports){
+},{"prop-types":43,"react":92,"react-router-dom":75}],151:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41777,7 +42238,7 @@ Pagination.propTypes = {
 
 exports.default = Pagination;
 
-},{"prop-types":43,"react":92}],149:[function(require,module,exports){
+},{"prop-types":43,"react":92}],152:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41837,7 +42298,7 @@ PreviewItem.propTypes = {
 
 exports.default = PreviewItem;
 
-},{"../../models/tools.js":180,"prop-types":43,"react":92,"react-router-dom":75}],150:[function(require,module,exports){
+},{"../../models/tools.js":184,"prop-types":43,"react":92,"react-router-dom":75}],153:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41930,7 +42391,7 @@ return (
 
  */
 
-},{"../previewItem/previewItem":149,"prop-types":43,"react":92}],151:[function(require,module,exports){
+},{"../previewItem/previewItem":152,"prop-types":43,"react":92}],154:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41971,7 +42432,7 @@ var PreviewListPlaceholder = function PreviewListPlaceholder(_ref) {
 
 exports.default = PreviewListPlaceholder;
 
-},{"react":92}],152:[function(require,module,exports){
+},{"react":92}],155:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42030,7 +42491,7 @@ Profile.propTypes = {
 
 exports.default = Profile;
 
-},{"prop-types":43,"react":92}],153:[function(require,module,exports){
+},{"prop-types":43,"react":92}],156:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42318,7 +42779,7 @@ PurchaseView.propTypes = {
 
 exports.default = PurchaseView;
 
-},{"../../models/tools.js":180,"../cartItemView/cartItemView":132,"prop-types":43,"react":92}],154:[function(require,module,exports){
+},{"../../models/tools.js":184,"../cartItemView/cartItemView":133,"prop-types":43,"react":92}],157:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42429,7 +42890,7 @@ PurchasesList.propTypes = {
 
 exports.default = PurchasesList;
 
-},{"../../models/tools.js":180,"prop-types":43,"react":92,"react-router-dom":75}],155:[function(require,module,exports){
+},{"../../models/tools.js":184,"prop-types":43,"react":92,"react-router-dom":75}],158:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42465,7 +42926,7 @@ ResultCount.propTypes = {
 
 exports.default = ResultCount;
 
-},{"prop-types":43,"react":92}],156:[function(require,module,exports){
+},{"prop-types":43,"react":92}],159:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42506,7 +42967,7 @@ Spinner.propTypes = {
 
 exports.default = Spinner;
 
-},{"prop-types":43,"react":92}],157:[function(require,module,exports){
+},{"prop-types":43,"react":92}],160:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42633,7 +43094,7 @@ TabsHero.propTypes = {
 
 exports.default = TabsHero;
 
-},{"prop-types":43,"react":92,"react-router-dom":75}],158:[function(require,module,exports){
+},{"prop-types":43,"react":92,"react-router-dom":75}],161:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42695,7 +43156,7 @@ TermsView.propTypes = {
 
 exports.default = TermsView;
 
-},{"prop-types":43,"react":92}],159:[function(require,module,exports){
+},{"prop-types":43,"react":92}],162:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -42785,7 +43246,7 @@ var getEnv = exports.getEnv = function getEnv() {
   }
 };
 
-},{}],160:[function(require,module,exports){
+},{}],163:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42799,7 +43260,6 @@ var EDIT_START = exports.EDIT_START = 'EDIT_START';
 var EDIT_END = exports.EDIT_END = 'EDIT_END';
 var IS_ADMIN = exports.IS_ADMIN = 'IS_ADMIN';
 var IS_NOT_ADMIN = exports.IS_NOT_ADMIN = 'IS_NOT_ADMIN';
-var LOAD_STORE = exports.LOAD_STORE = 'LOAD_STORE';
 var RESULT_IS_LOADED = exports.RESULT_IS_LOADED = 'RESULT_IS_LOADED';
 var RESULT_IS_NOT_LOADED = exports.RESULT_IS_NOT_LOADED = 'RESULT_IS_NOT_LOADED';
 var SAVE_RESULT = exports.SAVE_RESULT = 'SAVE_RESULT';
@@ -42829,7 +43289,11 @@ var LOGOUT = exports.LOGOUT = 'LOGOUT';
 var CLEAN_PURCHASE = exports.CLEAN_PURCHASE = 'CLEAN_PURCHASE';
 var LOAD_PURCHASE = exports.LOAD_PURCHASE = 'LOAD_PURCHASE';
 
-},{}],161:[function(require,module,exports){
+/****** store ******/
+var LOAD_STORE = exports.LOAD_STORE = 'LOAD_STORE';
+var UPDATE_DATA_THEME = exports.UPDATE_DATA_THEME = 'UPDATE_DATA_THEME';
+
+},{}],164:[function(require,module,exports){
 module.exports={
   "API_AUTH_SET_SUCCEED":4000,
   "API_AUTH_SET_FAILED":4001,
@@ -42838,7 +43302,7 @@ module.exports={
   "API_USER_LOGIN_NO_FOUND":5010,
   "API_STORE_CREATE_USERNAME_EXIST":6000
 }
-},{}],162:[function(require,module,exports){
+},{}],165:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42992,7 +43456,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(AccountPage));
 
-},{"../actions/account":107,"../components/accountView/accountView":130,"../components/breadcrumbs/breadcrumbs":131,"../models/analytics":175,"../models/facebookPixel":176,"../models/session":179,"../strings":196,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],163:[function(require,module,exports){
+},{"../actions/account":107,"../components/accountView/accountView":131,"../components/breadcrumbs/breadcrumbs":132,"../models/analytics":178,"../models/facebookPixel":180,"../models/session":183,"../strings":200,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],166:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43137,7 +43601,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CartPage));
 
-},{"../actions/cart":108,"../components/cartView/cartView":133,"../components/emptyCartView/emptyCartView":138,"../models/analytics":175,"../models/facebookPixel":176,"../strings":196,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],164:[function(require,module,exports){
+},{"../actions/cart":108,"../components/cartView/cartView":134,"../components/emptyCartView/emptyCartView":140,"../models/analytics":178,"../models/facebookPixel":180,"../strings":200,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],167:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43335,7 +43799,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CategoryPage));
 
-},{"../actions":110,"../components/breadcrumbs/breadcrumbs":131,"../components/pagination/pagination":148,"../components/previewList/previewList":150,"../components/previewListPlaceholder/previewListPlaceholder":151,"../components/resultCount/resultCount":155,"../models/analytics":175,"../models/facebookPixel":176,"../models/tools":180,"../strings":196,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],165:[function(require,module,exports){
+},{"../actions":110,"../components/breadcrumbs/breadcrumbs":132,"../components/pagination/pagination":151,"../components/previewList/previewList":153,"../components/previewListPlaceholder/previewListPlaceholder":154,"../components/resultCount/resultCount":158,"../models/analytics":178,"../models/facebookPixel":180,"../models/tools":184,"../strings":200,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],168:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43453,7 +43917,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CheckoutPage));
 
-},{"../actions/cart":108,"../components/checkoutView/checkoutView":135,"../models/analytics":175,"../models/facebookPixel":176,"../strings":196,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],166:[function(require,module,exports){
+},{"../actions/cart":108,"../components/checkoutView/checkoutView":136,"../models/analytics":178,"../models/facebookPixel":180,"../strings":200,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],169:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43554,7 +44018,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Hero));
 
-},{"../components/profile/profile.js":152,"../components/tabsHero/tabsHero.js":157,"../strings":196,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],167:[function(require,module,exports){
+},{"../components/profile/profile.js":155,"../components/tabsHero/tabsHero.js":160,"../strings":200,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],170:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43579,11 +44043,19 @@ var _strings = require('../strings');
 
 var _strings2 = _interopRequireDefault(_strings);
 
+var _store = require('../actions/store');
+
+var _canvas = require('../models/canvas');
+
 var _tools = require('../models/tools');
 
 var _analytics = require('../models/analytics');
 
 var _facebookPixel = require('../models/facebookPixel');
+
+var _createSection = require('../components/createSection/createSection');
+
+var _createSection2 = _interopRequireDefault(_createSection);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -43592,6 +44064,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+//import HomeSectionModal from '../components/homeSectionModal/homeSectionModal'
 
 var HomeSection = function HomeSection(_ref) {
   var username = _ref.username,
@@ -43603,7 +44077,7 @@ var HomeSection = function HomeSection(_ref) {
       to: '/' + username + (0, _tools.noLinkEspace)(section.to)
     },
     _react2.default.createElement('img', { className: 'sherpon-box sherpon-margin-bottom-5px responsive-img hide-on-small-only', src: '' + section.pictureDesktop, alt: section.pictureAlt }),
-    _react2.default.createElement('img', { className: 'sherpon-box sherpon-margin-bottom-5px responsive-img hide-on-med-and-up', src: '' + section.pictureMobil, alt: section.pictureAlt })
+    _react2.default.createElement('img', { className: 'sherpon-box sherpon-margin-bottom-5px responsive-img hide-on-med-and-up', src: '' + section.pictureMobile, alt: section.pictureAlt })
   );
 };
 
@@ -43620,7 +44094,6 @@ var HomePage = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (HomePage.__proto__ || Object.getPrototypeOf(HomePage)).call(this, props));
 
-    _this.state = { hasError: false };
     var _this$props = _this.props,
         analytics = _this$props.analytics,
         facebookPixel = _this$props.facebookPixel,
@@ -43629,29 +44102,60 @@ var HomePage = function (_React$Component) {
 
     analytics(analyticsTrackerId);
     facebookPixel(facebookPixelId);
+    _this.init = _this.init.bind(_this);
     return _this;
   }
 
   _createClass(HomePage, [{
+    key: 'init',
+    value: function init() {
+      /** this load the modals */
+      $(document).ready(function () {
+        $('.modal').modal();
+        $('select').formSelect();
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _props = this.props,
           strings = _props.strings,
+          stringsCreateSection = _props.stringsCreateSection,
           isEditable = _props.isEditable,
           username = _props.username,
-          sections = _props.sections;
+          categories = _props.categories,
+          sections = _props.sections,
+          homeSectionModalPublishButton = _props.homeSectionModalPublishButton;
 
+      var init = this.init;
+      var createSectionButton = void 0;
+
+      if (isEditable) {
+        // show create section button
+        createSectionButton = _react2.default.createElement(_createSection2.default, {
+          strings: stringsCreateSection,
+          loadCanvas: _canvas.loadCanvas,
+          loadPicture: _canvas.loadPicture,
+          categories: categories,
+          homeSectionModalPublishButton: homeSectionModalPublishButton
+        });
+      } else {
+        // hide create section button
+        createSectionButton = _react2.default.createElement('div', null);
+      }
 
       return _react2.default.createElement(
         'section',
         { className: 'home-page' },
+        createSectionButton,
         sections.map(function (section, i) {
           return _react2.default.createElement(HomeSection, {
             key: i,
             username: username,
             section: section
           });
-        })
+        }),
+        init()
       );
     }
   }]);
@@ -43661,23 +44165,28 @@ var HomePage = function (_React$Component) {
 
 HomePage.propTypes = {
   strings: _propTypes2.default.object.isRequired,
+  stringsCreateSection: _propTypes2.default.object.isRequired,
   username: _propTypes2.default.string.isRequired,
+  categories: _propTypes2.default.array.isRequired,
   analyticsTrackerId: _propTypes2.default.string.isRequired,
   facebookPixelId: _propTypes2.default.string.isRequired,
   isEditable: _propTypes2.default.bool.isRequired,
   sections: _propTypes2.default.array.isRequired,
   analytics: _propTypes2.default.func.isRequired,
-  facebookPixel: _propTypes2.default.func.isRequired
+  facebookPixel: _propTypes2.default.func.isRequired,
+  homeSectionModalPublishButton: _propTypes2.default.func.isRequired
 };
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
     strings: (0, _strings2.default)(state.language).homePage,
+    stringsCreateSection: (0, _strings2.default)(state.language).components.homeSectionModal,
     username: state.store.username,
+    categories: state.store.categories,
     analyticsTrackerId: state.store.analytics,
     facebookPixelId: state.store.facebookPixel,
     isEditable: state.isEditable,
-    sections: state.store.theme.sections
+    sections: state.store.theme.data.sections
   };
 };
 
@@ -43688,6 +44197,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     facebookPixel: function facebookPixel(facebookPixelId) {
       return (0, _facebookPixel.pixelPageView)(facebookPixelId);
+    },
+    homeSectionModalPublishButton: function homeSectionModalPublishButton(sectionModalId, callback) {
+      return dispatch((0, _store.homeSectionModalPublishButton)(sectionModalId, callback));
     }
   };
 };
@@ -43695,7 +44207,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(HomePage);
 
-},{"../models/analytics":175,"../models/facebookPixel":176,"../models/tools":180,"../strings":196,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],168:[function(require,module,exports){
+},{"../actions/store":114,"../components/createSection/createSection":139,"../models/analytics":178,"../models/canvas":179,"../models/facebookPixel":180,"../models/tools":184,"../strings":200,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],171:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43893,7 +44405,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(ItemPage));
 
-},{"../actions":110,"../actions/item":111,"../components/breadcrumbs/breadcrumbs":131,"../components/itemView/itemView":144,"../components/itemViewPlaceholder/itemViewPlaceholder":145,"../models/analytics":175,"../models/facebookPixel":176,"../strings":196,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],169:[function(require,module,exports){
+},{"../actions":110,"../actions/item":111,"../components/breadcrumbs/breadcrumbs":132,"../components/itemView/itemView":147,"../components/itemViewPlaceholder/itemViewPlaceholder":148,"../models/analytics":178,"../models/facebookPixel":180,"../strings":200,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],172:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44025,7 +44537,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(LoginPage));
 
-},{"../actions/login":112,"../components/loginView/loginView":146,"../models/analytics":175,"../models/facebookPixel":176,"../strings":196,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],170:[function(require,module,exports){
+},{"../actions/login":112,"../components/loginView/loginView":149,"../models/analytics":178,"../models/facebookPixel":180,"../strings":200,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],173:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44188,7 +44700,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(PurchasePage));
 
-},{"../actions/account":107,"../components/breadcrumbs/breadcrumbs":131,"../components/purchaseView/purchaseView":153,"../models/analytics":175,"../models/facebookPixel":176,"../models/session":179,"../strings":196,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],171:[function(require,module,exports){
+},{"../actions/account":107,"../components/breadcrumbs/breadcrumbs":132,"../components/purchaseView/purchaseView":156,"../models/analytics":178,"../models/facebookPixel":180,"../models/session":183,"../strings":200,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],174:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44372,7 +44884,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(PurchasesPage));
 
-},{"../actions/account":107,"../actions/pagination":113,"../components/breadcrumbs/breadcrumbs":131,"../components/pagination/pagination":148,"../components/purchasesList/purchasesList":154,"../models/analytics":175,"../models/facebookPixel":176,"../models/session":179,"../strings":196,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],172:[function(require,module,exports){
+},{"../actions/account":107,"../actions/pagination":113,"../components/breadcrumbs/breadcrumbs":132,"../components/pagination/pagination":151,"../components/purchasesList/purchasesList":157,"../models/analytics":178,"../models/facebookPixel":180,"../models/session":183,"../strings":200,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],175:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44567,7 +45079,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(SearchPage));
 
-},{"../actions":110,"../components/breadcrumbs/breadcrumbs":131,"../components/pagination/pagination":148,"../components/previewList/previewList":150,"../components/previewListPlaceholder/previewListPlaceholder":151,"../components/resultCount/resultCount":155,"../models/analytics":175,"../models/facebookPixel":176,"../models/tools":180,"../strings":196,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],173:[function(require,module,exports){
+},{"../actions":110,"../components/breadcrumbs/breadcrumbs":132,"../components/pagination/pagination":151,"../components/previewList/previewList":153,"../components/previewListPlaceholder/previewListPlaceholder":154,"../components/resultCount/resultCount":158,"../models/analytics":178,"../models/facebookPixel":180,"../models/tools":184,"../strings":200,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],176:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44849,7 +45361,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(Store));
 
-},{"../actions":110,"../actions/login":112,"../actions/store":114,"../components/categories/categories.js":134,"../components/congratulationPurchase/congratulationPurchase.js":136,"../components/contact/contact.js":137,"../components/footer/footer.js":139,"../components/navbar/navbar.js":147,"../components/spinner/spinner.js":156,"../models/session":179,"../strings":196,"./accountPage.js":162,"./cartPage.js":163,"./categoryPage.js":164,"./checkoutPage.js":165,"./hero.js":166,"./homePage.js":167,"./itemPage.js":168,"./loginPage.js":169,"./purchasePage.js":170,"./purchasesPage.js":171,"./searchPage.js":172,"./termsPage.js":174,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],174:[function(require,module,exports){
+},{"../actions":110,"../actions/login":112,"../actions/store":114,"../components/categories/categories.js":135,"../components/congratulationPurchase/congratulationPurchase.js":137,"../components/contact/contact.js":138,"../components/footer/footer.js":141,"../components/navbar/navbar.js":150,"../components/spinner/spinner.js":159,"../models/session":183,"../strings":200,"./accountPage.js":165,"./cartPage.js":166,"./categoryPage.js":167,"./checkoutPage.js":168,"./hero.js":169,"./homePage.js":170,"./itemPage.js":171,"./loginPage.js":172,"./purchasePage.js":173,"./purchasesPage.js":174,"./searchPage.js":175,"./termsPage.js":177,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],177:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44958,7 +45470,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(TermsPage);
 
-},{"../components/termsView/termsView.js":158,"../models/analytics":175,"../models/facebookPixel":176,"../strings":196,"prop-types":43,"react":92,"react-redux":57}],175:[function(require,module,exports){
+},{"../components/termsView/termsView.js":161,"../models/analytics":178,"../models/facebookPixel":180,"../strings":200,"prop-types":43,"react":92,"react-redux":57}],178:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44980,7 +45492,92 @@ var pageView = exports.pageView = function pageView(storeTrackerId) {
   ga('sherponTracker.send', 'pageview');
 };
 
-},{"../config":159}],176:[function(require,module,exports){
+},{"../config":162}],179:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+/**
+ * Load the canvas with a picture
+ * @param {string} canvasId - html canvas' id
+ * @param {string} pictureUrl - picture's url to fill the canvas
+ */
+var loadCanvas = exports.loadCanvas = function loadCanvas(canvasId, pictureUrl) {
+    var canvas = document.getElementById(canvasId);
+    var context = canvas.getContext('2d');
+    var imageObj = new Image();
+    imageObj.onload = function () {
+        context.drawImage(imageObj, 0, 0, canvas.width, canvas.height);
+    };
+    imageObj.src = pictureUrl;
+};
+
+var scaleWidthByHeight = function scaleWidthByHeight(pictureWidth, pictureHeight, canvasHeight) {
+    var nWidth = void 0;
+    nWidth = pictureWidth * canvasHeight / pictureHeight;
+    return nWidth;
+};
+
+var getXPosition = function getXPosition(canvasWidth, pictureWidth) {
+    var nX = void 0;
+    nX = (canvasWidth - pictureWidth) / 2;
+    return nX;
+};
+
+var cleanCanvas = function cleanCanvas(context, canvasWidth, canvasHeight) {
+    context.fillStyle = 'white';
+    context.fillRect(0, 0, canvasWidth, canvasHeight);
+};
+
+var loadPicture = exports.loadPicture = function loadPicture(inputId, canvasId, defaultPicture) {
+    var input = void 0;
+    var file = void 0;
+    var fr = void 0;
+    var img = void 0;
+
+    if (typeof window.FileReader !== 'function') {
+        console.log("The file API isn't supported on this browser yet.");
+        return;
+    }
+
+    input = document.getElementById(inputId);
+    if (!input) {
+        console.log("Um, couldn't find the imgfile element.");
+    } else if (!input.files) {
+        console.log("This browser doesn't seem to support the `files` property of file inputs.");
+    } else if (!input.files[0]) {
+        //console.log("Please select a file before clicking 'Load'")
+        loadCanvas(canvasId, defaultPicture);
+    } else {
+        file = input.files[0];
+        fr = new FileReader();
+        fr.onload = createImage;
+        fr.readAsDataURL(file);
+    }
+
+    function createImage() {
+        img = new Image();
+        img.onload = imageLoaded;
+        img.src = fr.result;
+    }
+
+    function imageLoaded() {
+        var canvas = document.getElementById(canvasId);
+        //canvas.width = img.width
+        //canvas.height = img.height
+        var pictureWidth = scaleWidthByHeight(img.width, img.height, canvas.height);
+        var pictureHeight = canvas.height;
+        var xPosition = getXPosition(canvas.width, pictureWidth);
+
+        var ctx = canvas.getContext('2d');
+        cleanCanvas(ctx, canvas.width, canvas.height);
+        ctx.drawImage(img, xPosition, 0, pictureWidth, pictureHeight);
+        //alert(canvas.toDataURL('image/png'))
+    }
+};
+
+},{}],180:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45000,7 +45597,7 @@ var pixelPageView = exports.pixelPageView = function pixelPageView(storePixelId)
   fbq('track', 'PageView');
 };
 
-},{"../config":159}],177:[function(require,module,exports){
+},{"../config":162}],181:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -45011,7 +45608,7 @@ var _history = require("history");
 
 exports.default = (0, _history.createBrowserHistory)({ basename: "/" });
 
-},{"history":22}],178:[function(require,module,exports){
+},{"history":22}],182:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45066,7 +45663,7 @@ Diners Club       3600 020000 0006      01/2020   230   fraudulent
 
  */
 
-},{"../tools":180}],179:[function(require,module,exports){
+},{"../tools":184}],183:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45127,7 +45724,7 @@ exports.default = {
   inCartSession: inCartSession
 };
 
-},{}],180:[function(require,module,exports){
+},{}],184:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -45253,8 +45850,18 @@ var getFormattedTime = exports.getFormattedTime = function getFormattedTime(time
   var formattedTime = year + '/' + month.substr(-2) + '/' + day.substr(-2);
   return formattedTime;
 };
+var getRandomString = exports.getRandomString = function getRandomString() {
+  var length = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 30;
 
-},{}],181:[function(require,module,exports){
+  var text = '';
+  var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+  for (var i = 0; i < length; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }return text;
+};
+
+},{}],185:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45389,7 +45996,7 @@ var Cart = function Cart() {
 
 exports.default = Cart;
 
-},{"../constants/ActionTypes":160,"../models/session":179}],182:[function(require,module,exports){
+},{"../constants/ActionTypes":163,"../models/session":183}],186:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45420,7 +46027,7 @@ var inSession = function inSession() {
 
 exports.default = inSession;
 
-},{"../constants/ActionTypes":160,"../models/session":179}],183:[function(require,module,exports){
+},{"../constants/ActionTypes":163,"../models/session":183}],187:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45494,7 +46101,7 @@ exports.default = (0, _redux.combineReducers)({
   store: _store2.default
 });
 
-},{"./cart":181,"./inSession":182,"./isAdmin":184,"./isEditable":185,"./isFetching":186,"./isResultLoaded":187,"./item":188,"./language":189,"./pagination":190,"./purchase":191,"./result":192,"./store":193,"redux":100}],184:[function(require,module,exports){
+},{"./cart":185,"./inSession":186,"./isAdmin":188,"./isEditable":189,"./isFetching":190,"./isResultLoaded":191,"./item":192,"./language":193,"./pagination":194,"./purchase":195,"./result":196,"./store":197,"redux":100}],188:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45541,7 +46148,7 @@ var isAdmin = function isAdmin() {
 
 exports.default = isAdmin;
 
-},{"../constants/ActionTypes":160,"../models/session":179}],185:[function(require,module,exports){
+},{"../constants/ActionTypes":163,"../models/session":183}],189:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45550,14 +46157,36 @@ Object.defineProperty(exports, "__esModule", {
 
 var _ActionTypes = require('../constants/ActionTypes');
 
+var _session = require('../models/session');
+
+var _session2 = _interopRequireDefault(_session);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var getAdminState = function getAdminState() {
+  var initState = false;
+  if (_session2.default.inUserSession()) {
+    if (_session2.default.getUser().role !== undefined) {
+      if (_session2.default.getUser().role === 'admin') {
+        initState = true;
+      }
+    }
+  }
+  return initState;
+};
+
 var isEditable = function isEditable() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : getAdminState();
   var action = arguments[1];
 
   switch (action.type) {
     case _ActionTypes.EDIT_START:
       return true;
     case _ActionTypes.EDIT_END:
+      return false;
+    case _ActionTypes.LOGIN:
+      return getAdminState();
+    case _ActionTypes.LOGOUT:
       return false;
     default:
       return state;
@@ -45566,7 +46195,7 @@ var isEditable = function isEditable() {
 
 exports.default = isEditable;
 
-},{"../constants/ActionTypes":160}],186:[function(require,module,exports){
+},{"../constants/ActionTypes":163,"../models/session":183}],190:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45591,7 +46220,7 @@ var isFetching = function isFetching() {
 
 exports.default = isFetching;
 
-},{"../constants/ActionTypes":160}],187:[function(require,module,exports){
+},{"../constants/ActionTypes":163}],191:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45616,7 +46245,7 @@ var isResultLoaded = function isResultLoaded() {
 
 exports.default = isResultLoaded;
 
-},{"../constants/ActionTypes":160}],188:[function(require,module,exports){
+},{"../constants/ActionTypes":163}],192:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -45679,7 +46308,7 @@ var item = function item() {
 
 exports.default = item;
 
-},{"../constants/ActionTypes":160}],189:[function(require,module,exports){
+},{"../constants/ActionTypes":163}],193:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45704,7 +46333,7 @@ var language = function language() {
 
 exports.default = language;
 
-},{"../constants/ActionTypes":160}],190:[function(require,module,exports){
+},{"../constants/ActionTypes":163}],194:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45749,7 +46378,7 @@ var pagination = function pagination() {
 
 exports.default = pagination;
 
-},{"../constants/ActionTypes":160}],191:[function(require,module,exports){
+},{"../constants/ActionTypes":163}],195:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -45805,7 +46434,7 @@ var purchase = function purchase() {
 
 exports.default = purchase;
 
-},{"../constants/ActionTypes":160}],192:[function(require,module,exports){
+},{"../constants/ActionTypes":163}],196:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45828,7 +46457,7 @@ var result = function result() {
 
 exports.default = result;
 
-},{"../constants/ActionTypes":160}],193:[function(require,module,exports){
+},{"../constants/ActionTypes":163}],197:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45856,6 +46485,10 @@ var storeState = function storeState() {
   switch (action.type) {
     case _ActionTypes.LOAD_STORE:
       return action.store;
+    case _ActionTypes.LOAD_STORE:
+      var newStoreState = state;
+      newStoreState.theme.data = action.dataTheme;
+      return newStoreState;
     default:
       return state;
   }
@@ -45863,7 +46496,7 @@ var storeState = function storeState() {
 
 exports.default = storeState;
 
-},{"../constants/ActionTypes":160}],194:[function(require,module,exports){
+},{"../constants/ActionTypes":163}],198:[function(require,module,exports){
 module.exports={
 	"store":{
 		"text1":"text"
@@ -45874,7 +46507,7 @@ module.exports={
 		"navbarItemAccount":"Mi cuenta"
 	}
 }
-},{}],195:[function(require,module,exports){
+},{}],199:[function(require,module,exports){
 module.exports={
 	"store":{
 		"text1":"text"
@@ -45888,7 +46521,7 @@ module.exports={
 		"navbarItemLogout":"Salir",
 		"navbarItemLogin":"Entrar",
 		"navbarItemEdit":"Editar tienda",
-		"navbarItemEditCompleted":"Terminar de editar",
+		"navbarItemEditCompleted":"Ver como visitante",
 		"navbarItemCategories":"Categorías",
 		"navbarItemCatalog":"Catálogo",
 		"navbarItemSales":"Ventas",
@@ -46108,10 +46741,25 @@ module.exports={
 		"labelSave":"Guardar",
 		"title":"Términos y Condiciones Generales de sherpon",
 		"terms":"El presente documento contiene los términos y condiciones de uso (en adelante “TCU”), los cuales serán aplicables a los actos celebrados y acciones ejecutadas a través de, o en relación directa o indirecta con, el sitio web de propiedad de SHERPON.COM (en adelante “SHERPON”), que opera con el nombre de dominio sherpon.com y sus derivados relacionados (en adelante “El Sitio”). Las TCU contenidas en el presente instrumento, se aplicarán especialmente a los siguientes actos y acciones: (i) La compra y venta de los Productos y Servicios ofrecidos y prestados por las empresas contratantes (en adelante “Los Proveedores”) con SHERPON, a través de “El Sitio”; (ii) El acceso y uso de El Sitio de cualquier forma y para cualquier efecto previamente autorizado por SHERPON, salvo acuerdo expreso en contrario que conste por escrito; (iii) El acceso y uso de otros espacios relacionados que se formen en asociación o con ocasión a El Sitio, tales como chats, foros, páginas entre otros. Las personas naturales o jurídicas debidamente representadas, (en adelante el Usuario o el Comprador) que deseen comprar los productos o servicios y acceder y/o usar El Sitio, podrán hacerlo siempre y cuando se registren y acepten los TCU contenidas en este documento, así como también las demás políticas y principios que rigen El Sitio y que son incorporados al presente documento. Los TCU son vinculantes y obligatorios. En caso de que las TCU no sean aceptadas, quedará prohibido a la persona de que se trate hacer uso de El Sitio. La prohibición indicada será de carácter absoluto y se referirá al uso directo o indirectamente y para cualquier fin, incluyendo el acceso a El Sitio, la compra de los productos y servicios ofrecidos a través del mismo y de sus tiendas relacionadas, el acceso a la información publicada en el Sitio, etc."
+	},
+	"components":{
+		"homeSectionModal":{
+			"title":"Crear sección",
+			"labelMobile":"sube una foto para móvil",
+			"labelMobileDimension":"1020x1600",
+			"labelDesktop":"sube una foto para escritorio",
+			"labelDesktopDimension":"1600x900",
+			"labelDestination":"Seleccionar destino",
+			"buttonCancel":"Cancelar",
+			"buttonPublish":"Publicar",
+			"errorMobilePicture":"Selecciona una foto para móvil",
+			"errorDesktopPicture":"Selecciona una foto para escritorio",
+			"errorDestination":"Selecciona una categoría de destino de la sección"
+		}
 	}
 }
 
-},{}],196:[function(require,module,exports){
+},{}],200:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46137,7 +46785,7 @@ Notes
 var userLang = navigator.language || navigator.userLanguage; 
  */
 
-},{"./EN.json":194,"./ES.json":195}],197:[function(require,module,exports){
+},{"./EN.json":198,"./ES.json":199}],201:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -46208,4 +46856,4 @@ Notes
  */
 
 }).call(this,require('_process'))
-},{"./containers/store.js":173,"./models/history":177,"./reducers":183,"_process":39,"jquery":25,"react":92,"react-dom":47,"react-redux":57,"react-router-dom":75,"redux":100,"redux-logger":93,"redux-thunk":94}]},{},[197]);
+},{"./containers/store.js":176,"./models/history":181,"./reducers":187,"_process":39,"jquery":25,"react":92,"react-dom":47,"react-redux":57,"react-router-dom":75,"redux":100,"redux-logger":93,"redux-thunk":94}]},{},[201]);

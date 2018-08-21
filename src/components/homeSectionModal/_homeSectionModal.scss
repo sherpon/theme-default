@@ -1,0 +1,34 @@
+.section-modal {
+
+  .modal-content {
+    padding: 1em !important;
+
+    .section-modal__picture {
+      @extend .row;
+      margin-bottom: 40px !important;
+    }
+
+    .section-modal__destination {
+      @extend .row;
+      margin-bottom: 0px !important;
+    }
+
+    .section-modal__picture__col {
+      text-align: center;
+    }
+
+    .section-modal__picture__col {
+      .section-modal__picture__canvas {
+        width: 100%;
+      }
+
+      .section-modal__picture__input {
+        display: none;
+      }
+    }
+  }
+
+  .modal-footer {
+    padding: 4px 10px !important;
+  }
+}

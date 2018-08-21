@@ -6,7 +6,6 @@ export const EDIT_START = 'EDIT_START'
 export const EDIT_END = 'EDIT_END'
 export const IS_ADMIN = 'IS_ADMIN'
 export const IS_NOT_ADMIN = 'IS_NOT_ADMIN'
-export const LOAD_STORE = 'LOAD_STORE'
 export const RESULT_IS_LOADED = 'RESULT_IS_LOADED'
 export const RESULT_IS_NOT_LOADED = 'RESULT_IS_NOT_LOADED'
 export const SAVE_RESULT = 'SAVE_RESULT'
@@ -35,3 +34,7 @@ export const LOGOUT = 'LOGOUT'
 /****** account ******/
 export const CLEAN_PURCHASE = 'CLEAN_PURCHASE'
 export const LOAD_PURCHASE = 'LOAD_PURCHASE'
+
+/****** store ******/
+export const LOAD_STORE = 'LOAD_STORE'
+export const UPDATE_DATA_THEME = 'UPDATE_DATA_THEME'

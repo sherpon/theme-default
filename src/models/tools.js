@@ -103,3 +103,12 @@ export const getFormattedTime = (timestamp) => {
   const formattedTime = year + '/' + month.substr(-2) + '/' + day.substr(-2)
   return formattedTime
 }
+export const getRandomString = (length = 30) => {
+  let text = ''
+  const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+
+  for (let i = 0; i < length; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+  return text;
+}
