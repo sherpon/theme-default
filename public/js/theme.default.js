@@ -36846,7 +36846,7 @@ var loadPurchase = exports.loadPurchase = function loadPurchase(purchaseId) {
   };
 };
 
-},{"../api/account":115,"../constants/ActionTypes":163,"../models/session":183,"../strings":200,"./fetching":109,"./pagination":113}],108:[function(require,module,exports){
+},{"../api/account":115,"../constants/ActionTypes":164,"../models/session":185,"../strings":202,"./fetching":109,"./pagination":113}],108:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37109,7 +37109,7 @@ var placeOrder = exports.placeOrder = function placeOrder() {
   };
 };
 
-},{"../api/purchase":129,"../constants/ActionTypes":163,"../models/history":181,"../models/paymentGateway/culqi":182,"../models/session":183,"../strings":200,"./fetching":109}],109:[function(require,module,exports){
+},{"../api/purchase":129,"../constants/ActionTypes":164,"../models/history":183,"../models/paymentGateway/culqi":184,"../models/session":185,"../strings":202,"./fetching":109}],109:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37135,7 +37135,7 @@ var stopFetching = exports.stopFetching = function stopFetching() {
   };
 };
 
-},{"../constants/ActionTypes":163}],110:[function(require,module,exports){
+},{"../constants/ActionTypes":164}],110:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37328,7 +37328,7 @@ var loadCategory = exports.loadCategory = function loadCategory(category) {
   };
 };
 
-},{"../api/item":127,"../config":162,"../constants/ActionTypes":163,"../constants/codes.json":164,"../models/history":181,"../models/session":183,"../models/tools":184,"../strings":200}],111:[function(require,module,exports){
+},{"../api/item":127,"../config":163,"../constants/ActionTypes":164,"../constants/codes.json":165,"../models/history":183,"../models/session":185,"../models/tools":186,"../strings":202}],111:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37785,7 +37785,7 @@ var shareWhatsapp = exports.shareWhatsapp = function shareWhatsapp() {
   window.location.href = "https://api.whatsapp.com/send?text=" + window.location.href + "?utm_source%3Dsherpon_store%26utm_medium%3Dwhatsapp_link%26utm_campaign%3Dsocial_shared_item";
 };
 
-},{"../api/item":127,"../config":162,"../constants/ActionTypes":163,"../models/history":181,"../models/session":183,"../strings":200,"./fetching":109}],112:[function(require,module,exports){
+},{"../api/item":127,"../config":163,"../constants/ActionTypes":164,"../models/history":183,"../models/session":185,"../strings":202,"./fetching":109}],112:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37908,7 +37908,7 @@ var logout = exports.logout = function logout() {
   };
 };
 
-},{"../api/login":128,"../constants/ActionTypes":163,"../constants/codes.json":164,"../models/history":181,"../models/session":183,"../strings":200,"./fetching":109}],113:[function(require,module,exports){
+},{"../api/login":128,"../constants/ActionTypes":164,"../constants/codes.json":165,"../models/history":183,"../models/session":185,"../strings":202,"./fetching":109}],113:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37967,13 +37967,13 @@ var goToPage = exports.goToPage = function goToPage(index) {
   };
 };
 
-},{"../constants/ActionTypes":163,"./fetching":109}],114:[function(require,module,exports){
+},{"../constants/ActionTypes":164,"./fetching":109}],114:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.homeSectionModalPublishButton = exports.editStoreSwitch = undefined;
+exports.homeSectionModalPublishButton = exports.coverSaveButton = exports.editStoreSwitch = undefined;
 
 var _ActionTypes = require('../constants/ActionTypes');
 
@@ -38007,6 +38007,54 @@ var editStoreSwitch = exports.editStoreSwitch = function editStoreSwitch() {
     }
   };
 };
+
+var coverSaveButton = exports.coverSaveButton = function coverSaveButton(callback) {
+  return function (dispatch, getState) {
+    var storeId = getState().store.id;
+    var userId = _session2.default.getUser().id;
+    var coverInput = document.getElementById('cover-modal__input');
+    if (!coverInput.files[0]) {
+      M.toast({ html: (0, _strings2.default)(getState().language).coverContainer.modal.errorCoverPicture });
+      return false;
+    }
+
+    dispatch((0, _fetching.startFetching)());
+    var newCoverUrl = '';
+
+    var uploadCoverPicture = function uploadCoverPicture() {
+      var timestamp = new Date().getTime();
+      var fileName = storeId + '_' + timestamp + '_' + (0, _tools.getRandomString)(5);
+      (0, _store.uploadImageStore)(coverInput, fileName, storeId, function (downloadURL) {
+        newCoverUrl = downloadURL;
+        updateTheme();
+      });
+    };
+
+    var updateTheme = function updateTheme() {
+      var dataTheme = getState().store.theme.data;
+      dataTheme.cover = newCoverUrl; /** update the cover's url */
+      var newDataTheme = dataTheme;
+      (0, _store.updateDataTheme)(userId, storeId, newDataTheme, function (response) {
+        // update local dataTheme store state, then...
+        if (response.error !== null) {
+          // if there's an error...
+          dispatch((0, _fetching.stopFetching)());
+          // show an error message
+          return false;
+        }
+        dispatch({
+          type: types.UPDATE_DATA_THEME,
+          dataTheme: newDataTheme
+        });
+        dispatch((0, _fetching.stopFetching)());
+        callback(); // call to close the modal
+      });
+    };
+
+    uploadCoverPicture();
+  };
+};
+
 /**
  * Create a new homeSection Object and push to the store's sections array
  */
@@ -38100,7 +38148,7 @@ var homeSectionModalPublishButton = exports.homeSectionModalPublishButton = func
   };
 };
 
-},{"../api/store":130,"../constants/ActionTypes":163,"../models/session":183,"../models/tools":184,"../strings":200,"./fetching":109}],115:[function(require,module,exports){
+},{"../api/store":130,"../constants/ActionTypes":164,"../models/session":185,"../models/tools":186,"../strings":202,"./fetching":109}],115:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39138,7 +39186,7 @@ Breadcrumbs.propTypes = {
 
 exports.default = Breadcrumbs;
 
-},{"../../models/tools":184,"prop-types":43,"react":92,"react-router-dom":75}],133:[function(require,module,exports){
+},{"../../models/tools":186,"prop-types":43,"react":92,"react-router-dom":75}],133:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39326,7 +39374,7 @@ CartItemView.defaultProps = {
 
 exports.default = CartItemView;
 
-},{"../../models/tools":184,"prop-types":43,"react":92,"react-router-dom":75}],134:[function(require,module,exports){
+},{"../../models/tools":186,"prop-types":43,"react":92,"react-router-dom":75}],134:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39475,7 +39523,7 @@ CartView.propTypes = {
 
 exports.default = CartView;
 
-},{"../../models/tools":184,"../cartItemView/cartItemView":133,"prop-types":43,"react":92}],135:[function(require,module,exports){
+},{"../../models/tools":186,"../cartItemView/cartItemView":133,"prop-types":43,"react":92}],135:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39575,7 +39623,7 @@ Categories.propTypes = {
 
 exports.default = Categories;
 
-},{"../../models/tools":184,"prop-types":43,"react":92,"react-router-dom":75}],136:[function(require,module,exports){
+},{"../../models/tools":186,"prop-types":43,"react":92,"react-router-dom":75}],136:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40006,7 +40054,7 @@ CheckoutView.propTypes = {
 
 exports.default = CheckoutView;
 
-},{"../../models/session":183,"../../models/tools":184,"prop-types":43,"react":92}],137:[function(require,module,exports){
+},{"../../models/session":185,"../../models/tools":186,"prop-types":43,"react":92}],137:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40113,7 +40161,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CongratulationPurchase);
 
-},{"../../strings":200,"prop-types":43,"react":92,"react-redux":57}],138:[function(require,module,exports){
+},{"../../strings":202,"prop-types":43,"react":92,"react-redux":57}],138:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40248,6 +40296,142 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CoverModal = function (_React$Component) {
+  _inherits(CoverModal, _React$Component);
+
+  function CoverModal(props) {
+    _classCallCheck(this, CoverModal);
+
+    var _this = _possibleConstructorReturn(this, (CoverModal.__proto__ || Object.getPrototypeOf(CoverModal)).call(this, props));
+
+    _this._cancel = _this._cancel.bind(_this);
+    _this._save = _this._save.bind(_this);
+    return _this;
+  }
+
+  _createClass(CoverModal, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _props = this.props,
+          loadCanvas = _props.loadCanvas,
+          cover = _props.cover;
+
+      loadCanvas('cover-modal__canvas', cover);
+    }
+  }, {
+    key: '_cancel',
+    value: function _cancel() {
+      $('#cover-modal').modal('close');
+    }
+  }, {
+    key: '_save',
+    value: function _save() {
+      var coverSaveButton = this.props.coverSaveButton;
+
+      coverSaveButton(function () {
+        $('#cover-modal').modal('close');
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props2 = this.props,
+          strings = _props2.strings,
+          cover = _props2.cover,
+          loadPicture = _props2.loadPicture;
+
+      var cancel = this._cancel;
+      var save = this._save;
+
+      return _react2.default.createElement(
+        'div',
+        {
+          id: 'cover-modal',
+          className: 'modal cover-modal'
+        },
+        _react2.default.createElement(
+          'div',
+          { className: 'modal-content' },
+          _react2.default.createElement(
+            'h4',
+            null,
+            strings.title
+          ),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'cover-modal__input' },
+            _react2.default.createElement('canvas', { id: 'cover-modal__canvas', className: 'cover-modal__canvas' })
+          ),
+          _react2.default.createElement('input', { type: 'file', id: 'cover-modal__input', className: 'cover-modal__input',
+            onChange: function onChange() {
+              return loadPicture("cover-modal__input", "cover-modal__canvas", cover);
+            }
+          })
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'modal-footer' },
+          _react2.default.createElement(
+            'a',
+            { className: 'waves-effect btn-flat',
+              onClick: function onClick() {
+                return cancel();
+              }
+            },
+            strings.buttonCancel
+          ),
+          _react2.default.createElement(
+            'a',
+            { className: 'waves-effect waves-light btn-small z-depth-0',
+              onClick: function onClick() {
+                return save();
+              }
+            },
+            strings.buttonSave
+          )
+        )
+      );
+    }
+  }]);
+
+  return CoverModal;
+}(_react2.default.Component);
+
+CoverModal.propTypes = {
+  strings: _propTypes2.default.object.isRequired,
+  cover: _propTypes2.default.string.isRequired,
+  loadCanvas: _propTypes2.default.func.isRequired,
+  loadPicture: _propTypes2.default.func.isRequired,
+  coverSaveButton: _propTypes2.default.func.isRequired
+};
+
+exports.default = CoverModal;
+
+},{"prop-types":43,"react":92}],140:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -40317,7 +40501,7 @@ CreateSection.propTypes = {
 
 exports.default = CreateSection;
 
-},{"../homeSectionModal/homeSectionModal":142,"prop-types":43,"react":92}],140:[function(require,module,exports){
+},{"../homeSectionModal/homeSectionModal":143,"prop-types":43,"react":92}],141:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40350,7 +40534,7 @@ EmptyCartView.propTypes = {
 
 exports.default = EmptyCartView;
 
-},{"prop-types":43,"react":92}],141:[function(require,module,exports){
+},{"prop-types":43,"react":92}],142:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40389,7 +40573,7 @@ Cover.propTypes = {
 
 exports.default = Cover;
 
-},{"prop-types":43,"react":92}],142:[function(require,module,exports){
+},{"prop-types":43,"react":92}],143:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40462,8 +40646,9 @@ var HomeSectionModal = function (_React$Component) {
   }, {
     key: '_cancel',
     value: function _cancel() {
-      console.log('cancel');
-      //$(`#${id}`).modal('close')
+      var id = this.props.id;
+
+      $('#' + id).modal('close');
     }
   }, {
     key: '_publish',
@@ -40624,7 +40809,7 @@ HomeSectionModal.propTypes = {
 
 exports.default = HomeSectionModal;
 
-},{"../../models/tools":184,"prop-types":43,"react":92}],143:[function(require,module,exports){
+},{"../../models/tools":186,"prop-types":43,"react":92}],144:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40740,7 +40925,7 @@ ItemCarousel.propTypes = {
 
 exports.default = ItemCarousel;
 
-},{"../../models/tools":184,"prop-types":43,"react":92}],144:[function(require,module,exports){
+},{"../../models/tools":186,"prop-types":43,"react":92}],145:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40962,7 +41147,7 @@ ItemContent.propTypes = {
 
 exports.default = ItemContent;
 
-},{"../../models/tools":184,"../itemContentAttributes/itemContentAttributes":145,"../itemContentShipping/itemContentShipping":146,"prop-types":43,"react":92}],145:[function(require,module,exports){
+},{"../../models/tools":186,"../itemContentAttributes/itemContentAttributes":146,"../itemContentShipping/itemContentShipping":147,"prop-types":43,"react":92}],146:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41127,7 +41312,7 @@ ItemContentAttributes.propTypes = {
 
 exports.default = ItemContentAttributes;
 
-},{"../../models/tools":184,"prop-types":43,"react":92}],146:[function(require,module,exports){
+},{"../../models/tools":186,"prop-types":43,"react":92}],147:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41207,7 +41392,7 @@ ItemContentShipping.propTypes = {
 
 exports.default = ItemContentShipping;
 
-},{"../../models/tools":184,"prop-types":43,"react":92}],147:[function(require,module,exports){
+},{"../../models/tools":186,"prop-types":43,"react":92}],148:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41290,7 +41475,7 @@ ItemView.propTypes = {
 
 exports.default = ItemView;
 
-},{"../itemCarousel/itemCarousel":143,"../itemContent/itemContent":144,"prop-types":43,"react":92}],148:[function(require,module,exports){
+},{"../itemCarousel/itemCarousel":144,"../itemContent/itemContent":145,"prop-types":43,"react":92}],149:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41326,7 +41511,7 @@ var ItemViewPlaceholder = function ItemViewPlaceholder(_ref) {
 
 exports.default = ItemViewPlaceholder;
 
-},{"react":92}],149:[function(require,module,exports){
+},{"react":92}],150:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41631,7 +41816,7 @@ LoginView.propTypes = {
 
 exports.default = LoginView;
 
-},{"prop-types":43,"react":92,"react-router-dom":75}],150:[function(require,module,exports){
+},{"prop-types":43,"react":92,"react-router-dom":75}],151:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42090,7 +42275,7 @@ Navbar.propTypes = {
 
 exports.default = Navbar;
 
-},{"prop-types":43,"react":92,"react-router-dom":75}],151:[function(require,module,exports){
+},{"prop-types":43,"react":92,"react-router-dom":75}],152:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42238,7 +42423,7 @@ Pagination.propTypes = {
 
 exports.default = Pagination;
 
-},{"prop-types":43,"react":92}],152:[function(require,module,exports){
+},{"prop-types":43,"react":92}],153:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42298,7 +42483,7 @@ PreviewItem.propTypes = {
 
 exports.default = PreviewItem;
 
-},{"../../models/tools.js":184,"prop-types":43,"react":92,"react-router-dom":75}],153:[function(require,module,exports){
+},{"../../models/tools.js":186,"prop-types":43,"react":92,"react-router-dom":75}],154:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42391,7 +42576,7 @@ return (
 
  */
 
-},{"../previewItem/previewItem":152,"prop-types":43,"react":92}],154:[function(require,module,exports){
+},{"../previewItem/previewItem":153,"prop-types":43,"react":92}],155:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -42432,7 +42617,7 @@ var PreviewListPlaceholder = function PreviewListPlaceholder(_ref) {
 
 exports.default = PreviewListPlaceholder;
 
-},{"react":92}],155:[function(require,module,exports){
+},{"react":92}],156:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42491,7 +42676,7 @@ Profile.propTypes = {
 
 exports.default = Profile;
 
-},{"prop-types":43,"react":92}],156:[function(require,module,exports){
+},{"prop-types":43,"react":92}],157:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42779,7 +42964,7 @@ PurchaseView.propTypes = {
 
 exports.default = PurchaseView;
 
-},{"../../models/tools.js":184,"../cartItemView/cartItemView":133,"prop-types":43,"react":92}],157:[function(require,module,exports){
+},{"../../models/tools.js":186,"../cartItemView/cartItemView":133,"prop-types":43,"react":92}],158:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42890,7 +43075,7 @@ PurchasesList.propTypes = {
 
 exports.default = PurchasesList;
 
-},{"../../models/tools.js":184,"prop-types":43,"react":92,"react-router-dom":75}],158:[function(require,module,exports){
+},{"../../models/tools.js":186,"prop-types":43,"react":92,"react-router-dom":75}],159:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42926,7 +43111,7 @@ ResultCount.propTypes = {
 
 exports.default = ResultCount;
 
-},{"prop-types":43,"react":92}],159:[function(require,module,exports){
+},{"prop-types":43,"react":92}],160:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42967,7 +43152,7 @@ Spinner.propTypes = {
 
 exports.default = Spinner;
 
-},{"prop-types":43,"react":92}],160:[function(require,module,exports){
+},{"prop-types":43,"react":92}],161:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42990,8 +43175,7 @@ var TabsHero = function TabsHero(_ref) {
   var strings = _ref.strings,
       username = _ref.username,
       quantityCart = _ref.quantityCart,
-      display = _ref.display,
-      init = _ref.init;
+      display = _ref.display;
 
   var quantityCartComp = quantityCart !== 0 ? _react2.default.createElement(
     'span',
@@ -43079,8 +43263,7 @@ var TabsHero = function TabsHero(_ref) {
           )
         )
       )
-    ),
-    init()
+    )
   );
 };
 
@@ -43088,13 +43271,12 @@ TabsHero.propTypes = {
   strings: _propTypes2.default.object.isRequired,
   username: _propTypes2.default.string.isRequired,
   quantityCart: _propTypes2.default.number.isRequired,
-  display: _propTypes2.default.bool.isRequired,
-  init: _propTypes2.default.func.isRequired
+  display: _propTypes2.default.bool.isRequired
 };
 
 exports.default = TabsHero;
 
-},{"prop-types":43,"react":92,"react-router-dom":75}],161:[function(require,module,exports){
+},{"prop-types":43,"react":92,"react-router-dom":75}],162:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43156,7 +43338,7 @@ TermsView.propTypes = {
 
 exports.default = TermsView;
 
-},{"prop-types":43,"react":92}],162:[function(require,module,exports){
+},{"prop-types":43,"react":92}],163:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -43246,7 +43428,7 @@ var getEnv = exports.getEnv = function getEnv() {
   }
 };
 
-},{}],163:[function(require,module,exports){
+},{}],164:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43293,7 +43475,7 @@ var LOAD_PURCHASE = exports.LOAD_PURCHASE = 'LOAD_PURCHASE';
 var LOAD_STORE = exports.LOAD_STORE = 'LOAD_STORE';
 var UPDATE_DATA_THEME = exports.UPDATE_DATA_THEME = 'UPDATE_DATA_THEME';
 
-},{}],164:[function(require,module,exports){
+},{}],165:[function(require,module,exports){
 module.exports={
   "API_AUTH_SET_SUCCEED":4000,
   "API_AUTH_SET_FAILED":4001,
@@ -43302,7 +43484,7 @@ module.exports={
   "API_USER_LOGIN_NO_FOUND":5010,
   "API_STORE_CREATE_USERNAME_EXIST":6000
 }
-},{}],165:[function(require,module,exports){
+},{}],166:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43456,7 +43638,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(AccountPage));
 
-},{"../actions/account":107,"../components/accountView/accountView":131,"../components/breadcrumbs/breadcrumbs":132,"../models/analytics":178,"../models/facebookPixel":180,"../models/session":183,"../strings":200,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],166:[function(require,module,exports){
+},{"../actions/account":107,"../components/accountView/accountView":131,"../components/breadcrumbs/breadcrumbs":132,"../models/analytics":180,"../models/facebookPixel":182,"../models/session":185,"../strings":202,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],167:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43601,7 +43783,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CartPage));
 
-},{"../actions/cart":108,"../components/cartView/cartView":134,"../components/emptyCartView/emptyCartView":140,"../models/analytics":178,"../models/facebookPixel":180,"../strings":200,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],167:[function(require,module,exports){
+},{"../actions/cart":108,"../components/cartView/cartView":134,"../components/emptyCartView/emptyCartView":141,"../models/analytics":180,"../models/facebookPixel":182,"../strings":202,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],168:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43799,7 +43981,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CategoryPage));
 
-},{"../actions":110,"../components/breadcrumbs/breadcrumbs":132,"../components/pagination/pagination":151,"../components/previewList/previewList":153,"../components/previewListPlaceholder/previewListPlaceholder":154,"../components/resultCount/resultCount":158,"../models/analytics":178,"../models/facebookPixel":180,"../models/tools":184,"../strings":200,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],168:[function(require,module,exports){
+},{"../actions":110,"../components/breadcrumbs/breadcrumbs":132,"../components/pagination/pagination":152,"../components/previewList/previewList":154,"../components/previewListPlaceholder/previewListPlaceholder":155,"../components/resultCount/resultCount":159,"../models/analytics":180,"../models/facebookPixel":182,"../models/tools":186,"../strings":202,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],169:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43917,7 +44099,95 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CheckoutPage));
 
-},{"../actions/cart":108,"../components/checkoutView/checkoutView":136,"../models/analytics":178,"../models/facebookPixel":180,"../strings":200,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],169:[function(require,module,exports){
+},{"../actions/cart":108,"../components/checkoutView/checkoutView":136,"../models/analytics":180,"../models/facebookPixel":182,"../strings":202,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],170:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _coverModal = require('../components/coverModal/coverModal');
+
+var _coverModal2 = _interopRequireDefault(_coverModal);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var CoverContainer = function CoverContainer(_ref) {
+  var isEditable = _ref.isEditable,
+      cover = _ref.cover,
+      strings = _ref.strings,
+      loadCanvas = _ref.loadCanvas,
+      loadPicture = _ref.loadPicture,
+      coverSaveButton = _ref.coverSaveButton;
+
+  var init = function init() {
+    /** this load the modals */
+    $(document).ready(function () {
+      $('.modal').modal();
+    });
+  };
+
+  if (isEditable) {
+    return _react2.default.createElement(
+      'div',
+      { className: 'cover-container', style: { position: 'relative' } },
+      _react2.default.createElement('img', { className: 'responsive-img', src: cover }),
+      _react2.default.createElement(
+        'div',
+        { className: 'cover-container__edit-bar',
+          style: {
+            padding: '1em',
+            position: 'absolute',
+            bottom: '5px',
+            width: '100%',
+            backgroundColor: '#80808045',
+            fontWeight: '100'
+          }
+        },
+        _react2.default.createElement(
+          'a',
+          { className: 'modal-trigger', href: '#cover-modal',
+            style: {
+              color: 'white'
+            }
+          },
+          strings.labelEdit
+        )
+      ),
+      _react2.default.createElement(_coverModal2.default, {
+        strings: strings.modal,
+        cover: cover,
+        loadCanvas: loadCanvas,
+        loadPicture: loadPicture,
+        coverSaveButton: coverSaveButton
+      }),
+      init()
+    );
+  } else {
+    return _react2.default.createElement('img', { className: 'responsive-img', src: cover });
+  }
+};
+
+CoverContainer.propTypes = {
+  isEditable: _propTypes2.default.bool.isRequired,
+  cover: _propTypes2.default.string.isRequired,
+  strings: _propTypes2.default.object.isRequired,
+  loadCanvas: _propTypes2.default.func.isRequired,
+  loadPicture: _propTypes2.default.func.isRequired,
+  coverSaveButton: _propTypes2.default.func.isRequired
+};
+
+exports.default = CoverContainer;
+
+},{"../components/coverModal/coverModal":139,"prop-types":43,"react":92}],171:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43936,9 +44206,17 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactRedux = require('react-redux');
 
+var _store = require('../actions/store');
+
 var _strings = require('../strings');
 
 var _strings2 = _interopRequireDefault(_strings);
+
+var _canvas = require('../models/canvas');
+
+var _coverContainer = require('./coverContainer');
+
+var _coverContainer2 = _interopRequireDefault(_coverContainer);
 
 var _profile = require('../components/profile/profile.js');
 
@@ -43953,6 +44231,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Hero = function Hero(_ref) {
   var isEditable = _ref.isEditable,
       cover = _ref.cover,
+      stringsCover = _ref.stringsCover,
       logo = _ref.logo,
       name = _ref.name,
       username = _ref.username,
@@ -43960,14 +44239,20 @@ var Hero = function Hero(_ref) {
       stringsTabs = _ref.stringsTabs,
       quantityCart = _ref.quantityCart,
       display = _ref.display,
-      init = _ref.init;
+      coverSaveButton = _ref.coverSaveButton;
 
-  var coverComp = _react2.default.createElement('img', { className: 'responsive-img', src: cover });
 
   return _react2.default.createElement(
     'section',
     { className: 'hero__section' },
-    coverComp,
+    _react2.default.createElement(_coverContainer2.default, {
+      isEditable: isEditable,
+      cover: cover,
+      strings: stringsCover,
+      loadCanvas: _canvas.loadCanvas,
+      loadPicture: _canvas.loadPicture,
+      coverSaveButton: coverSaveButton
+    }),
     _react2.default.createElement(_profile2.default, {
       logo: logo,
       name: name,
@@ -43977,8 +44262,7 @@ var Hero = function Hero(_ref) {
       strings: stringsTabs,
       username: username,
       quantityCart: quantityCart,
-      display: display,
-      init: init
+      display: display
     })
   );
 };
@@ -43986,6 +44270,7 @@ var Hero = function Hero(_ref) {
 Hero.propTypes = {
   isEditable: _propTypes2.default.bool.isRequired,
   cover: _propTypes2.default.string.isRequired,
+  stringsCover: _propTypes2.default.object.isRequired,
   logo: _propTypes2.default.string.isRequired,
   name: _propTypes2.default.string.isRequired,
   username: _propTypes2.default.string.isRequired,
@@ -43993,13 +44278,14 @@ Hero.propTypes = {
   stringsTabs: _propTypes2.default.object.isRequired,
   quantityCart: _propTypes2.default.number.isRequired,
   display: _propTypes2.default.bool.isRequired,
-  init: _propTypes2.default.func.isRequired
+  coverSaveButton: _propTypes2.default.func.isRequired
 };
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
     isEditable: state.isEditable,
-    cover: state.store.cover,
+    cover: state.store.theme.data.cover,
+    stringsCover: (0, _strings2.default)(state.language).coverContainer,
     logo: state.store.logo,
     name: state.store.name,
     username: state.store.username,
@@ -44012,13 +44298,15 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    init: function init() {}
+    coverSaveButton: function coverSaveButton(callback) {
+      return dispatch((0, _store.coverSaveButton)(callback));
+    }
   };
 };
 
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Hero));
 
-},{"../components/profile/profile.js":155,"../components/tabsHero/tabsHero.js":160,"../strings":200,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],170:[function(require,module,exports){
+},{"../actions/store":114,"../components/profile/profile.js":156,"../components/tabsHero/tabsHero.js":161,"../models/canvas":181,"../strings":202,"./coverContainer":170,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],172:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44207,7 +44495,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(HomePage);
 
-},{"../actions/store":114,"../components/createSection/createSection":139,"../models/analytics":178,"../models/canvas":179,"../models/facebookPixel":180,"../models/tools":184,"../strings":200,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],171:[function(require,module,exports){
+},{"../actions/store":114,"../components/createSection/createSection":140,"../models/analytics":180,"../models/canvas":181,"../models/facebookPixel":182,"../models/tools":186,"../strings":202,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],173:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44405,7 +44693,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(ItemPage));
 
-},{"../actions":110,"../actions/item":111,"../components/breadcrumbs/breadcrumbs":132,"../components/itemView/itemView":147,"../components/itemViewPlaceholder/itemViewPlaceholder":148,"../models/analytics":178,"../models/facebookPixel":180,"../strings":200,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],172:[function(require,module,exports){
+},{"../actions":110,"../actions/item":111,"../components/breadcrumbs/breadcrumbs":132,"../components/itemView/itemView":148,"../components/itemViewPlaceholder/itemViewPlaceholder":149,"../models/analytics":180,"../models/facebookPixel":182,"../strings":202,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],174:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44537,7 +44825,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(LoginPage));
 
-},{"../actions/login":112,"../components/loginView/loginView":149,"../models/analytics":178,"../models/facebookPixel":180,"../strings":200,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],173:[function(require,module,exports){
+},{"../actions/login":112,"../components/loginView/loginView":150,"../models/analytics":180,"../models/facebookPixel":182,"../strings":202,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],175:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44700,7 +44988,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(PurchasePage));
 
-},{"../actions/account":107,"../components/breadcrumbs/breadcrumbs":132,"../components/purchaseView/purchaseView":156,"../models/analytics":178,"../models/facebookPixel":180,"../models/session":183,"../strings":200,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],174:[function(require,module,exports){
+},{"../actions/account":107,"../components/breadcrumbs/breadcrumbs":132,"../components/purchaseView/purchaseView":157,"../models/analytics":180,"../models/facebookPixel":182,"../models/session":185,"../strings":202,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],176:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44884,7 +45172,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(PurchasesPage));
 
-},{"../actions/account":107,"../actions/pagination":113,"../components/breadcrumbs/breadcrumbs":132,"../components/pagination/pagination":151,"../components/purchasesList/purchasesList":157,"../models/analytics":178,"../models/facebookPixel":180,"../models/session":183,"../strings":200,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],175:[function(require,module,exports){
+},{"../actions/account":107,"../actions/pagination":113,"../components/breadcrumbs/breadcrumbs":132,"../components/pagination/pagination":152,"../components/purchasesList/purchasesList":158,"../models/analytics":180,"../models/facebookPixel":182,"../models/session":185,"../strings":202,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],177:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45079,7 +45367,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(SearchPage));
 
-},{"../actions":110,"../components/breadcrumbs/breadcrumbs":132,"../components/pagination/pagination":151,"../components/previewList/previewList":153,"../components/previewListPlaceholder/previewListPlaceholder":154,"../components/resultCount/resultCount":158,"../models/analytics":178,"../models/facebookPixel":180,"../models/tools":184,"../strings":200,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],176:[function(require,module,exports){
+},{"../actions":110,"../components/breadcrumbs/breadcrumbs":132,"../components/pagination/pagination":152,"../components/previewList/previewList":154,"../components/previewListPlaceholder/previewListPlaceholder":155,"../components/resultCount/resultCount":159,"../models/analytics":180,"../models/facebookPixel":182,"../models/tools":186,"../strings":202,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],178:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45361,7 +45649,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(Store));
 
-},{"../actions":110,"../actions/login":112,"../actions/store":114,"../components/categories/categories.js":135,"../components/congratulationPurchase/congratulationPurchase.js":137,"../components/contact/contact.js":138,"../components/footer/footer.js":141,"../components/navbar/navbar.js":150,"../components/spinner/spinner.js":159,"../models/session":183,"../strings":200,"./accountPage.js":165,"./cartPage.js":166,"./categoryPage.js":167,"./checkoutPage.js":168,"./hero.js":169,"./homePage.js":170,"./itemPage.js":171,"./loginPage.js":172,"./purchasePage.js":173,"./purchasesPage.js":174,"./searchPage.js":175,"./termsPage.js":177,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],177:[function(require,module,exports){
+},{"../actions":110,"../actions/login":112,"../actions/store":114,"../components/categories/categories.js":135,"../components/congratulationPurchase/congratulationPurchase.js":137,"../components/contact/contact.js":138,"../components/footer/footer.js":142,"../components/navbar/navbar.js":151,"../components/spinner/spinner.js":160,"../models/session":185,"../strings":202,"./accountPage.js":166,"./cartPage.js":167,"./categoryPage.js":168,"./checkoutPage.js":169,"./hero.js":171,"./homePage.js":172,"./itemPage.js":173,"./loginPage.js":174,"./purchasePage.js":175,"./purchasesPage.js":176,"./searchPage.js":177,"./termsPage.js":179,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],179:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45470,7 +45758,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(TermsPage);
 
-},{"../components/termsView/termsView.js":161,"../models/analytics":178,"../models/facebookPixel":180,"../strings":200,"prop-types":43,"react":92,"react-redux":57}],178:[function(require,module,exports){
+},{"../components/termsView/termsView.js":162,"../models/analytics":180,"../models/facebookPixel":182,"../strings":202,"prop-types":43,"react":92,"react-redux":57}],180:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45492,7 +45780,7 @@ var pageView = exports.pageView = function pageView(storeTrackerId) {
   ga('sherponTracker.send', 'pageview');
 };
 
-},{"../config":162}],179:[function(require,module,exports){
+},{"../config":163}],181:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45577,7 +45865,7 @@ var loadPicture = exports.loadPicture = function loadPicture(inputId, canvasId, 
     }
 };
 
-},{}],180:[function(require,module,exports){
+},{}],182:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45597,7 +45885,7 @@ var pixelPageView = exports.pixelPageView = function pixelPageView(storePixelId)
   fbq('track', 'PageView');
 };
 
-},{"../config":162}],181:[function(require,module,exports){
+},{"../config":163}],183:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -45608,7 +45896,7 @@ var _history = require("history");
 
 exports.default = (0, _history.createBrowserHistory)({ basename: "/" });
 
-},{"history":22}],182:[function(require,module,exports){
+},{"history":22}],184:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45663,7 +45951,7 @@ Diners Club       3600 020000 0006      01/2020   230   fraudulent
 
  */
 
-},{"../tools":184}],183:[function(require,module,exports){
+},{"../tools":186}],185:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45724,7 +46012,7 @@ exports.default = {
   inCartSession: inCartSession
 };
 
-},{}],184:[function(require,module,exports){
+},{}],186:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -45861,7 +46149,7 @@ var getRandomString = exports.getRandomString = function getRandomString() {
   }return text;
 };
 
-},{}],185:[function(require,module,exports){
+},{}],187:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45996,7 +46284,7 @@ var Cart = function Cart() {
 
 exports.default = Cart;
 
-},{"../constants/ActionTypes":163,"../models/session":183}],186:[function(require,module,exports){
+},{"../constants/ActionTypes":164,"../models/session":185}],188:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46027,7 +46315,7 @@ var inSession = function inSession() {
 
 exports.default = inSession;
 
-},{"../constants/ActionTypes":163,"../models/session":183}],187:[function(require,module,exports){
+},{"../constants/ActionTypes":164,"../models/session":185}],189:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46101,7 +46389,7 @@ exports.default = (0, _redux.combineReducers)({
   store: _store2.default
 });
 
-},{"./cart":185,"./inSession":186,"./isAdmin":188,"./isEditable":189,"./isFetching":190,"./isResultLoaded":191,"./item":192,"./language":193,"./pagination":194,"./purchase":195,"./result":196,"./store":197,"redux":100}],188:[function(require,module,exports){
+},{"./cart":187,"./inSession":188,"./isAdmin":190,"./isEditable":191,"./isFetching":192,"./isResultLoaded":193,"./item":194,"./language":195,"./pagination":196,"./purchase":197,"./result":198,"./store":199,"redux":100}],190:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46148,7 +46436,7 @@ var isAdmin = function isAdmin() {
 
 exports.default = isAdmin;
 
-},{"../constants/ActionTypes":163,"../models/session":183}],189:[function(require,module,exports){
+},{"../constants/ActionTypes":164,"../models/session":185}],191:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46195,7 +46483,7 @@ var isEditable = function isEditable() {
 
 exports.default = isEditable;
 
-},{"../constants/ActionTypes":163,"../models/session":183}],190:[function(require,module,exports){
+},{"../constants/ActionTypes":164,"../models/session":185}],192:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46220,7 +46508,7 @@ var isFetching = function isFetching() {
 
 exports.default = isFetching;
 
-},{"../constants/ActionTypes":163}],191:[function(require,module,exports){
+},{"../constants/ActionTypes":164}],193:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46245,7 +46533,7 @@ var isResultLoaded = function isResultLoaded() {
 
 exports.default = isResultLoaded;
 
-},{"../constants/ActionTypes":163}],192:[function(require,module,exports){
+},{"../constants/ActionTypes":164}],194:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -46308,7 +46596,7 @@ var item = function item() {
 
 exports.default = item;
 
-},{"../constants/ActionTypes":163}],193:[function(require,module,exports){
+},{"../constants/ActionTypes":164}],195:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46333,7 +46621,7 @@ var language = function language() {
 
 exports.default = language;
 
-},{"../constants/ActionTypes":163}],194:[function(require,module,exports){
+},{"../constants/ActionTypes":164}],196:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46378,7 +46666,7 @@ var pagination = function pagination() {
 
 exports.default = pagination;
 
-},{"../constants/ActionTypes":163}],195:[function(require,module,exports){
+},{"../constants/ActionTypes":164}],197:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -46434,7 +46722,7 @@ var purchase = function purchase() {
 
 exports.default = purchase;
 
-},{"../constants/ActionTypes":163}],196:[function(require,module,exports){
+},{"../constants/ActionTypes":164}],198:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46457,7 +46745,7 @@ var result = function result() {
 
 exports.default = result;
 
-},{"../constants/ActionTypes":163}],197:[function(require,module,exports){
+},{"../constants/ActionTypes":164}],199:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46496,7 +46784,7 @@ var storeState = function storeState() {
 
 exports.default = storeState;
 
-},{"../constants/ActionTypes":163}],198:[function(require,module,exports){
+},{"../constants/ActionTypes":164}],200:[function(require,module,exports){
 module.exports={
 	"store":{
 		"text1":"text"
@@ -46507,7 +46795,7 @@ module.exports={
 		"navbarItemAccount":"Mi cuenta"
 	}
 }
-},{}],199:[function(require,module,exports){
+},{}],201:[function(require,module,exports){
 module.exports={
 	"store":{
 		"text1":"text"
@@ -46529,9 +46817,14 @@ module.exports={
 		"navbarItemMarketing":"Marketing",
 		"navbarItemSupportMe":"Apoya a Sherpon"
 	},
-	"cover":{
-		"labelEdit":"Editar",
-		"labelSave":"Guardar"
+	"coverContainer":{
+		"labelEdit":"Editar cover",
+		"modal":{
+			"title":"Editar cover",
+			"buttonCancel":"Cancelar",
+			"buttonSave":"Guardar",
+			"errorCoverPicture":"Debes seleccionar una imagen distinta"
+		}
 	},
 	"profile":{
 		"labelEdit":"Editar",
@@ -46759,7 +47052,7 @@ module.exports={
 	}
 }
 
-},{}],200:[function(require,module,exports){
+},{}],202:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46785,7 +47078,7 @@ Notes
 var userLang = navigator.language || navigator.userLanguage; 
  */
 
-},{"./EN.json":198,"./ES.json":199}],201:[function(require,module,exports){
+},{"./EN.json":200,"./ES.json":201}],203:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -46856,4 +47149,4 @@ Notes
  */
 
 }).call(this,require('_process'))
-},{"./containers/store.js":176,"./models/history":181,"./reducers":187,"_process":39,"jquery":25,"react":92,"react-dom":47,"react-redux":57,"react-router-dom":75,"redux":100,"redux-logger":93,"redux-thunk":94}]},{},[201]);
+},{"./containers/store.js":178,"./models/history":183,"./reducers":189,"_process":39,"jquery":25,"react":92,"react-dom":47,"react-redux":57,"react-router-dom":75,"redux":100,"redux-logger":93,"redux-thunk":94}]},{},[203]);

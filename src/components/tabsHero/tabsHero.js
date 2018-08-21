@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-const TabsHero = ({strings, username, quantityCart, display, init}) => {
+const TabsHero = ({strings, username, quantityCart, display}) => {
   const quantityCartComp = (quantityCart!==0) ? (
     <span
       className="quantity-cart__badge"
@@ -67,7 +67,6 @@ const TabsHero = ({strings, username, quantityCart, display, init}) => {
           </ul>
         </div>
       </div>
-      {init()}
     </div>
   )
 }
@@ -76,8 +75,7 @@ TabsHero.propTypes = {
   strings: PropTypes.object.isRequired,
   username: PropTypes.string.isRequired,
   quantityCart: PropTypes.number.isRequired,
-  display: PropTypes.bool.isRequired,
-  init: PropTypes.func.isRequired
+  display: PropTypes.bool.isRequired
 }
 
 export default TabsHero

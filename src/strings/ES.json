@@ -19,9 +19,14 @@
 		"navbarItemMarketing":"Marketing",
 		"navbarItemSupportMe":"Apoya a Sherpon"
 	},
-	"cover":{
-		"labelEdit":"Editar",
-		"labelSave":"Guardar"
+	"coverContainer":{
+		"labelEdit":"Editar cover",
+		"modal":{
+			"title":"Editar cover",
+			"buttonCancel":"Cancelar",
+			"buttonSave":"Guardar",
+			"errorCoverPicture":"Debes seleccionar una imagen distinta"
+		}
 	},
 	"profile":{
 		"labelEdit":"Editar",

@@ -6697,6 +6697,16 @@ input::placeholder {
   font-size: 1em !important;
   margin: 0px !important; }
 
+.cover-modal .modal-content {
+  padding: 1em !important; }
+  .cover-modal .modal-content .cover-modal__canvas {
+    width: 100%; }
+  .cover-modal .modal-content .cover-modal__input {
+    display: none; }
+
+.cover-modal .modal-footer {
+  padding: 4px 10px !important; }
+
 .sherpon-store-tabs-hero {
   border-top: 1px solid #e5e5e5; }
 

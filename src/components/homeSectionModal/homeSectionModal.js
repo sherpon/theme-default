@@ -32,8 +32,8 @@ class HomeSectionModal extends React.Component {
   }
 
   _cancel() {
-    console.log('cancel')
-    //$(`#${id}`).modal('close')
+    const { id } = this.props
+    $(`#${id}`).modal('close')
   }
 
   _publish() {

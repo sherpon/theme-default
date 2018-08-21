@@ -1,0 +1,19 @@
+.cover-modal {
+
+  .modal-content {
+    padding: 1em !important;
+
+    .cover-modal__canvas {
+      width: 100%;
+    }
+
+    .cover-modal__input {
+      display: none;
+    }
+  }
+
+
+  .modal-footer {
+    padding: 4px 10px !important;
+  }
+}

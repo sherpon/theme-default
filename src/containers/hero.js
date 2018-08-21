@@ -3,17 +3,26 @@ import { Switch, Route, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
+import { coverSaveButton } from '../actions/store'
 import Strings from '../strings'
+import { loadCanvas, loadPicture } from '../models/canvas'
 
+import CoverContainer from './coverContainer'
 import Profile from '../components/profile/profile.js'
 import TabsHero from '../components/tabsHero/tabsHero.js'
 
-const Hero = ({ isEditable, cover, logo, name, username, shortdescription, stringsTabs, quantityCart, display, init}) => {
-  const coverComp = (<img className="responsive-img" src={cover}/>)
+const Hero = ({ isEditable, cover, stringsCover, logo, name, username, shortdescription, stringsTabs, quantityCart, display, coverSaveButton}) => {
 
   return (
     <section className="hero__section">
-      {coverComp}
+      <CoverContainer
+        isEditable={isEditable}
+        cover={cover}
+        strings={stringsCover}
+        loadCanvas={loadCanvas}
+        loadPicture={loadPicture}
+        coverSaveButton={coverSaveButton}
+      />
       <Profile
         logo={logo}
         name={name}
@@ -24,7 +33,6 @@ const Hero = ({ isEditable, cover, logo, name, username, shortdescription, strin
         username={username}
         quantityCart={quantityCart}
         display={display}
-        init={init}
       />
     </section>
   )
@@ -33,6 +41,7 @@ const Hero = ({ isEditable, cover, logo, name, username, shortdescription, strin
 Hero.propTypes = {
   isEditable: PropTypes.bool.isRequired,
   cover: PropTypes.string.isRequired,
+  stringsCover: PropTypes.object.isRequired,
   logo: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
@@ -40,12 +49,13 @@ Hero.propTypes = {
   stringsTabs: PropTypes.object.isRequired,
   quantityCart: PropTypes.number.isRequired,
   display: PropTypes.bool.isRequired,
-  init: PropTypes.func.isRequired
+  coverSaveButton: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
   isEditable: state.isEditable,
-  cover: state.store.cover,
+  cover: state.store.theme.data.cover,
+  stringsCover: Strings(state.language).coverContainer,
   logo: state.store.logo,
   name: state.store.name,
   username: state.store.username,
@@ -56,7 +66,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  init: () => {}
+  coverSaveButton: (callback) => dispatch(coverSaveButton(callback))
 })
 
 export default withRouter(connect(

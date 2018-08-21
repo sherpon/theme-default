@@ -17,6 +17,52 @@ export const editStoreSwitch = () => (dispatch, getState) => {
     dispatch({ type: types.EDIT_START })
   }
 }
+
+export const coverSaveButton = (callback) => (dispatch, getState) => {
+  const storeId = getState().store.id
+  const userId = session.getUser().id
+  const coverInput = document.getElementById('cover-modal__input')
+  if (!coverInput.files[0]) {
+    M.toast({html: Strings(getState().language).coverContainer.modal.errorCoverPicture})
+    return false
+  }
+
+  dispatch(startFetching())
+  let newCoverUrl = ''
+
+  const uploadCoverPicture = () => {
+    const timestamp = (new Date()).getTime()
+    const fileName = storeId + '_' + timestamp + '_' + getRandomString(5)
+    apiUploadImageStore(coverInput, fileName, storeId, (downloadURL) => {
+      newCoverUrl = downloadURL
+      updateTheme()
+    })
+  }
+
+  const updateTheme = () => {
+    const dataTheme = getState().store.theme.data
+    dataTheme.cover = newCoverUrl /** update the cover's url */
+    const newDataTheme = dataTheme
+    apiUpdateDataTheme(userId, storeId, newDataTheme, (response) => {
+      // update local dataTheme store state, then...
+      if (response.error!==null) {
+        // if there's an error...
+        dispatch(stopFetching())
+        // show an error message
+        return false
+      }
+      dispatch({
+        type: types.UPDATE_DATA_THEME,
+        dataTheme: newDataTheme
+      })
+      dispatch(stopFetching())
+      callback() // call to close the modal
+    })
+  }
+
+  uploadCoverPicture()
+}
+
 /**
  * Create a new homeSection Object and push to the store's sections array
  */
