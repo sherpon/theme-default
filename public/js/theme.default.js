@@ -36846,7 +36846,7 @@ var loadPurchase = exports.loadPurchase = function loadPurchase(purchaseId) {
   };
 };
 
-},{"../api/account":115,"../constants/ActionTypes":166,"../models/session":188,"../strings":205,"./fetching":109,"./pagination":113}],108:[function(require,module,exports){
+},{"../api/account":115,"../constants/ActionTypes":169,"../models/session":192,"../strings":209,"./fetching":109,"./pagination":113}],108:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37109,7 +37109,7 @@ var placeOrder = exports.placeOrder = function placeOrder() {
   };
 };
 
-},{"../api/purchase":129,"../constants/ActionTypes":166,"../models/history":186,"../models/paymentGateway/culqi":187,"../models/session":188,"../strings":205,"./fetching":109}],109:[function(require,module,exports){
+},{"../api/purchase":129,"../constants/ActionTypes":169,"../models/history":190,"../models/paymentGateway/culqi":191,"../models/session":192,"../strings":209,"./fetching":109}],109:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37135,7 +37135,7 @@ var stopFetching = exports.stopFetching = function stopFetching() {
   };
 };
 
-},{"../constants/ActionTypes":166}],110:[function(require,module,exports){
+},{"../constants/ActionTypes":169}],110:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37328,7 +37328,7 @@ var loadCategory = exports.loadCategory = function loadCategory(category) {
   };
 };
 
-},{"../api/item":127,"../config":165,"../constants/ActionTypes":166,"../constants/codes.json":167,"../models/history":186,"../models/session":188,"../models/tools":189,"../strings":205}],111:[function(require,module,exports){
+},{"../api/item":127,"../config":168,"../constants/ActionTypes":169,"../constants/codes.json":170,"../models/history":190,"../models/session":192,"../models/tools":193,"../strings":209}],111:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37785,7 +37785,7 @@ var shareWhatsapp = exports.shareWhatsapp = function shareWhatsapp() {
   window.location.href = "https://api.whatsapp.com/send?text=" + window.location.href + "?utm_source%3Dsherpon_store%26utm_medium%3Dwhatsapp_link%26utm_campaign%3Dsocial_shared_item";
 };
 
-},{"../api/item":127,"../config":165,"../constants/ActionTypes":166,"../models/history":186,"../models/session":188,"../strings":205,"./fetching":109}],112:[function(require,module,exports){
+},{"../api/item":127,"../config":168,"../constants/ActionTypes":169,"../models/history":190,"../models/session":192,"../strings":209,"./fetching":109}],112:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37908,7 +37908,7 @@ var logout = exports.logout = function logout() {
   };
 };
 
-},{"../api/login":128,"../constants/ActionTypes":166,"../constants/codes.json":167,"../models/history":186,"../models/session":188,"../strings":205,"./fetching":109}],113:[function(require,module,exports){
+},{"../api/login":128,"../constants/ActionTypes":169,"../constants/codes.json":170,"../models/history":190,"../models/session":192,"../strings":209,"./fetching":109}],113:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37967,13 +37967,13 @@ var goToPage = exports.goToPage = function goToPage(index) {
   };
 };
 
-},{"../constants/ActionTypes":166,"./fetching":109}],114:[function(require,module,exports){
+},{"../constants/ActionTypes":169,"./fetching":109}],114:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.homeSectionModalPublishButton = exports.logoSaveButton = exports.coverSaveButton = exports.editStoreSwitch = undefined;
+exports.homeSectionModalPublishButton = exports.shortDescriptionSaveButton = exports.logoSaveButton = exports.coverSaveButton = exports.editStoreSwitch = undefined;
 
 var _ActionTypes = require('../constants/ActionTypes');
 
@@ -38102,6 +38102,41 @@ var logoSaveButton = exports.logoSaveButton = function logoSaveButton(callback) 
   };
 };
 
+var shortDescriptionSaveButton = exports.shortDescriptionSaveButton = function shortDescriptionSaveButton(callback) {
+  return function (dispatch, getState) {
+    var storeId = getState().store.id;
+    var userId = _session2.default.getUser().id;
+    var shortDescriptionInput = document.getElementById('short-description-modal__textarea');
+    //if (!logoInput.files[0]) {
+    //  M.toast({html: Strings(getState().language).coverContainer.modal.errorCoverPicture})
+    //  return false
+    //}
+
+    dispatch((0, _fetching.startFetching)());
+    var newShortDescription = shortDescriptionInput.value;
+
+    var dataTheme = getState().store.theme.data;
+    dataTheme.description = newShortDescription;
+    dataTheme.shortDescription = newShortDescription;
+    var newDataTheme = dataTheme;
+    (0, _store.updateDataTheme)(userId, storeId, newDataTheme, function (response) {
+      // update local dataTheme store state, then...
+      if (response.error !== null) {
+        // if there's an error...
+        dispatch((0, _fetching.stopFetching)());
+        // show an error message
+        return false;
+      }
+      dispatch({
+        type: types.UPDATE_DATA_THEME,
+        dataTheme: newDataTheme
+      });
+      dispatch((0, _fetching.stopFetching)());
+      callback(); // call to close the modal
+    });
+  };
+};
+
 /**
  * Create a new homeSection Object and push to the store's sections array
  */
@@ -38195,7 +38230,7 @@ var homeSectionModalPublishButton = exports.homeSectionModalPublishButton = func
   };
 };
 
-},{"../api/store":130,"../constants/ActionTypes":166,"../models/session":188,"../models/tools":189,"../strings":205,"./fetching":109}],115:[function(require,module,exports){
+},{"../api/store":130,"../constants/ActionTypes":169,"../models/session":192,"../models/tools":193,"../strings":209,"./fetching":109}],115:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39233,7 +39268,7 @@ Breadcrumbs.propTypes = {
 
 exports.default = Breadcrumbs;
 
-},{"../../models/tools":189,"prop-types":43,"react":92,"react-router-dom":75}],133:[function(require,module,exports){
+},{"../../models/tools":193,"prop-types":43,"react":92,"react-router-dom":75}],133:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39421,7 +39456,7 @@ CartItemView.defaultProps = {
 
 exports.default = CartItemView;
 
-},{"../../models/tools":189,"prop-types":43,"react":92,"react-router-dom":75}],134:[function(require,module,exports){
+},{"../../models/tools":193,"prop-types":43,"react":92,"react-router-dom":75}],134:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39570,7 +39605,7 @@ CartView.propTypes = {
 
 exports.default = CartView;
 
-},{"../../models/tools":189,"../cartItemView/cartItemView":133,"prop-types":43,"react":92}],135:[function(require,module,exports){
+},{"../../models/tools":193,"../cartItemView/cartItemView":133,"prop-types":43,"react":92}],135:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39670,7 +39705,7 @@ Categories.propTypes = {
 
 exports.default = Categories;
 
-},{"../../models/tools":189,"prop-types":43,"react":92,"react-router-dom":75}],136:[function(require,module,exports){
+},{"../../models/tools":193,"prop-types":43,"react":92,"react-router-dom":75}],136:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40101,7 +40136,7 @@ CheckoutView.propTypes = {
 
 exports.default = CheckoutView;
 
-},{"../../models/session":188,"../../models/tools":189,"prop-types":43,"react":92}],137:[function(require,module,exports){
+},{"../../models/session":192,"../../models/tools":193,"prop-types":43,"react":92}],137:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40208,7 +40243,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CongratulationPurchase);
 
-},{"../../strings":205,"prop-types":43,"react":92,"react-redux":57}],138:[function(require,module,exports){
+},{"../../strings":209,"prop-types":43,"react":92,"react-redux":57}],138:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40857,7 +40892,7 @@ HomeSectionModal.propTypes = {
 
 exports.default = HomeSectionModal;
 
-},{"../../models/tools":189,"prop-types":43,"react":92}],144:[function(require,module,exports){
+},{"../../models/tools":193,"prop-types":43,"react":92}],144:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40973,7 +41008,7 @@ ItemCarousel.propTypes = {
 
 exports.default = ItemCarousel;
 
-},{"../../models/tools":189,"prop-types":43,"react":92}],145:[function(require,module,exports){
+},{"../../models/tools":193,"prop-types":43,"react":92}],145:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41195,7 +41230,7 @@ ItemContent.propTypes = {
 
 exports.default = ItemContent;
 
-},{"../../models/tools":189,"../itemContentAttributes/itemContentAttributes":146,"../itemContentShipping/itemContentShipping":147,"prop-types":43,"react":92}],146:[function(require,module,exports){
+},{"../../models/tools":193,"../itemContentAttributes/itemContentAttributes":146,"../itemContentShipping/itemContentShipping":147,"prop-types":43,"react":92}],146:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41360,7 +41395,7 @@ ItemContentAttributes.propTypes = {
 
 exports.default = ItemContentAttributes;
 
-},{"../../models/tools":189,"prop-types":43,"react":92}],147:[function(require,module,exports){
+},{"../../models/tools":193,"prop-types":43,"react":92}],147:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41440,7 +41475,7 @@ ItemContentShipping.propTypes = {
 
 exports.default = ItemContentShipping;
 
-},{"../../models/tools":189,"prop-types":43,"react":92}],148:[function(require,module,exports){
+},{"../../models/tools":193,"prop-types":43,"react":92}],148:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42712,7 +42747,7 @@ PreviewItem.propTypes = {
 
 exports.default = PreviewItem;
 
-},{"../../models/tools.js":189,"prop-types":43,"react":92,"react-router-dom":75}],156:[function(require,module,exports){
+},{"../../models/tools.js":193,"prop-types":43,"react":92,"react-router-dom":75}],156:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42865,17 +42900,24 @@ var _logoContainer = require('../../containers/logoContainer');
 
 var _logoContainer2 = _interopRequireDefault(_logoContainer);
 
+var _shortDescriptionContainer = require('../../containers/shortDescriptionContainer.jsx');
+
+var _shortDescriptionContainer2 = _interopRequireDefault(_shortDescriptionContainer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Profile = function Profile(_ref) {
   var isEditable = _ref.isEditable,
-      stringsLogo = _ref.stringsLogo,
       logo = _ref.logo,
+      stringsLogo = _ref.stringsLogo,
       loadCanvas = _ref.loadCanvas,
       loadPicture = _ref.loadPicture,
       logoSaveButton = _ref.logoSaveButton,
       name = _ref.name,
-      shortdescription = _ref.shortdescription;
+      shortDescription = _ref.shortDescription,
+      stringsShortDescription = _ref.stringsShortDescription,
+      shortDescriptionSaveButton = _ref.shortDescriptionSaveButton;
+
 
   return _react2.default.createElement(
     'div',
@@ -42903,11 +42945,12 @@ var Profile = function Profile(_ref) {
           null,
           name
         ),
-        _react2.default.createElement(
-          'h1',
-          null,
-          shortdescription
-        )
+        _react2.default.createElement(_shortDescriptionContainer2.default, {
+          isEditable: isEditable,
+          shortDescription: shortDescription,
+          strings: stringsShortDescription,
+          shortDescriptionSaveButton: shortDescriptionSaveButton
+        })
       )
     )
   );
@@ -42921,12 +42964,14 @@ Profile.propTypes = {
   loadPicture: _propTypes2.default.func.isRequired,
   logoSaveButton: _propTypes2.default.func.isRequired,
   name: _propTypes2.default.string.isRequired,
-  shortdescription: _propTypes2.default.string.isRequired
+  shortDescription: _propTypes2.default.string.isRequired,
+  stringsShortDescription: _propTypes2.default.object.isRequired,
+  shortDescriptionSaveButton: _propTypes2.default.func.isRequired
 };
 
 exports.default = Profile;
 
-},{"../../containers/logoContainer":177,"prop-types":43,"react":92}],159:[function(require,module,exports){
+},{"../../containers/logoContainer":180,"../../containers/shortDescriptionContainer.jsx":184,"prop-types":43,"react":92}],159:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43214,7 +43259,7 @@ PurchaseView.propTypes = {
 
 exports.default = PurchaseView;
 
-},{"../../models/tools.js":189,"../cartItemView/cartItemView":133,"prop-types":43,"react":92}],160:[function(require,module,exports){
+},{"../../models/tools.js":193,"../cartItemView/cartItemView":133,"prop-types":43,"react":92}],160:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43325,7 +43370,7 @@ PurchasesList.propTypes = {
 
 exports.default = PurchasesList;
 
-},{"../../models/tools.js":189,"prop-types":43,"react":92,"react-router-dom":75}],161:[function(require,module,exports){
+},{"../../models/tools.js":193,"prop-types":43,"react":92,"react-router-dom":75}],161:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43368,6 +43413,219 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _shortDescriptionEdit = require('./shortDescriptionEdit/shortDescriptionEdit.jsx');
+
+var _shortDescriptionEdit2 = _interopRequireDefault(_shortDescriptionEdit);
+
+var _shortDescriptionModal = require('./shortDescriptionModal/shortDescriptionModal.jsx');
+
+var _shortDescriptionModal2 = _interopRequireDefault(_shortDescriptionModal);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ShortDescription = {
+  Edit: _shortDescriptionEdit2.default,
+  Modal: _shortDescriptionModal2.default
+};
+
+exports.default = ShortDescription;
+
+},{"./shortDescriptionEdit/shortDescriptionEdit.jsx":163,"./shortDescriptionModal/shortDescriptionModal.jsx":164}],163:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ShortDescriptionEdit = function ShortDescriptionEdit(_ref) {
+  var strings = _ref.strings,
+      shortDescription = _ref.shortDescription;
+
+  return _react2.default.createElement(
+    'div',
+    { className: 'short-description-edit' },
+    _react2.default.createElement(
+      'h1',
+      null,
+      shortDescription
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'short-description-edit__edit-bar' },
+      _react2.default.createElement(
+        'a',
+        { className: 'modal-trigger', href: '#short-description-modal' },
+        strings.labelEdit
+      )
+    )
+  );
+};
+
+ShortDescriptionEdit.propTypes = {
+  strings: _propTypes2.default.object.isRequired,
+  shortDescription: _propTypes2.default.string.isRequired
+};
+
+exports.default = ShortDescriptionEdit;
+
+},{"prop-types":43,"react":92}],164:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ShortDescriptionModal = function (_React$Component) {
+  _inherits(ShortDescriptionModal, _React$Component);
+
+  function ShortDescriptionModal(props) {
+    _classCallCheck(this, ShortDescriptionModal);
+
+    var _this = _possibleConstructorReturn(this, (ShortDescriptionModal.__proto__ || Object.getPrototypeOf(ShortDescriptionModal)).call(this, props));
+
+    _this._cancel = _this._cancel.bind(_this);
+    _this._save = _this._save.bind(_this);
+    return _this;
+  }
+
+  _createClass(ShortDescriptionModal, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var shortDescription = this.props.shortDescription;
+      //$('#short-description-modal').val(shortDescription)
+      //M.textareaAutoResize($('#short-description-modal'))
+    }
+  }, {
+    key: '_cancel',
+    value: function _cancel() {
+      $('#short-description-modal').modal('close');
+    }
+  }, {
+    key: '_save',
+    value: function _save() {
+      var shortDescriptionSaveButton = this.props.shortDescriptionSaveButton;
+
+      shortDescriptionSaveButton(function () {
+        $('#short-description-modal').modal('close');
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          strings = _props.strings,
+          shortDescription = _props.shortDescription;
+
+      var cancel = this._cancel;
+      var save = this._save;
+      var init = function init() {
+        //$('#short-description-modal__textarea').val(shortDescription)
+        //M.textareaAutoResize($('#short-description-modal'))
+        setTimeout(function () {
+          $('#short-description-modal__textarea').val(shortDescription);
+          M.updateTextFields();
+          M.textareaAutoResize($('#short-description-modal__textarea'));
+        }, 1000);
+      };
+
+      return _react2.default.createElement(
+        'div',
+        {
+          id: 'short-description-modal',
+          className: 'modal short-description-modal'
+        },
+        _react2.default.createElement(
+          'div',
+          { className: 'modal-content' },
+          _react2.default.createElement(
+            'h4',
+            null,
+            strings.title
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'input-field' },
+            _react2.default.createElement('textarea', { id: 'short-description-modal__textarea', className: 'materialize-textarea' }),
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'short-description-modal__textarea' },
+              strings.label
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'modal-footer' },
+          _react2.default.createElement(
+            'a',
+            { className: 'waves-effect btn-flat',
+              onClick: function onClick() {
+                return cancel();
+              }
+            },
+            strings.buttonCancel
+          ),
+          _react2.default.createElement(
+            'a',
+            { className: 'waves-effect waves-light btn-small z-depth-0',
+              onClick: function onClick() {
+                return save();
+              }
+            },
+            strings.buttonSave
+          )
+        ),
+        init()
+      );
+    }
+  }]);
+
+  return ShortDescriptionModal;
+}(_react2.default.Component);
+
+ShortDescriptionModal.propTypes = {
+  strings: _propTypes2.default.object.isRequired,
+  shortDescription: _propTypes2.default.string.isRequired,
+  shortDescriptionSaveButton: _propTypes2.default.func.isRequired
+};
+
+exports.default = ShortDescriptionModal;
+
+},{"prop-types":43,"react":92}],165:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -43402,7 +43660,7 @@ Spinner.propTypes = {
 
 exports.default = Spinner;
 
-},{"prop-types":43,"react":92}],163:[function(require,module,exports){
+},{"prop-types":43,"react":92}],166:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43526,7 +43784,7 @@ TabsHero.propTypes = {
 
 exports.default = TabsHero;
 
-},{"prop-types":43,"react":92,"react-router-dom":75}],164:[function(require,module,exports){
+},{"prop-types":43,"react":92,"react-router-dom":75}],167:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43588,7 +43846,7 @@ TermsView.propTypes = {
 
 exports.default = TermsView;
 
-},{"prop-types":43,"react":92}],165:[function(require,module,exports){
+},{"prop-types":43,"react":92}],168:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -43678,7 +43936,7 @@ var getEnv = exports.getEnv = function getEnv() {
   }
 };
 
-},{}],166:[function(require,module,exports){
+},{}],169:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43725,7 +43983,7 @@ var LOAD_PURCHASE = exports.LOAD_PURCHASE = 'LOAD_PURCHASE';
 var LOAD_STORE = exports.LOAD_STORE = 'LOAD_STORE';
 var UPDATE_DATA_THEME = exports.UPDATE_DATA_THEME = 'UPDATE_DATA_THEME';
 
-},{}],167:[function(require,module,exports){
+},{}],170:[function(require,module,exports){
 module.exports={
   "API_AUTH_SET_SUCCEED":4000,
   "API_AUTH_SET_FAILED":4001,
@@ -43734,7 +43992,7 @@ module.exports={
   "API_USER_LOGIN_NO_FOUND":5010,
   "API_STORE_CREATE_USERNAME_EXIST":6000
 }
-},{}],168:[function(require,module,exports){
+},{}],171:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43888,7 +44146,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(AccountPage));
 
-},{"../actions/account":107,"../components/accountView/accountView":131,"../components/breadcrumbs/breadcrumbs":132,"../models/analytics":183,"../models/facebookPixel":185,"../models/session":188,"../strings":205,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],169:[function(require,module,exports){
+},{"../actions/account":107,"../components/accountView/accountView":131,"../components/breadcrumbs/breadcrumbs":132,"../models/analytics":187,"../models/facebookPixel":189,"../models/session":192,"../strings":209,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],172:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44033,7 +44291,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CartPage));
 
-},{"../actions/cart":108,"../components/cartView/cartView":134,"../components/emptyCartView/emptyCartView":141,"../models/analytics":183,"../models/facebookPixel":185,"../strings":205,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],170:[function(require,module,exports){
+},{"../actions/cart":108,"../components/cartView/cartView":134,"../components/emptyCartView/emptyCartView":141,"../models/analytics":187,"../models/facebookPixel":189,"../strings":209,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],173:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44231,7 +44489,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CategoryPage));
 
-},{"../actions":110,"../components/breadcrumbs/breadcrumbs":132,"../components/pagination/pagination":154,"../components/previewList/previewList":156,"../components/previewListPlaceholder/previewListPlaceholder":157,"../components/resultCount/resultCount":161,"../models/analytics":183,"../models/facebookPixel":185,"../models/tools":189,"../strings":205,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],171:[function(require,module,exports){
+},{"../actions":110,"../components/breadcrumbs/breadcrumbs":132,"../components/pagination/pagination":154,"../components/previewList/previewList":156,"../components/previewListPlaceholder/previewListPlaceholder":157,"../components/resultCount/resultCount":161,"../models/analytics":187,"../models/facebookPixel":189,"../models/tools":193,"../strings":209,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],174:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44349,7 +44607,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CheckoutPage));
 
-},{"../actions/cart":108,"../components/checkoutView/checkoutView":136,"../models/analytics":183,"../models/facebookPixel":185,"../strings":205,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],172:[function(require,module,exports){
+},{"../actions/cart":108,"../components/checkoutView/checkoutView":136,"../models/analytics":187,"../models/facebookPixel":189,"../strings":209,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],175:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44437,7 +44695,7 @@ CoverContainer.propTypes = {
 
 exports.default = CoverContainer;
 
-},{"../components/coverModal/coverModal":139,"prop-types":43,"react":92}],173:[function(require,module,exports){
+},{"../components/coverModal/coverModal":139,"prop-types":43,"react":92}],176:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44486,12 +44744,14 @@ var Hero = function Hero(_ref) {
       stringsLogo = _ref.stringsLogo,
       name = _ref.name,
       username = _ref.username,
-      shortdescription = _ref.shortdescription,
+      shortDescription = _ref.shortDescription,
+      stringsShortDescription = _ref.stringsShortDescription,
       stringsTabs = _ref.stringsTabs,
       quantityCart = _ref.quantityCart,
       display = _ref.display,
       coverSaveButton = _ref.coverSaveButton,
-      logoSaveButton = _ref.logoSaveButton;
+      logoSaveButton = _ref.logoSaveButton,
+      shortDescriptionSaveButton = _ref.shortDescriptionSaveButton;
 
 
   return _react2.default.createElement(
@@ -44513,7 +44773,9 @@ var Hero = function Hero(_ref) {
       loadPicture: _canvas.loadPicture,
       logoSaveButton: logoSaveButton,
       name: name,
-      shortdescription: shortdescription
+      shortDescription: shortDescription,
+      stringsShortDescription: stringsShortDescription,
+      shortDescriptionSaveButton: shortDescriptionSaveButton
     }),
     _react2.default.createElement(_tabsHero2.default, {
       strings: stringsTabs,
@@ -44532,12 +44794,14 @@ Hero.propTypes = {
   stringsLogo: _propTypes2.default.object.isRequired,
   name: _propTypes2.default.string.isRequired,
   username: _propTypes2.default.string.isRequired,
-  shortdescription: _propTypes2.default.string.isRequired,
+  shortDescription: _propTypes2.default.string.isRequired,
+  stringsShortDescription: _propTypes2.default.object.isRequired,
   stringsTabs: _propTypes2.default.object.isRequired,
   quantityCart: _propTypes2.default.number.isRequired,
   display: _propTypes2.default.bool.isRequired,
   coverSaveButton: _propTypes2.default.func.isRequired,
-  logoSaveButton: _propTypes2.default.func.isRequired
+  logoSaveButton: _propTypes2.default.func.isRequired,
+  shortDescriptionSaveButton: _propTypes2.default.func.isRequired
 };
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -44549,7 +44813,8 @@ var mapStateToProps = function mapStateToProps(state) {
     stringsLogo: (0, _strings2.default)(state.language).logoContainer,
     name: state.store.name,
     username: state.store.username,
-    shortdescription: state.store.shortDescription,
+    shortDescription: state.store.theme.data.shortDescription,
+    stringsShortDescription: (0, _strings2.default)(state.language).shortDescriptionContainer,
     stringsTabs: (0, _strings2.default)(state.language).tabsHero,
     quantityCart: state.cart.quantity,
     display: true
@@ -44563,13 +44828,16 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     logoSaveButton: function logoSaveButton(callback) {
       return dispatch((0, _store.logoSaveButton)(callback));
+    },
+    shortDescriptionSaveButton: function shortDescriptionSaveButton(callback) {
+      return dispatch((0, _store.shortDescriptionSaveButton)(callback));
     }
   };
 };
 
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Hero));
 
-},{"../actions/store":114,"../components/profile/profile.js":158,"../components/tabsHero/tabsHero.js":163,"../models/canvas":184,"../strings":205,"./coverContainer":172,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],174:[function(require,module,exports){
+},{"../actions/store":114,"../components/profile/profile.js":158,"../components/tabsHero/tabsHero.js":166,"../models/canvas":188,"../strings":209,"./coverContainer":175,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],177:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44758,7 +45026,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(HomePage);
 
-},{"../actions/store":114,"../components/createSection/createSection":140,"../models/analytics":183,"../models/canvas":184,"../models/facebookPixel":185,"../models/tools":189,"../strings":205,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],175:[function(require,module,exports){
+},{"../actions/store":114,"../components/createSection/createSection":140,"../models/analytics":187,"../models/canvas":188,"../models/facebookPixel":189,"../models/tools":193,"../strings":209,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],178:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44956,7 +45224,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(ItemPage));
 
-},{"../actions":110,"../actions/item":111,"../components/breadcrumbs/breadcrumbs":132,"../components/itemView/itemView":148,"../components/itemViewPlaceholder/itemViewPlaceholder":149,"../models/analytics":183,"../models/facebookPixel":185,"../strings":205,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],176:[function(require,module,exports){
+},{"../actions":110,"../actions/item":111,"../components/breadcrumbs/breadcrumbs":132,"../components/itemView/itemView":148,"../components/itemViewPlaceholder/itemViewPlaceholder":149,"../models/analytics":187,"../models/facebookPixel":189,"../strings":209,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],179:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45088,7 +45356,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(LoginPage));
 
-},{"../actions/login":112,"../components/loginView/loginView":150,"../models/analytics":183,"../models/facebookPixel":185,"../strings":205,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],177:[function(require,module,exports){
+},{"../actions/login":112,"../components/loginView/loginView":150,"../models/analytics":187,"../models/facebookPixel":189,"../strings":209,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],180:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45161,7 +45429,7 @@ LogoContainer.propTypes = {
 
 exports.default = LogoContainer;
 
-},{"../components/logoEdit/logoEdit":151,"../components/logoModal/logoModal":152,"prop-types":43,"react":92}],178:[function(require,module,exports){
+},{"../components/logoEdit/logoEdit":151,"../components/logoModal/logoModal":152,"prop-types":43,"react":92}],181:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45324,7 +45592,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(PurchasePage));
 
-},{"../actions/account":107,"../components/breadcrumbs/breadcrumbs":132,"../components/purchaseView/purchaseView":159,"../models/analytics":183,"../models/facebookPixel":185,"../models/session":188,"../strings":205,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],179:[function(require,module,exports){
+},{"../actions/account":107,"../components/breadcrumbs/breadcrumbs":132,"../components/purchaseView/purchaseView":159,"../models/analytics":187,"../models/facebookPixel":189,"../models/session":192,"../strings":209,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],182:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45508,7 +45776,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(PurchasesPage));
 
-},{"../actions/account":107,"../actions/pagination":113,"../components/breadcrumbs/breadcrumbs":132,"../components/pagination/pagination":154,"../components/purchasesList/purchasesList":160,"../models/analytics":183,"../models/facebookPixel":185,"../models/session":188,"../strings":205,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],180:[function(require,module,exports){
+},{"../actions/account":107,"../actions/pagination":113,"../components/breadcrumbs/breadcrumbs":132,"../components/pagination/pagination":154,"../components/purchasesList/purchasesList":160,"../models/analytics":187,"../models/facebookPixel":189,"../models/session":192,"../strings":209,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],183:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45703,7 +45971,74 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(SearchPage));
 
-},{"../actions":110,"../components/breadcrumbs/breadcrumbs":132,"../components/pagination/pagination":154,"../components/previewList/previewList":156,"../components/previewListPlaceholder/previewListPlaceholder":157,"../components/resultCount/resultCount":161,"../models/analytics":183,"../models/facebookPixel":185,"../models/tools":189,"../strings":205,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],181:[function(require,module,exports){
+},{"../actions":110,"../components/breadcrumbs/breadcrumbs":132,"../components/pagination/pagination":154,"../components/previewList/previewList":156,"../components/previewListPlaceholder/previewListPlaceholder":157,"../components/resultCount/resultCount":161,"../models/analytics":187,"../models/facebookPixel":189,"../models/tools":193,"../strings":209,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],184:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _shortDescription = require('../components/shortDescription');
+
+var _shortDescription2 = _interopRequireDefault(_shortDescription);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ShortDescriptionContainer = function ShortDescriptionContainer(_ref) {
+  var isEditable = _ref.isEditable,
+      shortDescription = _ref.shortDescription,
+      strings = _ref.strings,
+      shortDescriptionSaveButton = _ref.shortDescriptionSaveButton;
+
+  var init = function init() {
+    /** this load the modals */
+    $(document).ready(function () {
+      $('.modal').modal();
+    });
+  };
+
+  if (isEditable) {
+    return _react2.default.createElement(
+      'div',
+      { className: 'short-description-container' },
+      _react2.default.createElement(_shortDescription2.default.Edit, {
+        strings: strings,
+        shortDescription: shortDescription
+      }),
+      _react2.default.createElement(_shortDescription2.default.Modal, {
+        strings: strings.modal,
+        shortDescription: shortDescription,
+        shortDescriptionSaveButton: shortDescriptionSaveButton
+      }),
+      init()
+    );
+  } else {
+    return _react2.default.createElement(
+      'h1',
+      null,
+      shortDescription
+    );
+  }
+};
+
+ShortDescriptionContainer.propTypes = {
+  isEditable: _propTypes2.default.bool.isRequired,
+  shortDescription: _propTypes2.default.string.isRequired,
+  strings: _propTypes2.default.object.isRequired,
+  shortDescriptionSaveButton: _propTypes2.default.func.isRequired
+};
+
+exports.default = ShortDescriptionContainer;
+
+},{"../components/shortDescription":162,"prop-types":43,"react":92}],185:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45985,7 +46320,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(Store));
 
-},{"../actions":110,"../actions/login":112,"../actions/store":114,"../components/categories/categories.js":135,"../components/congratulationPurchase/congratulationPurchase.js":137,"../components/contact/contact.js":138,"../components/footer/footer.js":142,"../components/navbar/navbar.js":153,"../components/spinner/spinner.js":162,"../models/session":188,"../strings":205,"./accountPage.js":168,"./cartPage.js":169,"./categoryPage.js":170,"./checkoutPage.js":171,"./hero.js":173,"./homePage.js":174,"./itemPage.js":175,"./loginPage.js":176,"./purchasePage.js":178,"./purchasesPage.js":179,"./searchPage.js":180,"./termsPage.js":182,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],182:[function(require,module,exports){
+},{"../actions":110,"../actions/login":112,"../actions/store":114,"../components/categories/categories.js":135,"../components/congratulationPurchase/congratulationPurchase.js":137,"../components/contact/contact.js":138,"../components/footer/footer.js":142,"../components/navbar/navbar.js":153,"../components/spinner/spinner.js":165,"../models/session":192,"../strings":209,"./accountPage.js":171,"./cartPage.js":172,"./categoryPage.js":173,"./checkoutPage.js":174,"./hero.js":176,"./homePage.js":177,"./itemPage.js":178,"./loginPage.js":179,"./purchasePage.js":181,"./purchasesPage.js":182,"./searchPage.js":183,"./termsPage.js":186,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],186:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46094,7 +46429,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(TermsPage);
 
-},{"../components/termsView/termsView.js":164,"../models/analytics":183,"../models/facebookPixel":185,"../strings":205,"prop-types":43,"react":92,"react-redux":57}],183:[function(require,module,exports){
+},{"../components/termsView/termsView.js":167,"../models/analytics":187,"../models/facebookPixel":189,"../strings":209,"prop-types":43,"react":92,"react-redux":57}],187:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46116,7 +46451,7 @@ var pageView = exports.pageView = function pageView(storeTrackerId) {
   ga('sherponTracker.send', 'pageview');
 };
 
-},{"../config":165}],184:[function(require,module,exports){
+},{"../config":168}],188:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46205,7 +46540,7 @@ var loadPicture = exports.loadPicture = function loadPicture(inputId, canvasId, 
     }
 };
 
-},{}],185:[function(require,module,exports){
+},{}],189:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46225,7 +46560,7 @@ var pixelPageView = exports.pixelPageView = function pixelPageView(storePixelId)
   fbq('track', 'PageView');
 };
 
-},{"../config":165}],186:[function(require,module,exports){
+},{"../config":168}],190:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -46236,7 +46571,7 @@ var _history = require("history");
 
 exports.default = (0, _history.createBrowserHistory)({ basename: "/" });
 
-},{"history":22}],187:[function(require,module,exports){
+},{"history":22}],191:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46291,7 +46626,7 @@ Diners Club       3600 020000 0006      01/2020   230   fraudulent
 
  */
 
-},{"../tools":189}],188:[function(require,module,exports){
+},{"../tools":193}],192:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46352,7 +46687,7 @@ exports.default = {
   inCartSession: inCartSession
 };
 
-},{}],189:[function(require,module,exports){
+},{}],193:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -46489,7 +46824,7 @@ var getRandomString = exports.getRandomString = function getRandomString() {
   }return text;
 };
 
-},{}],190:[function(require,module,exports){
+},{}],194:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46624,7 +46959,7 @@ var Cart = function Cart() {
 
 exports.default = Cart;
 
-},{"../constants/ActionTypes":166,"../models/session":188}],191:[function(require,module,exports){
+},{"../constants/ActionTypes":169,"../models/session":192}],195:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46655,7 +46990,7 @@ var inSession = function inSession() {
 
 exports.default = inSession;
 
-},{"../constants/ActionTypes":166,"../models/session":188}],192:[function(require,module,exports){
+},{"../constants/ActionTypes":169,"../models/session":192}],196:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46729,7 +47064,7 @@ exports.default = (0, _redux.combineReducers)({
   store: _store2.default
 });
 
-},{"./cart":190,"./inSession":191,"./isAdmin":193,"./isEditable":194,"./isFetching":195,"./isResultLoaded":196,"./item":197,"./language":198,"./pagination":199,"./purchase":200,"./result":201,"./store":202,"redux":100}],193:[function(require,module,exports){
+},{"./cart":194,"./inSession":195,"./isAdmin":197,"./isEditable":198,"./isFetching":199,"./isResultLoaded":200,"./item":201,"./language":202,"./pagination":203,"./purchase":204,"./result":205,"./store":206,"redux":100}],197:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46776,7 +47111,7 @@ var isAdmin = function isAdmin() {
 
 exports.default = isAdmin;
 
-},{"../constants/ActionTypes":166,"../models/session":188}],194:[function(require,module,exports){
+},{"../constants/ActionTypes":169,"../models/session":192}],198:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46823,7 +47158,7 @@ var isEditable = function isEditable() {
 
 exports.default = isEditable;
 
-},{"../constants/ActionTypes":166,"../models/session":188}],195:[function(require,module,exports){
+},{"../constants/ActionTypes":169,"../models/session":192}],199:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46848,7 +47183,7 @@ var isFetching = function isFetching() {
 
 exports.default = isFetching;
 
-},{"../constants/ActionTypes":166}],196:[function(require,module,exports){
+},{"../constants/ActionTypes":169}],200:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46873,7 +47208,7 @@ var isResultLoaded = function isResultLoaded() {
 
 exports.default = isResultLoaded;
 
-},{"../constants/ActionTypes":166}],197:[function(require,module,exports){
+},{"../constants/ActionTypes":169}],201:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -46936,7 +47271,7 @@ var item = function item() {
 
 exports.default = item;
 
-},{"../constants/ActionTypes":166}],198:[function(require,module,exports){
+},{"../constants/ActionTypes":169}],202:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46961,7 +47296,7 @@ var language = function language() {
 
 exports.default = language;
 
-},{"../constants/ActionTypes":166}],199:[function(require,module,exports){
+},{"../constants/ActionTypes":169}],203:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47006,7 +47341,7 @@ var pagination = function pagination() {
 
 exports.default = pagination;
 
-},{"../constants/ActionTypes":166}],200:[function(require,module,exports){
+},{"../constants/ActionTypes":169}],204:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -47062,7 +47397,7 @@ var purchase = function purchase() {
 
 exports.default = purchase;
 
-},{"../constants/ActionTypes":166}],201:[function(require,module,exports){
+},{"../constants/ActionTypes":169}],205:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47085,7 +47420,7 @@ var result = function result() {
 
 exports.default = result;
 
-},{"../constants/ActionTypes":166}],202:[function(require,module,exports){
+},{"../constants/ActionTypes":169}],206:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47124,7 +47459,7 @@ var storeState = function storeState() {
 
 exports.default = storeState;
 
-},{"../constants/ActionTypes":166}],203:[function(require,module,exports){
+},{"../constants/ActionTypes":169}],207:[function(require,module,exports){
 module.exports={
 	"store":{
 		"text1":"text"
@@ -47135,7 +47470,7 @@ module.exports={
 		"navbarItemAccount":"Mi cuenta"
 	}
 }
-},{}],204:[function(require,module,exports){
+},{}],208:[function(require,module,exports){
 module.exports={
 	"store":{
 		"text1":"text"
@@ -47175,6 +47510,15 @@ module.exports={
 			"buttonCancel":"Cancelar",
 			"buttonSave":"Guardar",
 			"errorCoverPicture":"Debes seleccionar una imagen distinta"
+		}
+	},
+	"shortDescriptionContainer":{
+		"labelEdit":"Editar descripción",
+		"modal":{
+			"title":"Editar descripción",
+			"label":"Escribe una pequeña descripción de tu tienda",
+			"buttonCancel":"Cancelar",
+			"buttonSave":"Guardar"
 		}
 	},
 	"profile":{
@@ -47403,7 +47747,7 @@ module.exports={
 	}
 }
 
-},{}],205:[function(require,module,exports){
+},{}],209:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47429,7 +47773,7 @@ Notes
 var userLang = navigator.language || navigator.userLanguage; 
  */
 
-},{"./EN.json":203,"./ES.json":204}],206:[function(require,module,exports){
+},{"./EN.json":207,"./ES.json":208}],210:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -47500,4 +47844,4 @@ Notes
  */
 
 }).call(this,require('_process'))
-},{"./containers/store.js":181,"./models/history":186,"./reducers":192,"_process":39,"jquery":25,"react":92,"react-dom":47,"react-redux":57,"react-router-dom":75,"redux":100,"redux-logger":93,"redux-thunk":94}]},{},[206]);
+},{"./containers/store.js":185,"./models/history":190,"./reducers":196,"_process":39,"jquery":25,"react":92,"react-dom":47,"react-redux":57,"react-router-dom":75,"redux":100,"redux-logger":93,"redux-thunk":94}]},{},[210]);

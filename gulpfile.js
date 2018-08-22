@@ -31,7 +31,8 @@ var config = {
     },
     js: {
       main: srcPath + 'theme.default.js',
-      watch: srcPath + '**/**/*.js',
+      watchJs: srcPath + '**/**/*.js',
+      watchJsx: srcPath + '**/**/*.jsx',
       bundle: publicPath + 'js',
       bundlefile: 'theme.default.js',
       distBundlefile: 'theme.default.min.js'
@@ -93,13 +94,15 @@ gulp.task('js-dev', function () {
 gulp.task('watch', function () {
   gulp.watch(config.theme.sass.watch, ['css'])
   gulp.watch(config.theme.postcss.watch, ['postcss'])
-  gulp.watch(config.theme.js.watch, ['js'])
+  gulp.watch(config.theme.js.watchJs, ['js'])
+  gulp.watch(config.theme.js.watchJsx, ['js'])
 })
 
 gulp.task('watch-dev', function () {
   gulp.watch(config.theme.sass.watch, ['css'])
   gulp.watch(config.theme.postcss.watch, ['postcss-dev'])
-  gulp.watch(config.theme.js.watch, ['js-dev'])
+  gulp.watch(config.theme.js.watchJs, ['js-dev'])
+  gulp.watch(config.theme.js.watchJsx, ['js-dev'])
 })
 
 /*

@@ -39,6 +39,15 @@
 			"errorCoverPicture":"Debes seleccionar una imagen distinta"
 		}
 	},
+	"shortDescriptionContainer":{
+		"labelEdit":"Editar descripción",
+		"modal":{
+			"title":"Editar descripción",
+			"label":"Escribe una pequeña descripción de tu tienda",
+			"buttonCancel":"Cancelar",
+			"buttonSave":"Guardar"
+		}
+	},
 	"profile":{
 		"labelEdit":"Editar",
 		"labelSave":"Guardar"

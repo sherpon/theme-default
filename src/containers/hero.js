@@ -3,7 +3,11 @@ import { Switch, Route, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { coverSaveButton, logoSaveButton } from '../actions/store'
+import {
+  coverSaveButton,
+  logoSaveButton,
+  shortDescriptionSaveButton
+} from '../actions/store'
 import Strings from '../strings'
 import { loadCanvas, loadPicture } from '../models/canvas'
 
@@ -19,12 +23,14 @@ const Hero = ({
   stringsLogo,
   name,
   username,
-  shortdescription,
+  shortDescription,
+  stringsShortDescription,
   stringsTabs,
   quantityCart,
   display,
   coverSaveButton,
-  logoSaveButton
+  logoSaveButton,
+  shortDescriptionSaveButton
 }) => {
 
   return (
@@ -45,7 +51,9 @@ const Hero = ({
         loadPicture={loadPicture}
         logoSaveButton={logoSaveButton}
         name={name}
-        shortdescription={shortdescription}
+        shortDescription={shortDescription}
+        stringsShortDescription={stringsShortDescription}
+        shortDescriptionSaveButton ={shortDescriptionSaveButton}
       />
       <TabsHero
         strings={stringsTabs}
@@ -65,12 +73,14 @@ Hero.propTypes = {
   stringsLogo: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
-  shortdescription: PropTypes.string.isRequired,
+  shortDescription: PropTypes.string.isRequired,
+  stringsShortDescription: PropTypes.object.isRequired,
   stringsTabs: PropTypes.object.isRequired,
   quantityCart: PropTypes.number.isRequired,
   display: PropTypes.bool.isRequired,
   coverSaveButton: PropTypes.func.isRequired,
-  logoSaveButton: PropTypes.func.isRequired
+  logoSaveButton: PropTypes.func.isRequired,
+  shortDescriptionSaveButton: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -81,7 +91,8 @@ const mapStateToProps = state => ({
   stringsLogo: Strings(state.language).logoContainer,
   name: state.store.name,
   username: state.store.username,
-  shortdescription: state.store.shortDescription,
+  shortDescription: state.store.theme.data.shortDescription,
+  stringsShortDescription: Strings(state.language).shortDescriptionContainer,
   stringsTabs: Strings(state.language).tabsHero,
   quantityCart: state.cart.quantity,
   display: true
@@ -89,7 +100,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   coverSaveButton: (callback) => dispatch(coverSaveButton(callback)),
-  logoSaveButton: (callback) => dispatch(logoSaveButton(callback))
+  logoSaveButton: (callback) => dispatch(logoSaveButton(callback)),
+  shortDescriptionSaveButton: (callback) => dispatch(shortDescriptionSaveButton(callback))
 })
 
 export default withRouter(connect(

@@ -6729,6 +6729,18 @@ input::placeholder {
 .logo-modal .modal-footer {
   padding: 4px 10px !important; }
 
+.short-description-edit .short-description-edit__edit-bar {
+  margin-top: 1em;
+  padding: 1em;
+  width: 100%;
+  background-color: #80808045;
+  font-weight: 100; }
+  .short-description-edit .short-description-edit__edit-bar a {
+    color: white; }
+
+.short-description-modal .modal-footer {
+  padding: 4px 10px !important; }
+
 .sherpon-store-tabs-hero {
   border-top: 1px solid #e5e5e5; }
 

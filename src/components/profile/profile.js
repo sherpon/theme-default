@@ -2,8 +2,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import LogoContainer from '../../containers/logoContainer'
+import ShortDescriptionContainer from '../../containers/shortDescriptionContainer.jsx'
 
-const Profile = ({ isEditable, stringsLogo, logo, loadCanvas, loadPicture, logoSaveButton, name, shortdescription }) => {
+const Profile = ({
+    isEditable,
+    logo,
+    stringsLogo,
+    loadCanvas,
+    loadPicture,
+    logoSaveButton,
+    name,
+    shortDescription,
+    stringsShortDescription,
+    shortDescriptionSaveButton
+  }) => {
+
   return (
     <div className="sherpon-store-profile">
       <div className="sherpon-row">
@@ -21,7 +34,12 @@ const Profile = ({ isEditable, stringsLogo, logo, loadCanvas, loadPicture, logoS
 
         <div className="col s8 m10 l10">
           <h5>{name}</h5>
-          <h1>{shortdescription}</h1>
+          <ShortDescriptionContainer
+            isEditable={isEditable}
+            shortDescription={shortDescription}
+            strings={stringsShortDescription}
+            shortDescriptionSaveButton={shortDescriptionSaveButton}
+          />
         </div>
 
       </div>
@@ -37,7 +55,9 @@ Profile.propTypes = {
   loadPicture: PropTypes.func.isRequired,
   logoSaveButton: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
-  shortdescription: PropTypes.string.isRequired
+  shortDescription: PropTypes.string.isRequired,
+  stringsShortDescription: PropTypes.object.isRequired,
+  shortDescriptionSaveButton: PropTypes.func.isRequired
 }
 
 export default Profile
