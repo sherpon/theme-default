@@ -63,6 +63,51 @@ export const coverSaveButton = (callback) => (dispatch, getState) => {
   uploadCoverPicture()
 }
 
+export const logoSaveButton = (callback) => (dispatch, getState) => {
+  const storeId = getState().store.id
+  const userId = session.getUser().id
+  const logoInput = document.getElementById('logo-modal__input')
+  if (!logoInput.files[0]) {
+    M.toast({html: Strings(getState().language).coverContainer.modal.errorCoverPicture})
+    return false
+  }
+
+  dispatch(startFetching())
+  let newLogoUrl = ''
+
+  const uploadLogoPicture = () => {
+    const timestamp = (new Date()).getTime()
+    const fileName = storeId + '_' + timestamp + '_' + getRandomString(5)
+    apiUploadImageStore(logoInput, fileName, storeId, (downloadURL) => {
+      newLogoUrl = downloadURL
+      updateTheme()
+    })
+  }
+
+  const updateTheme = () => {
+    const dataTheme = getState().store.theme.data
+    dataTheme.logo = newLogoUrl /** update the logo's url */
+    const newDataTheme = dataTheme
+    apiUpdateDataTheme(userId, storeId, newDataTheme, (response) => {
+      // update local dataTheme store state, then...
+      if (response.error!==null) {
+        // if there's an error...
+        dispatch(stopFetching())
+        // show an error message
+        return false
+      }
+      dispatch({
+        type: types.UPDATE_DATA_THEME,
+        dataTheme: newDataTheme
+      })
+      dispatch(stopFetching())
+      callback() // call to close the modal
+    })
+  }
+
+  uploadLogoPicture()
+}
+
 /**
  * Create a new homeSection Object and push to the store's sections array
  */

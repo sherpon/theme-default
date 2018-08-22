@@ -1,0 +1,19 @@
+.logo-modal {
+
+  .modal-content {
+    padding: 1em !important;
+
+    .logo-modal__canvas {
+      width: 100%;
+    }
+
+    .logo-modal__input {
+      display: none;
+    }
+  }
+
+
+  .modal-footer {
+    padding: 4px 10px !important;
+  }
+}

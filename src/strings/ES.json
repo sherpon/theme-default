@@ -23,6 +23,17 @@
 		"labelEdit":"Editar cover",
 		"modal":{
 			"title":"Editar cover",
+			"label":"Presiona la imagen para cambiarla",
+			"buttonCancel":"Cancelar",
+			"buttonSave":"Guardar",
+			"errorCoverPicture":"Debes seleccionar una imagen distinta"
+		}
+	},
+	"logoContainer":{
+		"labelEdit":"Editar",
+		"modal":{
+			"title":"Editar logo",
+			"label":"Presiona la imagen para cambiarla",
 			"buttonCancel":"Cancelar",
 			"buttonSave":"Guardar",
 			"errorCoverPicture":"Debes seleccionar una imagen distinta"

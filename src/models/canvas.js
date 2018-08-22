@@ -1,17 +1,3 @@
-/**
- * Load the canvas with a picture
- * @param {string} canvasId - html canvas' id
- * @param {string} pictureUrl - picture's url to fill the canvas
- */
-export const loadCanvas = (canvasId, pictureUrl) => {
-  var canvas = document.getElementById(canvasId)
-  const context = canvas.getContext('2d')
-  const imageObj = new Image()
-  imageObj.onload = () => {
-    context.drawImage(imageObj, 0, 0, canvas.width, canvas.height)
-  }
-  imageObj.src = pictureUrl
-}
 
 const scaleWidthByHeight = (pictureWidth, pictureHeight, canvasHeight) => {
   let nWidth
@@ -28,6 +14,26 @@ const getXPosition = (canvasWidth, pictureWidth) => {
 const cleanCanvas = (context, canvasWidth, canvasHeight) => {
   context.fillStyle = 'white'
   context.fillRect(0, 0, canvasWidth, canvasHeight)
+}
+
+/**
+ * Load the canvas with a url picture
+ * @param {string} canvasId - html canvas' id
+ * @param {string} pictureUrl - picture's url to fill the canvas
+ */
+export const loadCanvas = (canvasId, pictureUrl) => {
+  var canvas = document.getElementById(canvasId)
+  const context = canvas.getContext('2d')
+  const imageObj = new Image()
+  imageObj.onload = () => {
+    const pictureWidth = scaleWidthByHeight(imageObj.width, imageObj.height, canvas.height)
+    const pictureHeight = canvas.height
+    const xPosition = getXPosition(canvas.width, pictureWidth)
+    cleanCanvas(context, canvas.width, canvas.height)
+    context.drawImage(imageObj,xPosition,0, pictureWidth, pictureHeight)
+    //context.drawImage(imageObj, 0, 0, canvas.width, canvas.height)
+  }
+  imageObj.src = pictureUrl
 }
 
 export const loadPicture = (inputId, canvasId, defaultPicture) => {
@@ -67,8 +73,6 @@ export const loadPicture = (inputId, canvasId, defaultPicture) => {
 
   function imageLoaded() {
       const canvas = document.getElementById(canvasId)
-      //canvas.width = img.width
-      //canvas.height = img.height
       const pictureWidth = scaleWidthByHeight(img.width, img.height, canvas.height)
       const pictureHeight = canvas.height
       const xPosition = getXPosition(canvas.width, pictureWidth)

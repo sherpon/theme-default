@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-class CoverModal extends React.Component {
+class LogoModal extends React.Component {
   constructor(props) {
     super(props)
     this._cancel = this._cancel.bind(this)
@@ -9,39 +9,39 @@ class CoverModal extends React.Component {
   }
 
   componentDidMount() {
-    const { loadCanvas, cover } = this.props
-    loadCanvas('cover-modal__canvas', cover)
+    const { loadCanvas, logo } = this.props
+    loadCanvas('logo-modal__canvas', logo)
   }
 
   _cancel() {
-    $('#cover-modal').modal('close')
+    $('#logo-modal').modal('close')
   }
 
   _save() {
-    const { coverSaveButton } = this.props
-    coverSaveButton( () => {
-      $('#cover-modal').modal('close')
+    const { logoSaveButton } = this.props
+    logoSaveButton( () => {
+      $('#logo-modal').modal('close')
     })
   }
 
   render() {
-    const { strings, cover, loadPicture } = this.props
+    const { strings, logo, loadPicture } = this.props
     const cancel = this._cancel
     const save = this._save
 
     return(
       <div
-        id="cover-modal"
-        className="modal cover-modal"
+        id="logo-modal"
+        className="modal logo-modal"
       >
         <div className="modal-content">
           <h4>{strings.title}</h4>
-            <label htmlFor="cover-modal__input">
+            <label htmlFor="logo-modal__input">
               {strings.label}
-              <canvas id="cover-modal__canvas" className="cover-modal__canvas"></canvas>
+              <canvas id="logo-modal__canvas" className="logo-modal__canvas"></canvas>
             </label>
-            <input type='file' id="cover-modal__input" className="cover-modal__input"
-              onChange={ () => loadPicture("cover-modal__input", "cover-modal__canvas", cover) }
+            <input type='file' id="logo-modal__input" className="logo-modal__input"
+              onChange={ () => loadPicture("logo-modal__input", "logo-modal__canvas", logo) }
             />
         </div>
 
@@ -62,12 +62,12 @@ class CoverModal extends React.Component {
   }
 }
 
-CoverModal.propTypes = {
+LogoModal.propTypes = {
   strings: PropTypes.object.isRequired,
-  cover: PropTypes.string.isRequired,
+  logo: PropTypes.string.isRequired,
   loadCanvas: PropTypes.func.isRequired,
   loadPicture: PropTypes.func.isRequired,
-  coverSaveButton: PropTypes.func.isRequired
+  logoSaveButton: PropTypes.func.isRequired
 }
 
-export default CoverModal
+export default LogoModal

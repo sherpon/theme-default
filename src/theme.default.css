@@ -6806,6 +6806,28 @@ input::placeholder {
 .cover-modal .modal-footer {
   padding: 4px 10px !important; }
 
+.logo-edit {
+  position: relative; }
+  .logo-edit .logo-edit__edit-bar {
+    padding: 1em;
+    position: absolute;
+    bottom: 5px;
+    width: 100%;
+    background-color: #80808045;
+    font-weight: 100; }
+    .logo-edit .logo-edit__edit-bar a {
+      color: white; }
+
+.logo-modal .modal-content {
+  padding: 1em !important; }
+  .logo-modal .modal-content .logo-modal__canvas {
+    width: 100%; }
+  .logo-modal .modal-content .logo-modal__input {
+    display: none; }
+
+.logo-modal .modal-footer {
+  padding: 4px 10px !important; }
+
 .sherpon-store-tabs-hero {
   border-top: 1px solid #e5e5e5; }
 
