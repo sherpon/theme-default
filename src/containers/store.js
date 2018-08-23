@@ -125,7 +125,7 @@ const mapStateToProps = state => ({
   isAdmin: state.isAdmin,
   user: session.getUser(),
   stringsContact: Strings(state.language).contact,
-  contact: state.store.contact,
+  contact: state.store.theme.data.contact,
   stringsFooter: Strings(state.language).footer,
   stringsNavbar: Strings(state.language).navbar,
   username: state.store.username,

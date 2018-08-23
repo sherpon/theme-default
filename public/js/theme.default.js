@@ -36846,7 +36846,7 @@ var loadPurchase = exports.loadPurchase = function loadPurchase(purchaseId) {
   };
 };
 
-},{"../api/account":115,"../constants/ActionTypes":169,"../models/session":192,"../strings":209,"./fetching":109,"./pagination":113}],108:[function(require,module,exports){
+},{"../api/account":115,"../constants/ActionTypes":172,"../models/session":195,"../strings":212,"./fetching":109,"./pagination":113}],108:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37109,7 +37109,7 @@ var placeOrder = exports.placeOrder = function placeOrder() {
   };
 };
 
-},{"../api/purchase":129,"../constants/ActionTypes":169,"../models/history":190,"../models/paymentGateway/culqi":191,"../models/session":192,"../strings":209,"./fetching":109}],109:[function(require,module,exports){
+},{"../api/purchase":129,"../constants/ActionTypes":172,"../models/history":193,"../models/paymentGateway/culqi":194,"../models/session":195,"../strings":212,"./fetching":109}],109:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37135,7 +37135,7 @@ var stopFetching = exports.stopFetching = function stopFetching() {
   };
 };
 
-},{"../constants/ActionTypes":169}],110:[function(require,module,exports){
+},{"../constants/ActionTypes":172}],110:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37328,7 +37328,7 @@ var loadCategory = exports.loadCategory = function loadCategory(category) {
   };
 };
 
-},{"../api/item":127,"../config":168,"../constants/ActionTypes":169,"../constants/codes.json":170,"../models/history":190,"../models/session":192,"../models/tools":193,"../strings":209}],111:[function(require,module,exports){
+},{"../api/item":127,"../config":171,"../constants/ActionTypes":172,"../constants/codes.json":173,"../models/history":193,"../models/session":195,"../models/tools":196,"../strings":212}],111:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37785,7 +37785,7 @@ var shareWhatsapp = exports.shareWhatsapp = function shareWhatsapp() {
   window.location.href = "https://api.whatsapp.com/send?text=" + window.location.href + "?utm_source%3Dsherpon_store%26utm_medium%3Dwhatsapp_link%26utm_campaign%3Dsocial_shared_item";
 };
 
-},{"../api/item":127,"../config":168,"../constants/ActionTypes":169,"../models/history":190,"../models/session":192,"../strings":209,"./fetching":109}],112:[function(require,module,exports){
+},{"../api/item":127,"../config":171,"../constants/ActionTypes":172,"../models/history":193,"../models/session":195,"../strings":212,"./fetching":109}],112:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37908,7 +37908,7 @@ var logout = exports.logout = function logout() {
   };
 };
 
-},{"../api/login":128,"../constants/ActionTypes":169,"../constants/codes.json":170,"../models/history":190,"../models/session":192,"../strings":209,"./fetching":109}],113:[function(require,module,exports){
+},{"../api/login":128,"../constants/ActionTypes":172,"../constants/codes.json":173,"../models/history":193,"../models/session":195,"../strings":212,"./fetching":109}],113:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37967,13 +37967,13 @@ var goToPage = exports.goToPage = function goToPage(index) {
   };
 };
 
-},{"../constants/ActionTypes":169,"./fetching":109}],114:[function(require,module,exports){
+},{"../constants/ActionTypes":172,"./fetching":109}],114:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.homeSectionModalPublishButton = exports.shortDescriptionSaveButton = exports.logoSaveButton = exports.coverSaveButton = exports.editStoreSwitch = undefined;
+exports.homeSectionModalPublishButton = exports.termsSaveButton = exports.shortDescriptionSaveButton = exports.logoSaveButton = exports.coverSaveButton = exports.editStoreSwitch = undefined;
 
 var _ActionTypes = require('../constants/ActionTypes');
 
@@ -38137,6 +38137,43 @@ var shortDescriptionSaveButton = exports.shortDescriptionSaveButton = function s
   };
 };
 
+var termsSaveButton = exports.termsSaveButton = function termsSaveButton(callback) {
+  return function (dispatch, getState) {
+    var storeId = getState().store.id;
+    var userId = _session2.default.getUser().id;
+    var exchangeInput = document.getElementById('terms-modal__exchange');
+    var refundInput = document.getElementById('terms-modal__refund');
+    //if (!logoInput.files[0]) {
+    //  M.toast({html: Strings(getState().language).coverContainer.modal.errorCoverPicture})
+    //  return false
+    //}
+
+    dispatch((0, _fetching.startFetching)());
+    var newExchange = exchangeInput.value;
+    var newRefund = refundInput.value;
+
+    var dataTheme = getState().store.theme.data;
+    dataTheme.terms.exchange = newExchange;
+    dataTheme.terms.refund = newRefund;
+    var newDataTheme = dataTheme;
+    (0, _store.updateDataTheme)(userId, storeId, newDataTheme, function (response) {
+      // update local dataTheme store state, then...
+      if (response.error !== null) {
+        // if there's an error...
+        dispatch((0, _fetching.stopFetching)());
+        // show an error message
+        return false;
+      }
+      dispatch({
+        type: types.UPDATE_DATA_THEME,
+        dataTheme: newDataTheme
+      });
+      dispatch((0, _fetching.stopFetching)());
+      callback(); // call to close the modal
+    });
+  };
+};
+
 /**
  * Create a new homeSection Object and push to the store's sections array
  */
@@ -38230,7 +38267,7 @@ var homeSectionModalPublishButton = exports.homeSectionModalPublishButton = func
   };
 };
 
-},{"../api/store":130,"../constants/ActionTypes":169,"../models/session":192,"../models/tools":193,"../strings":209,"./fetching":109}],115:[function(require,module,exports){
+},{"../api/store":130,"../constants/ActionTypes":172,"../models/session":195,"../models/tools":196,"../strings":212,"./fetching":109}],115:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39268,7 +39305,7 @@ Breadcrumbs.propTypes = {
 
 exports.default = Breadcrumbs;
 
-},{"../../models/tools":193,"prop-types":43,"react":92,"react-router-dom":75}],133:[function(require,module,exports){
+},{"../../models/tools":196,"prop-types":43,"react":92,"react-router-dom":75}],133:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39456,7 +39493,7 @@ CartItemView.defaultProps = {
 
 exports.default = CartItemView;
 
-},{"../../models/tools":193,"prop-types":43,"react":92,"react-router-dom":75}],134:[function(require,module,exports){
+},{"../../models/tools":196,"prop-types":43,"react":92,"react-router-dom":75}],134:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39605,7 +39642,7 @@ CartView.propTypes = {
 
 exports.default = CartView;
 
-},{"../../models/tools":193,"../cartItemView/cartItemView":133,"prop-types":43,"react":92}],135:[function(require,module,exports){
+},{"../../models/tools":196,"../cartItemView/cartItemView":133,"prop-types":43,"react":92}],135:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39705,7 +39742,7 @@ Categories.propTypes = {
 
 exports.default = Categories;
 
-},{"../../models/tools":193,"prop-types":43,"react":92,"react-router-dom":75}],136:[function(require,module,exports){
+},{"../../models/tools":196,"prop-types":43,"react":92,"react-router-dom":75}],136:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40136,7 +40173,7 @@ CheckoutView.propTypes = {
 
 exports.default = CheckoutView;
 
-},{"../../models/session":192,"../../models/tools":193,"prop-types":43,"react":92}],137:[function(require,module,exports){
+},{"../../models/session":195,"../../models/tools":196,"prop-types":43,"react":92}],137:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40243,7 +40280,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CongratulationPurchase);
 
-},{"../../strings":209,"prop-types":43,"react":92,"react-redux":57}],138:[function(require,module,exports){
+},{"../../strings":212,"prop-types":43,"react":92,"react-redux":57}],138:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40892,7 +40929,7 @@ HomeSectionModal.propTypes = {
 
 exports.default = HomeSectionModal;
 
-},{"../../models/tools":193,"prop-types":43,"react":92}],144:[function(require,module,exports){
+},{"../../models/tools":196,"prop-types":43,"react":92}],144:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41008,7 +41045,7 @@ ItemCarousel.propTypes = {
 
 exports.default = ItemCarousel;
 
-},{"../../models/tools":193,"prop-types":43,"react":92}],145:[function(require,module,exports){
+},{"../../models/tools":196,"prop-types":43,"react":92}],145:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41230,7 +41267,7 @@ ItemContent.propTypes = {
 
 exports.default = ItemContent;
 
-},{"../../models/tools":193,"../itemContentAttributes/itemContentAttributes":146,"../itemContentShipping/itemContentShipping":147,"prop-types":43,"react":92}],146:[function(require,module,exports){
+},{"../../models/tools":196,"../itemContentAttributes/itemContentAttributes":146,"../itemContentShipping/itemContentShipping":147,"prop-types":43,"react":92}],146:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41395,7 +41432,7 @@ ItemContentAttributes.propTypes = {
 
 exports.default = ItemContentAttributes;
 
-},{"../../models/tools":193,"prop-types":43,"react":92}],147:[function(require,module,exports){
+},{"../../models/tools":196,"prop-types":43,"react":92}],147:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41475,7 +41512,7 @@ ItemContentShipping.propTypes = {
 
 exports.default = ItemContentShipping;
 
-},{"../../models/tools":193,"prop-types":43,"react":92}],148:[function(require,module,exports){
+},{"../../models/tools":196,"prop-types":43,"react":92}],148:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42747,7 +42784,7 @@ PreviewItem.propTypes = {
 
 exports.default = PreviewItem;
 
-},{"../../models/tools.js":193,"prop-types":43,"react":92,"react-router-dom":75}],156:[function(require,module,exports){
+},{"../../models/tools.js":196,"prop-types":43,"react":92,"react-router-dom":75}],156:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42971,7 +43008,7 @@ Profile.propTypes = {
 
 exports.default = Profile;
 
-},{"../../containers/logoContainer":180,"../../containers/shortDescriptionContainer.jsx":184,"prop-types":43,"react":92}],159:[function(require,module,exports){
+},{"../../containers/logoContainer":183,"../../containers/shortDescriptionContainer.jsx":187,"prop-types":43,"react":92}],159:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43259,7 +43296,7 @@ PurchaseView.propTypes = {
 
 exports.default = PurchaseView;
 
-},{"../../models/tools.js":193,"../cartItemView/cartItemView":133,"prop-types":43,"react":92}],160:[function(require,module,exports){
+},{"../../models/tools.js":196,"../cartItemView/cartItemView":133,"prop-types":43,"react":92}],160:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43370,7 +43407,7 @@ PurchasesList.propTypes = {
 
 exports.default = PurchasesList;
 
-},{"../../models/tools.js":193,"prop-types":43,"react":92,"react-router-dom":75}],161:[function(require,module,exports){
+},{"../../models/tools.js":196,"prop-types":43,"react":92,"react-router-dom":75}],161:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43791,6 +43828,239 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _termsView = require('./termsView/termsView.jsx');
+
+var _termsView2 = _interopRequireDefault(_termsView);
+
+var _termsEdit = require('./termsEdit/termsEdit.jsx');
+
+var _termsEdit2 = _interopRequireDefault(_termsEdit);
+
+var _termsModal = require('./termsModal/termsModal.jsx');
+
+var _termsModal2 = _interopRequireDefault(_termsModal);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Terms = {
+  View: _termsView2.default,
+  Edit: _termsEdit2.default,
+  Modal: _termsModal2.default
+};
+
+exports.default = Terms;
+
+},{"./termsEdit/termsEdit.jsx":168,"./termsModal/termsModal.jsx":169,"./termsView/termsView.jsx":170}],168:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _termsView = require('../termsView/termsView.jsx');
+
+var _termsView2 = _interopRequireDefault(_termsView);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var TermsEdit = function TermsEdit(_ref) {
+  var strings = _ref.strings,
+      terms = _ref.terms;
+
+  return _react2.default.createElement(
+    'div',
+    { className: 'terms-edit' },
+    _react2.default.createElement(
+      'div',
+      { className: 'terms-edit__edit-bar' },
+      _react2.default.createElement(
+        'a',
+        { className: 'modal-trigger', href: '#terms-modal' },
+        strings.labelEdit
+      )
+    ),
+    _react2.default.createElement(_termsView2.default, {
+      strings: strings,
+      terms: terms
+    })
+  );
+};
+
+TermsEdit.propTypes = {
+  strings: _propTypes2.default.object.isRequired,
+  terms: _propTypes2.default.object.isRequired
+};
+
+exports.default = TermsEdit;
+
+},{"../termsView/termsView.jsx":170,"prop-types":43,"react":92}],169:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TermsModal = function (_React$Component) {
+  _inherits(TermsModal, _React$Component);
+
+  function TermsModal(props) {
+    _classCallCheck(this, TermsModal);
+
+    var _this = _possibleConstructorReturn(this, (TermsModal.__proto__ || Object.getPrototypeOf(TermsModal)).call(this, props));
+
+    _this._cancel = _this._cancel.bind(_this);
+    _this._save = _this._save.bind(_this);
+    return _this;
+  }
+
+  _createClass(TermsModal, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      //const { shortDescription } = this.props
+      //$('#terms-modal').val(shortDescription)
+      //M.textareaAutoResize($('#terms-modal'))
+    }
+  }, {
+    key: '_cancel',
+    value: function _cancel() {
+      $('#terms-modal').modal('close');
+    }
+  }, {
+    key: '_save',
+    value: function _save() {
+      var termsSaveButton = this.props.termsSaveButton;
+
+      termsSaveButton(function () {
+        $('#terms-modal').modal('close');
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          strings = _props.strings,
+          terms = _props.terms;
+
+      var cancel = this._cancel;
+      var save = this._save;
+      var init = function init() {
+        //$('#terms-modal__textarea').val(shortDescription)
+        //M.textareaAutoResize($('#terms-modal'))
+        setTimeout(function () {
+          $('#terms-modal__exchange').val(terms.exchange);
+          $('#terms-modal__refund').val(terms.refund);
+          M.updateTextFields();
+          M.textareaAutoResize($('#terms-modal__exchange'));
+          M.textareaAutoResize($('#terms-modal__refund'));
+        }, 1000);
+      };
+
+      return _react2.default.createElement(
+        'div',
+        {
+          id: 'terms-modal',
+          className: 'modal terms-modal'
+        },
+        _react2.default.createElement(
+          'div',
+          { className: 'modal-content' },
+          _react2.default.createElement(
+            'h4',
+            null,
+            strings.title
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'input-field' },
+            _react2.default.createElement('textarea', { id: 'terms-modal__exchange', className: 'materialize-textarea' }),
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'terms-modal__exchange' },
+              strings.labelExchange
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'input-field' },
+            _react2.default.createElement('textarea', { id: 'terms-modal__refund', className: 'materialize-textarea' }),
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'terms-modal__refund' },
+              strings.labelRefund
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'modal-footer' },
+          _react2.default.createElement(
+            'a',
+            { className: 'waves-effect btn-flat',
+              onClick: function onClick() {
+                return cancel();
+              }
+            },
+            strings.buttonCancel
+          ),
+          _react2.default.createElement(
+            'a',
+            { className: 'waves-effect waves-light btn-small z-depth-0',
+              onClick: function onClick() {
+                return save();
+              }
+            },
+            strings.buttonSave
+          )
+        ),
+        init()
+      );
+    }
+  }]);
+
+  return TermsModal;
+}(_react2.default.Component);
+
+TermsModal.propTypes = {
+  strings: _propTypes2.default.object.isRequired,
+  terms: _propTypes2.default.object.isRequired,
+  termsSaveButton: _propTypes2.default.func.isRequired
+};
+
+exports.default = TermsModal;
+
+},{"prop-types":43,"react":92}],170:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -43846,7 +44116,7 @@ TermsView.propTypes = {
 
 exports.default = TermsView;
 
-},{"prop-types":43,"react":92}],168:[function(require,module,exports){
+},{"prop-types":43,"react":92}],171:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -43936,7 +44206,7 @@ var getEnv = exports.getEnv = function getEnv() {
   }
 };
 
-},{}],169:[function(require,module,exports){
+},{}],172:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43983,7 +44253,7 @@ var LOAD_PURCHASE = exports.LOAD_PURCHASE = 'LOAD_PURCHASE';
 var LOAD_STORE = exports.LOAD_STORE = 'LOAD_STORE';
 var UPDATE_DATA_THEME = exports.UPDATE_DATA_THEME = 'UPDATE_DATA_THEME';
 
-},{}],170:[function(require,module,exports){
+},{}],173:[function(require,module,exports){
 module.exports={
   "API_AUTH_SET_SUCCEED":4000,
   "API_AUTH_SET_FAILED":4001,
@@ -43992,7 +44262,7 @@ module.exports={
   "API_USER_LOGIN_NO_FOUND":5010,
   "API_STORE_CREATE_USERNAME_EXIST":6000
 }
-},{}],171:[function(require,module,exports){
+},{}],174:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44146,7 +44416,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(AccountPage));
 
-},{"../actions/account":107,"../components/accountView/accountView":131,"../components/breadcrumbs/breadcrumbs":132,"../models/analytics":187,"../models/facebookPixel":189,"../models/session":192,"../strings":209,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],172:[function(require,module,exports){
+},{"../actions/account":107,"../components/accountView/accountView":131,"../components/breadcrumbs/breadcrumbs":132,"../models/analytics":190,"../models/facebookPixel":192,"../models/session":195,"../strings":212,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],175:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44291,7 +44561,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CartPage));
 
-},{"../actions/cart":108,"../components/cartView/cartView":134,"../components/emptyCartView/emptyCartView":141,"../models/analytics":187,"../models/facebookPixel":189,"../strings":209,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],173:[function(require,module,exports){
+},{"../actions/cart":108,"../components/cartView/cartView":134,"../components/emptyCartView/emptyCartView":141,"../models/analytics":190,"../models/facebookPixel":192,"../strings":212,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],176:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44489,7 +44759,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CategoryPage));
 
-},{"../actions":110,"../components/breadcrumbs/breadcrumbs":132,"../components/pagination/pagination":154,"../components/previewList/previewList":156,"../components/previewListPlaceholder/previewListPlaceholder":157,"../components/resultCount/resultCount":161,"../models/analytics":187,"../models/facebookPixel":189,"../models/tools":193,"../strings":209,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],174:[function(require,module,exports){
+},{"../actions":110,"../components/breadcrumbs/breadcrumbs":132,"../components/pagination/pagination":154,"../components/previewList/previewList":156,"../components/previewListPlaceholder/previewListPlaceholder":157,"../components/resultCount/resultCount":161,"../models/analytics":190,"../models/facebookPixel":192,"../models/tools":196,"../strings":212,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],177:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44607,7 +44877,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CheckoutPage));
 
-},{"../actions/cart":108,"../components/checkoutView/checkoutView":136,"../models/analytics":187,"../models/facebookPixel":189,"../strings":209,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],175:[function(require,module,exports){
+},{"../actions/cart":108,"../components/checkoutView/checkoutView":136,"../models/analytics":190,"../models/facebookPixel":192,"../strings":212,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],178:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44695,7 +44965,7 @@ CoverContainer.propTypes = {
 
 exports.default = CoverContainer;
 
-},{"../components/coverModal/coverModal":139,"prop-types":43,"react":92}],176:[function(require,module,exports){
+},{"../components/coverModal/coverModal":139,"prop-types":43,"react":92}],179:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44837,7 +45107,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Hero));
 
-},{"../actions/store":114,"../components/profile/profile.js":158,"../components/tabsHero/tabsHero.js":166,"../models/canvas":188,"../strings":209,"./coverContainer":175,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],177:[function(require,module,exports){
+},{"../actions/store":114,"../components/profile/profile.js":158,"../components/tabsHero/tabsHero.js":166,"../models/canvas":191,"../strings":212,"./coverContainer":178,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],180:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45026,7 +45296,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(HomePage);
 
-},{"../actions/store":114,"../components/createSection/createSection":140,"../models/analytics":187,"../models/canvas":188,"../models/facebookPixel":189,"../models/tools":193,"../strings":209,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],178:[function(require,module,exports){
+},{"../actions/store":114,"../components/createSection/createSection":140,"../models/analytics":190,"../models/canvas":191,"../models/facebookPixel":192,"../models/tools":196,"../strings":212,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],181:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45224,7 +45494,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(ItemPage));
 
-},{"../actions":110,"../actions/item":111,"../components/breadcrumbs/breadcrumbs":132,"../components/itemView/itemView":148,"../components/itemViewPlaceholder/itemViewPlaceholder":149,"../models/analytics":187,"../models/facebookPixel":189,"../strings":209,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],179:[function(require,module,exports){
+},{"../actions":110,"../actions/item":111,"../components/breadcrumbs/breadcrumbs":132,"../components/itemView/itemView":148,"../components/itemViewPlaceholder/itemViewPlaceholder":149,"../models/analytics":190,"../models/facebookPixel":192,"../strings":212,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],182:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45356,7 +45626,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(LoginPage));
 
-},{"../actions/login":112,"../components/loginView/loginView":150,"../models/analytics":187,"../models/facebookPixel":189,"../strings":209,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],180:[function(require,module,exports){
+},{"../actions/login":112,"../components/loginView/loginView":150,"../models/analytics":190,"../models/facebookPixel":192,"../strings":212,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],183:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45429,7 +45699,7 @@ LogoContainer.propTypes = {
 
 exports.default = LogoContainer;
 
-},{"../components/logoEdit/logoEdit":151,"../components/logoModal/logoModal":152,"prop-types":43,"react":92}],181:[function(require,module,exports){
+},{"../components/logoEdit/logoEdit":151,"../components/logoModal/logoModal":152,"prop-types":43,"react":92}],184:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45592,7 +45862,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(PurchasePage));
 
-},{"../actions/account":107,"../components/breadcrumbs/breadcrumbs":132,"../components/purchaseView/purchaseView":159,"../models/analytics":187,"../models/facebookPixel":189,"../models/session":192,"../strings":209,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],182:[function(require,module,exports){
+},{"../actions/account":107,"../components/breadcrumbs/breadcrumbs":132,"../components/purchaseView/purchaseView":159,"../models/analytics":190,"../models/facebookPixel":192,"../models/session":195,"../strings":212,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],185:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45776,7 +46046,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(PurchasesPage));
 
-},{"../actions/account":107,"../actions/pagination":113,"../components/breadcrumbs/breadcrumbs":132,"../components/pagination/pagination":154,"../components/purchasesList/purchasesList":160,"../models/analytics":187,"../models/facebookPixel":189,"../models/session":192,"../strings":209,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],183:[function(require,module,exports){
+},{"../actions/account":107,"../actions/pagination":113,"../components/breadcrumbs/breadcrumbs":132,"../components/pagination/pagination":154,"../components/purchasesList/purchasesList":160,"../models/analytics":190,"../models/facebookPixel":192,"../models/session":195,"../strings":212,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],186:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45971,7 +46241,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(SearchPage));
 
-},{"../actions":110,"../components/breadcrumbs/breadcrumbs":132,"../components/pagination/pagination":154,"../components/previewList/previewList":156,"../components/previewListPlaceholder/previewListPlaceholder":157,"../components/resultCount/resultCount":161,"../models/analytics":187,"../models/facebookPixel":189,"../models/tools":193,"../strings":209,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],184:[function(require,module,exports){
+},{"../actions":110,"../components/breadcrumbs/breadcrumbs":132,"../components/pagination/pagination":154,"../components/previewList/previewList":156,"../components/previewListPlaceholder/previewListPlaceholder":157,"../components/resultCount/resultCount":161,"../models/analytics":190,"../models/facebookPixel":192,"../models/tools":196,"../strings":212,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],187:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46038,7 +46308,7 @@ ShortDescriptionContainer.propTypes = {
 
 exports.default = ShortDescriptionContainer;
 
-},{"../components/shortDescription":162,"prop-types":43,"react":92}],185:[function(require,module,exports){
+},{"../components/shortDescription":162,"prop-types":43,"react":92}],188:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46292,7 +46562,7 @@ var mapStateToProps = function mapStateToProps(state) {
     isAdmin: state.isAdmin,
     user: _session2.default.getUser(),
     stringsContact: (0, _strings2.default)(state.language).contact,
-    contact: state.store.contact,
+    contact: state.store.theme.data.contact,
     stringsFooter: (0, _strings2.default)(state.language).footer,
     stringsNavbar: (0, _strings2.default)(state.language).navbar,
     username: state.store.username,
@@ -46320,7 +46590,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(Store));
 
-},{"../actions":110,"../actions/login":112,"../actions/store":114,"../components/categories/categories.js":135,"../components/congratulationPurchase/congratulationPurchase.js":137,"../components/contact/contact.js":138,"../components/footer/footer.js":142,"../components/navbar/navbar.js":153,"../components/spinner/spinner.js":165,"../models/session":192,"../strings":209,"./accountPage.js":171,"./cartPage.js":172,"./categoryPage.js":173,"./checkoutPage.js":174,"./hero.js":176,"./homePage.js":177,"./itemPage.js":178,"./loginPage.js":179,"./purchasePage.js":181,"./purchasesPage.js":182,"./searchPage.js":183,"./termsPage.js":186,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],186:[function(require,module,exports){
+},{"../actions":110,"../actions/login":112,"../actions/store":114,"../components/categories/categories.js":135,"../components/congratulationPurchase/congratulationPurchase.js":137,"../components/contact/contact.js":138,"../components/footer/footer.js":142,"../components/navbar/navbar.js":153,"../components/spinner/spinner.js":165,"../models/session":195,"../strings":212,"./accountPage.js":174,"./cartPage.js":175,"./categoryPage.js":176,"./checkoutPage.js":177,"./hero.js":179,"./homePage.js":180,"./itemPage.js":181,"./loginPage.js":182,"./purchasePage.js":184,"./purchasesPage.js":185,"./searchPage.js":186,"./termsPage.js":189,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],189:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46339,6 +46609,8 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactRedux = require('react-redux');
 
+var _store = require('../actions/store');
+
 var _strings = require('../strings');
 
 var _strings2 = _interopRequireDefault(_strings);
@@ -46347,9 +46619,9 @@ var _analytics = require('../models/analytics');
 
 var _facebookPixel = require('../models/facebookPixel');
 
-var _termsView = require('../components/termsView/termsView.js');
+var _terms = require('../components/terms');
 
-var _termsView2 = _interopRequireDefault(_termsView);
+var _terms2 = _interopRequireDefault(_terms);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -46358,6 +46630,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+//import TermsView from '../components/termsView/termsView.js'
+
 
 var TermsPage = function (_React$Component) {
   _inherits(TermsPage, _React$Component);
@@ -46382,13 +46657,40 @@ var TermsPage = function (_React$Component) {
     key: 'render',
     value: function render() {
       var _props = this.props,
+          isEditable = _props.isEditable,
           strings = _props.strings,
-          terms = _props.terms;
+          terms = _props.terms,
+          termsSaveButton = _props.termsSaveButton;
 
-      return _react2.default.createElement(_termsView2.default, {
-        strings: strings,
-        terms: terms
-      });
+
+      var init = function init() {
+        /** this load the modals */
+        $(document).ready(function () {
+          $('.modal').modal();
+        });
+      };
+
+      if (isEditable) {
+        return _react2.default.createElement(
+          'div',
+          { className: 'terms-container' },
+          _react2.default.createElement(_terms2.default.Edit, {
+            strings: strings,
+            terms: terms
+          }),
+          _react2.default.createElement(_terms2.default.Modal, {
+            strings: strings.modal,
+            terms: terms,
+            termsSaveButton: termsSaveButton
+          }),
+          init()
+        );
+      } else {
+        return _react2.default.createElement(_terms2.default.View, {
+          strings: strings,
+          terms: terms
+        });
+      }
     }
   }]);
 
@@ -46402,14 +46704,15 @@ TermsPage.propTypes = {
   analyticsTrackerId: _propTypes2.default.string.isRequired,
   facebookPixelId: _propTypes2.default.string.isRequired,
   analytics: _propTypes2.default.func.isRequired,
-  facebookPixel: _propTypes2.default.func.isRequired
+  facebookPixel: _propTypes2.default.func.isRequired,
+  termsSaveButton: _propTypes2.default.func.isRequired
 };
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
     strings: (0, _strings2.default)(state.language).termsPage,
     isEditable: state.isEditable,
-    terms: state.store.terms,
+    terms: state.store.theme.data.terms,
     analyticsTrackerId: state.store.analytics,
     facebookPixelId: state.store.facebookPixel
   };
@@ -46422,6 +46725,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     facebookPixel: function facebookPixel(facebookPixelId) {
       return (0, _facebookPixel.pixelPageView)(facebookPixelId);
+    },
+    termsSaveButton: function termsSaveButton(callback) {
+      return dispatch((0, _store.termsSaveButton)(callback));
     }
   };
 };
@@ -46429,7 +46735,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(TermsPage);
 
-},{"../components/termsView/termsView.js":167,"../models/analytics":187,"../models/facebookPixel":189,"../strings":209,"prop-types":43,"react":92,"react-redux":57}],187:[function(require,module,exports){
+},{"../actions/store":114,"../components/terms":167,"../models/analytics":190,"../models/facebookPixel":192,"../strings":212,"prop-types":43,"react":92,"react-redux":57}],190:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46451,7 +46757,7 @@ var pageView = exports.pageView = function pageView(storeTrackerId) {
   ga('sherponTracker.send', 'pageview');
 };
 
-},{"../config":168}],188:[function(require,module,exports){
+},{"../config":171}],191:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46540,7 +46846,7 @@ var loadPicture = exports.loadPicture = function loadPicture(inputId, canvasId, 
     }
 };
 
-},{}],189:[function(require,module,exports){
+},{}],192:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46560,7 +46866,7 @@ var pixelPageView = exports.pixelPageView = function pixelPageView(storePixelId)
   fbq('track', 'PageView');
 };
 
-},{"../config":168}],190:[function(require,module,exports){
+},{"../config":171}],193:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -46571,7 +46877,7 @@ var _history = require("history");
 
 exports.default = (0, _history.createBrowserHistory)({ basename: "/" });
 
-},{"history":22}],191:[function(require,module,exports){
+},{"history":22}],194:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46626,7 +46932,7 @@ Diners Club       3600 020000 0006      01/2020   230   fraudulent
 
  */
 
-},{"../tools":193}],192:[function(require,module,exports){
+},{"../tools":196}],195:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46687,7 +46993,7 @@ exports.default = {
   inCartSession: inCartSession
 };
 
-},{}],193:[function(require,module,exports){
+},{}],196:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -46824,7 +47130,7 @@ var getRandomString = exports.getRandomString = function getRandomString() {
   }return text;
 };
 
-},{}],194:[function(require,module,exports){
+},{}],197:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46959,7 +47265,7 @@ var Cart = function Cart() {
 
 exports.default = Cart;
 
-},{"../constants/ActionTypes":169,"../models/session":192}],195:[function(require,module,exports){
+},{"../constants/ActionTypes":172,"../models/session":195}],198:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46990,7 +47296,7 @@ var inSession = function inSession() {
 
 exports.default = inSession;
 
-},{"../constants/ActionTypes":169,"../models/session":192}],196:[function(require,module,exports){
+},{"../constants/ActionTypes":172,"../models/session":195}],199:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47064,7 +47370,7 @@ exports.default = (0, _redux.combineReducers)({
   store: _store2.default
 });
 
-},{"./cart":194,"./inSession":195,"./isAdmin":197,"./isEditable":198,"./isFetching":199,"./isResultLoaded":200,"./item":201,"./language":202,"./pagination":203,"./purchase":204,"./result":205,"./store":206,"redux":100}],197:[function(require,module,exports){
+},{"./cart":197,"./inSession":198,"./isAdmin":200,"./isEditable":201,"./isFetching":202,"./isResultLoaded":203,"./item":204,"./language":205,"./pagination":206,"./purchase":207,"./result":208,"./store":209,"redux":100}],200:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47111,7 +47417,7 @@ var isAdmin = function isAdmin() {
 
 exports.default = isAdmin;
 
-},{"../constants/ActionTypes":169,"../models/session":192}],198:[function(require,module,exports){
+},{"../constants/ActionTypes":172,"../models/session":195}],201:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47158,7 +47464,7 @@ var isEditable = function isEditable() {
 
 exports.default = isEditable;
 
-},{"../constants/ActionTypes":169,"../models/session":192}],199:[function(require,module,exports){
+},{"../constants/ActionTypes":172,"../models/session":195}],202:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47183,7 +47489,7 @@ var isFetching = function isFetching() {
 
 exports.default = isFetching;
 
-},{"../constants/ActionTypes":169}],200:[function(require,module,exports){
+},{"../constants/ActionTypes":172}],203:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47208,7 +47514,7 @@ var isResultLoaded = function isResultLoaded() {
 
 exports.default = isResultLoaded;
 
-},{"../constants/ActionTypes":169}],201:[function(require,module,exports){
+},{"../constants/ActionTypes":172}],204:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -47271,7 +47577,7 @@ var item = function item() {
 
 exports.default = item;
 
-},{"../constants/ActionTypes":169}],202:[function(require,module,exports){
+},{"../constants/ActionTypes":172}],205:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47296,7 +47602,7 @@ var language = function language() {
 
 exports.default = language;
 
-},{"../constants/ActionTypes":169}],203:[function(require,module,exports){
+},{"../constants/ActionTypes":172}],206:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47341,7 +47647,7 @@ var pagination = function pagination() {
 
 exports.default = pagination;
 
-},{"../constants/ActionTypes":169}],204:[function(require,module,exports){
+},{"../constants/ActionTypes":172}],207:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -47397,7 +47703,7 @@ var purchase = function purchase() {
 
 exports.default = purchase;
 
-},{"../constants/ActionTypes":169}],205:[function(require,module,exports){
+},{"../constants/ActionTypes":172}],208:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47420,7 +47726,7 @@ var result = function result() {
 
 exports.default = result;
 
-},{"../constants/ActionTypes":169}],206:[function(require,module,exports){
+},{"../constants/ActionTypes":172}],209:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47432,13 +47738,16 @@ var _ActionTypes = require('../constants/ActionTypes');
 var initStateStore = {
   'name': '',
   'username': '',
-  'shortDescription': '',
-  'description': '',
-  'cover': '/images/store/placeholderCover.png',
-  'logo': '/images/store/placeholderLogo.png',
-  'contact': {},
   'categories': [],
-  'role': 'guest'
+  'theme': {
+    'data': {
+      'shortDescription': '',
+      'description': '',
+      'cover': '/images/store/placeholderCover.png',
+      'logo': '/images/store/placeholderLogo.png',
+      'contact': {}
+    }
+  }
 };
 
 var storeState = function storeState() {
@@ -47459,7 +47768,7 @@ var storeState = function storeState() {
 
 exports.default = storeState;
 
-},{"../constants/ActionTypes":169}],207:[function(require,module,exports){
+},{"../constants/ActionTypes":172}],210:[function(require,module,exports){
 module.exports={
 	"store":{
 		"text1":"text"
@@ -47470,7 +47779,7 @@ module.exports={
 		"navbarItemAccount":"Mi cuenta"
 	}
 }
-},{}],208:[function(require,module,exports){
+},{}],211:[function(require,module,exports){
 module.exports={
 	"store":{
 		"text1":"text"
@@ -47722,7 +48031,15 @@ module.exports={
 	},
 	"termsPage":{
 		"labelExchange":"Política de cambio",
-		"labelRefund":"Política de reembolso"
+		"labelRefund":"Política de reembolso",
+		"labelEdit":"Editar términos y condiciones",
+		"modal":{
+			"title":"Editar términos y condiciones",
+			"labelExchange":"Política de cambio",
+			"labelRefund":"Política de reembolso",
+			"buttonCancel":"Cancelar",
+			"buttonSave":"Guardar"
+		}
 	},
 	"terms":{
 		"labelEdit":"Editar",
@@ -47747,7 +48064,7 @@ module.exports={
 	}
 }
 
-},{}],209:[function(require,module,exports){
+},{}],212:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47773,7 +48090,7 @@ Notes
 var userLang = navigator.language || navigator.userLanguage; 
  */
 
-},{"./EN.json":207,"./ES.json":208}],210:[function(require,module,exports){
+},{"./EN.json":210,"./ES.json":211}],213:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -47844,4 +48161,4 @@ Notes
  */
 
 }).call(this,require('_process'))
-},{"./containers/store.js":185,"./models/history":190,"./reducers":196,"_process":39,"jquery":25,"react":92,"react-dom":47,"react-redux":57,"react-router-dom":75,"redux":100,"redux-logger":93,"redux-thunk":94}]},{},[210]);
+},{"./containers/store.js":188,"./models/history":193,"./reducers":199,"_process":39,"jquery":25,"react":92,"react-dom":47,"react-redux":57,"react-router-dom":75,"redux":100,"redux-logger":93,"redux-thunk":94}]},{},[213]);

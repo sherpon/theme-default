@@ -6,13 +6,16 @@ import {
 const initStateStore = {
   'name':'',
   'username':'',
-  'shortDescription':'',
-  'description':'',
-  'cover':'/images/store/placeholderCover.png',
-  'logo':'/images/store/placeholderLogo.png',
-  'contact':{},
   'categories':[],
-  'role':'guest'
+  'theme':{
+    'data':{
+      'shortDescription':'',
+      'description':'',
+      'cover':'/images/store/placeholderCover.png',
+      'logo':'/images/store/placeholderLogo.png',
+      'contact':{}
+    }
+  }
 }
 
 const storeState = (state = initStateStore, action) => {

@@ -7273,3 +7273,14 @@ input::placeholder {
   padding: 2em !important; }
   .terms-view .terms-view__line {
     padding-top: 2em; }
+
+.terms-edit__edit-bar {
+  padding: 1em;
+  width: 100%;
+  background-color: #80808045;
+  font-weight: 100; }
+  .terms-edit__edit-bar a {
+    color: white; }
+
+.terms-modal .modal-footer {
+  padding: 4px 10px !important; }
