@@ -116,6 +116,7 @@
 		"billingInformation":"Información de facturación"
 	},
 	"homePage":{
+		"labelDelete":"Eliminar sección de abajo",
 		"labelEdit":"Editar",
 		"labelSave":"Guardar"
 	},

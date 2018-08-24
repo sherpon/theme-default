@@ -6923,6 +6923,14 @@ input::placeholder {
 .section-modal .modal-footer {
   padding: 4px 10px !important; }
 
+.home-section-edit__edit-bar {
+  padding: 1em;
+  width: 100%;
+  background-color: #80808045;
+  font-weight: 100; }
+  .home-section-edit__edit-bar a {
+    color: white; }
+
 /******** account's components *********/
 .account-view {
   margin-bottom: 0px !important; }

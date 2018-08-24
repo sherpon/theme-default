@@ -27,6 +27,8 @@
 /******** home's components *********/
 @import './components/createSection/createSection.scss';
 @import './components/homeSectionModal/homeSectionModal.scss';
+@import './components/homeSection/homeSectionView/homeSectionView.scss';
+@import './components/homeSection/homeSectionEdit/homeSectionEdit.scss';
 
 /******** account's components *********/
 @import './components/accountView/accountView.scss';

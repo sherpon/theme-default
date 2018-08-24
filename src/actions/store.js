@@ -311,3 +311,35 @@ export const homeSectionModalPublishButton = (sectionModalId, callback) => (disp
   uploadMobilePicture()
 
 }
+
+export const homeSectionDeleteButton = (homeSectionIndex) => (dispatch, getState) => {
+  const storeId = getState().store.id
+  const userId = session.getUser().id
+  //if (!logoInput.files[0]) {
+  //  M.toast({html: Strings(getState().language).coverContainer.modal.errorCoverPicture})
+  //  return false
+  //}
+
+  dispatch(startFetching())
+
+  /** delete section's pictures */
+
+  const dataTheme = getState().store.theme.data
+  dataTheme.sections.splice(homeSectionIndex, 1)  // delete the section with index...
+  const newDataTheme = dataTheme
+  apiUpdateDataTheme(userId, storeId, newDataTheme, (response) => {
+    // update local dataTheme store state, then...
+    if (response.error!==null) {
+      // if there's an error...
+      dispatch(stopFetching())
+      // show an error message
+      return false
+    }
+    dispatch({
+      type: types.UPDATE_DATA_THEME,
+      dataTheme: newDataTheme
+    })
+    dispatch(stopFetching())
+  })
+
+}

@@ -5,7 +5,10 @@ import { connect } from 'react-redux'
 
 import Strings from '../strings'
 
-import { homeSectionModalPublishButton } from '../actions/store'
+import {
+  homeSectionModalPublishButton,
+  homeSectionDeleteButton
+} from '../actions/store'
 import { loadCanvas, loadPicture } from '../models/canvas'
 import { noLinkEspace } from '../models/tools'
 import { pageView } from '../models/analytics'
@@ -14,21 +17,7 @@ import { pixelPageView } from '../models/facebookPixel'
 import CreateSection from '../components/createSection/createSection'
 //import HomeSectionModal from '../components/homeSectionModal/homeSectionModal'
 
-const HomeSection = ({ username, section }) => {
-  return (
-    <Link
-      to={`/${username}${noLinkEspace(section.to)}`}
-    >
-     <img className="sherpon-box sherpon-margin-bottom-5px responsive-img hide-on-small-only" src={`${section.pictureDesktop}`} alt={section.pictureAlt}/>
-     <img className="sherpon-box sherpon-margin-bottom-5px responsive-img hide-on-med-and-up" src={`${section.pictureMobile}`} alt={section.pictureAlt}/>
-    </Link>
-  )
-}
-
-HomeSection.propTypes = {
-  username: PropTypes.string.isRequired,
-  section: PropTypes.object.isRequired
-}
+import HomeSectionContainer from './homeSectionContainer.jsx'
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -48,7 +37,17 @@ class HomePage extends React.Component {
   }
 
   render() {
-    const { strings, stringsCreateSection, isEditable, username, categories, sections, homeSectionModalPublishButton } = this.props
+    const {
+      strings,
+      stringsCreateSection,
+      isEditable,
+      username,
+      categories,
+      sections,
+      homeSectionModalPublishButton,
+      homeSectionDeleteButton
+    } = this.props
+    
     const init = this.init
     let createSectionButton
 
@@ -73,10 +72,15 @@ class HomePage extends React.Component {
         {createSectionButton}
         {
           sections.map( (section, i) => (
-            <HomeSection
+            <HomeSectionContainer
               key={i}
+              isEditable={isEditable}
+              strings={strings}
+              index={i}
               username={username}
               section={section}
+              noLinkEspace={noLinkEspace}
+              homeSectionDeleteButton={homeSectionDeleteButton}
             />
           ))
         }
@@ -114,7 +118,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   analytics: (analyticsTrackerId) => pageView(analyticsTrackerId),
   facebookPixel: (facebookPixelId) => pixelPageView(facebookPixelId),
-  homeSectionModalPublishButton: (sectionModalId, callback) => dispatch(homeSectionModalPublishButton(sectionModalId, callback))
+  homeSectionModalPublishButton: (sectionModalId, callback) => dispatch(homeSectionModalPublishButton(sectionModalId, callback)),
+  homeSectionDeleteButton: (homeSectionIndex) => dispatch(homeSectionDeleteButton(homeSectionIndex))
 })
 
 export default connect(
