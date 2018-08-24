@@ -22,7 +22,7 @@ const storeState = (state = initStateStore, action) => {
   switch (action.type) {
     case LOAD_STORE:
       return action.store
-    case LOAD_STORE:
+    case UPDATE_DATA_THEME:
       const newStoreState = state
       newStoreState.theme.data = action.dataTheme
       return newStoreState

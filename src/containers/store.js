@@ -5,13 +5,13 @@ import { connect } from 'react-redux'
 
 import { loadStore, search } from '../actions'
 import { logout } from '../actions/login'
-import { editStoreSwitch } from '../actions/store'
+import { editStoreSwitch, contactSaveButton } from '../actions/store'
 import Strings from '../strings'
 import session from '../models/session'
 
 import Spinner from '../components/spinner/spinner.js'
 import Navbar from '../components/navbar/navbar.js'
-import Contact from '../components/contact/contact.js'
+import ContactContainer from './contactContainer.jsx'
 import Footer from '../components/footer/footer.js'
 
 import Hero from './hero.js'
@@ -43,7 +43,7 @@ class Store extends React.Component {
     const { isFetching, isEditable } = this.props
     const { stringsNavbar, search, editStoreSwitch, inSession, isAdmin, user, logout } = this.props
     const { username, categories } = this.props
-    const { stringsContact, contact } = this.props
+    const { stringsContact, contact, contactSaveButton } = this.props
     const { stringsFooter } = this.props
 
     return (
@@ -84,10 +84,11 @@ class Store extends React.Component {
             <Route exact path="/:storeusername" component={HomePage} />
             <Route component={HomePage}/>
           </Switch>
-          <Contact
-            strings={stringsContact}
+          <ContactContainer
             isEditable={isEditable}
+            strings={stringsContact}
             contact={contact}
+            contactSaveButton={contactSaveButton}
           />
         </main>
         <Footer
@@ -105,8 +106,6 @@ Store.propTypes = {
   inSession: PropTypes.bool.isRequired,
   isAdmin: PropTypes.bool.isRequired,
   user: PropTypes.any,
-  stringsContact: PropTypes.object.isRequired,
-  contact: PropTypes.object.isRequired,
   stringsFooter: PropTypes.object.isRequired,
   stringsNavbar: PropTypes.object.isRequired,
   init: PropTypes.func.isRequired,
@@ -114,7 +113,10 @@ Store.propTypes = {
   editStoreSwitch: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   username: PropTypes.string.isRequired,
-  categories: PropTypes.array.isRequired
+  categories: PropTypes.array.isRequired,
+  stringsContact: PropTypes.object.isRequired,
+  contact: PropTypes.object.isRequired,
+  contactSaveButton: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -124,21 +126,20 @@ const mapStateToProps = state => ({
   inSession: state.inSession,
   isAdmin: state.isAdmin,
   user: session.getUser(),
-  stringsContact: Strings(state.language).contact,
-  contact: state.store.theme.data.contact,
   stringsFooter: Strings(state.language).footer,
   stringsNavbar: Strings(state.language).navbar,
   username: state.store.username,
-  categories: state.store.categories
+  categories: state.store.categories,
+  stringsContact: Strings(state.language).contactContainer,
+  contact: state.store.theme.data.contact
 })
 
 const mapDispatchToProps = dispatch => ({
   init: () => dispatch(loadStore()),
-  search: (event) => {
-    dispatch(search(event))
-  },
+  search: (event) => dispatch(search(event)),
   editStoreSwitch: () => dispatch(editStoreSwitch()),
-  logout: () => dispatch(logout())
+  logout: () => dispatch(logout()),
+  contactSaveButton: (callback) => dispatch(contactSaveButton(callback))
 })
 
 export default withRouter(connect(

@@ -6759,12 +6759,6 @@ input::placeholder {
 .sherpon-pagination-disabled {
   color: #e5e5e5 !important; }
 
-.sherpon-contact {
-  padding: 1em; }
-
-.sherpon-contact .contact-icon {
-  width: 25px; }
-
 .footer__container {
   margin: 0 auto;
   /* max-width: 1280px; */
@@ -7284,3 +7278,23 @@ input::placeholder {
 
 .terms-modal .modal-footer {
   padding: 4px 10px !important; }
+
+/******** contact' components *********/
+.sherpon-contact {
+  padding: 1em; }
+
+.sherpon-contact .contact-icon {
+  width: 25px; }
+
+.contact-edit__edit-bar {
+  padding: 1em;
+  width: 100%;
+  background-color: #80808045;
+  font-weight: 100; }
+  .contact-edit__edit-bar a {
+    color: white; }
+
+.contact-modal {
+  max-height: 90% !important; }
+  .contact-modal .modal-footer {
+    padding: 4px 10px !important; }

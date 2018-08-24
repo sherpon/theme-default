@@ -10,7 +10,6 @@
 @import './components/navbar/navbar.scss';
 @import './components/breadcrumbs/breadcrumbs.scss';
 @import './components/pagination/pagination.scss';
-@import './components/contact/contact.scss';
 @import './components/footer/footer.scss';
 
 /******** hero's components *********/
@@ -62,3 +61,8 @@
 @import './components/terms/termsView/termsView.scss';
 @import './components/terms/termsEdit/termsEdit.scss';
 @import './components/terms/termsModal/termsModal.scss';
+
+/******** contact' components *********/
+@import './components/contact/contactView/contactView.scss';
+@import './components/contact/contactEdit/contactEdit.scss';
+@import './components/contact/contactModal/contactModal.scss';

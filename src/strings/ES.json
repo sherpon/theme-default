@@ -243,6 +243,20 @@
 		"labelEdit":"Editar",
 		"labelSave":"Guardar"
 	},
+	"contactContainer":{
+		"labelEdit":"Editar información de contacto",
+		"modal":{
+			"title":"Editar información de contacto",
+			"labelFacebook":"Enlace de Facebook",
+			"labelInstagram":"Enlace de Instagram",
+			"labelWhatsapp":"Número de Whatsapp",
+			"labelPhone":"Número de teléfono",
+			"labelEmail":"Correo electrónico",
+			"labelAddress":"Dirección",
+			"buttonCancel":"Cancelar",
+			"buttonSave":"Guardar"
+		}
+	},
 	"footer":{
 		"message":"Una tienda creada en sherpon",
 		"copyright":"© 2018 sherpon.com"
