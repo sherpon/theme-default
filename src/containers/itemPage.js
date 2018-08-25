@@ -88,8 +88,8 @@ ItemPage.propTypes = {
 const mapStateToProps = ( state, ownProps ) => ({
   strings: Strings(state.language).itemPage,
   username: state.store.username,
-  analyticsTrackerId: state.store.analytics,
-  facebookPixelId: state.store.facebookPixel,
+  analyticsTrackerId: state.store.data.analytics,
+  facebookPixelId: state.store.data.facebookPixel,
   itemId: ownProps.match.params.id,
   isFetching: state.isFetching,
   item: state.item

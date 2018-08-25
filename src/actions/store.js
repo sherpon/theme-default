@@ -6,6 +6,7 @@ import { getRandomString } from '../models/tools'
 
 import {
   updateDataTheme as apiUpdateDataTheme,
+  updateDataStore as apiUpdateDataStore,
   uploadImageStore as apiUploadImageStore
 } from '../api/store'
 
@@ -338,6 +339,35 @@ export const homeSectionDeleteButton = (homeSectionIndex) => (dispatch, getState
     dispatch({
       type: types.UPDATE_DATA_THEME,
       dataTheme: newDataTheme
+    })
+    dispatch(stopFetching())
+  })
+
+}
+
+export const marketingSaveButton = () => (dispatch, getState) => {
+  const storeId = getState().store.id
+  const userId = session.getUser().id
+  const newAnalytics = document.getElementById('marketing-view__analytics__input').value
+  const newFacebookPixel = document.getElementById('marketing-view__facebook-pixel__input').value
+
+  dispatch(startFetching())
+
+  const dataStore = getState().store.data
+  dataStore.analytics = newAnalytics
+  dataStore.facebookPixel = newFacebookPixel
+  const newDataStore = dataStore
+  apiUpdateDataStore(userId, storeId, newDataStore, (response) => {
+    // update local dataStore store state, then...
+    if (response.error!==null) {
+      // if there's an error...
+      dispatch(stopFetching())
+      // show an error message
+      return false
+    }
+    dispatch({
+      type: types.UPDATE_DATA_STORE,
+      dataStore: newDataStore
     })
     dispatch(stopFetching())
   })

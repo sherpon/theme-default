@@ -90,8 +90,8 @@ PurchasesPage.propsType = {
 const mapStateToProps = ( state, ownProps ) => ({
   strings: Strings(state.language).purchasesPage,
   username: state.store.username,
-  analyticsTrackerId: state.store.analytics,
-  facebookPixelId: state.store.facebookPixel,
+  analyticsTrackerId: state.store.data.analytics,
+  facebookPixelId: state.store.data.facebookPixel,
   isFetching: state.isFetching,
   pagination: {
     index: state.pagination.index,

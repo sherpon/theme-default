@@ -88,8 +88,8 @@ SearchPage.propTypes = {
 const mapStateToProps = ( state, ownProps ) => ({
   strings: Strings(state.language).searchPage,
   username: state.store.username,
-  analyticsTrackerId: state.store.analytics,
-  facebookPixelId: state.store.facebookPixel,
+  analyticsTrackerId: state.store.data.analytics,
+  facebookPixelId: state.store.data.facebookPixel,
   query: getQueryValue('search'),
   isResultLoaded: state.isResultLoaded,
   pagination: {

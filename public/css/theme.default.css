@@ -6456,7 +6456,7 @@ body {
 
 /** @usage @extend .box-white; */
 .box-white, .create-section .create-section__button, .purchase-view .purchase-information,
-.purchase-view .personal-information, .terms-view {
+.purchase-view .personal-information, .marketing-view, .terms-view {
   background-color: white;
   border: 1px solid #e5e5e5;
   border-bottom-left-radius: 3px;
@@ -6830,7 +6830,8 @@ input::placeholder {
   background-color: #80808045;
   font-weight: 100; }
   .home-section-edit__edit-bar a {
-    color: white; }
+    color: white;
+    cursor: pointer; }
 
 /******** account's components *********/
 .account-view {
@@ -6901,6 +6902,11 @@ input::placeholder {
   .purchase-view .personal-information .purchase-information__line,
   .purchase-view .personal-information .personal-information__line {
     margin-top: 1em; }
+
+/******** marketing' components *********/
+.marketing-view__title {
+  color: #6078EA;
+  font-size: 1.3em; }
 
 /******** categories's components *********/
 .categories__section {

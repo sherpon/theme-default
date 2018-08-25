@@ -186,14 +186,14 @@ export const placeOrder = () => (dispatch, getState) => {
 
   // lanza la pasarela de pago
   // segun resultado, registra la comprar con el token
-  switch (getState().store.paymentGateway.name) {
+  switch (getState().store.data.paymentGateway.name) {
     case 'culqi':
       dispatch(startFetching())
       culqi(
         getState().store.name,
-        getState().store.shortDescription,
+        getState().store.theme.data.shortDescription,
         getState().cart,
-        getState().store.paymentGateway.publicKey,
+        getState().store.data.paymentGateway.publicKey,
         () => {
           // callback
           //$("#loading").show()

@@ -53,10 +53,14 @@
 		  id:'M3jo8Gongr86gLefng',
 		  name:'Paola boutique',
 		  username:'paolaboutique',
-			analytics:'',
-			facebookPixel:'',
-		  //userId:'L9hGf93nLfw27Vh',
-		  //role:'guest',  // guest/admin/staff
+		  data: {
+				analytics:'',
+				facebookPixel:'',
+			  paymentGateway: {
+			  	'name':'culqi',
+			  	'publicKey':'pk_test_r0z7XPW28fGk1SlM'
+			  }
+			},
 		  categories:[
 		    {
 		      'name':'Ropa para mujeres',
@@ -135,10 +139,6 @@
 			      }
 			    ]
 				}
-		  },
-		  paymentGateway: {
-		  	'name':'culqi',
-		  	'publicKey':'pk_test_r0z7XPW28fGk1SlM'
 		  }
 		}
 

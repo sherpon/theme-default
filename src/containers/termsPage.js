@@ -69,8 +69,8 @@ const mapStateToProps = state => ({
   strings: Strings(state.language).termsPage,
   isEditable: state.isEditable,
   terms: state.store.theme.data.terms,
-  analyticsTrackerId: state.store.analytics,
-  facebookPixelId: state.store.facebookPixel
+  analyticsTrackerId: state.store.data.analytics,
+  facebookPixelId: state.store.data.facebookPixel
 })
 
 const mapDispatchToProps = dispatch => ({

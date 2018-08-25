@@ -38,3 +38,4 @@ export const LOAD_PURCHASE = 'LOAD_PURCHASE'
 /****** store ******/
 export const LOAD_STORE = 'LOAD_STORE'
 export const UPDATE_DATA_THEME = 'UPDATE_DATA_THEME'
+export const UPDATE_DATA_STORE = 'UPDATE_DATA_STORE'

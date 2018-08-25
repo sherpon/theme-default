@@ -8,12 +8,12 @@ import Strings from '../strings'
 import session from '../models/session'
 import { pageView } from '../models/analytics'
 import { pixelPageView } from '../models/facebookPixel'
-import { updateAccount, updatePassword } from '../actions/account'
+import { marketingSaveButton } from '../actions/store'
 
 import Breadcrumbs from '../components/breadcrumbs/breadcrumbs'
-import AccountView from '../components/accountView/accountView'
+import MarketingView from '../components/marketingView/marketingView.jsx'
 
-class AccountPage extends React.Component {
+class MarketingPage extends React.Component {
   constructor(props) {
     super(props)
     const { analytics, facebookPixel, analyticsTrackerId, facebookPixelId } = this.props
@@ -22,7 +22,13 @@ class AccountPage extends React.Component {
   }
 
   render() {
-    const { strings, username, user, updateAccount, updatePassword } = this.props
+    const {
+      strings,
+      username,
+      analyticsTrackerId,
+      facebookPixelId,
+      marketingSaveButton
+     } = this.props
 
     if ( session.inUserSession() ) {
       return (
@@ -30,17 +36,17 @@ class AccountPage extends React.Component {
           <Breadcrumbs
             username={username}
             home={strings.breadcrumbHome}
-            route="/account"
+            route="/marketing"
             parent={null}
             child={strings.breadcrumbAccount}
             onClick={ ()=> true }
             disabledChild={true}
           />
-          <AccountView
+          <MarketingView
             strings={strings}
-            user={user}
-            updateAccount={updateAccount}
-            updatePassword={updatePassword}
+            analyticsTrackerId={analyticsTrackerId}
+            facebookPixelId={facebookPixelId}
+            marketingSaveButton={marketingSaveButton}
           />
         </section>
       )
@@ -53,34 +59,29 @@ class AccountPage extends React.Component {
   }
 }
 
-AccountPage.propsType = {
+MarketingPage.propsType = {
   strings: PropTypes.object.isRequired,
   username: PropTypes.string.isRequired,
   analyticsTrackerId: PropTypes.string.isRequired,
   facebookPixelId: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired,
   analytics: PropTypes.func.isRequired,
-  facebookPixel: PropTypes.func.isRequired,
-  updateAccount: PropTypes.func.isRequired,
-  updatePassword: PropTypes.func.isRequired
+  facebookPixel: PropTypes.func.isRequired
 }
 
 const mapStateToProps = ( state, ownProps ) => ({
-  strings: Strings(state.language).accountPage,
+  strings: Strings(state.language).marketingPage,
   username: state.store.username,
   analyticsTrackerId: state.store.data.analytics,
-  facebookPixelId: state.store.data.facebookPixel,
-  user: session.getUser()
+  facebookPixelId: state.store.data.facebookPixel
 })
 
 const mapDispatchToProps = dispatch => ({
   analytics: (analyticsTrackerId) => pageView(analyticsTrackerId),
   facebookPixel: (facebookPixelId) => pixelPageView(facebookPixelId),
-  updateAccount: (name, lastname, phone, email) => dispatch(updateAccount(name, lastname, phone, email)),
-  updatePassword: (password1, password2) => dispatch(updatePassword(password1, password2))
+  marketingSaveButton: () => dispatch(marketingSaveButton())
 })
 
 export default withRouter(connect(
   mapStateToProps,  // Note 1
   mapDispatchToProps
-)(AccountPage))
+)(MarketingPage))

@@ -60,8 +60,8 @@ CartPage.propTypes = {
 const mapStateToProps = ( state, ownProps ) => ({
   strings: Strings(state.language).cartPage,
   username: state.store.username,
-  analyticsTrackerId: state.store.analytics,
-  facebookPixelId: state.store.facebookPixel,
+  analyticsTrackerId: state.store.data.analytics,
+  facebookPixelId: state.store.data.facebookPixel,
   quantityCart: state.cart.quantity,
   cart: state.cart
 })

@@ -47,7 +47,7 @@ class HomePage extends React.Component {
       homeSectionModalPublishButton,
       homeSectionDeleteButton
     } = this.props
-    
+
     const init = this.init
     let createSectionButton
 
@@ -109,8 +109,8 @@ const mapStateToProps = state => ({
   stringsCreateSection: Strings(state.language).components.homeSectionModal,
   username: state.store.username,
   categories: state.store.categories,
-  analyticsTrackerId: state.store.analytics,
-  facebookPixelId: state.store.facebookPixel,
+  analyticsTrackerId: state.store.data.analytics,
+  facebookPixelId: state.store.data.facebookPixel,
   isEditable: state.isEditable,
   sections: state.store.theme.data.sections
 })

@@ -89,8 +89,8 @@ CategoryPage.propTypes = {
 const mapStateToProps = ( state, ownProps ) => ({
   strings: Strings(state.language).categoryPage,
   username: state.store.username,
-  analyticsTrackerId: state.store.analytics,
-  facebookPixelId: state.store.facebookPixel,
+  analyticsTrackerId: state.store.data.analytics,
+  facebookPixelId: state.store.data.facebookPixel,
   parent: ownProps.match.params.parent !== undefined ? noLinkUnderscore(ownProps.match.params.parent) : null ,
   category: noLinkUnderscore(ownProps.match.params.category),
   isResultLoaded: state.isResultLoaded,

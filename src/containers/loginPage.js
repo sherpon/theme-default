@@ -51,8 +51,8 @@ LoginPage.propTypes = {
 const mapStateToProps = ( state, ownProps ) => ({
   strings: Strings(state.language).loginPage,
   basename: `/${state.store.username}`,
-  analyticsTrackerId: state.store.analytics,
-  facebookPixelId: state.store.facebookPixel
+  analyticsTrackerId: state.store.data.analytics,
+  facebookPixelId: state.store.data.facebookPixel
 })
 
 const mapDispatchToProps = dispatch => ({

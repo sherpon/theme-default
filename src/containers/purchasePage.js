@@ -79,8 +79,8 @@ PurchasePage.propTypes = {
 const mapStateToProps = ( state, ownProps ) => ({
   strings: Strings(state.language).purchasePage,
   username: state.store.username,
-  analyticsTrackerId: state.store.analytics,
-  facebookPixelId: state.store.facebookPixel,
+  analyticsTrackerId: state.store.data.analytics,
+  facebookPixelId: state.store.data.facebookPixel,
   isFetching: state.isFetching,
   purchaseId: ownProps.match.params.id,
   purchase: state.purchase

@@ -13,6 +13,18 @@ export const updateDataTheme = (userId, storeId, newDataTheme, callback) => {
   },TIMEOUT )
 }
 
+export const updateDataStore = (userId, storeId, newDataStore, callback) => {
+  console.log('API.updateDataStore.payload')
+  const payload = { userId, storeId, newDataStore }
+  console.log(payload)
+
+  setTimeout( () => {
+    callback({
+      error: null
+    })
+  },TIMEOUT )
+}
+
 /**
  * Upload the store's image
  * @param {File} file - store's id.

@@ -1,0 +1,8 @@
+.marketing-view{
+  @extend .box-white;
+
+  &__title {
+    color: $primary-color;
+  	font-size: 1.3em;
+  }
+}
