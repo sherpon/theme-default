@@ -373,3 +373,32 @@ export const marketingSaveButton = () => (dispatch, getState) => {
   })
 
 }
+
+export const paymentGatewaySaveButton = () => (dispatch, getState) => {
+  const storeId = getState().store.id
+  const userId = session.getUser().id
+  const newPaymentGatewayName = document.getElementById('payment-gateway-view__name').value
+  const newPaymentGatewayPublicKey = document.getElementById('payment-gateway-view__key').value
+
+  dispatch(startFetching())
+
+  const dataStore = getState().store.data
+  dataStore.paymentGateway.name = newPaymentGatewayName
+  dataStore.paymentGateway.publicKey = newPaymentGatewayPublicKey
+  const newDataStore = dataStore
+  apiUpdateDataStore(userId, storeId, newDataStore, (response) => {
+    // update local dataStore store state, then...
+    if (response.error!==null) {
+      // if there's an error...
+      dispatch(stopFetching())
+      // show an error message
+      return false
+    }
+    dispatch({
+      type: types.UPDATE_DATA_STORE,
+      dataStore: newDataStore
+    })
+    dispatch(stopFetching())
+  })
+
+}

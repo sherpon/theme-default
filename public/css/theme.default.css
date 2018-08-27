@@ -6456,7 +6456,7 @@ body {
 
 /** @usage @extend .box-white; */
 .box-white, .create-section .create-section__button, .purchase-view .purchase-information,
-.purchase-view .personal-information, .marketing-view, .terms-view {
+.purchase-view .personal-information, .marketing-view, .payment-gateway-view, .terms-view {
   background-color: white;
   border: 1px solid #e5e5e5;
   border-bottom-left-radius: 3px;
@@ -6905,6 +6905,11 @@ input::placeholder {
 
 /******** marketing' components *********/
 .marketing-view__title {
+  color: #6078EA;
+  font-size: 1.3em; }
+
+/******** paymentgateway' components *********/
+.payment-gateway-view__title {
   color: #6078EA;
   font-size: 1.3em; }
 

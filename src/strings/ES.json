@@ -87,6 +87,16 @@
 		"errorUpdate":"No se pudo actualizar la información",
 		"successUpdate":"Se actualizó la información"
 	},
+	"paymentGatewayPage":{
+		"breadcrumbHome":"Inicio",
+		"breadcrumbAccount":"Método de pago",
+		"labelTitle":"Método de pago",
+		"labelPaymentGateway":"Pasarela de pago",
+		"labelPublicKey":"Llave personal",
+		"buttonSave":"Guardar",
+		"errorUpdate":"No se pudo actualizar la información",
+		"successUpdate":"Se actualizó la información"
+	},
 	"purchasesPage":{
 		"breadcrumbHome":"Inicio",
 		"breadcrumbPurchases":"Mis compras",
@@ -249,10 +259,6 @@
 		"label2":"Además, puedes verla en la sección “Compras” en el menú principal.",
 		"label3":"No olvides calificarla al recibirla.",
 		"label4":"Si tienes alguna pregunta o incoveniente no dudes en ponerte en contacto."
-	},
-	"contact":{
-		"labelEdit":"Editar",
-		"labelSave":"Guardar"
 	},
 	"contactContainer":{
 		"labelEdit":"Editar información de contacto",

@@ -30,6 +30,7 @@ import CongratulationPurchase from '../components/congratulationPurchase/congrat
 import SearchPage from './searchPage.js'
 import TermsPage from './termsPage.js'
 import MarketingPage from './marketingPage.jsx'
+import PaymentGatewayPage from './paymentGatewayPage.jsx'
 
 class Store extends React.Component {
   constructor(props) {
@@ -82,6 +83,7 @@ class Store extends React.Component {
             <Route exact path="/:storeusername/purchase/:id" component={ PurchasePage } />
             <Route exact path="/:storeusername/purchases" component={ PurchasesPage } />
             <Route exact path="/:storeusername/marketing" component={ MarketingPage } />
+            <Route exact path="/:storeusername/paymentgateway" component={ PaymentGatewayPage } />
             <Route exact path="/:storeusername" component={HomePage} />
             <Route component={HomePage}/>
           </Switch>
