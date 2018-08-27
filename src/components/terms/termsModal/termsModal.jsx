@@ -38,7 +38,7 @@ class TermsModal extends React.Component {
         M.updateTextFields()
         M.textareaAutoResize($('#terms-modal__exchange'))
         M.textareaAutoResize($('#terms-modal__refund'))
-      },1000 )
+      },100 )
     }
 
     return(

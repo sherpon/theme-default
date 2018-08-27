@@ -44653,7 +44653,7 @@ var TermsModal = function (_React$Component) {
           M.updateTextFields();
           M.textareaAutoResize($('#terms-modal__exchange'));
           M.textareaAutoResize($('#terms-modal__refund'));
-        }, 1000);
+        }, 100);
       };
 
       return _react2.default.createElement(
