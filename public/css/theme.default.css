@@ -7166,6 +7166,9 @@ input::placeholder {
 .item-content__share-label {
   margin-top: 6px; }
 
+.item-content__share-icon {
+  cursor: pointer; }
+
 .item-content__information {
   margin: 2em 0em; }
 
