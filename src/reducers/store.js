@@ -1,7 +1,8 @@
 import {
   LOAD_STORE,
   UPDATE_DATA_THEME,
-  UPDATE_DATA_STORE
+  UPDATE_DATA_STORE,
+  UPDATE_CATEGORIES_STORE
 } from '../constants/ActionTypes'
 
 const initStateStore = {
@@ -31,6 +32,10 @@ const storeState = (state = initStateStore, action) => {
     case UPDATE_DATA_STORE:
       newStoreState = state
       newStoreState.data = action.dataStore
+      return newStoreState
+    case UPDATE_CATEGORIES_STORE:
+      newStoreState = state
+      newStoreState.categories = action.categoriesStore
       return newStoreState
     default:
       return state

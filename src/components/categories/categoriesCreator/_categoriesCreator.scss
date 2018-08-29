@@ -1,0 +1,21 @@
+.categories-creator {
+  @extend .row;
+  margin-bottom: 10px !important;
+  background-color: #d6d6d6;
+
+  &__button {
+    @extend .box-white;
+    @extend .row;
+    margin-bottom: 0px !important;
+  }
+
+  &__icon {
+    width: 40px;
+  }
+
+  &__title {
+    font-size: 1.3em;
+    color: $body-text-color-secundary;
+    margin-top: 8px;
+  }
+}

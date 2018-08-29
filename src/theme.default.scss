@@ -42,7 +42,10 @@
 @import './components/paymentGatewayView/paymentGatewayView.scss';
 
 /******** categories's components *********/
-@import './components/categories/categories.scss';
+@import './components/categories/categoriesView/categoriesView.scss';
+@import './components/categories/categoriesEdit/categoriesEdit.scss';
+@import './components/categories/categoriesCreator/categoriesCreator.scss';
+@import './components/categories/categoriesModal/categoriesModal.scss';
 
 /******** search and category's components *********/
 @import './components/resultCount/resultCount.scss';

@@ -27,7 +27,7 @@ const PurchasesList = ({username, list, strings}) => {
     listComp.push(<PurchaseItem key={i} username={username} item={list[i]}/>)
   }
 
-  return (
+  return(
     <div className="purchases-list">
       <div className="row">
         <div className="col s4 m3 purchases-list__purchase-header">{strings.headerDate}</div>

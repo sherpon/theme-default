@@ -5,9 +5,10 @@ import session from '../models/session'
 import { getRandomString } from '../models/tools'
 
 import {
+  updateCategoriesStore as apiUpdateCategoriesStore,
   updateDataTheme as apiUpdateDataTheme,
   updateDataStore as apiUpdateDataStore,
-  uploadImageStore as apiUploadImageStore
+  uploadImageStore as apiUploadImageStore,
 } from '../api/store'
 
 export const editStoreSwitch = () => (dispatch, getState) => {
@@ -397,6 +398,58 @@ export const paymentGatewaySaveButton = () => (dispatch, getState) => {
     dispatch({
       type: types.UPDATE_DATA_STORE,
       dataStore: newDataStore
+    })
+    dispatch(stopFetching())
+  })
+
+}
+
+export const categoriesSaveButton = () => (dispatch, getState) => {
+  const storeId = getState().store.id
+  const userId = session.getUser().id
+  const newCategoryName = document.getElementById('categories-modal__name').value
+  const newCategoryOrder = document.getElementById('categories-modal__order').value
+  const newCategoryType = document.querySelector('input[name="group1"]:checked').value
+  const newCategoryParent = document.getElementById('categories-modal__parent').value
+
+  const newCategory = {
+    name: newCategoryName,
+    orden: newCategoryOrder,
+    type: newCategoryType,
+    parent: newCategoryParent
+  }
+
+  dispatch(startFetching())
+
+  apiUpdateCategoriesStore(userId, storeId, newCategory, (response) => {
+    // update local dataStore store state, then...
+    if (response.error!==null) {
+      // if there's an error...
+      dispatch(stopFetching())
+      // show an error message
+      return false
+    }
+
+    const categoriesStore = getState().store.categories
+
+    if ( newCategory.type === 'primary' ) {
+      /** if is primary, push in the primary array */
+      // falta ordenar...
+      newCategory.children = []
+      categoriesStore.push(newCategory)
+    } else {
+      /** if is secundary, push in the secundary array */
+      // falta ordenar...
+      for ( let i = 0 ; i < categoriesStore.length ; i++ ) {
+        if (categoriesStore[i].name === newCategory.parent) {
+          categoriesStore[i].children.push(newCategory)
+        }
+      }
+    }
+
+    dispatch({
+      type: types.UPDATE_CATEGORIES_STORE,
+      categoriesStore
     })
     dispatch(stopFetching())
   })

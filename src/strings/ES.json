@@ -189,6 +189,24 @@
 		"errorAmount":"La cantidad solicitada debe ser mayor o igual a uno",
 		"errorNegativeStock":"La cantidad solicitada excede a la disponibilidad del artículo"
 	},
+	"categoriesPage":{
+		"titleCreator":"Crear nuevo categoría",
+		"edit":{
+			"headerName":"Título",
+			"headerOrder":"Orden",
+			"headerDelete":"Opción"
+		},
+		"modal":{
+			"title":"Crear nueva categoría",
+			"labelName":"Nombre de la categoría",
+			"labelOrder":"Orden",
+			"labelPrimary":"Categoría principal",
+			"labelSecundary":"Categoría secundaria",
+			"labelParent":"Selecciona la categoría padre",
+			"buttonCancel":"Cancelar",
+			"buttonSave":"Guardar"
+		}
+	},
 	"categoryPage":{
 		"breadcrumbHome":"Inicio",
 		"labelResult":"resultados para"

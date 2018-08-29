@@ -1,0 +1,11 @@
+.categories-edit {
+  @extend .box-white;
+
+  &__category {
+    color: $body-text-color-secundary;
+  }
+
+  &__header {
+    font-size: 1.1em;
+  }
+}

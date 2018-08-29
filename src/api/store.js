@@ -25,6 +25,18 @@ export const updateDataStore = (userId, storeId, newDataStore, callback) => {
   },TIMEOUT )
 }
 
+export const updateCategoriesStore = (userId, storeId, newCategory, callback) => {
+  console.log('API.updateCategoriesStore.payload')
+  const payload = { userId, storeId, newCategory }
+  console.log(payload)
+
+  setTimeout( () => {
+    callback({
+      error: null
+    })
+  },TIMEOUT )
+}
+
 /**
  * Upload the store's image
  * @param {File} file - store's id.

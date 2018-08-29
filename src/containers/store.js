@@ -22,7 +22,7 @@ import PurchasesPage from './purchasesPage.js'
 import PurchasePage from './purchasePage.js'
 import LoginPage from './loginPage.js'
 import ItemPage from './itemPage.js'
-import Categories from '../components/categories/categories.js' // import Categories from './categories.js'
+import CategoriesPage from './categoriesPage.jsx' // import Categories from './categories.js'
 import CategoryPage from './categoryPage.js'
 import CartPage from './cartPage.js'
 import CheckoutPage from './checkoutPage.js'
@@ -42,8 +42,7 @@ class Store extends React.Component {
 
   render() {
     const { isFetching, isEditable } = this.props
-    const { stringsNavbar, search, editStoreSwitch, inSession, isAdmin, user, logout } = this.props
-    const { username, categories } = this.props
+    const { stringsNavbar, username, search, editStoreSwitch, inSession, isAdmin, user, logout } = this.props
     const { stringsContact, contact, contactSaveButton } = this.props
     const { stringsFooter } = this.props
 
@@ -75,7 +74,7 @@ class Store extends React.Component {
             <Route exact path="/:storeusername/cart" component={ CartPage } />
             <Route exact path="/:storeusername/checkout" component={ CheckoutPage } />
             <Route exact path="/:storeusername/congratulation/purchase" component={ CongratulationPurchase } />
-            <Route exact path="/:storeusername/categories" component={ () => (<Categories username={username} categories={categories} />) } />
+            <Route exact path="/:storeusername/categories" component={ CategoriesPage } />
             <Route exact path="/:storeusername/login/checkout" component={ () => <LoginPage guest={true} mode={"login"} /> } />
             <Route exact path="/:storeusername/login" component={ () => <LoginPage guest={false} mode={"login"} /> } />
             <Route exact path="/:storeusername/signup" component={ () => <LoginPage guest={false} mode={"signup"} /> } />
@@ -116,7 +115,6 @@ Store.propTypes = {
   editStoreSwitch: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   username: PropTypes.string.isRequired,
-  categories: PropTypes.array.isRequired,
   stringsContact: PropTypes.object.isRequired,
   contact: PropTypes.object.isRequired,
   contactSaveButton: PropTypes.func.isRequired
@@ -132,7 +130,6 @@ const mapStateToProps = state => ({
   stringsFooter: Strings(state.language).footer,
   stringsNavbar: Strings(state.language).navbar,
   username: state.store.username,
-  categories: state.store.categories,
   stringsContact: Strings(state.language).contactContainer,
   contact: state.store.theme.data.contact
 })
