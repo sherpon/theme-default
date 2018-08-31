@@ -31,6 +31,7 @@ import SearchPage from './searchPage.js'
 import TermsPage from './termsPage.js'
 import ProductsPage from './productsPage.jsx'
 import SalesPage from './salesPage.jsx'
+import SalePage from './salePage.jsx'
 import MarketingPage from './marketingPage.jsx'
 import PaymentGatewayPage from './paymentGatewayPage.jsx'
 
@@ -87,7 +88,7 @@ class Store extends React.Component {
             <Route exact path="/:storeusername/product/:title/:id" component={ ItemPage } />
             <Route exact path="/:storeusername/marketing" component={ MarketingPage } />
             <Route exact path="/:storeusername/sales" component={ SalesPage } />
-            <Route exact path="/:storeusername/sale/:id" component={ PurchasePage } />
+            <Route exact path="/:storeusername/sale/:id" component={ SalePage } />
             <Route exact path="/:storeusername/paymentgateway" component={ PaymentGatewayPage } />
             <Route exact path="/:storeusername" component={HomePage} />
             <Route component={HomePage}/>

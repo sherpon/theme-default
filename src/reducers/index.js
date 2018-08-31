@@ -10,6 +10,7 @@ import language from './language'
 import purchase from './purchase'
 import item from './item'
 import cart from './cart'
+import sale from './sale'
 import store from './store'
 
 export default combineReducers({
@@ -24,5 +25,6 @@ export default combineReducers({
   purchase,
   item,
   cart,
+  sale,
   store
 })

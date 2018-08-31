@@ -5,6 +5,7 @@
 
  import _getProducts from './data/getProducts.json'
  import _getSales from './data/getSales.json'
+ import _getSale from './data/getSale.json'
 
 const TIMEOUT = 500
 
@@ -72,7 +73,7 @@ export const uploadImageStore = (file, fileName, storeId, callback) => {
 /**
  * @function
  * @name getProducts
- * @description get the store's products
+ * @description get the store's products list
  * // where's this function used?
  * // - src/actions/store.js
  * // module:actions/store~loadProductsList as apiGetProducts
@@ -103,10 +104,10 @@ export const getProducts = (userId, storeId, callback) => {
 /**
  * @function
  * @name getSales
- * @description get the store's products
+ * @description get the store's sales list
  * // where's this function used?
  * // - src/actions/store.js
- * // module:actions/store~loadProductsList as apiGetProducts
+ * // module:actions/store~loadSalesList as apiGetSales
  * @param {string} userId - user's id.
  * @param {string} storeId - store's id.
  * @param {getSales~callback} callback - The callback that handles the response.
@@ -128,5 +129,37 @@ export const getSales = (userId, storeId, callback) => {
  * @param {Object} result - sales list array
  * @property {?number} result.error - show any error in the response or show null value
  * @property {Sales[]} result.sales - show the array of sales
+ */
+/******************************************************************************/
+/******************************************************************************/
+/**
+ * @function
+ * @name getSale
+ * @description get the store's sale by id
+ * // where's this function used?
+ * // - src/actions/store.js
+ * // module:actions/store~
+ * @param {string} userId - user's id.
+ * @param {string} storeId - store's id.
+ * @param {string} saleId - sale's id.
+ * @param {getSale~callback} callback - The callback that handles the response.
+ */
+export const getSale = (userId, storeId, saleId, callback) => {
+  console.log('API.getSale.payload')
+  const payload = { userId, storeId, saleId }
+  console.log(payload)
+
+  setTimeout( () => {
+    callback({
+      error: null,
+      sale: _getSale
+    })
+  },TIMEOUT )
+}
+/**
+ * @callback getSale~callback
+ * @param {Object} result - result's object
+ * @property {?number} result.error - show any error in the response or show null value
+ * @property {Object} result.sale - show the sale's object
  */
 /******************************************************************************/

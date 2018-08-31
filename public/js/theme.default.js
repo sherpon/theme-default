@@ -36846,7 +36846,7 @@ var loadPurchase = exports.loadPurchase = function loadPurchase(purchaseId) {
   };
 };
 
-},{"../api/account":115,"../constants/ActionTypes":189,"../models/session":219,"../strings":236,"./fetching":109,"./pagination":113}],108:[function(require,module,exports){
+},{"../api/account":115,"../constants/ActionTypes":191,"../models/session":222,"../strings":240,"./fetching":109,"./pagination":113}],108:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37109,7 +37109,7 @@ var placeOrder = exports.placeOrder = function placeOrder() {
   };
 };
 
-},{"../api/purchase":131,"../constants/ActionTypes":189,"../models/history":217,"../models/paymentGateway/culqi":218,"../models/session":219,"../strings":236,"./fetching":109}],109:[function(require,module,exports){
+},{"../api/purchase":132,"../constants/ActionTypes":191,"../models/history":220,"../models/paymentGateway/culqi":221,"../models/session":222,"../strings":240,"./fetching":109}],109:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37135,7 +37135,7 @@ var stopFetching = exports.stopFetching = function stopFetching() {
   };
 };
 
-},{"../constants/ActionTypes":189}],110:[function(require,module,exports){
+},{"../constants/ActionTypes":191}],110:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37328,7 +37328,7 @@ var loadCategory = exports.loadCategory = function loadCategory(category) {
   };
 };
 
-},{"../api/item":129,"../config":188,"../constants/ActionTypes":189,"../constants/codes.json":190,"../models/history":217,"../models/session":219,"../models/tools":220,"../strings":236}],111:[function(require,module,exports){
+},{"../api/item":130,"../config":190,"../constants/ActionTypes":191,"../constants/codes.json":192,"../models/history":220,"../models/session":222,"../models/tools":223,"../strings":240}],111:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37785,7 +37785,7 @@ var shareWhatsapp = exports.shareWhatsapp = function shareWhatsapp() {
   window.location.href = "https://api.whatsapp.com/send?text=" + window.location.href + "?utm_source%3Dsherpon_store%26utm_medium%3Dwhatsapp_link%26utm_campaign%3Dsocial_shared_item";
 };
 
-},{"../api/item":129,"../config":188,"../constants/ActionTypes":189,"../models/history":217,"../models/session":219,"../strings":236,"./fetching":109}],112:[function(require,module,exports){
+},{"../api/item":130,"../config":190,"../constants/ActionTypes":191,"../models/history":220,"../models/session":222,"../strings":240,"./fetching":109}],112:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37908,7 +37908,7 @@ var logout = exports.logout = function logout() {
   };
 };
 
-},{"../api/login":130,"../constants/ActionTypes":189,"../constants/codes.json":190,"../models/history":217,"../models/session":219,"../strings":236,"./fetching":109}],113:[function(require,module,exports){
+},{"../api/login":131,"../constants/ActionTypes":191,"../constants/codes.json":192,"../models/history":220,"../models/session":222,"../strings":240,"./fetching":109}],113:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -38009,13 +38009,13 @@ var goToPage = exports.goToPage = function goToPage(index) {
 };
 /******************************************************************************/
 
-},{"../constants/ActionTypes":189,"./fetching":109}],114:[function(require,module,exports){
+},{"../constants/ActionTypes":191,"./fetching":109}],114:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.loadSalesList = exports.loadProductsList = exports.categoriesSaveButton = exports.paymentGatewaySaveButton = exports.marketingSaveButton = exports.homeSectionDeleteButton = exports.homeSectionModalPublishButton = exports.contactSaveButton = exports.termsSaveButton = exports.shortDescriptionSaveButton = exports.logoSaveButton = exports.coverSaveButton = exports.editStoreSwitch = undefined;
+exports.loadSale = exports.loadSalesList = exports.loadProductsList = exports.categoriesSaveButton = exports.paymentGatewaySaveButton = exports.marketingSaveButton = exports.homeSectionDeleteButton = exports.homeSectionModalPublishButton = exports.contactSaveButton = exports.termsSaveButton = exports.shortDescriptionSaveButton = exports.logoSaveButton = exports.coverSaveButton = exports.editStoreSwitch = undefined;
 
 var _ActionTypes = require('../constants/ActionTypes');
 
@@ -38532,7 +38532,7 @@ var loadProductsList = exports.loadProductsList = function loadProductsList() {
  * @name loadSalesList
  * @description Load store's sales list as admin
  * // where's this function used?
- * // - src/containers/productsPage.jsx
+ * // - src/containers/salesPage.jsx
  */
 var loadSalesList = exports.loadSalesList = function loadSalesList() {
   return function (dispatch, getState) {
@@ -38549,8 +38549,38 @@ var loadSalesList = exports.loadSalesList = function loadSalesList() {
   };
 };
 /******************************************************************************/
+/******************************************************************************/
+/**
+ * @function
+ * @name loadSale
+ * @description Load store's sales list as admin
+ * // where's this function used?
+ * // - src/containers/salePage.jsx
+ * @param {string} saleId - sale's id
+ */
+var loadSale = exports.loadSale = function loadSale(saleId) {
+  return function (dispatch, getState) {
+    dispatch((0, _fetching.startFetching)());
+    dispatch({ type: types.CLEAN_SALE });
+    var userId = _session2.default.getUser().id;
+    var storeId = getState().store.id;
+    (0, _store.getSale)(userId, storeId, saleId, function (result) {
+      if (result.error !== null) {
+        /** show error message */
+        dispatch((0, _fetching.stopFetching)());
+      }
+      //dispatch(setPages(result.sales, 30))
+      dispatch({
+        type: types.LOAD_SALE,
+        sale: result.sale
+      });
+      dispatch((0, _fetching.stopFetching)());
+    });
+  };
+};
+/******************************************************************************/
 
-},{"../api/store":132,"../constants/ActionTypes":189,"../models/session":219,"../models/tools":220,"../strings":236,"./fetching":109,"./pagination":113}],115:[function(require,module,exports){
+},{"../api/store":133,"../constants/ActionTypes":191,"../models/session":222,"../models/tools":223,"../strings":240,"./fetching":109,"./pagination":113}],115:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -38620,7 +38650,7 @@ var loadPurchase = exports.loadPurchase = function loadPurchase(storeId, purchas
  * @param {object} purchase - purchase's object
  */
 
-},{"./data/purchaseItem.json":127,"./data/purchasesList.json":128}],116:[function(require,module,exports){
+},{"./data/purchaseItem.json":128,"./data/purchasesList.json":129}],116:[function(require,module,exports){
 module.exports={
 	"id":"Hu3fU02Bdhgpo476Fej1",
 	"type":"clothes",
@@ -39072,71 +39102,6 @@ module.exports=[
 ]
 
 },{}],123:[function(require,module,exports){
-module.exports=[
-  {
-    "id":"aaaa",
-    "timestamp":1534344986716,
-    "state":"pending",
-    "currency":"USD",
-    "symbol":"$",
-    "amount":"20"
-  },
-  {
-    "id":"aaab",
-    "timestamp":1534344976716,
-    "state":"pending",
-    "currency":"USD",
-    "symbol":"$",
-    "amount":"25"
-  },
-  {
-    "id":"aaac",
-    "timestamp":1534344966716,
-    "state":"pending",
-    "currency":"USD",
-    "symbol":"$",
-    "amount":"34"
-  },
-  {
-    "id":"aaad",
-    "timestamp":1534344956716,
-    "state":"pending",
-    "currency":"USD",
-    "symbol":"$",
-    "amount":"15"
-  }
-]
-
-},{}],124:[function(require,module,exports){
-module.exports={
-	"error":null,
-	"user":{
-		"id":"BBB",
-		"name":"Grover",
-		"lastname":"Lee",
-		"phone":"949799020",
-		"email":"grover@gmail.com",
-    "role":"admin"
-	}
-}
-
-},{}],125:[function(require,module,exports){
-module.exports={
-	"error":5010,
-	"user":null
-}
-},{}],126:[function(require,module,exports){
-module.exports={
-	"error":null,
-	"user":{
-		"id":"AAA",
-		"name":"Carlos",
-		"lastname":"Sanchez",
-		"phone":"949799020",
-		"email":"carlos@gmail.com"
-	}
-}
-},{}],127:[function(require,module,exports){
 module.exports={
   "id":"aaaa",
   "timestamp":1534344986716,
@@ -39221,9 +39186,76 @@ module.exports={
   }
 }
 
+},{}],124:[function(require,module,exports){
+module.exports=[
+  {
+    "id":"aaaa",
+    "timestamp":1534344986716,
+    "state":"pending",
+    "currency":"USD",
+    "symbol":"$",
+    "amount":"20"
+  },
+  {
+    "id":"aaab",
+    "timestamp":1534344976716,
+    "state":"pending",
+    "currency":"USD",
+    "symbol":"$",
+    "amount":"25"
+  },
+  {
+    "id":"aaac",
+    "timestamp":1534344966716,
+    "state":"pending",
+    "currency":"USD",
+    "symbol":"$",
+    "amount":"34"
+  },
+  {
+    "id":"aaad",
+    "timestamp":1534344956716,
+    "state":"pending",
+    "currency":"USD",
+    "symbol":"$",
+    "amount":"15"
+  }
+]
+
+},{}],125:[function(require,module,exports){
+module.exports={
+	"error":null,
+	"user":{
+		"id":"BBB",
+		"name":"Grover",
+		"lastname":"Lee",
+		"phone":"949799020",
+		"email":"grover@gmail.com",
+    "role":"admin"
+	}
+}
+
+},{}],126:[function(require,module,exports){
+module.exports={
+	"error":5010,
+	"user":null
+}
+},{}],127:[function(require,module,exports){
+module.exports={
+	"error":null,
+	"user":{
+		"id":"AAA",
+		"name":"Carlos",
+		"lastname":"Sanchez",
+		"phone":"949799020",
+		"email":"carlos@gmail.com"
+	}
+}
 },{}],128:[function(require,module,exports){
 arguments[4][123][0].apply(exports,arguments)
 },{"dup":123}],129:[function(require,module,exports){
+arguments[4][124][0].apply(exports,arguments)
+},{"dup":124}],130:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39303,7 +39335,7 @@ var getItemById = exports.getItemById = function getItemById(storeId, itemId, ca
 
  */
 
-},{"./data/_itemById1.json":116,"./data/_itemById2.json":117,"./data/_itemById3.json":118,"./data/_itemById4.json":119,"./data/_itemsByCategory.json":120,"./data/_itemsBySearch.json":121}],130:[function(require,module,exports){
+},{"./data/_itemById1.json":116,"./data/_itemById2.json":117,"./data/_itemById3.json":118,"./data/_itemById4.json":119,"./data/_itemsByCategory.json":120,"./data/_itemsBySearch.json":121}],131:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39364,7 +39396,7 @@ var logout = exports.logout = function logout(payload, callback) {
   }, TIMEOUT);
 };
 
-},{"./data/loginB.json":124,"./data/loginError.json":125,"./data/loginSuccess.json":126}],131:[function(require,module,exports){
+},{"./data/loginB.json":125,"./data/loginError.json":126,"./data/loginSuccess.json":127}],132:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39381,13 +39413,13 @@ var createPurchase = exports.createPurchase = function createPurchase(payload, c
   }, TIMEOUT);
 };
 
-},{}],132:[function(require,module,exports){
+},{}],133:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getSales = exports.getProducts = exports.uploadImageStore = exports.updateCategoriesStore = exports.updateDataStore = exports.updateDataTheme = undefined;
+exports.getSale = exports.getSales = exports.getProducts = exports.uploadImageStore = exports.updateCategoriesStore = exports.updateDataStore = exports.updateDataTheme = undefined;
 
 var _getProducts2 = require('./data/getProducts.json');
 
@@ -39397,14 +39429,16 @@ var _getSales2 = require('./data/getSales.json');
 
 var _getSales3 = _interopRequireDefault(_getSales2);
 
+var _getSale2 = require('./data/getSale.json');
+
+var _getSale3 = _interopRequireDefault(_getSale2);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/**
- * @module api/store
- * @author Grover Lee
- */
-
-var TIMEOUT = 500;
+var TIMEOUT = 500; /**
+                    * @module api/store
+                    * @author Grover Lee
+                    */
 
 var updateDataTheme = exports.updateDataTheme = function updateDataTheme(userId, storeId, newDataTheme, callback) {
   console.log('API.updateDataTheme.payload');
@@ -39470,7 +39504,7 @@ var uploadImageStore = exports.uploadImageStore = function uploadImageStore(file
 /**
  * @function
  * @name getProducts
- * @description get the store's products
+ * @description get the store's products list
  * // where's this function used?
  * // - src/actions/store.js
  * // module:actions/store~loadProductsList as apiGetProducts
@@ -39501,10 +39535,10 @@ var getProducts = exports.getProducts = function getProducts(userId, storeId, ca
 /**
  * @function
  * @name getSales
- * @description get the store's products
+ * @description get the store's sales list
  * // where's this function used?
  * // - src/actions/store.js
- * // module:actions/store~loadProductsList as apiGetProducts
+ * // module:actions/store~loadSalesList as apiGetSales
  * @param {string} userId - user's id.
  * @param {string} storeId - store's id.
  * @param {getSales~callback} callback - The callback that handles the response.
@@ -39528,8 +39562,40 @@ var getSales = exports.getSales = function getSales(userId, storeId, callback) {
  * @property {Sales[]} result.sales - show the array of sales
  */
 /******************************************************************************/
+/******************************************************************************/
+/**
+ * @function
+ * @name getSale
+ * @description get the store's sale by id
+ * // where's this function used?
+ * // - src/actions/store.js
+ * // module:actions/store~
+ * @param {string} userId - user's id.
+ * @param {string} storeId - store's id.
+ * @param {string} saleId - sale's id.
+ * @param {getSale~callback} callback - The callback that handles the response.
+ */
+var getSale = exports.getSale = function getSale(userId, storeId, saleId, callback) {
+  console.log('API.getSale.payload');
+  var payload = { userId: userId, storeId: storeId, saleId: saleId };
+  console.log(payload);
 
-},{"./data/getProducts.json":122,"./data/getSales.json":123}],133:[function(require,module,exports){
+  setTimeout(function () {
+    callback({
+      error: null,
+      sale: _getSale3.default
+    });
+  }, TIMEOUT);
+};
+/**
+ * @callback getSale~callback
+ * @param {Object} result - result's object
+ * @property {?number} result.error - show any error in the response or show null value
+ * @property {Object} result.sale - show the sale's object
+ */
+/******************************************************************************/
+
+},{"./data/getProducts.json":122,"./data/getSale.json":123,"./data/getSales.json":124}],134:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39710,7 +39776,7 @@ AccountView.propsType = {
 
 exports.default = AccountView;
 
-},{"prop-types":43,"react":92}],134:[function(require,module,exports){
+},{"prop-types":43,"react":92}],135:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39794,7 +39860,7 @@ Breadcrumbs.propTypes = {
 
 exports.default = Breadcrumbs;
 
-},{"../../models/tools":220,"prop-types":43,"react":92,"react-router-dom":75}],135:[function(require,module,exports){
+},{"../../models/tools":223,"prop-types":43,"react":92,"react-router-dom":75}],136:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39982,7 +40048,7 @@ CartItemView.defaultProps = {
 
 exports.default = CartItemView;
 
-},{"../../models/tools":220,"prop-types":43,"react":92,"react-router-dom":75}],136:[function(require,module,exports){
+},{"../../models/tools":223,"prop-types":43,"react":92,"react-router-dom":75}],137:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40131,7 +40197,7 @@ CartView.propTypes = {
 
 exports.default = CartView;
 
-},{"../../models/tools":220,"../cartItemView/cartItemView":135,"prop-types":43,"react":92}],137:[function(require,module,exports){
+},{"../../models/tools":223,"../cartItemView/cartItemView":136,"prop-types":43,"react":92}],138:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40189,7 +40255,7 @@ CategoriesCreator.propTypes = {
 
 exports.default = CategoriesCreator;
 
-},{"prop-types":43,"react":92}],138:[function(require,module,exports){
+},{"prop-types":43,"react":92}],139:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40310,7 +40376,7 @@ CategoriesEdit.propTypes = {
 
 exports.default = CategoriesEdit;
 
-},{"prop-types":43,"react":92,"react-router-dom":75}],139:[function(require,module,exports){
+},{"prop-types":43,"react":92,"react-router-dom":75}],140:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40543,7 +40609,7 @@ CategoriesModal.propTypes = {
 
 exports.default = CategoriesModal;
 
-},{"prop-types":43,"react":92}],140:[function(require,module,exports){
+},{"prop-types":43,"react":92}],141:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40643,7 +40709,7 @@ Categories.propTypes = {
 
 exports.default = Categories;
 
-},{"prop-types":43,"react":92,"react-router-dom":75}],141:[function(require,module,exports){
+},{"prop-types":43,"react":92,"react-router-dom":75}],142:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40677,7 +40743,7 @@ var Categories = {
 
 exports.default = Categories;
 
-},{"./categoriesCreator/categoriesCreator.jsx":137,"./categoriesEdit/categoriesEdit.jsx":138,"./categoriesModal/categoriesModal.jsx":139,"./categoriesView/categoriesView.jsx":140}],142:[function(require,module,exports){
+},{"./categoriesCreator/categoriesCreator.jsx":138,"./categoriesEdit/categoriesEdit.jsx":139,"./categoriesModal/categoriesModal.jsx":140,"./categoriesView/categoriesView.jsx":141}],143:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41108,7 +41174,7 @@ CheckoutView.propTypes = {
 
 exports.default = CheckoutView;
 
-},{"../../models/session":219,"../../models/tools":220,"prop-types":43,"react":92}],143:[function(require,module,exports){
+},{"../../models/session":222,"../../models/tools":223,"prop-types":43,"react":92}],144:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41215,7 +41281,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CongratulationPurchase);
 
-},{"../../strings":236,"prop-types":43,"react":92,"react-redux":57}],144:[function(require,module,exports){
+},{"../../strings":240,"prop-types":43,"react":92,"react-redux":57}],145:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41266,7 +41332,7 @@ ContactEdit.propTypes = {
 
 exports.default = ContactEdit;
 
-},{"../contactView/contactView.jsx":146,"prop-types":43,"react":92}],145:[function(require,module,exports){
+},{"../contactView/contactView.jsx":147,"prop-types":43,"react":92}],146:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41433,7 +41499,7 @@ ContactModal.propTypes = {
 
 exports.default = ContactModal;
 
-},{"prop-types":43,"react":92}],146:[function(require,module,exports){
+},{"prop-types":43,"react":92}],147:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41523,7 +41589,7 @@ Contact.propTypes = {
 
 exports.default = Contact;
 
-},{"prop-types":43,"react":92}],147:[function(require,module,exports){
+},{"prop-types":43,"react":92}],148:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41552,7 +41618,7 @@ var Contact = {
 
 exports.default = Contact;
 
-},{"./contactEdit/contactEdit.jsx":144,"./contactModal/contactModal.jsx":145,"./contactView/contactView.jsx":146}],148:[function(require,module,exports){
+},{"./contactEdit/contactEdit.jsx":145,"./contactModal/contactModal.jsx":146,"./contactView/contactView.jsx":147}],149:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41689,7 +41755,7 @@ CoverModal.propTypes = {
 
 exports.default = CoverModal;
 
-},{"prop-types":43,"react":92}],149:[function(require,module,exports){
+},{"prop-types":43,"react":92}],150:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41765,7 +41831,7 @@ CreateSection.propTypes = {
 
 exports.default = CreateSection;
 
-},{"../homeSectionModal/homeSectionModal":155,"prop-types":43,"react":92}],150:[function(require,module,exports){
+},{"../homeSectionModal/homeSectionModal":156,"prop-types":43,"react":92}],151:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41798,7 +41864,7 @@ EmptyCartView.propTypes = {
 
 exports.default = EmptyCartView;
 
-},{"prop-types":43,"react":92}],151:[function(require,module,exports){
+},{"prop-types":43,"react":92}],152:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41837,7 +41903,7 @@ Cover.propTypes = {
 
 exports.default = Cover;
 
-},{"prop-types":43,"react":92}],152:[function(require,module,exports){
+},{"prop-types":43,"react":92}],153:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41906,7 +41972,7 @@ HomeSectionEdit.propTypes = {
 
 exports.default = HomeSectionEdit;
 
-},{"../homeSectionView/homeSectionView.jsx":153,"prop-types":43,"react":92}],153:[function(require,module,exports){
+},{"../homeSectionView/homeSectionView.jsx":154,"prop-types":43,"react":92}],154:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41948,7 +42014,7 @@ HomeSectionView.propTypes = {
 
 exports.default = HomeSectionView;
 
-},{"prop-types":43,"react":92,"react-router-dom":75}],154:[function(require,module,exports){
+},{"prop-types":43,"react":92,"react-router-dom":75}],155:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41972,7 +42038,7 @@ var HomeSection = {
 
 exports.default = HomeSection;
 
-},{"./homeSectionEdit/homeSectionEdit.jsx":152,"./homeSectionView/homeSectionView.jsx":153}],155:[function(require,module,exports){
+},{"./homeSectionEdit/homeSectionEdit.jsx":153,"./homeSectionView/homeSectionView.jsx":154}],156:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42208,7 +42274,7 @@ HomeSectionModal.propTypes = {
 
 exports.default = HomeSectionModal;
 
-},{"../../models/tools":220,"prop-types":43,"react":92}],156:[function(require,module,exports){
+},{"../../models/tools":223,"prop-types":43,"react":92}],157:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42324,7 +42390,7 @@ ItemCarousel.propTypes = {
 
 exports.default = ItemCarousel;
 
-},{"../../models/tools":220,"prop-types":43,"react":92}],157:[function(require,module,exports){
+},{"../../models/tools":223,"prop-types":43,"react":92}],158:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42546,7 +42612,7 @@ ItemContent.propTypes = {
 
 exports.default = ItemContent;
 
-},{"../../models/tools":220,"../itemContentAttributes/itemContentAttributes":158,"../itemContentShipping/itemContentShipping":159,"prop-types":43,"react":92}],158:[function(require,module,exports){
+},{"../../models/tools":223,"../itemContentAttributes/itemContentAttributes":159,"../itemContentShipping/itemContentShipping":160,"prop-types":43,"react":92}],159:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42711,7 +42777,7 @@ ItemContentAttributes.propTypes = {
 
 exports.default = ItemContentAttributes;
 
-},{"../../models/tools":220,"prop-types":43,"react":92}],159:[function(require,module,exports){
+},{"../../models/tools":223,"prop-types":43,"react":92}],160:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42791,7 +42857,7 @@ ItemContentShipping.propTypes = {
 
 exports.default = ItemContentShipping;
 
-},{"../../models/tools":220,"prop-types":43,"react":92}],160:[function(require,module,exports){
+},{"../../models/tools":223,"prop-types":43,"react":92}],161:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42874,7 +42940,7 @@ ItemView.propTypes = {
 
 exports.default = ItemView;
 
-},{"../itemCarousel/itemCarousel":156,"../itemContent/itemContent":157,"prop-types":43,"react":92}],161:[function(require,module,exports){
+},{"../itemCarousel/itemCarousel":157,"../itemContent/itemContent":158,"prop-types":43,"react":92}],162:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -42910,7 +42976,7 @@ var ItemViewPlaceholder = function ItemViewPlaceholder(_ref) {
 
 exports.default = ItemViewPlaceholder;
 
-},{"react":92}],162:[function(require,module,exports){
+},{"react":92}],163:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43215,7 +43281,7 @@ LoginView.propTypes = {
 
 exports.default = LoginView;
 
-},{"prop-types":43,"react":92,"react-router-dom":75}],163:[function(require,module,exports){
+},{"prop-types":43,"react":92,"react-router-dom":75}],164:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43259,7 +43325,7 @@ LogoEdit.propTypes = {
 
 exports.default = LogoEdit;
 
-},{"prop-types":43,"react":92}],164:[function(require,module,exports){
+},{"prop-types":43,"react":92}],165:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43396,7 +43462,7 @@ LogoModal.propTypes = {
 
 exports.default = LogoModal;
 
-},{"prop-types":43,"react":92}],165:[function(require,module,exports){
+},{"prop-types":43,"react":92}],166:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43481,7 +43547,7 @@ MarketingView.propsType = {
 
 exports.default = MarketingView;
 
-},{"prop-types":43,"react":92}],166:[function(require,module,exports){
+},{"prop-types":43,"react":92}],167:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43828,7 +43894,7 @@ Navbar.propTypes = {
 
 exports.default = Navbar;
 
-},{"prop-types":43,"react":92,"react-router-dom":75}],167:[function(require,module,exports){
+},{"prop-types":43,"react":92,"react-router-dom":75}],168:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43976,7 +44042,7 @@ Pagination.propTypes = {
 
 exports.default = Pagination;
 
-},{"prop-types":43,"react":92}],168:[function(require,module,exports){
+},{"prop-types":43,"react":92}],169:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44074,7 +44140,7 @@ PaymentGatewayView.propsType = {
 
 exports.default = PaymentGatewayView;
 
-},{"prop-types":43,"react":92}],169:[function(require,module,exports){
+},{"prop-types":43,"react":92}],170:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44134,7 +44200,7 @@ PreviewItem.propTypes = {
 
 exports.default = PreviewItem;
 
-},{"../../models/tools.js":220,"prop-types":43,"react":92,"react-router-dom":75}],170:[function(require,module,exports){
+},{"../../models/tools.js":223,"prop-types":43,"react":92,"react-router-dom":75}],171:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44227,7 +44293,7 @@ return (
 
  */
 
-},{"../previewItem/previewItem":169,"prop-types":43,"react":92}],171:[function(require,module,exports){
+},{"../previewItem/previewItem":170,"prop-types":43,"react":92}],172:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -44268,7 +44334,7 @@ var PreviewListPlaceholder = function PreviewListPlaceholder(_ref) {
 
 exports.default = PreviewListPlaceholder;
 
-},{"react":92}],172:[function(require,module,exports){
+},{"react":92}],173:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44379,7 +44445,7 @@ ProductsList.propTypes = {
 
 exports.default = ProductsList;
 
-},{"../../models/tools.js":220,"prop-types":43,"react":92,"react-router-dom":75}],173:[function(require,module,exports){
+},{"../../models/tools.js":223,"prop-types":43,"react":92,"react-router-dom":75}],174:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44469,7 +44535,7 @@ Profile.propTypes = {
 
 exports.default = Profile;
 
-},{"../../containers/logoContainer":203,"../../containers/shortDescriptionContainer.jsx":211,"prop-types":43,"react":92}],174:[function(require,module,exports){
+},{"../../containers/logoContainer":205,"../../containers/shortDescriptionContainer.jsx":214,"prop-types":43,"react":92}],175:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44757,7 +44823,7 @@ PurchaseView.propTypes = {
 
 exports.default = PurchaseView;
 
-},{"../../models/tools.js":220,"../cartItemView/cartItemView":135,"prop-types":43,"react":92}],175:[function(require,module,exports){
+},{"../../models/tools.js":223,"../cartItemView/cartItemView":136,"prop-types":43,"react":92}],176:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44868,7 +44934,7 @@ PurchasesList.propTypes = {
 
 exports.default = PurchasesList;
 
-},{"../../models/tools.js":220,"prop-types":43,"react":92,"react-router-dom":75}],176:[function(require,module,exports){
+},{"../../models/tools.js":223,"prop-types":43,"react":92,"react-router-dom":75}],177:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44904,7 +44970,7 @@ ResultCount.propTypes = {
 
 exports.default = ResultCount;
 
-},{"prop-types":43,"react":92}],177:[function(require,module,exports){
+},{"prop-types":43,"react":92}],178:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44915,22 +44981,356 @@ var _salesList = require('./salesList/salesList.jsx');
 
 var _salesList2 = _interopRequireDefault(_salesList);
 
+var _saleView = require('./saleView/saleView.jsx');
+
+var _saleView2 = _interopRequireDefault(_saleView);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//import TermsView from './termsView/termsView.jsx'
 //import TermsEdit from './termsEdit/termsEdit.jsx'
 //import TermsModal from './termsModal/termsModal.jsx'
 
 var Sale = {
-  List: _salesList2.default
-  //View: SaleView,
+  List: _salesList2.default,
+  View: _saleView2.default
   //Edit: SaleEdit,
   //Modal: SaleModal
 };
 
 exports.default = Sale;
 
-},{"./salesList/salesList.jsx":178}],178:[function(require,module,exports){
+},{"./saleView/saleView.jsx":179,"./salesList/salesList.jsx":180}],179:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _tools = require('../../../models/tools.js');
+
+var _cartItemView = require('../../cartItemView/cartItemView');
+
+var _cartItemView2 = _interopRequireDefault(_cartItemView);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SaleInformation = function SaleInformation(_ref) {
+  var className = _ref.className,
+      strings = _ref.strings,
+      purchase = _ref.purchase;
+  return _react2.default.createElement(
+    'div',
+    { className: 'purchase-information ' + className },
+    _react2.default.createElement(
+      'div',
+      { className: 'purchase-information__title' },
+      strings.purchaseInformation.title
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'purchase-information__line' },
+      _react2.default.createElement(
+        'div',
+        { className: 'col s6' },
+        strings.purchaseInformation.id
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'col s6 col-right' },
+        purchase.id
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'purchase-information__line' },
+      _react2.default.createElement(
+        'div',
+        { className: 'col s6' },
+        strings.purchaseInformation.date
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'col s6 col-right' },
+        (0, _tools.getFormattedTime)(purchase.timestamp)
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'purchase-information__line' },
+      _react2.default.createElement(
+        'div',
+        { className: 'col s6' },
+        strings.purchaseInformation.state
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'col s6 col-right' },
+        purchase.state
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'purchase-information__line' },
+      _react2.default.createElement(
+        'div',
+        { className: 'col s6' },
+        strings.purchaseInformation.labelSubTotal
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'col s6 col-right' },
+        purchase.cart.subTotal.symbol + ' ' + (0, _tools.getPriceFormat)(purchase.cart.subTotal.price)
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'purchase-information__line' },
+      _react2.default.createElement(
+        'div',
+        { className: 'col s6' },
+        strings.purchaseInformation.labelShipping
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'col s6 col-right' },
+        purchase.cart.shipping.symbol + ' ' + (0, _tools.getPriceFormat)(purchase.cart.shipping.price)
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'purchase-information__line' },
+      _react2.default.createElement(
+        'div',
+        { className: 'col s6' },
+        strings.purchaseInformation.labelTaxes
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'col s6 col-right' },
+        purchase.cart.total.symbol + ' ' + (0, _tools.getPriceFormat)(0)
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'purchase-information__line purchase-information__line--primary-color' },
+      _react2.default.createElement(
+        'div',
+        { className: 'col s6' },
+        strings.purchaseInformation.labelTotal
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'col s6 col-right' },
+        purchase.cart.total.symbol + ' ' + (0, _tools.getPriceFormat)(purchase.cart.total.price)
+      )
+    )
+  );
+};
+
+var PersonalInformation = function PersonalInformation(_ref2) {
+  var strings = _ref2.strings,
+      purchase = _ref2.purchase;
+  return _react2.default.createElement(
+    'div',
+    { className: 'personal-information' },
+    _react2.default.createElement(
+      'div',
+      { className: 'personal-information__title' },
+      strings.personalInformation.title
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'personal-information__line' },
+      purchase.user.name
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'personal-information__line' },
+      purchase.user.lastname
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'personal-information__line' },
+      purchase.user.phone
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'personal-information__line' },
+      purchase.user.email
+    )
+  );
+};
+
+var AddressInformation = function AddressInformation(_ref3) {
+  var title = _ref3.title,
+      address = _ref3.address;
+  return _react2.default.createElement(
+    'div',
+    { className: 'personal-information' },
+    _react2.default.createElement(
+      'div',
+      { className: 'personal-information__title' },
+      title
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'personal-information__line' },
+      address.name
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'personal-information__line' },
+      address.lastname
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'personal-information__line' },
+      address.address1
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'personal-information__line' },
+      address.address2
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'personal-information__line' },
+      address.city
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'personal-information__line' },
+      address.state
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'personal-information__line' },
+      address.zipCode
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'personal-information__line' },
+      address.country
+    )
+  );
+};
+
+var UpdateInformation = function UpdateInformation(_ref4) {
+  var strings = _ref4.strings,
+      saleId = _ref4.saleId,
+      stateSale = _ref4.stateSale,
+      updateStateSale = _ref4.updateStateSale;
+
+  if (stateSale === 'pending') {
+    return _react2.default.createElement(
+      'div',
+      { className: 'update-information' },
+      _react2.default.createElement(
+        'div',
+        { className: 'update-information__title' },
+        strings.title
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'update-information__line' },
+        _react2.default.createElement(
+          'a',
+          {
+            onClick: function onClick() {
+              return updateStateSale();
+            },
+            className: 'waves-effect waves-light btn-small z-depth-0'
+          },
+          strings.buttonUpdateToSended
+        )
+      )
+    );
+  } else {
+    return _react2.default.createElement('div', null);
+  }
+};
+
+var SaleView = function SaleView(_ref5) {
+  var strings = _ref5.strings,
+      username = _ref5.username,
+      sale = _ref5.sale;
+
+  var itemListComp = sale.cart.items.map(function (item, i) {
+    return _react2.default.createElement(_cartItemView2.default, {
+      key: i,
+      index: i,
+      username: username,
+      strings: strings.itemView,
+      item: item,
+      deleteItemCart: function deleteItemCart() {
+        return false;
+      },
+      deleteButton: false
+    });
+  });
+
+  return _react2.default.createElement(
+    'div',
+    { className: 'sale-view' },
+    _react2.default.createElement(
+      'div',
+      { className: 'col s12 m6 l6' },
+      _react2.default.createElement(SaleInformation, {
+        className: 'hide-on-med-and-up',
+        strings: strings,
+        purchase: sale
+      }),
+      itemListComp
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'col s12 m6 l6' },
+      _react2.default.createElement(SaleInformation, {
+        className: 'hide-on-small-only',
+        strings: strings,
+        purchase: sale
+      }),
+      _react2.default.createElement(PersonalInformation, {
+        strings: strings,
+        purchase: sale
+      }),
+      _react2.default.createElement(AddressInformation, {
+        title: strings.shippingInformation,
+        address: sale.shipping
+      }),
+      _react2.default.createElement(AddressInformation, {
+        title: strings.billingInformation,
+        address: sale.billing
+      }),
+      _react2.default.createElement(UpdateInformation, {
+        strings: strings.UpdateInformation,
+        saleId: sale.id,
+        stateSale: sale.state,
+        updateStateSale: function updateStateSale() {
+          return false;
+        }
+      })
+    )
+  );
+};
+
+SaleView.propTypes = {
+  strings: _propTypes2.default.object.isRequired,
+  username: _propTypes2.default.string.isRequired,
+  sale: _propTypes2.default.object.isRequired
+};
+
+exports.default = SaleView;
+
+},{"../../../models/tools.js":223,"../../cartItemView/cartItemView":136,"prop-types":43,"react":92}],180:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45041,7 +45441,7 @@ SalesList.propTypes = {
 
 exports.default = SalesList;
 
-},{"../../../models/tools.js":220,"prop-types":43,"react":92,"react-router-dom":75}],179:[function(require,module,exports){
+},{"../../../models/tools.js":223,"prop-types":43,"react":92,"react-router-dom":75}],181:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45065,7 +45465,7 @@ var ShortDescription = {
 
 exports.default = ShortDescription;
 
-},{"./shortDescriptionEdit/shortDescriptionEdit.jsx":180,"./shortDescriptionModal/shortDescriptionModal.jsx":181}],180:[function(require,module,exports){
+},{"./shortDescriptionEdit/shortDescriptionEdit.jsx":182,"./shortDescriptionModal/shortDescriptionModal.jsx":183}],182:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45113,7 +45513,7 @@ ShortDescriptionEdit.propTypes = {
 
 exports.default = ShortDescriptionEdit;
 
-},{"prop-types":43,"react":92}],181:[function(require,module,exports){
+},{"prop-types":43,"react":92}],183:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45254,7 +45654,7 @@ ShortDescriptionModal.propTypes = {
 
 exports.default = ShortDescriptionModal;
 
-},{"prop-types":43,"react":92}],182:[function(require,module,exports){
+},{"prop-types":43,"react":92}],184:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45295,7 +45695,7 @@ Spinner.propTypes = {
 
 exports.default = Spinner;
 
-},{"prop-types":43,"react":92}],183:[function(require,module,exports){
+},{"prop-types":43,"react":92}],185:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45419,7 +45819,7 @@ TabsHero.propTypes = {
 
 exports.default = TabsHero;
 
-},{"prop-types":43,"react":92,"react-router-dom":75}],184:[function(require,module,exports){
+},{"prop-types":43,"react":92,"react-router-dom":75}],186:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45448,7 +45848,7 @@ var Terms = {
 
 exports.default = Terms;
 
-},{"./termsEdit/termsEdit.jsx":185,"./termsModal/termsModal.jsx":186,"./termsView/termsView.jsx":187}],185:[function(require,module,exports){
+},{"./termsEdit/termsEdit.jsx":187,"./termsModal/termsModal.jsx":188,"./termsView/termsView.jsx":189}],187:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45499,7 +45899,7 @@ TermsEdit.propTypes = {
 
 exports.default = TermsEdit;
 
-},{"../termsView/termsView.jsx":187,"prop-types":43,"react":92}],186:[function(require,module,exports){
+},{"../termsView/termsView.jsx":189,"prop-types":43,"react":92}],188:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45652,7 +46052,7 @@ TermsModal.propTypes = {
 
 exports.default = TermsModal;
 
-},{"prop-types":43,"react":92}],187:[function(require,module,exports){
+},{"prop-types":43,"react":92}],189:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45714,7 +46114,7 @@ TermsView.propTypes = {
 
 exports.default = TermsView;
 
-},{"prop-types":43,"react":92}],188:[function(require,module,exports){
+},{"prop-types":43,"react":92}],190:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -45804,7 +46204,7 @@ var getEnv = exports.getEnv = function getEnv() {
   }
 };
 
-},{}],189:[function(require,module,exports){
+},{}],191:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45852,8 +46252,10 @@ var LOAD_STORE = exports.LOAD_STORE = 'LOAD_STORE';
 var UPDATE_DATA_THEME = exports.UPDATE_DATA_THEME = 'UPDATE_DATA_THEME';
 var UPDATE_DATA_STORE = exports.UPDATE_DATA_STORE = 'UPDATE_DATA_STORE';
 var UPDATE_CATEGORIES_STORE = exports.UPDATE_CATEGORIES_STORE = 'UPDATE_CATEGORIES_STORE';
+var CLEAN_SALE = exports.CLEAN_SALE = 'CLEAN_SALE';
+var LOAD_SALE = exports.LOAD_SALE = 'LOAD_SALE';
 
-},{}],190:[function(require,module,exports){
+},{}],192:[function(require,module,exports){
 module.exports={
   "API_AUTH_SET_SUCCEED":4000,
   "API_AUTH_SET_FAILED":4001,
@@ -45862,7 +46264,7 @@ module.exports={
   "API_USER_LOGIN_NO_FOUND":5010,
   "API_STORE_CREATE_USERNAME_EXIST":6000
 }
-},{}],191:[function(require,module,exports){
+},{}],193:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46016,7 +46418,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(AccountPage));
 
-},{"../actions/account":107,"../components/accountView/accountView":133,"../components/breadcrumbs/breadcrumbs":134,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":219,"../strings":236,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],192:[function(require,module,exports){
+},{"../actions/account":107,"../components/accountView/accountView":134,"../components/breadcrumbs/breadcrumbs":135,"../models/analytics":217,"../models/facebookPixel":219,"../models/session":222,"../strings":240,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],194:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46161,7 +46563,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CartPage));
 
-},{"../actions/cart":108,"../components/cartView/cartView":136,"../components/emptyCartView/emptyCartView":150,"../models/analytics":214,"../models/facebookPixel":216,"../strings":236,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],193:[function(require,module,exports){
+},{"../actions/cart":108,"../components/cartView/cartView":137,"../components/emptyCartView/emptyCartView":151,"../models/analytics":217,"../models/facebookPixel":219,"../strings":240,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],195:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46334,7 +46736,7 @@ mapDispatchToProps)(CategoriesPage);
 />
 */
 
-},{"../actions/store":114,"../components/categories":141,"../components/terms":184,"../models/analytics":214,"../models/facebookPixel":216,"../models/tools":220,"../strings":236,"prop-types":43,"react":92,"react-redux":57}],194:[function(require,module,exports){
+},{"../actions/store":114,"../components/categories":142,"../components/terms":186,"../models/analytics":217,"../models/facebookPixel":219,"../models/tools":223,"../strings":240,"prop-types":43,"react":92,"react-redux":57}],196:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46532,7 +46934,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CategoryPage));
 
-},{"../actions":110,"../components/breadcrumbs/breadcrumbs":134,"../components/pagination/pagination":167,"../components/previewList/previewList":170,"../components/previewListPlaceholder/previewListPlaceholder":171,"../components/resultCount/resultCount":176,"../models/analytics":214,"../models/facebookPixel":216,"../models/tools":220,"../strings":236,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],195:[function(require,module,exports){
+},{"../actions":110,"../components/breadcrumbs/breadcrumbs":135,"../components/pagination/pagination":168,"../components/previewList/previewList":171,"../components/previewListPlaceholder/previewListPlaceholder":172,"../components/resultCount/resultCount":177,"../models/analytics":217,"../models/facebookPixel":219,"../models/tools":223,"../strings":240,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],197:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46650,7 +47052,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CheckoutPage));
 
-},{"../actions/cart":108,"../components/checkoutView/checkoutView":142,"../models/analytics":214,"../models/facebookPixel":216,"../strings":236,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],196:[function(require,module,exports){
+},{"../actions/cart":108,"../components/checkoutView/checkoutView":143,"../models/analytics":217,"../models/facebookPixel":219,"../strings":240,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],198:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46734,7 +47136,7 @@ ContactContainer.propTypes = {
   )(ContactContainer))*/
 };exports.default = ContactContainer;
 
-},{"../components/contact":147,"prop-types":43,"react":92}],197:[function(require,module,exports){
+},{"../components/contact":148,"prop-types":43,"react":92}],199:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46822,7 +47224,7 @@ CoverContainer.propTypes = {
 
 exports.default = CoverContainer;
 
-},{"../components/coverModal/coverModal":148,"prop-types":43,"react":92}],198:[function(require,module,exports){
+},{"../components/coverModal/coverModal":149,"prop-types":43,"react":92}],200:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46964,7 +47366,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Hero));
 
-},{"../actions/store":114,"../components/profile/profile.js":173,"../components/tabsHero/tabsHero.js":183,"../models/canvas":215,"../strings":236,"./coverContainer":197,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],199:[function(require,module,exports){
+},{"../actions/store":114,"../components/profile/profile.js":174,"../components/tabsHero/tabsHero.js":185,"../models/canvas":218,"../strings":240,"./coverContainer":199,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],201:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47147,7 +47549,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(HomePage);
 
-},{"../actions/store":114,"../components/createSection/createSection":149,"../models/analytics":214,"../models/canvas":215,"../models/facebookPixel":216,"../models/tools":220,"../strings":236,"./homeSectionContainer.jsx":200,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],200:[function(require,module,exports){
+},{"../actions/store":114,"../components/createSection/createSection":150,"../models/analytics":217,"../models/canvas":218,"../models/facebookPixel":219,"../models/tools":223,"../strings":240,"./homeSectionContainer.jsx":202,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],202:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47212,7 +47614,7 @@ HomeSectionContainer.propTypes = {
 
 exports.default = HomeSectionContainer;
 
-},{"../components/homeSection":154,"prop-types":43,"react":92}],201:[function(require,module,exports){
+},{"../components/homeSection":155,"prop-types":43,"react":92}],203:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47410,7 +47812,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(ItemPage));
 
-},{"../actions":110,"../actions/item":111,"../components/breadcrumbs/breadcrumbs":134,"../components/itemView/itemView":160,"../components/itemViewPlaceholder/itemViewPlaceholder":161,"../models/analytics":214,"../models/facebookPixel":216,"../strings":236,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],202:[function(require,module,exports){
+},{"../actions":110,"../actions/item":111,"../components/breadcrumbs/breadcrumbs":135,"../components/itemView/itemView":161,"../components/itemViewPlaceholder/itemViewPlaceholder":162,"../models/analytics":217,"../models/facebookPixel":219,"../strings":240,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],204:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47542,7 +47944,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(LoginPage));
 
-},{"../actions/login":112,"../components/loginView/loginView":162,"../models/analytics":214,"../models/facebookPixel":216,"../strings":236,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],203:[function(require,module,exports){
+},{"../actions/login":112,"../components/loginView/loginView":163,"../models/analytics":217,"../models/facebookPixel":219,"../strings":240,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],205:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47615,7 +48017,7 @@ LogoContainer.propTypes = {
 
 exports.default = LogoContainer;
 
-},{"../components/logoEdit/logoEdit":163,"../components/logoModal/logoModal":164,"prop-types":43,"react":92}],204:[function(require,module,exports){
+},{"../components/logoEdit/logoEdit":164,"../components/logoModal/logoModal":165,"prop-types":43,"react":92}],206:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47762,7 +48164,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(MarketingPage));
 
-},{"../actions/store":114,"../components/breadcrumbs/breadcrumbs":134,"../components/marketingView/marketingView.jsx":165,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":219,"../strings":236,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],205:[function(require,module,exports){
+},{"../actions/store":114,"../components/breadcrumbs/breadcrumbs":135,"../components/marketingView/marketingView.jsx":166,"../models/analytics":217,"../models/facebookPixel":219,"../models/session":222,"../strings":240,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],207:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47909,7 +48311,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(PaymentGatewayPage));
 
-},{"../actions/store":114,"../components/breadcrumbs/breadcrumbs":134,"../components/paymentGatewayView/paymentGatewayView.jsx":168,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":219,"../strings":236,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],206:[function(require,module,exports){
+},{"../actions/store":114,"../components/breadcrumbs/breadcrumbs":135,"../components/paymentGatewayView/paymentGatewayView.jsx":169,"../models/analytics":217,"../models/facebookPixel":219,"../models/session":222,"../strings":240,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],208:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48094,7 +48496,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(ProductsPage));
 
-},{"../actions/pagination":113,"../actions/store":114,"../components/breadcrumbs/breadcrumbs":134,"../components/pagination/pagination":167,"../components/productsList/productsList.jsx":172,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":219,"../strings":236,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],207:[function(require,module,exports){
+},{"../actions/pagination":113,"../actions/store":114,"../components/breadcrumbs/breadcrumbs":135,"../components/pagination/pagination":168,"../components/productsList/productsList.jsx":173,"../models/analytics":217,"../models/facebookPixel":219,"../models/session":222,"../strings":240,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],209:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48257,7 +48659,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(PurchasePage));
 
-},{"../actions/account":107,"../components/breadcrumbs/breadcrumbs":134,"../components/purchaseView/purchaseView":174,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":219,"../strings":236,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],208:[function(require,module,exports){
+},{"../actions/account":107,"../components/breadcrumbs/breadcrumbs":135,"../components/purchaseView/purchaseView":175,"../models/analytics":217,"../models/facebookPixel":219,"../models/session":222,"../strings":240,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],210:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48441,7 +48843,170 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(PurchasesPage));
 
-},{"../actions/account":107,"../actions/pagination":113,"../components/breadcrumbs/breadcrumbs":134,"../components/pagination/pagination":167,"../components/purchasesList/purchasesList":175,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":219,"../strings":236,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],209:[function(require,module,exports){
+},{"../actions/account":107,"../actions/pagination":113,"../components/breadcrumbs/breadcrumbs":135,"../components/pagination/pagination":168,"../components/purchasesList/purchasesList":176,"../models/analytics":217,"../models/facebookPixel":219,"../models/session":222,"../strings":240,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],211:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactRouterDom = require('react-router-dom');
+
+var _reactRedux = require('react-redux');
+
+var _store = require('../actions/store');
+
+var _strings = require('../strings');
+
+var _strings2 = _interopRequireDefault(_strings);
+
+var _session = require('../models/session');
+
+var _session2 = _interopRequireDefault(_session);
+
+var _analytics = require('../models/analytics');
+
+var _facebookPixel = require('../models/facebookPixel');
+
+var _breadcrumbs = require('../components/breadcrumbs/breadcrumbs');
+
+var _breadcrumbs2 = _interopRequireDefault(_breadcrumbs);
+
+var _sale = require('../components/sale');
+
+var _sale2 = _interopRequireDefault(_sale);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PurchasePage = function (_React$Component) {
+  _inherits(PurchasePage, _React$Component);
+
+  function PurchasePage(props) {
+    _classCallCheck(this, PurchasePage);
+
+    var _this = _possibleConstructorReturn(this, (PurchasePage.__proto__ || Object.getPrototypeOf(PurchasePage)).call(this, props));
+
+    var _this$props = _this.props,
+        analytics = _this$props.analytics,
+        facebookPixel = _this$props.facebookPixel,
+        analyticsTrackerId = _this$props.analyticsTrackerId,
+        facebookPixelId = _this$props.facebookPixelId,
+        loadSale = _this$props.loadSale,
+        saleId = _this$props.saleId;
+
+    analytics(analyticsTrackerId);
+    facebookPixel(facebookPixelId);
+    loadSale(saleId);
+    return _this;
+  }
+
+  _createClass(PurchasePage, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          strings = _props.strings,
+          username = _props.username,
+          isFetching = _props.isFetching,
+          sale = _props.sale;
+
+
+      if (!_session2.default.inUserSession()) {
+        return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/' + username });
+      }
+
+      var purchaseComp = void 0;
+
+      if (isFetching) {
+        purchaseComp = _react2.default.createElement('div', null);
+      } else {
+        purchaseComp = _react2.default.createElement(_sale2.default.View, {
+          strings: strings,
+          username: username,
+          sale: sale
+        });
+      }
+
+      return _react2.default.createElement(
+        'section',
+        null,
+        _react2.default.createElement(_breadcrumbs2.default, {
+          username: username,
+          home: strings.breadcrumbHome,
+          route: '/sale',
+          parent: null,
+          child: strings.breadcrumbSales,
+          onClick: function onClick() {
+            return true;
+          },
+          disabledChild: true
+        }),
+        purchaseComp
+      );
+    }
+  }]);
+
+  return PurchasePage;
+}(_react2.default.Component);
+
+PurchasePage.propTypes = {
+  strings: _propTypes2.default.object.isRequired,
+  username: _propTypes2.default.string.isRequired,
+  analyticsTrackerId: _propTypes2.default.string.isRequired,
+  facebookPixelId: _propTypes2.default.string.isRequired,
+  isFetching: _propTypes2.default.bool.isRequired,
+  saleId: _propTypes2.default.string.isRequired,
+  sale: _propTypes2.default.object.isRequired,
+  analytics: _propTypes2.default.func.isRequired,
+  facebookPixel: _propTypes2.default.func.isRequired,
+  loadSale: _propTypes2.default.func.isRequired
+};
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {
+    strings: (0, _strings2.default)(state.language).pages.sale,
+    username: state.store.username,
+    analyticsTrackerId: state.store.data.analytics,
+    facebookPixelId: state.store.data.facebookPixel,
+    isFetching: state.isFetching,
+    saleId: ownProps.match.params.id,
+    sale: state.sale
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    analytics: function analytics(analyticsTrackerId) {
+      return (0, _analytics.pageView)(analyticsTrackerId);
+    },
+    facebookPixel: function facebookPixel(facebookPixelId) {
+      return (0, _facebookPixel.pixelPageView)(facebookPixelId);
+    },
+    loadSale: function loadSale(saleId) {
+      return dispatch((0, _store.loadSale)(saleId));
+    }
+  };
+};
+
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
+mapDispatchToProps)(PurchasePage));
+
+},{"../actions/store":114,"../components/breadcrumbs/breadcrumbs":135,"../components/sale":178,"../models/analytics":217,"../models/facebookPixel":219,"../models/session":222,"../strings":240,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],212:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48626,7 +49191,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(SalesPage));
 
-},{"../actions/pagination":113,"../actions/store":114,"../components/breadcrumbs/breadcrumbs":134,"../components/pagination/pagination":167,"../components/sale":177,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":219,"../strings":236,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],210:[function(require,module,exports){
+},{"../actions/pagination":113,"../actions/store":114,"../components/breadcrumbs/breadcrumbs":135,"../components/pagination/pagination":168,"../components/sale":178,"../models/analytics":217,"../models/facebookPixel":219,"../models/session":222,"../strings":240,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],213:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48821,7 +49386,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(SearchPage));
 
-},{"../actions":110,"../components/breadcrumbs/breadcrumbs":134,"../components/pagination/pagination":167,"../components/previewList/previewList":170,"../components/previewListPlaceholder/previewListPlaceholder":171,"../components/resultCount/resultCount":176,"../models/analytics":214,"../models/facebookPixel":216,"../models/tools":220,"../strings":236,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],211:[function(require,module,exports){
+},{"../actions":110,"../components/breadcrumbs/breadcrumbs":135,"../components/pagination/pagination":168,"../components/previewList/previewList":171,"../components/previewListPlaceholder/previewListPlaceholder":172,"../components/resultCount/resultCount":177,"../models/analytics":217,"../models/facebookPixel":219,"../models/tools":223,"../strings":240,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],214:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48888,7 +49453,7 @@ ShortDescriptionContainer.propTypes = {
 
 exports.default = ShortDescriptionContainer;
 
-},{"../components/shortDescription":179,"prop-types":43,"react":92}],212:[function(require,module,exports){
+},{"../components/shortDescription":181,"prop-types":43,"react":92}],215:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49003,6 +49568,10 @@ var _salesPage = require('./salesPage.jsx');
 
 var _salesPage2 = _interopRequireDefault(_salesPage);
 
+var _salePage = require('./salePage.jsx');
+
+var _salePage2 = _interopRequireDefault(_salePage);
+
 var _marketingPage = require('./marketingPage.jsx');
 
 var _marketingPage2 = _interopRequireDefault(_marketingPage);
@@ -49110,7 +49679,7 @@ var Store = function (_React$Component) {
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/product/:title/:id', component: _itemPage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/marketing', component: _marketingPage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/sales', component: _salesPage2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/sale/:id', component: _purchasePage2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/sale/:id', component: _salePage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/paymentgateway', component: _paymentGatewayPage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername', component: _homePage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { component: _homePage2.default })
@@ -49190,7 +49759,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(Store));
 
-},{"../actions":110,"../actions/login":112,"../actions/store":114,"../components/congratulationPurchase/congratulationPurchase.js":143,"../components/footer/footer.js":151,"../components/navbar/navbar.js":166,"../components/spinner/spinner.js":182,"../models/session":219,"../strings":236,"./accountPage.js":191,"./cartPage.js":192,"./categoriesPage.jsx":193,"./categoryPage.js":194,"./checkoutPage.js":195,"./contactContainer.jsx":196,"./hero.js":198,"./homePage.js":199,"./itemPage.js":201,"./loginPage.js":202,"./marketingPage.jsx":204,"./paymentGatewayPage.jsx":205,"./productsPage.jsx":206,"./purchasePage.js":207,"./purchasesPage.js":208,"./salesPage.jsx":209,"./searchPage.js":210,"./termsPage.js":213,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],213:[function(require,module,exports){
+},{"../actions":110,"../actions/login":112,"../actions/store":114,"../components/congratulationPurchase/congratulationPurchase.js":144,"../components/footer/footer.js":152,"../components/navbar/navbar.js":167,"../components/spinner/spinner.js":184,"../models/session":222,"../strings":240,"./accountPage.js":193,"./cartPage.js":194,"./categoriesPage.jsx":195,"./categoryPage.js":196,"./checkoutPage.js":197,"./contactContainer.jsx":198,"./hero.js":200,"./homePage.js":201,"./itemPage.js":203,"./loginPage.js":204,"./marketingPage.jsx":206,"./paymentGatewayPage.jsx":207,"./productsPage.jsx":208,"./purchasePage.js":209,"./purchasesPage.js":210,"./salePage.jsx":211,"./salesPage.jsx":212,"./searchPage.js":213,"./termsPage.js":216,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],216:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49335,7 +49904,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(TermsPage);
 
-},{"../actions/store":114,"../components/terms":184,"../models/analytics":214,"../models/facebookPixel":216,"../strings":236,"prop-types":43,"react":92,"react-redux":57}],214:[function(require,module,exports){
+},{"../actions/store":114,"../components/terms":186,"../models/analytics":217,"../models/facebookPixel":219,"../strings":240,"prop-types":43,"react":92,"react-redux":57}],217:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49357,7 +49926,7 @@ var pageView = exports.pageView = function pageView(storeTrackerId) {
   ga('sherponTracker.send', 'pageview');
 };
 
-},{"../config":188}],215:[function(require,module,exports){
+},{"../config":190}],218:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49446,7 +50015,7 @@ var loadPicture = exports.loadPicture = function loadPicture(inputId, canvasId, 
     }
 };
 
-},{}],216:[function(require,module,exports){
+},{}],219:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49466,7 +50035,7 @@ var pixelPageView = exports.pixelPageView = function pixelPageView(storePixelId)
   fbq('track', 'PageView');
 };
 
-},{"../config":188}],217:[function(require,module,exports){
+},{"../config":190}],220:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -49477,7 +50046,7 @@ var _history = require("history");
 
 exports.default = (0, _history.createBrowserHistory)({ basename: "/" });
 
-},{"history":22}],218:[function(require,module,exports){
+},{"history":22}],221:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49532,7 +50101,7 @@ Diners Club       3600 020000 0006      01/2020   230   fraudulent
 
  */
 
-},{"../tools":220}],219:[function(require,module,exports){
+},{"../tools":223}],222:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49593,7 +50162,7 @@ exports.default = {
   inCartSession: inCartSession
 };
 
-},{}],220:[function(require,module,exports){
+},{}],223:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -49742,7 +50311,7 @@ var getRandomString = exports.getRandomString = function getRandomString() {
   }return text;
 };
 
-},{}],221:[function(require,module,exports){
+},{}],224:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49877,7 +50446,7 @@ var Cart = function Cart() {
 
 exports.default = Cart;
 
-},{"../constants/ActionTypes":189,"../models/session":219}],222:[function(require,module,exports){
+},{"../constants/ActionTypes":191,"../models/session":222}],225:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49908,7 +50477,7 @@ var inSession = function inSession() {
 
 exports.default = inSession;
 
-},{"../constants/ActionTypes":189,"../models/session":219}],223:[function(require,module,exports){
+},{"../constants/ActionTypes":191,"../models/session":222}],226:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49961,6 +50530,10 @@ var _cart = require('./cart');
 
 var _cart2 = _interopRequireDefault(_cart);
 
+var _sale = require('./sale');
+
+var _sale2 = _interopRequireDefault(_sale);
+
 var _store = require('./store');
 
 var _store2 = _interopRequireDefault(_store);
@@ -49979,10 +50552,11 @@ exports.default = (0, _redux.combineReducers)({
   purchase: _purchase2.default,
   item: _item2.default,
   cart: _cart2.default,
+  sale: _sale2.default,
   store: _store2.default
 });
 
-},{"./cart":221,"./inSession":222,"./isAdmin":224,"./isEditable":225,"./isFetching":226,"./isResultLoaded":227,"./item":228,"./language":229,"./pagination":230,"./purchase":231,"./result":232,"./store":233,"redux":100}],224:[function(require,module,exports){
+},{"./cart":224,"./inSession":225,"./isAdmin":227,"./isEditable":228,"./isFetching":229,"./isResultLoaded":230,"./item":231,"./language":232,"./pagination":233,"./purchase":234,"./result":235,"./sale":236,"./store":237,"redux":100}],227:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50029,7 +50603,7 @@ var isAdmin = function isAdmin() {
 
 exports.default = isAdmin;
 
-},{"../constants/ActionTypes":189,"../models/session":219}],225:[function(require,module,exports){
+},{"../constants/ActionTypes":191,"../models/session":222}],228:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50076,7 +50650,7 @@ var isEditable = function isEditable() {
 
 exports.default = isEditable;
 
-},{"../constants/ActionTypes":189,"../models/session":219}],226:[function(require,module,exports){
+},{"../constants/ActionTypes":191,"../models/session":222}],229:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50101,7 +50675,7 @@ var isFetching = function isFetching() {
 
 exports.default = isFetching;
 
-},{"../constants/ActionTypes":189}],227:[function(require,module,exports){
+},{"../constants/ActionTypes":191}],230:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50126,7 +50700,7 @@ var isResultLoaded = function isResultLoaded() {
 
 exports.default = isResultLoaded;
 
-},{"../constants/ActionTypes":189}],228:[function(require,module,exports){
+},{"../constants/ActionTypes":191}],231:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -50189,7 +50763,7 @@ var item = function item() {
 
 exports.default = item;
 
-},{"../constants/ActionTypes":189}],229:[function(require,module,exports){
+},{"../constants/ActionTypes":191}],232:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50214,7 +50788,7 @@ var language = function language() {
 
 exports.default = language;
 
-},{"../constants/ActionTypes":189}],230:[function(require,module,exports){
+},{"../constants/ActionTypes":191}],233:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50259,7 +50833,7 @@ var pagination = function pagination() {
 
 exports.default = pagination;
 
-},{"../constants/ActionTypes":189}],231:[function(require,module,exports){
+},{"../constants/ActionTypes":191}],234:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -50315,7 +50889,7 @@ var purchase = function purchase() {
 
 exports.default = purchase;
 
-},{"../constants/ActionTypes":189}],232:[function(require,module,exports){
+},{"../constants/ActionTypes":191}],235:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50338,7 +50912,63 @@ var result = function result() {
 
 exports.default = result;
 
-},{"../constants/ActionTypes":189}],233:[function(require,module,exports){
+},{"../constants/ActionTypes":191}],236:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _ActionTypes = require("../constants/ActionTypes");
+
+var initStateSale = {
+  "id": "",
+  "timestamp": 0,
+  "state": "pending",
+  "history": [],
+  "user": {},
+  "cart": {
+    "quantity": 1,
+    "items": [],
+    "shipping": {
+      "currency": "USD",
+      "symbol": "$",
+      "price": 5
+    },
+    "subTotal": {
+      "currency": "USD",
+      "symbol": "$",
+      "price": 50
+    },
+    "taxes": [],
+    "total": {
+      "currency": "USD",
+      "symbol": "$",
+      "price": 55
+    }
+  },
+  "payment": {},
+  "shipping": {},
+  "billing": {}
+};
+
+var sale = function sale() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initStateSale;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _ActionTypes.CLEAN_SALE:
+      return initStateSale;
+    case _ActionTypes.LOAD_SALE:
+      return action.sale;
+    default:
+      return state;
+  }
+};
+
+exports.default = sale;
+
+},{"../constants/ActionTypes":191}],237:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50389,7 +51019,7 @@ var storeState = function storeState() {
 
 exports.default = storeState;
 
-},{"../constants/ActionTypes":189}],234:[function(require,module,exports){
+},{"../constants/ActionTypes":191}],238:[function(require,module,exports){
 module.exports={
 	"store":{
 		"text1":"text"
@@ -50400,7 +51030,7 @@ module.exports={
 		"navbarItemAccount":"Mi cuenta"
 	}
 }
-},{}],235:[function(require,module,exports){
+},{}],239:[function(require,module,exports){
 module.exports={
 	"store":{
 		"text1":"text"
@@ -50744,11 +51374,45 @@ module.exports={
 				"headerState":"Estado",
 				"headerAmount":"Total"
 			}
+		},
+		"sale":{
+			"breadcrumbHome":"Inicio",
+			"breadcrumbSales":"Mis ventas",
+			"itemView": {
+				"labelId":"Id",
+				"labelModel":"Modelo",
+				"labelSize":"Tamaño",
+				"labelColor":"Color",
+				"labelFree":"Gratis",
+				"labelDelete":"Eliminar",
+				"price":"Precio",
+				"amount":"Cantidad",
+				"total":"Cantidad"
+			},
+			"purchaseInformation":{
+				"title":"Información de venta",
+				"id":"Id",
+				"date":"Fecha",
+				"state":"Estado",
+				"labelSubTotal":"Sub total",
+				"labelShipping":"Costo de envío",
+				"labelTaxes":"Impuestos",
+				"labelTotal":"Total"
+			},
+			"personalInformation":{
+				"title":"Información de usuario"
+			},
+			"shippingInformation":"Información de envío",
+			"billingInformation":"Información de facturación",
+			"UpdateInformation":{
+				"title":"Actualiza la venta",
+				"buttonUpdateToSended":"Actualizar a enviado"
+			}
 		}
 	}
 }
 
-},{}],236:[function(require,module,exports){
+},{}],240:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50774,7 +51438,7 @@ Notes
 var userLang = navigator.language || navigator.userLanguage; 
  */
 
-},{"./EN.json":234,"./ES.json":235}],237:[function(require,module,exports){
+},{"./EN.json":238,"./ES.json":239}],241:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -50845,4 +51509,4 @@ Notes
  */
 
 }).call(this,require('_process'))
-},{"./containers/store.js":212,"./models/history":217,"./reducers":223,"_process":39,"jquery":25,"react":92,"react-dom":47,"react-redux":57,"react-router-dom":75,"redux":100,"redux-logger":93,"redux-thunk":94}]},{},[237]);
+},{"./containers/store.js":215,"./models/history":220,"./reducers":226,"_process":39,"jquery":25,"react":92,"react-dom":47,"react-redux":57,"react-router-dom":75,"redux":100,"redux-logger":93,"redux-thunk":94}]},{},[241]);

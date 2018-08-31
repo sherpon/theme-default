@@ -1,0 +1,36 @@
+.sale-view {
+  @extend .row;
+  margin-bottom: 0px !important;
+
+  .purchase-information,
+  .personal-information,
+  .update-information {
+    @extend .box-white;
+
+    .purchase-information__title,
+    .personal-information__title,
+    .update-information__title {
+      color: $primary-color;
+      font-size: 1.3em;
+    }
+
+    .purchase-information__line--primary-color {
+      color: $primary-color;
+    }
+
+    .purchase-information__line {
+      @extend .row;
+      margin-bottom: 0px !important;
+
+      .col-right {
+        text-align: right;
+      }
+    }
+
+    .purchase-information__line,
+    .personal-information__line,
+    .update-information__line {
+      margin-top: 1em;
+    }
+  }
+}
