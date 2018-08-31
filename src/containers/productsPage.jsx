@@ -13,6 +13,7 @@ import { goToPage } from '../actions/pagination'
 
 import Breadcrumbs from '../components/breadcrumbs/breadcrumbs'
 import Pagination from '../components/pagination/pagination'
+import Product from '../components/product'
 import ProductsList from '../components/productsList/productsList.jsx'
 
 class ProductsPage extends React.Component {
@@ -66,7 +67,10 @@ class ProductsPage extends React.Component {
           onClick={ ()=> true }
           disabledChild={true}
         />
-        {paginationComp}
+        <Product.CreatorButton
+          username={username}
+          title={strings.creatorButton}
+        />
         {productsListComp}
         {paginationComp}
       </section>

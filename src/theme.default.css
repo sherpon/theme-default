@@ -6535,6 +6535,9 @@ input[type=range]::-ms-thumb {
     margin-top: 1.2rem; } }
 
 /************ colors *************/
+/**
+ * box's variables
+ */
 body {
   background-color: #F5F5F5;
   color: #4A4A4A; }
@@ -6576,6 +6579,27 @@ body {
   margin-bottom: 10px !important;
   padding: 1em; }
 
+/**
+ * @mixin
+ * @name box
+ * @description simple block pattern
+ * @example
+ * @include box;
+ */
+/**
+ * @mixin
+ * @name box--empty
+ * @description empty block pattern
+ * @example
+ * @include box--empty;
+ */
+/**
+ * @mixin
+ * @name box--white
+ * @description empty block pattern
+ * @example
+ * @include box--white;
+ */
 .sherpon-color-text-body {
   color: #4A4A4A !important; }
 
@@ -7014,6 +7038,16 @@ input::placeholder {
     margin-top: 1em; }
 
 /******** products' components *********/
+.product-creator-button {
+  margin-bottom: 10px;
+  padding: 1em;
+  border: 1px solid #e5e5e5;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  text-align: center; }
+
 .products-list__item {
   color: #757575; }
 

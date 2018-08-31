@@ -327,6 +327,7 @@
 		"products":{
 			"breadcrumbHome":"Inicio",
 			"breadcrumbProducts":"Mis productos",
+			"creatorButton":"Crear nuevo producto",
 			"headerId":"Id",
 			"headerTitle":"Título",
 			"headerPrice":"Precio",

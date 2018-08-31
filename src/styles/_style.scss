@@ -33,10 +33,50 @@ body {
 .box-white {
 	background-color: white;
 	border: 1px solid $box-white__border-color;
-	border-bottom-left-radius: 3px;
-	border-bottom-right-radius: 3px;
-	border-top-left-radius: 3px;
-	border-top-right-radius: 3px;
-	margin-bottom: 10px !important;
-	padding: 1em;
+	border-bottom-left-radius: $box__border-radius;
+	border-bottom-right-radius: $box__border-radius;
+	border-top-left-radius: $box__border-radius;
+	border-top-right-radius: $box__border-radius;
+	margin-bottom: $box__margin-bottom !important;
+	padding: $box__padding;
+}
+
+/**
+ * @mixin
+ * @name box
+ * @description simple block pattern
+ * @example
+ * @include box;
+ */
+@mixin box {
+	margin-bottom: $box__margin-bottom;
+	padding: $box__padding;
+}
+
+/**
+ * @mixin
+ * @name box--empty
+ * @description empty block pattern
+ * @example
+ * @include box--empty;
+ */
+@mixin box--empty {
+	@include box;
+	border: $box__border solid $box__border-color;
+	border-bottom-left-radius: $box__border-radius;
+	border-bottom-right-radius: $box__border-radius;
+	border-top-left-radius: $box__border-radius;
+	border-top-right-radius: $box__border-radius;
+}
+
+/**
+ * @mixin
+ * @name box--white
+ * @description empty block pattern
+ * @example
+ * @include box--white;
+ */
+@mixin box--white {
+	@include box--empty;
+	background-color: white;
 }
