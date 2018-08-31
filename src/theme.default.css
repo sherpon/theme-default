@@ -6558,7 +6558,7 @@ body {
  * @extend .box-white;
  */
 .box-white, .create-section .create-section__button, .purchase-view .purchase-information,
-.purchase-view .personal-information, .products-list, .marketing-view, .payment-gateway-view, .categories__view, .categories-edit, .categories-creator__button, .terms-view {
+.purchase-view .personal-information, .products-list, .sales-list, .marketing-view, .payment-gateway-view, .categories__view, .categories-edit, .categories-creator__button, .terms-view {
   background-color: white;
   border: 1px solid #e5e5e5;
   border-bottom-left-radius: 3px;
@@ -7010,6 +7010,15 @@ input::placeholder {
   color: #757575; }
 
 .products-list__header {
+  font-size: 1.1em; }
+
+/******** sales' components *********/
+.sales-list__item {
+  text-align: center;
+  color: #757575; }
+
+.sales-list__header {
+  text-align: center;
   font-size: 1.1em; }
 
 /******** marketing' components *********/

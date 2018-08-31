@@ -36846,7 +36846,7 @@ var loadPurchase = exports.loadPurchase = function loadPurchase(purchaseId) {
   };
 };
 
-},{"../api/account":115,"../constants/ActionTypes":186,"../models/session":215,"../strings":232,"./fetching":109,"./pagination":113}],108:[function(require,module,exports){
+},{"../api/account":115,"../constants/ActionTypes":189,"../models/session":219,"../strings":236,"./fetching":109,"./pagination":113}],108:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37109,7 +37109,7 @@ var placeOrder = exports.placeOrder = function placeOrder() {
   };
 };
 
-},{"../api/purchase":130,"../constants/ActionTypes":186,"../models/history":213,"../models/paymentGateway/culqi":214,"../models/session":215,"../strings":232,"./fetching":109}],109:[function(require,module,exports){
+},{"../api/purchase":131,"../constants/ActionTypes":189,"../models/history":217,"../models/paymentGateway/culqi":218,"../models/session":219,"../strings":236,"./fetching":109}],109:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37135,7 +37135,7 @@ var stopFetching = exports.stopFetching = function stopFetching() {
   };
 };
 
-},{"../constants/ActionTypes":186}],110:[function(require,module,exports){
+},{"../constants/ActionTypes":189}],110:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37328,7 +37328,7 @@ var loadCategory = exports.loadCategory = function loadCategory(category) {
   };
 };
 
-},{"../api/item":128,"../config":185,"../constants/ActionTypes":186,"../constants/codes.json":187,"../models/history":213,"../models/session":215,"../models/tools":216,"../strings":232}],111:[function(require,module,exports){
+},{"../api/item":129,"../config":188,"../constants/ActionTypes":189,"../constants/codes.json":190,"../models/history":217,"../models/session":219,"../models/tools":220,"../strings":236}],111:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37785,7 +37785,7 @@ var shareWhatsapp = exports.shareWhatsapp = function shareWhatsapp() {
   window.location.href = "https://api.whatsapp.com/send?text=" + window.location.href + "?utm_source%3Dsherpon_store%26utm_medium%3Dwhatsapp_link%26utm_campaign%3Dsocial_shared_item";
 };
 
-},{"../api/item":128,"../config":185,"../constants/ActionTypes":186,"../models/history":213,"../models/session":215,"../strings":232,"./fetching":109}],112:[function(require,module,exports){
+},{"../api/item":129,"../config":188,"../constants/ActionTypes":189,"../models/history":217,"../models/session":219,"../strings":236,"./fetching":109}],112:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37908,7 +37908,7 @@ var logout = exports.logout = function logout() {
   };
 };
 
-},{"../api/login":129,"../constants/ActionTypes":186,"../constants/codes.json":187,"../models/history":213,"../models/session":215,"../strings":232,"./fetching":109}],113:[function(require,module,exports){
+},{"../api/login":130,"../constants/ActionTypes":189,"../constants/codes.json":190,"../models/history":217,"../models/session":219,"../strings":236,"./fetching":109}],113:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -38009,13 +38009,13 @@ var goToPage = exports.goToPage = function goToPage(index) {
 };
 /******************************************************************************/
 
-},{"../constants/ActionTypes":186,"./fetching":109}],114:[function(require,module,exports){
+},{"../constants/ActionTypes":189,"./fetching":109}],114:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.loadProductsList = exports.categoriesSaveButton = exports.paymentGatewaySaveButton = exports.marketingSaveButton = exports.homeSectionDeleteButton = exports.homeSectionModalPublishButton = exports.contactSaveButton = exports.termsSaveButton = exports.shortDescriptionSaveButton = exports.logoSaveButton = exports.coverSaveButton = exports.editStoreSwitch = undefined;
+exports.loadSalesList = exports.loadProductsList = exports.categoriesSaveButton = exports.paymentGatewaySaveButton = exports.marketingSaveButton = exports.homeSectionDeleteButton = exports.homeSectionModalPublishButton = exports.contactSaveButton = exports.termsSaveButton = exports.shortDescriptionSaveButton = exports.logoSaveButton = exports.coverSaveButton = exports.editStoreSwitch = undefined;
 
 var _ActionTypes = require('../constants/ActionTypes');
 
@@ -38526,8 +38526,31 @@ var loadProductsList = exports.loadProductsList = function loadProductsList() {
   };
 };
 /******************************************************************************/
+/******************************************************************************/
+/**
+ * @function
+ * @name loadSalesList
+ * @description Load store's sales list as admin
+ * // where's this function used?
+ * // - src/containers/productsPage.jsx
+ */
+var loadSalesList = exports.loadSalesList = function loadSalesList() {
+  return function (dispatch, getState) {
+    dispatch((0, _fetching.startFetching)());
+    var userId = _session2.default.getUser().id;
+    var storeId = getState().store.id;
+    (0, _store.getSales)(userId, storeId, function (result) {
+      if (result.error !== null) {
+        /** show error message */
+        dispatch((0, _fetching.stopFetching)());
+      }
+      dispatch((0, _pagination.setPages)(result.sales, 30));
+    });
+  };
+};
+/******************************************************************************/
 
-},{"../api/store":131,"../constants/ActionTypes":186,"../models/session":215,"../models/tools":216,"../strings":232,"./fetching":109,"./pagination":113}],115:[function(require,module,exports){
+},{"../api/store":132,"../constants/ActionTypes":189,"../models/session":219,"../models/tools":220,"../strings":236,"./fetching":109,"./pagination":113}],115:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -38597,7 +38620,7 @@ var loadPurchase = exports.loadPurchase = function loadPurchase(storeId, purchas
  * @param {object} purchase - purchase's object
  */
 
-},{"./data/purchaseItem.json":126,"./data/purchasesList.json":127}],116:[function(require,module,exports){
+},{"./data/purchaseItem.json":127,"./data/purchasesList.json":128}],116:[function(require,module,exports){
 module.exports={
 	"id":"Hu3fU02Bdhgpo476Fej1",
 	"type":"clothes",
@@ -39049,6 +39072,42 @@ module.exports=[
 ]
 
 },{}],123:[function(require,module,exports){
+module.exports=[
+  {
+    "id":"aaaa",
+    "timestamp":1534344986716,
+    "state":"pending",
+    "currency":"USD",
+    "symbol":"$",
+    "amount":"20"
+  },
+  {
+    "id":"aaab",
+    "timestamp":1534344976716,
+    "state":"pending",
+    "currency":"USD",
+    "symbol":"$",
+    "amount":"25"
+  },
+  {
+    "id":"aaac",
+    "timestamp":1534344966716,
+    "state":"pending",
+    "currency":"USD",
+    "symbol":"$",
+    "amount":"34"
+  },
+  {
+    "id":"aaad",
+    "timestamp":1534344956716,
+    "state":"pending",
+    "currency":"USD",
+    "symbol":"$",
+    "amount":"15"
+  }
+]
+
+},{}],124:[function(require,module,exports){
 module.exports={
 	"error":null,
 	"user":{
@@ -39061,12 +39120,12 @@ module.exports={
 	}
 }
 
-},{}],124:[function(require,module,exports){
+},{}],125:[function(require,module,exports){
 module.exports={
 	"error":5010,
 	"user":null
 }
-},{}],125:[function(require,module,exports){
+},{}],126:[function(require,module,exports){
 module.exports={
 	"error":null,
 	"user":{
@@ -39077,7 +39136,7 @@ module.exports={
 		"email":"carlos@gmail.com"
 	}
 }
-},{}],126:[function(require,module,exports){
+},{}],127:[function(require,module,exports){
 module.exports={
   "id":"aaaa",
   "timestamp":1534344986716,
@@ -39162,43 +39221,9 @@ module.exports={
   }
 }
 
-},{}],127:[function(require,module,exports){
-module.exports=[
-  {
-    "id":"aaaa",
-    "timestamp":1534344986716,
-    "state":"pending",
-    "currency":"USD",
-    "symbol":"$",
-    "amount":"20"
-  },
-  {
-    "id":"aaab",
-    "timestamp":1534344976716,
-    "state":"pending",
-    "currency":"USD",
-    "symbol":"$",
-    "amount":"25"
-  },
-  {
-    "id":"aaac",
-    "timestamp":1534344966716,
-    "state":"pending",
-    "currency":"USD",
-    "symbol":"$",
-    "amount":"34"
-  },
-  {
-    "id":"aaad",
-    "timestamp":1534344956716,
-    "state":"pending",
-    "currency":"USD",
-    "symbol":"$",
-    "amount":"15"
-  }
-]
-
 },{}],128:[function(require,module,exports){
+arguments[4][123][0].apply(exports,arguments)
+},{"dup":123}],129:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39278,7 +39303,7 @@ var getItemById = exports.getItemById = function getItemById(storeId, itemId, ca
 
  */
 
-},{"./data/_itemById1.json":116,"./data/_itemById2.json":117,"./data/_itemById3.json":118,"./data/_itemById4.json":119,"./data/_itemsByCategory.json":120,"./data/_itemsBySearch.json":121}],129:[function(require,module,exports){
+},{"./data/_itemById1.json":116,"./data/_itemById2.json":117,"./data/_itemById3.json":118,"./data/_itemById4.json":119,"./data/_itemsByCategory.json":120,"./data/_itemsBySearch.json":121}],130:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39339,7 +39364,7 @@ var logout = exports.logout = function logout(payload, callback) {
   }, TIMEOUT);
 };
 
-},{"./data/loginB.json":123,"./data/loginError.json":124,"./data/loginSuccess.json":125}],130:[function(require,module,exports){
+},{"./data/loginB.json":124,"./data/loginError.json":125,"./data/loginSuccess.json":126}],131:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39356,24 +39381,30 @@ var createPurchase = exports.createPurchase = function createPurchase(payload, c
   }, TIMEOUT);
 };
 
-},{}],131:[function(require,module,exports){
+},{}],132:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getProducts = exports.uploadImageStore = exports.updateCategoriesStore = exports.updateDataStore = exports.updateDataTheme = undefined;
+exports.getSales = exports.getProducts = exports.uploadImageStore = exports.updateCategoriesStore = exports.updateDataStore = exports.updateDataTheme = undefined;
 
 var _getProducts2 = require('./data/getProducts.json');
 
 var _getProducts3 = _interopRequireDefault(_getProducts2);
 
+var _getSales2 = require('./data/getSales.json');
+
+var _getSales3 = _interopRequireDefault(_getSales2);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var TIMEOUT = 500; /**
-                    * @module api/store
-                    * @author Grover Lee
-                    */
+/**
+ * @module api/store
+ * @author Grover Lee
+ */
+
+var TIMEOUT = 500;
 
 var updateDataTheme = exports.updateDataTheme = function updateDataTheme(userId, storeId, newDataTheme, callback) {
   console.log('API.updateDataTheme.payload');
@@ -39466,8 +39497,39 @@ var getProducts = exports.getProducts = function getProducts(userId, storeId, ca
  * @property {Product[]} result.products - show the array of products
  */
 /******************************************************************************/
+/******************************************************************************/
+/**
+ * @function
+ * @name getSales
+ * @description get the store's products
+ * // where's this function used?
+ * // - src/actions/store.js
+ * // module:actions/store~loadProductsList as apiGetProducts
+ * @param {string} userId - user's id.
+ * @param {string} storeId - store's id.
+ * @param {getSales~callback} callback - The callback that handles the response.
+ */
+var getSales = exports.getSales = function getSales(userId, storeId, callback) {
+  console.log('API.getSales.payload');
+  var payload = { userId: userId, storeId: storeId };
+  console.log(payload);
 
-},{"./data/getProducts.json":122}],132:[function(require,module,exports){
+  setTimeout(function () {
+    callback({
+      error: null,
+      sales: _getSales3.default
+    });
+  }, TIMEOUT);
+};
+/**
+ * @callback getSales~callback
+ * @param {Object} result - sales list array
+ * @property {?number} result.error - show any error in the response or show null value
+ * @property {Sales[]} result.sales - show the array of sales
+ */
+/******************************************************************************/
+
+},{"./data/getProducts.json":122,"./data/getSales.json":123}],133:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39648,7 +39710,7 @@ AccountView.propsType = {
 
 exports.default = AccountView;
 
-},{"prop-types":43,"react":92}],133:[function(require,module,exports){
+},{"prop-types":43,"react":92}],134:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39732,7 +39794,7 @@ Breadcrumbs.propTypes = {
 
 exports.default = Breadcrumbs;
 
-},{"../../models/tools":216,"prop-types":43,"react":92,"react-router-dom":75}],134:[function(require,module,exports){
+},{"../../models/tools":220,"prop-types":43,"react":92,"react-router-dom":75}],135:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39920,7 +39982,7 @@ CartItemView.defaultProps = {
 
 exports.default = CartItemView;
 
-},{"../../models/tools":216,"prop-types":43,"react":92,"react-router-dom":75}],135:[function(require,module,exports){
+},{"../../models/tools":220,"prop-types":43,"react":92,"react-router-dom":75}],136:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40069,7 +40131,7 @@ CartView.propTypes = {
 
 exports.default = CartView;
 
-},{"../../models/tools":216,"../cartItemView/cartItemView":134,"prop-types":43,"react":92}],136:[function(require,module,exports){
+},{"../../models/tools":220,"../cartItemView/cartItemView":135,"prop-types":43,"react":92}],137:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40127,7 +40189,7 @@ CategoriesCreator.propTypes = {
 
 exports.default = CategoriesCreator;
 
-},{"prop-types":43,"react":92}],137:[function(require,module,exports){
+},{"prop-types":43,"react":92}],138:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40248,7 +40310,7 @@ CategoriesEdit.propTypes = {
 
 exports.default = CategoriesEdit;
 
-},{"prop-types":43,"react":92,"react-router-dom":75}],138:[function(require,module,exports){
+},{"prop-types":43,"react":92,"react-router-dom":75}],139:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40481,7 +40543,7 @@ CategoriesModal.propTypes = {
 
 exports.default = CategoriesModal;
 
-},{"prop-types":43,"react":92}],139:[function(require,module,exports){
+},{"prop-types":43,"react":92}],140:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40581,7 +40643,7 @@ Categories.propTypes = {
 
 exports.default = Categories;
 
-},{"prop-types":43,"react":92,"react-router-dom":75}],140:[function(require,module,exports){
+},{"prop-types":43,"react":92,"react-router-dom":75}],141:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40615,7 +40677,7 @@ var Categories = {
 
 exports.default = Categories;
 
-},{"./categoriesCreator/categoriesCreator.jsx":136,"./categoriesEdit/categoriesEdit.jsx":137,"./categoriesModal/categoriesModal.jsx":138,"./categoriesView/categoriesView.jsx":139}],141:[function(require,module,exports){
+},{"./categoriesCreator/categoriesCreator.jsx":137,"./categoriesEdit/categoriesEdit.jsx":138,"./categoriesModal/categoriesModal.jsx":139,"./categoriesView/categoriesView.jsx":140}],142:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41046,7 +41108,7 @@ CheckoutView.propTypes = {
 
 exports.default = CheckoutView;
 
-},{"../../models/session":215,"../../models/tools":216,"prop-types":43,"react":92}],142:[function(require,module,exports){
+},{"../../models/session":219,"../../models/tools":220,"prop-types":43,"react":92}],143:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41153,7 +41215,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CongratulationPurchase);
 
-},{"../../strings":232,"prop-types":43,"react":92,"react-redux":57}],143:[function(require,module,exports){
+},{"../../strings":236,"prop-types":43,"react":92,"react-redux":57}],144:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41204,7 +41266,7 @@ ContactEdit.propTypes = {
 
 exports.default = ContactEdit;
 
-},{"../contactView/contactView.jsx":145,"prop-types":43,"react":92}],144:[function(require,module,exports){
+},{"../contactView/contactView.jsx":146,"prop-types":43,"react":92}],145:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41371,7 +41433,7 @@ ContactModal.propTypes = {
 
 exports.default = ContactModal;
 
-},{"prop-types":43,"react":92}],145:[function(require,module,exports){
+},{"prop-types":43,"react":92}],146:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41461,7 +41523,7 @@ Contact.propTypes = {
 
 exports.default = Contact;
 
-},{"prop-types":43,"react":92}],146:[function(require,module,exports){
+},{"prop-types":43,"react":92}],147:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41490,7 +41552,7 @@ var Contact = {
 
 exports.default = Contact;
 
-},{"./contactEdit/contactEdit.jsx":143,"./contactModal/contactModal.jsx":144,"./contactView/contactView.jsx":145}],147:[function(require,module,exports){
+},{"./contactEdit/contactEdit.jsx":144,"./contactModal/contactModal.jsx":145,"./contactView/contactView.jsx":146}],148:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41627,7 +41689,7 @@ CoverModal.propTypes = {
 
 exports.default = CoverModal;
 
-},{"prop-types":43,"react":92}],148:[function(require,module,exports){
+},{"prop-types":43,"react":92}],149:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41703,7 +41765,7 @@ CreateSection.propTypes = {
 
 exports.default = CreateSection;
 
-},{"../homeSectionModal/homeSectionModal":154,"prop-types":43,"react":92}],149:[function(require,module,exports){
+},{"../homeSectionModal/homeSectionModal":155,"prop-types":43,"react":92}],150:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41736,7 +41798,7 @@ EmptyCartView.propTypes = {
 
 exports.default = EmptyCartView;
 
-},{"prop-types":43,"react":92}],150:[function(require,module,exports){
+},{"prop-types":43,"react":92}],151:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41775,7 +41837,7 @@ Cover.propTypes = {
 
 exports.default = Cover;
 
-},{"prop-types":43,"react":92}],151:[function(require,module,exports){
+},{"prop-types":43,"react":92}],152:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41844,7 +41906,7 @@ HomeSectionEdit.propTypes = {
 
 exports.default = HomeSectionEdit;
 
-},{"../homeSectionView/homeSectionView.jsx":152,"prop-types":43,"react":92}],152:[function(require,module,exports){
+},{"../homeSectionView/homeSectionView.jsx":153,"prop-types":43,"react":92}],153:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41886,7 +41948,7 @@ HomeSectionView.propTypes = {
 
 exports.default = HomeSectionView;
 
-},{"prop-types":43,"react":92,"react-router-dom":75}],153:[function(require,module,exports){
+},{"prop-types":43,"react":92,"react-router-dom":75}],154:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41910,7 +41972,7 @@ var HomeSection = {
 
 exports.default = HomeSection;
 
-},{"./homeSectionEdit/homeSectionEdit.jsx":151,"./homeSectionView/homeSectionView.jsx":152}],154:[function(require,module,exports){
+},{"./homeSectionEdit/homeSectionEdit.jsx":152,"./homeSectionView/homeSectionView.jsx":153}],155:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42146,7 +42208,7 @@ HomeSectionModal.propTypes = {
 
 exports.default = HomeSectionModal;
 
-},{"../../models/tools":216,"prop-types":43,"react":92}],155:[function(require,module,exports){
+},{"../../models/tools":220,"prop-types":43,"react":92}],156:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42262,7 +42324,7 @@ ItemCarousel.propTypes = {
 
 exports.default = ItemCarousel;
 
-},{"../../models/tools":216,"prop-types":43,"react":92}],156:[function(require,module,exports){
+},{"../../models/tools":220,"prop-types":43,"react":92}],157:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42484,7 +42546,7 @@ ItemContent.propTypes = {
 
 exports.default = ItemContent;
 
-},{"../../models/tools":216,"../itemContentAttributes/itemContentAttributes":157,"../itemContentShipping/itemContentShipping":158,"prop-types":43,"react":92}],157:[function(require,module,exports){
+},{"../../models/tools":220,"../itemContentAttributes/itemContentAttributes":158,"../itemContentShipping/itemContentShipping":159,"prop-types":43,"react":92}],158:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42649,7 +42711,7 @@ ItemContentAttributes.propTypes = {
 
 exports.default = ItemContentAttributes;
 
-},{"../../models/tools":216,"prop-types":43,"react":92}],158:[function(require,module,exports){
+},{"../../models/tools":220,"prop-types":43,"react":92}],159:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42729,7 +42791,7 @@ ItemContentShipping.propTypes = {
 
 exports.default = ItemContentShipping;
 
-},{"../../models/tools":216,"prop-types":43,"react":92}],159:[function(require,module,exports){
+},{"../../models/tools":220,"prop-types":43,"react":92}],160:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42812,7 +42874,7 @@ ItemView.propTypes = {
 
 exports.default = ItemView;
 
-},{"../itemCarousel/itemCarousel":155,"../itemContent/itemContent":156,"prop-types":43,"react":92}],160:[function(require,module,exports){
+},{"../itemCarousel/itemCarousel":156,"../itemContent/itemContent":157,"prop-types":43,"react":92}],161:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -42848,7 +42910,7 @@ var ItemViewPlaceholder = function ItemViewPlaceholder(_ref) {
 
 exports.default = ItemViewPlaceholder;
 
-},{"react":92}],161:[function(require,module,exports){
+},{"react":92}],162:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43153,7 +43215,7 @@ LoginView.propTypes = {
 
 exports.default = LoginView;
 
-},{"prop-types":43,"react":92,"react-router-dom":75}],162:[function(require,module,exports){
+},{"prop-types":43,"react":92,"react-router-dom":75}],163:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43197,7 +43259,7 @@ LogoEdit.propTypes = {
 
 exports.default = LogoEdit;
 
-},{"prop-types":43,"react":92}],163:[function(require,module,exports){
+},{"prop-types":43,"react":92}],164:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43334,7 +43396,7 @@ LogoModal.propTypes = {
 
 exports.default = LogoModal;
 
-},{"prop-types":43,"react":92}],164:[function(require,module,exports){
+},{"prop-types":43,"react":92}],165:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43419,7 +43481,7 @@ MarketingView.propsType = {
 
 exports.default = MarketingView;
 
-},{"prop-types":43,"react":92}],165:[function(require,module,exports){
+},{"prop-types":43,"react":92}],166:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43510,7 +43572,7 @@ var Navbar = function Navbar(_ref) {
         { key: 4 },
         _react2.default.createElement(
           _reactRouterDom.Link,
-          { to: '/' + username + '/account' },
+          { to: '/' + username + '/sales' },
           strings.navbarItemSales
         )
       ), _react2.default.createElement(
@@ -43529,15 +43591,10 @@ var Navbar = function Navbar(_ref) {
           { to: '/' + username + '/marketing' },
           strings.navbarItemMarketing
         )
-      ), _react2.default.createElement('li', { key: 7, className: 'divider' }), _react2.default.createElement(
-        'li',
-        { key: 8 },
-        _react2.default.createElement(
-          _reactRouterDom.Link,
-          { to: '/' + username + '/account' },
-          strings.navbarItemSupportMe
-        )
-      ), _react2.default.createElement('li', { key: 9, className: 'divider' }), _react2.default.createElement(
+      ),
+      //<li key={7} className="divider"></li>,
+      //<li key={8}><Link to={`/${username}/account`}>{strings.navbarItemSupportMe}</Link></li>,
+      _react2.default.createElement('li', { key: 9, className: 'divider' }), _react2.default.createElement(
         'li',
         { key: 10 },
         _react2.default.createElement(
@@ -43771,7 +43828,7 @@ Navbar.propTypes = {
 
 exports.default = Navbar;
 
-},{"prop-types":43,"react":92,"react-router-dom":75}],166:[function(require,module,exports){
+},{"prop-types":43,"react":92,"react-router-dom":75}],167:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43919,7 +43976,7 @@ Pagination.propTypes = {
 
 exports.default = Pagination;
 
-},{"prop-types":43,"react":92}],167:[function(require,module,exports){
+},{"prop-types":43,"react":92}],168:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44017,7 +44074,7 @@ PaymentGatewayView.propsType = {
 
 exports.default = PaymentGatewayView;
 
-},{"prop-types":43,"react":92}],168:[function(require,module,exports){
+},{"prop-types":43,"react":92}],169:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44077,7 +44134,7 @@ PreviewItem.propTypes = {
 
 exports.default = PreviewItem;
 
-},{"../../models/tools.js":216,"prop-types":43,"react":92,"react-router-dom":75}],169:[function(require,module,exports){
+},{"../../models/tools.js":220,"prop-types":43,"react":92,"react-router-dom":75}],170:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44170,7 +44227,7 @@ return (
 
  */
 
-},{"../previewItem/previewItem":168,"prop-types":43,"react":92}],170:[function(require,module,exports){
+},{"../previewItem/previewItem":169,"prop-types":43,"react":92}],171:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -44211,7 +44268,7 @@ var PreviewListPlaceholder = function PreviewListPlaceholder(_ref) {
 
 exports.default = PreviewListPlaceholder;
 
-},{"react":92}],171:[function(require,module,exports){
+},{"react":92}],172:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44322,7 +44379,7 @@ ProductsList.propTypes = {
 
 exports.default = ProductsList;
 
-},{"../../models/tools.js":216,"prop-types":43,"react":92,"react-router-dom":75}],172:[function(require,module,exports){
+},{"../../models/tools.js":220,"prop-types":43,"react":92,"react-router-dom":75}],173:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44412,7 +44469,7 @@ Profile.propTypes = {
 
 exports.default = Profile;
 
-},{"../../containers/logoContainer":200,"../../containers/shortDescriptionContainer.jsx":207,"prop-types":43,"react":92}],173:[function(require,module,exports){
+},{"../../containers/logoContainer":203,"../../containers/shortDescriptionContainer.jsx":211,"prop-types":43,"react":92}],174:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44700,7 +44757,7 @@ PurchaseView.propTypes = {
 
 exports.default = PurchaseView;
 
-},{"../../models/tools.js":216,"../cartItemView/cartItemView":134,"prop-types":43,"react":92}],174:[function(require,module,exports){
+},{"../../models/tools.js":220,"../cartItemView/cartItemView":135,"prop-types":43,"react":92}],175:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44811,7 +44868,7 @@ PurchasesList.propTypes = {
 
 exports.default = PurchasesList;
 
-},{"../../models/tools.js":216,"prop-types":43,"react":92,"react-router-dom":75}],175:[function(require,module,exports){
+},{"../../models/tools.js":220,"prop-types":43,"react":92,"react-router-dom":75}],176:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44847,7 +44904,144 @@ ResultCount.propTypes = {
 
 exports.default = ResultCount;
 
-},{"prop-types":43,"react":92}],176:[function(require,module,exports){
+},{"prop-types":43,"react":92}],177:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _salesList = require('./salesList/salesList.jsx');
+
+var _salesList2 = _interopRequireDefault(_salesList);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//import TermsView from './termsView/termsView.jsx'
+//import TermsEdit from './termsEdit/termsEdit.jsx'
+//import TermsModal from './termsModal/termsModal.jsx'
+
+var Sale = {
+  List: _salesList2.default
+  //View: SaleView,
+  //Edit: SaleEdit,
+  //Modal: SaleModal
+};
+
+exports.default = Sale;
+
+},{"./salesList/salesList.jsx":178}],178:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactRouterDom = require('react-router-dom');
+
+var _tools = require('../../../models/tools.js');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SaleItem = function SaleItem(_ref) {
+  var username = _ref.username,
+      item = _ref.item;
+  return _react2.default.createElement(
+    'div',
+    { className: 'row' },
+    _react2.default.createElement(
+      _reactRouterDom.Link,
+      { to: '/' + username + '/sale/' + item.id },
+      _react2.default.createElement(
+        'div',
+        { className: 'col s4 m3 sales-list__item' },
+        (0, _tools.getFormattedTime)(item.timestamp)
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'col m3 sales-list__item hide-on-small-only' },
+        item.id
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'col s4 m3 sales-list__item' },
+        item.state
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'col s4 m3 sales-list__item' },
+        item.symbol + ' ' + (0, _tools.getPriceFormat)(item.amount)
+      )
+    )
+  );
+};
+
+SaleItem.propTypes = {
+  username: _propTypes2.default.string.isRequired,
+  item: _propTypes2.default.any.isRequired
+};
+
+var SalesList = function SalesList(_ref2) {
+  var username = _ref2.username,
+      list = _ref2.list,
+      strings = _ref2.strings;
+
+  var listComp = [];
+
+  for (var i = 0; i < list.length; i++) {
+    listComp.push(_react2.default.createElement(SaleItem, { key: i, username: username, item: list[i] }));
+  }
+
+  return _react2.default.createElement(
+    'div',
+    { className: 'sales-list' },
+    _react2.default.createElement(
+      'div',
+      { className: 'row' },
+      _react2.default.createElement(
+        'div',
+        { className: 'col s4 m3 sales-list__header' },
+        strings.headerDate
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'col m3 sales-list__header hide-on-small-only' },
+        strings.headerId
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'col s4 m3 sales-list__header' },
+        strings.headerState
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'col s4 m3 sales-list__header' },
+        strings.headerAmount
+      )
+    ),
+    listComp.map(function (itemComp) {
+      return itemComp;
+    })
+  );
+};
+
+SalesList.propTypes = {
+  username: _propTypes2.default.string.isRequired,
+  list: _propTypes2.default.any.isRequired,
+  strings: _propTypes2.default.object.isRequired
+};
+
+exports.default = SalesList;
+
+},{"../../../models/tools.js":220,"prop-types":43,"react":92,"react-router-dom":75}],179:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44871,7 +45065,7 @@ var ShortDescription = {
 
 exports.default = ShortDescription;
 
-},{"./shortDescriptionEdit/shortDescriptionEdit.jsx":177,"./shortDescriptionModal/shortDescriptionModal.jsx":178}],177:[function(require,module,exports){
+},{"./shortDescriptionEdit/shortDescriptionEdit.jsx":180,"./shortDescriptionModal/shortDescriptionModal.jsx":181}],180:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44919,7 +45113,7 @@ ShortDescriptionEdit.propTypes = {
 
 exports.default = ShortDescriptionEdit;
 
-},{"prop-types":43,"react":92}],178:[function(require,module,exports){
+},{"prop-types":43,"react":92}],181:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45060,7 +45254,7 @@ ShortDescriptionModal.propTypes = {
 
 exports.default = ShortDescriptionModal;
 
-},{"prop-types":43,"react":92}],179:[function(require,module,exports){
+},{"prop-types":43,"react":92}],182:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45101,7 +45295,7 @@ Spinner.propTypes = {
 
 exports.default = Spinner;
 
-},{"prop-types":43,"react":92}],180:[function(require,module,exports){
+},{"prop-types":43,"react":92}],183:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45225,7 +45419,7 @@ TabsHero.propTypes = {
 
 exports.default = TabsHero;
 
-},{"prop-types":43,"react":92,"react-router-dom":75}],181:[function(require,module,exports){
+},{"prop-types":43,"react":92,"react-router-dom":75}],184:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45254,7 +45448,7 @@ var Terms = {
 
 exports.default = Terms;
 
-},{"./termsEdit/termsEdit.jsx":182,"./termsModal/termsModal.jsx":183,"./termsView/termsView.jsx":184}],182:[function(require,module,exports){
+},{"./termsEdit/termsEdit.jsx":185,"./termsModal/termsModal.jsx":186,"./termsView/termsView.jsx":187}],185:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45305,7 +45499,7 @@ TermsEdit.propTypes = {
 
 exports.default = TermsEdit;
 
-},{"../termsView/termsView.jsx":184,"prop-types":43,"react":92}],183:[function(require,module,exports){
+},{"../termsView/termsView.jsx":187,"prop-types":43,"react":92}],186:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45458,7 +45652,7 @@ TermsModal.propTypes = {
 
 exports.default = TermsModal;
 
-},{"prop-types":43,"react":92}],184:[function(require,module,exports){
+},{"prop-types":43,"react":92}],187:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45520,7 +45714,7 @@ TermsView.propTypes = {
 
 exports.default = TermsView;
 
-},{"prop-types":43,"react":92}],185:[function(require,module,exports){
+},{"prop-types":43,"react":92}],188:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -45610,7 +45804,7 @@ var getEnv = exports.getEnv = function getEnv() {
   }
 };
 
-},{}],186:[function(require,module,exports){
+},{}],189:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45659,7 +45853,7 @@ var UPDATE_DATA_THEME = exports.UPDATE_DATA_THEME = 'UPDATE_DATA_THEME';
 var UPDATE_DATA_STORE = exports.UPDATE_DATA_STORE = 'UPDATE_DATA_STORE';
 var UPDATE_CATEGORIES_STORE = exports.UPDATE_CATEGORIES_STORE = 'UPDATE_CATEGORIES_STORE';
 
-},{}],187:[function(require,module,exports){
+},{}],190:[function(require,module,exports){
 module.exports={
   "API_AUTH_SET_SUCCEED":4000,
   "API_AUTH_SET_FAILED":4001,
@@ -45668,7 +45862,7 @@ module.exports={
   "API_USER_LOGIN_NO_FOUND":5010,
   "API_STORE_CREATE_USERNAME_EXIST":6000
 }
-},{}],188:[function(require,module,exports){
+},{}],191:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45822,7 +46016,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(AccountPage));
 
-},{"../actions/account":107,"../components/accountView/accountView":132,"../components/breadcrumbs/breadcrumbs":133,"../models/analytics":210,"../models/facebookPixel":212,"../models/session":215,"../strings":232,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],189:[function(require,module,exports){
+},{"../actions/account":107,"../components/accountView/accountView":133,"../components/breadcrumbs/breadcrumbs":134,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":219,"../strings":236,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],192:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45967,7 +46161,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CartPage));
 
-},{"../actions/cart":108,"../components/cartView/cartView":135,"../components/emptyCartView/emptyCartView":149,"../models/analytics":210,"../models/facebookPixel":212,"../strings":232,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],190:[function(require,module,exports){
+},{"../actions/cart":108,"../components/cartView/cartView":136,"../components/emptyCartView/emptyCartView":150,"../models/analytics":214,"../models/facebookPixel":216,"../strings":236,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],193:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46140,7 +46334,7 @@ mapDispatchToProps)(CategoriesPage);
 />
 */
 
-},{"../actions/store":114,"../components/categories":140,"../components/terms":181,"../models/analytics":210,"../models/facebookPixel":212,"../models/tools":216,"../strings":232,"prop-types":43,"react":92,"react-redux":57}],191:[function(require,module,exports){
+},{"../actions/store":114,"../components/categories":141,"../components/terms":184,"../models/analytics":214,"../models/facebookPixel":216,"../models/tools":220,"../strings":236,"prop-types":43,"react":92,"react-redux":57}],194:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46338,7 +46532,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CategoryPage));
 
-},{"../actions":110,"../components/breadcrumbs/breadcrumbs":133,"../components/pagination/pagination":166,"../components/previewList/previewList":169,"../components/previewListPlaceholder/previewListPlaceholder":170,"../components/resultCount/resultCount":175,"../models/analytics":210,"../models/facebookPixel":212,"../models/tools":216,"../strings":232,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],192:[function(require,module,exports){
+},{"../actions":110,"../components/breadcrumbs/breadcrumbs":134,"../components/pagination/pagination":167,"../components/previewList/previewList":170,"../components/previewListPlaceholder/previewListPlaceholder":171,"../components/resultCount/resultCount":176,"../models/analytics":214,"../models/facebookPixel":216,"../models/tools":220,"../strings":236,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],195:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46456,7 +46650,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CheckoutPage));
 
-},{"../actions/cart":108,"../components/checkoutView/checkoutView":141,"../models/analytics":210,"../models/facebookPixel":212,"../strings":232,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],193:[function(require,module,exports){
+},{"../actions/cart":108,"../components/checkoutView/checkoutView":142,"../models/analytics":214,"../models/facebookPixel":216,"../strings":236,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],196:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46540,7 +46734,7 @@ ContactContainer.propTypes = {
   )(ContactContainer))*/
 };exports.default = ContactContainer;
 
-},{"../components/contact":146,"prop-types":43,"react":92}],194:[function(require,module,exports){
+},{"../components/contact":147,"prop-types":43,"react":92}],197:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46628,7 +46822,7 @@ CoverContainer.propTypes = {
 
 exports.default = CoverContainer;
 
-},{"../components/coverModal/coverModal":147,"prop-types":43,"react":92}],195:[function(require,module,exports){
+},{"../components/coverModal/coverModal":148,"prop-types":43,"react":92}],198:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46770,7 +46964,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Hero));
 
-},{"../actions/store":114,"../components/profile/profile.js":172,"../components/tabsHero/tabsHero.js":180,"../models/canvas":211,"../strings":232,"./coverContainer":194,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],196:[function(require,module,exports){
+},{"../actions/store":114,"../components/profile/profile.js":173,"../components/tabsHero/tabsHero.js":183,"../models/canvas":215,"../strings":236,"./coverContainer":197,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],199:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46953,7 +47147,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(HomePage);
 
-},{"../actions/store":114,"../components/createSection/createSection":148,"../models/analytics":210,"../models/canvas":211,"../models/facebookPixel":212,"../models/tools":216,"../strings":232,"./homeSectionContainer.jsx":197,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],197:[function(require,module,exports){
+},{"../actions/store":114,"../components/createSection/createSection":149,"../models/analytics":214,"../models/canvas":215,"../models/facebookPixel":216,"../models/tools":220,"../strings":236,"./homeSectionContainer.jsx":200,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],200:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47018,7 +47212,7 @@ HomeSectionContainer.propTypes = {
 
 exports.default = HomeSectionContainer;
 
-},{"../components/homeSection":153,"prop-types":43,"react":92}],198:[function(require,module,exports){
+},{"../components/homeSection":154,"prop-types":43,"react":92}],201:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47216,7 +47410,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(ItemPage));
 
-},{"../actions":110,"../actions/item":111,"../components/breadcrumbs/breadcrumbs":133,"../components/itemView/itemView":159,"../components/itemViewPlaceholder/itemViewPlaceholder":160,"../models/analytics":210,"../models/facebookPixel":212,"../strings":232,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],199:[function(require,module,exports){
+},{"../actions":110,"../actions/item":111,"../components/breadcrumbs/breadcrumbs":134,"../components/itemView/itemView":160,"../components/itemViewPlaceholder/itemViewPlaceholder":161,"../models/analytics":214,"../models/facebookPixel":216,"../strings":236,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],202:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47348,7 +47542,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(LoginPage));
 
-},{"../actions/login":112,"../components/loginView/loginView":161,"../models/analytics":210,"../models/facebookPixel":212,"../strings":232,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],200:[function(require,module,exports){
+},{"../actions/login":112,"../components/loginView/loginView":162,"../models/analytics":214,"../models/facebookPixel":216,"../strings":236,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],203:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47421,7 +47615,7 @@ LogoContainer.propTypes = {
 
 exports.default = LogoContainer;
 
-},{"../components/logoEdit/logoEdit":162,"../components/logoModal/logoModal":163,"prop-types":43,"react":92}],201:[function(require,module,exports){
+},{"../components/logoEdit/logoEdit":163,"../components/logoModal/logoModal":164,"prop-types":43,"react":92}],204:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47568,7 +47762,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(MarketingPage));
 
-},{"../actions/store":114,"../components/breadcrumbs/breadcrumbs":133,"../components/marketingView/marketingView.jsx":164,"../models/analytics":210,"../models/facebookPixel":212,"../models/session":215,"../strings":232,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],202:[function(require,module,exports){
+},{"../actions/store":114,"../components/breadcrumbs/breadcrumbs":134,"../components/marketingView/marketingView.jsx":165,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":219,"../strings":236,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],205:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47715,7 +47909,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(PaymentGatewayPage));
 
-},{"../actions/store":114,"../components/breadcrumbs/breadcrumbs":133,"../components/paymentGatewayView/paymentGatewayView.jsx":167,"../models/analytics":210,"../models/facebookPixel":212,"../models/session":215,"../strings":232,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],203:[function(require,module,exports){
+},{"../actions/store":114,"../components/breadcrumbs/breadcrumbs":134,"../components/paymentGatewayView/paymentGatewayView.jsx":168,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":219,"../strings":236,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],206:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47900,7 +48094,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(ProductsPage));
 
-},{"../actions/pagination":113,"../actions/store":114,"../components/breadcrumbs/breadcrumbs":133,"../components/pagination/pagination":166,"../components/productsList/productsList.jsx":171,"../models/analytics":210,"../models/facebookPixel":212,"../models/session":215,"../strings":232,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],204:[function(require,module,exports){
+},{"../actions/pagination":113,"../actions/store":114,"../components/breadcrumbs/breadcrumbs":134,"../components/pagination/pagination":167,"../components/productsList/productsList.jsx":172,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":219,"../strings":236,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],207:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48063,7 +48257,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(PurchasePage));
 
-},{"../actions/account":107,"../components/breadcrumbs/breadcrumbs":133,"../components/purchaseView/purchaseView":173,"../models/analytics":210,"../models/facebookPixel":212,"../models/session":215,"../strings":232,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],205:[function(require,module,exports){
+},{"../actions/account":107,"../components/breadcrumbs/breadcrumbs":134,"../components/purchaseView/purchaseView":174,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":219,"../strings":236,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],208:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48247,7 +48441,192 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(PurchasesPage));
 
-},{"../actions/account":107,"../actions/pagination":113,"../components/breadcrumbs/breadcrumbs":133,"../components/pagination/pagination":166,"../components/purchasesList/purchasesList":174,"../models/analytics":210,"../models/facebookPixel":212,"../models/session":215,"../strings":232,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],206:[function(require,module,exports){
+},{"../actions/account":107,"../actions/pagination":113,"../components/breadcrumbs/breadcrumbs":134,"../components/pagination/pagination":167,"../components/purchasesList/purchasesList":175,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":219,"../strings":236,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],209:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactRouterDom = require('react-router-dom');
+
+var _reactRedux = require('react-redux');
+
+var _strings = require('../strings');
+
+var _strings2 = _interopRequireDefault(_strings);
+
+var _session = require('../models/session');
+
+var _session2 = _interopRequireDefault(_session);
+
+var _analytics = require('../models/analytics');
+
+var _facebookPixel = require('../models/facebookPixel');
+
+var _store = require('../actions/store');
+
+var _pagination = require('../actions/pagination');
+
+var _breadcrumbs = require('../components/breadcrumbs/breadcrumbs');
+
+var _breadcrumbs2 = _interopRequireDefault(_breadcrumbs);
+
+var _pagination2 = require('../components/pagination/pagination');
+
+var _pagination3 = _interopRequireDefault(_pagination2);
+
+var _sale = require('../components/sale');
+
+var _sale2 = _interopRequireDefault(_sale);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SalesPage = function (_React$Component) {
+  _inherits(SalesPage, _React$Component);
+
+  function SalesPage(props) {
+    _classCallCheck(this, SalesPage);
+
+    var _this = _possibleConstructorReturn(this, (SalesPage.__proto__ || Object.getPrototypeOf(SalesPage)).call(this, props));
+
+    var _this$props = _this.props,
+        analytics = _this$props.analytics,
+        facebookPixel = _this$props.facebookPixel,
+        analyticsTrackerId = _this$props.analyticsTrackerId,
+        facebookPixelId = _this$props.facebookPixelId,
+        loadSalesList = _this$props.loadSalesList;
+
+    analytics(analyticsTrackerId);
+    facebookPixel(facebookPixelId);
+    loadSalesList();
+    return _this;
+  }
+
+  _createClass(SalesPage, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          strings = _props.strings,
+          username = _props.username,
+          isFetching = _props.isFetching,
+          pagination = _props.pagination,
+          goToPage = _props.goToPage;
+
+
+      if (!_session2.default.inUserSession()) {
+        return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/' + username });
+      }
+
+      var purchasesListComp = void 0,
+          paginationComp = void 0;
+
+      if (isFetching) {
+        purchasesListComp = _react2.default.createElement('div', null);
+        paginationComp = _react2.default.createElement('div', null);
+      } else {
+        purchasesListComp = _react2.default.createElement(_sale2.default.List, {
+          username: username,
+          list: pagination.page,
+          strings: strings.list
+        });
+        paginationComp = _react2.default.createElement(_pagination3.default, {
+          index: pagination.index,
+          pages: pagination.pagesCount,
+          onClick: goToPage
+        });
+      }
+
+      return _react2.default.createElement(
+        'section',
+        null,
+        _react2.default.createElement(_breadcrumbs2.default, {
+          username: username,
+          home: strings.breadcrumbHome,
+          route: '/purchases',
+          parent: null,
+          child: strings.breadcrumbSales,
+          onClick: function onClick() {
+            return true;
+          },
+          disabledChild: true
+        }),
+        paginationComp,
+        purchasesListComp,
+        paginationComp
+      );
+    }
+  }]);
+
+  return SalesPage;
+}(_react2.default.Component);
+
+SalesPage.propsType = {
+  strings: _propTypes2.default.object.isRequired,
+  username: _propTypes2.default.string.isRequired,
+  analyticsTrackerId: _propTypes2.default.string.isRequired,
+  facebookPixelId: _propTypes2.default.string.isRequired,
+  isFetching: _propTypes2.default.bool.isRequired,
+  pagination: _propTypes2.default.object.isRequired,
+  analytics: _propTypes2.default.func.isRequired,
+  facebookPixel: _propTypes2.default.func.isRequired,
+  loadSalesList: _propTypes2.default.func.isRequired,
+  goToPage: _propTypes2.default.func.isRequired
+};
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {
+    strings: (0, _strings2.default)(state.language).pages.sales,
+    username: state.store.username,
+    analyticsTrackerId: state.store.data.analytics,
+    facebookPixelId: state.store.data.facebookPixel,
+    isFetching: state.isFetching,
+    pagination: {
+      index: state.pagination.index,
+      page: state.pagination.currentPage,
+      pagesCount: state.pagination.pagesCount,
+      itemsCount: state.pagination.itemsCount
+    }
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    analytics: function analytics(analyticsTrackerId) {
+      return (0, _analytics.pageView)(analyticsTrackerId);
+    },
+    facebookPixel: function facebookPixel(facebookPixelId) {
+      return (0, _facebookPixel.pixelPageView)(facebookPixelId);
+    },
+    loadSalesList: function loadSalesList() {
+      return dispatch((0, _store.loadSalesList)());
+    },
+    goToPage: function goToPage(index) {
+      return dispatch((0, _pagination.goToPage)(index));
+    }
+  };
+};
+
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
+mapDispatchToProps)(SalesPage));
+
+},{"../actions/pagination":113,"../actions/store":114,"../components/breadcrumbs/breadcrumbs":134,"../components/pagination/pagination":167,"../components/sale":177,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":219,"../strings":236,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],210:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48442,7 +48821,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(SearchPage));
 
-},{"../actions":110,"../components/breadcrumbs/breadcrumbs":133,"../components/pagination/pagination":166,"../components/previewList/previewList":169,"../components/previewListPlaceholder/previewListPlaceholder":170,"../components/resultCount/resultCount":175,"../models/analytics":210,"../models/facebookPixel":212,"../models/tools":216,"../strings":232,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],207:[function(require,module,exports){
+},{"../actions":110,"../components/breadcrumbs/breadcrumbs":134,"../components/pagination/pagination":167,"../components/previewList/previewList":170,"../components/previewListPlaceholder/previewListPlaceholder":171,"../components/resultCount/resultCount":176,"../models/analytics":214,"../models/facebookPixel":216,"../models/tools":220,"../strings":236,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],211:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48509,7 +48888,7 @@ ShortDescriptionContainer.propTypes = {
 
 exports.default = ShortDescriptionContainer;
 
-},{"../components/shortDescription":176,"prop-types":43,"react":92}],208:[function(require,module,exports){
+},{"../components/shortDescription":179,"prop-types":43,"react":92}],212:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48620,6 +48999,10 @@ var _productsPage = require('./productsPage.jsx');
 
 var _productsPage2 = _interopRequireDefault(_productsPage);
 
+var _salesPage = require('./salesPage.jsx');
+
+var _salesPage2 = _interopRequireDefault(_salesPage);
+
 var _marketingPage = require('./marketingPage.jsx');
 
 var _marketingPage2 = _interopRequireDefault(_marketingPage);
@@ -48699,7 +49082,6 @@ var Store = function (_React$Component) {
           _react2.default.createElement(
             _reactRouterDom.Switch,
             null,
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/product/:title/:id', component: _itemPage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/item/:title/:id', component: _itemPage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/category/:parent/:category', component: _categoryPage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/category/:category', component: _categoryPage2.default }),
@@ -48725,7 +49107,10 @@ var Store = function (_React$Component) {
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/purchase/:id', component: _purchasePage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/purchases', component: _purchasesPage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/products', component: _productsPage2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/product/:title/:id', component: _itemPage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/marketing', component: _marketingPage2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/sales', component: _salesPage2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/sale/:id', component: _purchasePage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/paymentgateway', component: _paymentGatewayPage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername', component: _homePage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { component: _homePage2.default })
@@ -48805,7 +49190,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(Store));
 
-},{"../actions":110,"../actions/login":112,"../actions/store":114,"../components/congratulationPurchase/congratulationPurchase.js":142,"../components/footer/footer.js":150,"../components/navbar/navbar.js":165,"../components/spinner/spinner.js":179,"../models/session":215,"../strings":232,"./accountPage.js":188,"./cartPage.js":189,"./categoriesPage.jsx":190,"./categoryPage.js":191,"./checkoutPage.js":192,"./contactContainer.jsx":193,"./hero.js":195,"./homePage.js":196,"./itemPage.js":198,"./loginPage.js":199,"./marketingPage.jsx":201,"./paymentGatewayPage.jsx":202,"./productsPage.jsx":203,"./purchasePage.js":204,"./purchasesPage.js":205,"./searchPage.js":206,"./termsPage.js":209,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],209:[function(require,module,exports){
+},{"../actions":110,"../actions/login":112,"../actions/store":114,"../components/congratulationPurchase/congratulationPurchase.js":143,"../components/footer/footer.js":151,"../components/navbar/navbar.js":166,"../components/spinner/spinner.js":182,"../models/session":219,"../strings":236,"./accountPage.js":191,"./cartPage.js":192,"./categoriesPage.jsx":193,"./categoryPage.js":194,"./checkoutPage.js":195,"./contactContainer.jsx":196,"./hero.js":198,"./homePage.js":199,"./itemPage.js":201,"./loginPage.js":202,"./marketingPage.jsx":204,"./paymentGatewayPage.jsx":205,"./productsPage.jsx":206,"./purchasePage.js":207,"./purchasesPage.js":208,"./salesPage.jsx":209,"./searchPage.js":210,"./termsPage.js":213,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],213:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48950,7 +49335,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(TermsPage);
 
-},{"../actions/store":114,"../components/terms":181,"../models/analytics":210,"../models/facebookPixel":212,"../strings":232,"prop-types":43,"react":92,"react-redux":57}],210:[function(require,module,exports){
+},{"../actions/store":114,"../components/terms":184,"../models/analytics":214,"../models/facebookPixel":216,"../strings":236,"prop-types":43,"react":92,"react-redux":57}],214:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48972,7 +49357,7 @@ var pageView = exports.pageView = function pageView(storeTrackerId) {
   ga('sherponTracker.send', 'pageview');
 };
 
-},{"../config":185}],211:[function(require,module,exports){
+},{"../config":188}],215:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49061,7 +49446,7 @@ var loadPicture = exports.loadPicture = function loadPicture(inputId, canvasId, 
     }
 };
 
-},{}],212:[function(require,module,exports){
+},{}],216:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49081,7 +49466,7 @@ var pixelPageView = exports.pixelPageView = function pixelPageView(storePixelId)
   fbq('track', 'PageView');
 };
 
-},{"../config":185}],213:[function(require,module,exports){
+},{"../config":188}],217:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -49092,7 +49477,7 @@ var _history = require("history");
 
 exports.default = (0, _history.createBrowserHistory)({ basename: "/" });
 
-},{"history":22}],214:[function(require,module,exports){
+},{"history":22}],218:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49147,7 +49532,7 @@ Diners Club       3600 020000 0006      01/2020   230   fraudulent
 
  */
 
-},{"../tools":216}],215:[function(require,module,exports){
+},{"../tools":220}],219:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49208,12 +49593,17 @@ exports.default = {
   inCartSession: inCartSession
 };
 
-},{}],216:[function(require,module,exports){
+},{}],220:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+/**
+ * @namespace tool
+ * @author Grover Lee
+ */
+
 var sortArrayCategory = function sortArrayCategory(category) {
   for (var i = 0; i < category.length - 1; i++) {
     for (var j = i + 1; j < category.length; j++) {
@@ -49316,10 +49706,15 @@ var json2array = exports.json2array = function json2array(json) {
   return result;
 };
 
+/******************************************************************************/
 /**
- * get the formatted time from a timestamp
+ * @function
+ * @name getFormattedTime
+ * @description get the formatted time from a timestamp
+ *
  * @param {number} timestamp - unix timestamp of 13 digits
  * @return {string} formatted time. E.g. 2018/12/30
+ * @author Grover Lee
  */
 var getFormattedTime = exports.getFormattedTime = function getFormattedTime(timestamp) {
   var date = new Date(timestamp);
@@ -49334,6 +49729,8 @@ var getFormattedTime = exports.getFormattedTime = function getFormattedTime(time
   var formattedTime = year + '/' + month.substr(-2) + '/' + day.substr(-2);
   return formattedTime;
 };
+/******************************************************************************/
+
 var getRandomString = exports.getRandomString = function getRandomString() {
   var length = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 30;
 
@@ -49345,7 +49742,7 @@ var getRandomString = exports.getRandomString = function getRandomString() {
   }return text;
 };
 
-},{}],217:[function(require,module,exports){
+},{}],221:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49480,7 +49877,7 @@ var Cart = function Cart() {
 
 exports.default = Cart;
 
-},{"../constants/ActionTypes":186,"../models/session":215}],218:[function(require,module,exports){
+},{"../constants/ActionTypes":189,"../models/session":219}],222:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49511,7 +49908,7 @@ var inSession = function inSession() {
 
 exports.default = inSession;
 
-},{"../constants/ActionTypes":186,"../models/session":215}],219:[function(require,module,exports){
+},{"../constants/ActionTypes":189,"../models/session":219}],223:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49585,7 +49982,7 @@ exports.default = (0, _redux.combineReducers)({
   store: _store2.default
 });
 
-},{"./cart":217,"./inSession":218,"./isAdmin":220,"./isEditable":221,"./isFetching":222,"./isResultLoaded":223,"./item":224,"./language":225,"./pagination":226,"./purchase":227,"./result":228,"./store":229,"redux":100}],220:[function(require,module,exports){
+},{"./cart":221,"./inSession":222,"./isAdmin":224,"./isEditable":225,"./isFetching":226,"./isResultLoaded":227,"./item":228,"./language":229,"./pagination":230,"./purchase":231,"./result":232,"./store":233,"redux":100}],224:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49632,7 +50029,7 @@ var isAdmin = function isAdmin() {
 
 exports.default = isAdmin;
 
-},{"../constants/ActionTypes":186,"../models/session":215}],221:[function(require,module,exports){
+},{"../constants/ActionTypes":189,"../models/session":219}],225:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49679,7 +50076,7 @@ var isEditable = function isEditable() {
 
 exports.default = isEditable;
 
-},{"../constants/ActionTypes":186,"../models/session":215}],222:[function(require,module,exports){
+},{"../constants/ActionTypes":189,"../models/session":219}],226:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49704,7 +50101,7 @@ var isFetching = function isFetching() {
 
 exports.default = isFetching;
 
-},{"../constants/ActionTypes":186}],223:[function(require,module,exports){
+},{"../constants/ActionTypes":189}],227:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49729,7 +50126,7 @@ var isResultLoaded = function isResultLoaded() {
 
 exports.default = isResultLoaded;
 
-},{"../constants/ActionTypes":186}],224:[function(require,module,exports){
+},{"../constants/ActionTypes":189}],228:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -49792,7 +50189,7 @@ var item = function item() {
 
 exports.default = item;
 
-},{"../constants/ActionTypes":186}],225:[function(require,module,exports){
+},{"../constants/ActionTypes":189}],229:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49817,7 +50214,7 @@ var language = function language() {
 
 exports.default = language;
 
-},{"../constants/ActionTypes":186}],226:[function(require,module,exports){
+},{"../constants/ActionTypes":189}],230:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49862,7 +50259,7 @@ var pagination = function pagination() {
 
 exports.default = pagination;
 
-},{"../constants/ActionTypes":186}],227:[function(require,module,exports){
+},{"../constants/ActionTypes":189}],231:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -49918,7 +50315,7 @@ var purchase = function purchase() {
 
 exports.default = purchase;
 
-},{"../constants/ActionTypes":186}],228:[function(require,module,exports){
+},{"../constants/ActionTypes":189}],232:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49941,7 +50338,7 @@ var result = function result() {
 
 exports.default = result;
 
-},{"../constants/ActionTypes":186}],229:[function(require,module,exports){
+},{"../constants/ActionTypes":189}],233:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49992,7 +50389,7 @@ var storeState = function storeState() {
 
 exports.default = storeState;
 
-},{"../constants/ActionTypes":186}],230:[function(require,module,exports){
+},{"../constants/ActionTypes":189}],234:[function(require,module,exports){
 module.exports={
 	"store":{
 		"text1":"text"
@@ -50003,7 +50400,7 @@ module.exports={
 		"navbarItemAccount":"Mi cuenta"
 	}
 }
-},{}],231:[function(require,module,exports){
+},{}],235:[function(require,module,exports){
 module.exports={
 	"store":{
 		"text1":"text"
@@ -50337,11 +50734,21 @@ module.exports={
 			"headerTitle":"Título",
 			"headerPrice":"Precio",
 			"headerStock":"Disponible"
+		},
+		"sales":{
+			"breadcrumbHome":"Inicio",
+			"breadcrumbSales":"Mis Ventas",
+			"list":{
+				"headerDate":"Fecha",
+				"headerId":"Id",
+				"headerState":"Estado",
+				"headerAmount":"Total"
+			}
 		}
 	}
 }
 
-},{}],232:[function(require,module,exports){
+},{}],236:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50367,7 +50774,7 @@ Notes
 var userLang = navigator.language || navigator.userLanguage; 
  */
 
-},{"./EN.json":230,"./ES.json":231}],233:[function(require,module,exports){
+},{"./EN.json":234,"./ES.json":235}],237:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -50438,4 +50845,4 @@ Notes
  */
 
 }).call(this,require('_process'))
-},{"./containers/store.js":208,"./models/history":213,"./reducers":219,"_process":39,"jquery":25,"react":92,"react-dom":47,"react-redux":57,"react-router-dom":75,"redux":100,"redux-logger":93,"redux-thunk":94}]},{},[233]);
+},{"./containers/store.js":212,"./models/history":217,"./reducers":223,"_process":39,"jquery":25,"react":92,"react-dom":47,"react-redux":57,"react-router-dom":75,"redux":100,"redux-logger":93,"redux-thunk":94}]},{},[237]);

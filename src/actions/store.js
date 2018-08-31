@@ -15,7 +15,8 @@ import {
   updateDataTheme as apiUpdateDataTheme,
   updateDataStore as apiUpdateDataStore,
   uploadImageStore as apiUploadImageStore,
-  getProducts as apiGetProducts
+  getProducts as apiGetProducts,
+  getSales as apiGetSales
 } from '../api/store'
 
 export const editStoreSwitch = () => (dispatch, getState) => {
@@ -481,6 +482,27 @@ export const loadProductsList = () => (dispatch, getState) => {
       dispatch(stopFetching())
     }
     dispatch(setPages(result.products, 30))
+  })
+}
+/******************************************************************************/
+/******************************************************************************/
+/**
+ * @function
+ * @name loadSalesList
+ * @description Load store's sales list as admin
+ * // where's this function used?
+ * // - src/containers/productsPage.jsx
+ */
+export const loadSalesList = () => (dispatch, getState) => {
+  dispatch(startFetching())
+  const userId = session.getUser().id
+  const storeId = getState().store.id
+  apiGetSales( userId, storeId, (result) => {
+    if (result.error !== null) {
+      /** show error message */
+      dispatch(stopFetching())
+    }
+    dispatch(setPages(result.sales, 30))
   })
 }
 /******************************************************************************/

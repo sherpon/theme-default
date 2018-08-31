@@ -1,3 +1,8 @@
+/**
+ * @namespace tool
+ * @author Grover Lee
+ */
+
 const sortArrayCategory = (category) => {
   for (var i=0;i<category.length-1;i++) {
     for (var j=i+1;j<category.length;j++) {
@@ -85,10 +90,15 @@ export const json2array = (json) => {
   return result;
 }
 
+/******************************************************************************/
 /**
- * get the formatted time from a timestamp
+ * @function
+ * @name getFormattedTime
+ * @description get the formatted time from a timestamp
+ *
  * @param {number} timestamp - unix timestamp of 13 digits
  * @return {string} formatted time. E.g. 2018/12/30
+ * @author Grover Lee
  */
 export const getFormattedTime = (timestamp) => {
   const date = new Date(timestamp);
@@ -103,6 +113,9 @@ export const getFormattedTime = (timestamp) => {
   const formattedTime = year + '/' + month.substr(-2) + '/' + day.substr(-2)
   return formattedTime
 }
+/******************************************************************************/
+
+
 export const getRandomString = (length = 30) => {
   let text = ''
   const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'

@@ -3,7 +3,8 @@
  * @author Grover Lee
  */
 
-import _getProducts from './data/getProducts.json'
+ import _getProducts from './data/getProducts.json'
+ import _getSales from './data/getSales.json'
 
 const TIMEOUT = 500
 
@@ -96,5 +97,36 @@ export const getProducts = (userId, storeId, callback) => {
  * @param {Object} result - products list array
  * @property {?number} result.error - show any error in the response or show null value
  * @property {Product[]} result.products - show the array of products
+ */
+/******************************************************************************/
+/******************************************************************************/
+/**
+ * @function
+ * @name getSales
+ * @description get the store's products
+ * // where's this function used?
+ * // - src/actions/store.js
+ * // module:actions/store~loadProductsList as apiGetProducts
+ * @param {string} userId - user's id.
+ * @param {string} storeId - store's id.
+ * @param {getSales~callback} callback - The callback that handles the response.
+ */
+export const getSales = (userId, storeId, callback) => {
+  console.log('API.getSales.payload')
+  const payload = { userId, storeId }
+  console.log(payload)
+
+  setTimeout( () => {
+    callback({
+      error: null,
+      sales: _getSales
+    })
+  },TIMEOUT )
+}
+/**
+ * @callback getSales~callback
+ * @param {Object} result - sales list array
+ * @property {?number} result.error - show any error in the response or show null value
+ * @property {Sales[]} result.sales - show the array of sales
  */
 /******************************************************************************/

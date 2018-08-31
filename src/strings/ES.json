@@ -331,6 +331,16 @@
 			"headerTitle":"Título",
 			"headerPrice":"Precio",
 			"headerStock":"Disponible"
+		},
+		"sales":{
+			"breadcrumbHome":"Inicio",
+			"breadcrumbSales":"Mis Ventas",
+			"list":{
+				"headerDate":"Fecha",
+				"headerId":"Id",
+				"headerState":"Estado",
+				"headerAmount":"Total"
+			}
 		}
 	}
 }

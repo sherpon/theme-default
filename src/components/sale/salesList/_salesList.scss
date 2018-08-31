@@ -1,0 +1,13 @@
+.sales-list {
+  @extend .box-white;
+
+  &__item {
+    text-align: center;
+    color: $body-text-color-secundary;
+  }
+
+  &__header {
+    text-align: center;
+    font-size: 1.1em;
+  }
+}
