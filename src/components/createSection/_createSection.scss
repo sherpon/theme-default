@@ -1,16 +1,4 @@
 .create-section {
-
-  .create-section__button {
-    @extend .box-white;
-    @extend .row;
-
-    .create-section__icon {
-      width: 40px;
-    }
-    .create-section__title {
-      font-size: 1.3em;
-      color: $body-text-color-secundary;
-      margin-top: 8px;
-    }
-  }
+  @include box--empty;
+  text-align: center;
 }

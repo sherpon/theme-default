@@ -40221,30 +40221,9 @@ var CategoriesCreator = function CategoriesCreator(_ref) {
     'div',
     { className: 'categories-creator' },
     _react2.default.createElement(
-      'div',
-      { className: 'col s12 m8 offset-m2 l6 offset-l3' },
-      _react2.default.createElement(
-        'a',
-        { className: 'modal-trigger', href: '#categories-modal' },
-        _react2.default.createElement(
-          'div',
-          { className: 'categories-creator__button' },
-          _react2.default.createElement(
-            'div',
-            { className: 'col s3' },
-            _react2.default.createElement('img', { className: 'categories-creator__icon', src: '/images/store/icons8-add-64.png' })
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'col s9' },
-            _react2.default.createElement(
-              'div',
-              { className: 'categories-creator__title' },
-              strings.titleCreator
-            )
-          )
-        )
-      )
+      'a',
+      { className: 'modal-trigger', href: '#categories-modal' },
+      strings.titleCreator
     )
   );
 };
@@ -41790,24 +41769,7 @@ var CreateSection = function CreateSection(_ref) {
     _react2.default.createElement(
       'a',
       { className: 'modal-trigger', href: '#sectionModal' },
-      _react2.default.createElement(
-        'div',
-        { className: 'create-section__button' },
-        _react2.default.createElement(
-          'div',
-          { className: 'col s3 m2' },
-          _react2.default.createElement('img', { className: 'create-section__icon', src: '/images/store/icons8-add-64.png' })
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'col s9 m10' },
-          _react2.default.createElement(
-            'div',
-            { className: 'create-section__title' },
-            strings.title
-          )
-        )
-      )
+      strings.title
     ),
     _react2.default.createElement(_homeSectionModal2.default, {
       id: 'sectionModal',
@@ -51296,7 +51258,7 @@ module.exports={
 		"errorNegativeStock":"La cantidad solicitada excede a la disponibilidad del artículo"
 	},
 	"categoriesPage":{
-		"titleCreator":"Crear nuevo categoría",
+		"titleCreator":"Crear nueva categoría",
 		"edit":{
 			"headerName":"Título",
 			"headerOrder":"Orden",

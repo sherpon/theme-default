@@ -9,16 +9,7 @@ const CreateSection = ({strings, loadCanvas, loadPicture, categories, homeSectio
     <div className="create-section">
 
       <a className="modal-trigger" href="#sectionModal">
-        <div className="create-section__button">
-          <div className="col s3 m2">
-            <img className="create-section__icon" src="/images/store/icons8-add-64.png" />
-          </div>
-          <div className="col s9 m10">
-            <div className="create-section__title">
-              {strings.title}
-            </div>
-          </div>
-        </div>
+        {strings.title}
       </a>
 
       <HomeSectionModal
