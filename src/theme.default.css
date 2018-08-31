@@ -6553,11 +6553,12 @@ body {
   border-bottom-right-radius: 3px;
   margin-bottom: 10px; }
 
-/** @usage
+/**
+ * @example
  * @extend .box-white;
  */
 .box-white, .create-section .create-section__button, .purchase-view .purchase-information,
-.purchase-view .personal-information, .marketing-view, .payment-gateway-view, .categories__view, .categories-edit, .categories-creator__button, .terms-view {
+.purchase-view .personal-information, .products-list, .marketing-view, .payment-gateway-view, .categories__view, .categories-edit, .categories-creator__button, .terms-view {
   background-color: white;
   border: 1px solid #e5e5e5;
   border-bottom-left-radius: 3px;
@@ -7003,6 +7004,13 @@ input::placeholder {
   .purchase-view .personal-information .purchase-information__line,
   .purchase-view .personal-information .personal-information__line {
     margin-top: 1em; }
+
+/******** products' components *********/
+.products-list__item {
+  color: #757575; }
+
+.products-list__header {
+  font-size: 1.1em; }
 
 /******** marketing' components *********/
 .marketing-view__title {

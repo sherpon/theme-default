@@ -13,7 +13,7 @@
 		"navbarItemEdit":"Editar tienda",
 		"navbarItemEditCompleted":"Ver como visitante",
 		"navbarItemCategories":"Categorías",
-		"navbarItemCatalog":"Catálogo",
+		"navbarItemProducts":"Productos",
 		"navbarItemSales":"Ventas",
 		"navbarItemPayment":"Método de pago",
 		"navbarItemMarketing":"Marketing",
@@ -321,6 +321,16 @@
 			"errorMobilePicture":"Selecciona una foto para móvil",
 			"errorDesktopPicture":"Selecciona una foto para escritorio",
 			"errorDestination":"Selecciona una categoría de destino de la sección"
+		}
+	},
+	"pages":{
+		"products":{
+			"breadcrumbHome":"Inicio",
+			"breadcrumbProducts":"Mis productos",
+			"headerId":"Id",
+			"headerTitle":"Título",
+			"headerPrice":"Precio",
+			"headerStock":"Disponible"
 		}
 	}
 }

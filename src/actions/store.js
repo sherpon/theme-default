@@ -1,5 +1,11 @@
+/**
+ * @module actions/store
+ * @author Grover Lee
+ */
+
 import * as types from '../constants/ActionTypes'
 import { startFetching, stopFetching } from './fetching'
+import { setPages } from './pagination'
 import Strings from '../strings'
 import session from '../models/session'
 import { getRandomString } from '../models/tools'
@@ -9,6 +15,7 @@ import {
   updateDataTheme as apiUpdateDataTheme,
   updateDataStore as apiUpdateDataStore,
   uploadImageStore as apiUploadImageStore,
+  getProducts as apiGetProducts
 } from '../api/store'
 
 export const editStoreSwitch = () => (dispatch, getState) => {
@@ -455,3 +462,25 @@ export const categoriesSaveButton = () => (dispatch, getState) => {
   })
 
 }
+
+/******************************************************************************/
+/**
+ * @function
+ * @name loadProductsList
+ * @description Load store's products list as admin
+ * // where's this function used?
+ * // - src/containers/productsPage.jsx
+ */
+export const loadProductsList = () => (dispatch, getState) => {
+  dispatch(startFetching())
+  const userId = session.getUser().id
+  const storeId = getState().store.id
+  apiGetProducts( userId, storeId, (result) => {
+    if (result.error !== null) {
+      /** show error message */
+      dispatch(stopFetching())
+    }
+    dispatch(setPages(result.products, 30))
+  })
+}
+/******************************************************************************/

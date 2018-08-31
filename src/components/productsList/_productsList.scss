@@ -1,0 +1,11 @@
+.products-list {
+  @extend .box-white;
+
+  &__item {
+    color: $body-text-color-secundary;
+  }
+
+  &__header {
+    font-size: 1.1em;
+  }
+}

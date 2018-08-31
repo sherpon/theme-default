@@ -29,6 +29,7 @@ import CheckoutPage from './checkoutPage.js'
 import CongratulationPurchase from '../components/congratulationPurchase/congratulationPurchase.js' // import Categories from './categories.js'
 import SearchPage from './searchPage.js'
 import TermsPage from './termsPage.js'
+import ProductsPage from './productsPage.jsx'
 import MarketingPage from './marketingPage.jsx'
 import PaymentGatewayPage from './paymentGatewayPage.jsx'
 
@@ -65,6 +66,7 @@ class Store extends React.Component {
         <main className="store__container">
           <Hero/>
           <Switch>
+            <Route exact path="/:storeusername/product/:title/:id" component={ ItemPage } />
             <Route exact path="/:storeusername/item/:title/:id" component={ ItemPage } />
             <Route exact path="/:storeusername/category/:parent/:category" component={ CategoryPage } />
             <Route exact path="/:storeusername/category/:category" component={ CategoryPage } />
@@ -81,6 +83,7 @@ class Store extends React.Component {
             <Route exact path="/:storeusername/account" component={ AccountPage } />
             <Route exact path="/:storeusername/purchase/:id" component={ PurchasePage } />
             <Route exact path="/:storeusername/purchases" component={ PurchasesPage } />
+            <Route exact path="/:storeusername/products" component={ ProductsPage } />
             <Route exact path="/:storeusername/marketing" component={ MarketingPage } />
             <Route exact path="/:storeusername/paymentgateway" component={ PaymentGatewayPage } />
             <Route exact path="/:storeusername" component={HomePage} />

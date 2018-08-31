@@ -24,22 +24,27 @@ const Navbar = ({ strings, search, inSession, isAdmin, isEditable, editStoreSwit
       } else {  // if isn't at editable mode, so turn it up
         labelEdit = strings.navbarItemEdit
       }
+
+      const menuListComp = [
+        <li key={1}><a onClick={ () => editStoreSwitch() }>{labelEdit}</a></li>,
+        //<li key={2}><Link to={`/${username}/account`}>{strings.navbarItemCategories}</Link></li>,
+        <li key={3}><Link to={`/${username}/products`}>{strings.navbarItemProducts}</Link></li>,
+        <li key={4}><Link to={`/${username}/account`}>{strings.navbarItemSales}</Link></li>,
+        <li key={5}><Link to={`/${username}/paymentgateway`}>{strings.navbarItemPayment}</Link></li>,
+        <li key={6}><Link to={`/${username}/marketing`}>{strings.navbarItemMarketing}</Link></li>,
+        <li key={7} className="divider"></li>,
+        <li key={8}><Link to={`/${username}/account`}>{strings.navbarItemSupportMe}</Link></li>,
+        <li key={9} className="divider"></li>,
+        <li key={10}><Link to={`/${username}/account`}>{strings.navbarItemAccount}</Link></li>,
+        <li key={11}><Link to={`/${username}/purchases`}>{strings.navbarItemPurchases}</Link></li>,
+        <li key={12} className="divider"></li>,
+        <li key={13}><a onClick={ () => logout() }>{strings.navbarItemLogout}</a></li>
+      ]
+
       // Items de menu account dropdown
       dropdownComp = (
         <ul id="dropdown1" className="dropdown-content">
-          <li><a onClick={ () => editStoreSwitch() }>{labelEdit}</a></li>
-          <li><Link to={`/${username}/account`}>{strings.navbarItemCategories}</Link></li>
-          <li><Link to={`/${username}/account`}>{strings.navbarItemCatalog}</Link></li>
-          <li><Link to={`/${username}/account`}>{strings.navbarItemSales}</Link></li>
-          <li><Link to={`/${username}/paymentgateway`}>{strings.navbarItemPayment}</Link></li>
-          <li><Link to={`/${username}/marketing`}>{strings.navbarItemMarketing}</Link></li>
-          <li className="divider"></li>
-          <li><Link to={`/${username}/account`}>{strings.navbarItemSupportMe}</Link></li>
-          <li className="divider"></li>
-          <li><Link to={`/${username}/account`}>{strings.navbarItemAccount}</Link></li>
-          <li><Link to={`/${username}/purchases`}>{strings.navbarItemPurchases}</Link></li>
-          <li className="divider"></li>
-          <li><a onClick={ () => logout() }>{strings.navbarItemLogout}</a></li>
+          { menuListComp.map( (item) => (item) ) }
         </ul>
       )
 
@@ -47,19 +52,7 @@ const Navbar = ({ strings, search, inSession, isAdmin, isEditable, editStoreSwit
         <ul className="sidenav" id="mobile-demo">
           <li className="sidenav__user-name">{`${strings.navbarItemGreeting}${user.name}`}</li>
           <li className="divider"></li>
-          <li><a onClick={ () => editStoreSwitch() }>{labelEdit}</a></li>
-          <li><Link to={`/${username}/account`}>{strings.navbarItemCategories}</Link></li>
-          <li><Link to={`/${username}/account`}>{strings.navbarItemCatalog}</Link></li>
-          <li><Link to={`/${username}/account`}>{strings.navbarItemSales}</Link></li>
-          <li><Link to={`/${username}/paymentgateway`}>{strings.navbarItemPayment}</Link></li>
-          <li><Link to={`/${username}/marketing`}>{strings.navbarItemMarketing}</Link></li>
-          <li className="divider"></li>
-          <li><Link to={`/${username}/account`}>{strings.navbarItemSupportMe}</Link></li>
-          <li className="divider"></li>
-          <li><Link to={`/${username}/account`}>{strings.navbarItemAccount}</Link></li>
-          <li><Link to={`/${username}/purchases`}>{strings.navbarItemPurchases}</Link></li>
-          <li className="divider"></li>
-          <li><a onClick={ () => logout() }>{strings.navbarItemLogout}</a></li>
+          { menuListComp.map( (item) => (item) ) }
         </ul>
       )
     } else {
