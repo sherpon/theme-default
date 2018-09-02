@@ -1,11 +1,9 @@
 import ProductCreatorButton from './productCreatorButton/productCreatorButton.jsx'
-//import TermsEdit from './termsEdit/termsEdit.jsx'
-//import TermsModal from './termsModal/termsModal.jsx'
+import ProductEditor from './productEditor/productEditor.jsx'
 
 const Product = {
-  CreatorButton: ProductCreatorButton
-  //Edit: ProductEdit,
-  //Modal: ProductModal
+  CreatorButton: ProductCreatorButton,
+  Editor: ProductEditor
 }
 
 export default Product

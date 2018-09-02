@@ -6579,6 +6579,7 @@ body {
   margin-bottom: 10px !important;
   padding: 1em; }
 
+/******************************************************************************/
 /**
  * @mixin
  * @name box
@@ -6599,6 +6600,14 @@ body {
  * @description empty block pattern
  * @example
  * @include box--white;
+ */
+/******************************************************************************/
+/**
+ * @mixin
+ * @name box__title
+ * @description block's title
+ * @example
+ * @include box__title;
  */
 .sherpon-color-text-body {
   color: #4A4A4A !important; }
@@ -7052,6 +7061,31 @@ input::placeholder {
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
   text-align: center; }
+
+.product-editor {
+  margin-bottom: 10px;
+  padding: 1em;
+  border: 1px solid #e5e5e5;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  background-color: white;
+  padding: 2em; }
+  .product-editor__title {
+    color: #6078EA;
+    font-size: 1.3em; }
+  .product-editor__row {
+    margin-top: 1em; }
+  .product-editor .row, .product-editor .sherpon-row, .product-editor .login-view, .product-editor .login-view__login, .product-editor .login-view__signup, .product-editor .login-view__guest, .product-editor .section-modal .modal-content .section-modal__picture, .section-modal .modal-content .product-editor .section-modal__picture, .product-editor .section-modal .modal-content .section-modal__destination, .section-modal .modal-content .product-editor .section-modal__destination, .product-editor .account-view, .product-editor .account-view__information, .product-editor .purchase-view, .product-editor .purchase-view .purchase-information .purchase-information__line, .purchase-view .purchase-information .product-editor .purchase-information__line,
+  .product-editor .purchase-view .personal-information .purchase-information__line, .purchase-view .personal-information .product-editor .purchase-information__line, .product-editor .sale-view, .product-editor .sale-view .purchase-information .purchase-information__line, .sale-view .purchase-information .product-editor .purchase-information__line,
+  .product-editor .sale-view .personal-information .purchase-information__line, .sale-view .personal-information .product-editor .purchase-information__line,
+  .product-editor .sale-view .update-information .purchase-information__line, .sale-view .update-information .product-editor .purchase-information__line, .product-editor .cart-view__container, .product-editor .cart-view__summary__title, .product-editor .cart-view__summary__line, .product-editor .cart-view__summary__line-total, .product-editor .cart-item-view__body, .product-editor .cart-item-view__footer, .product-editor .checkout-view__container, .product-editor .checkout-view__form__title, .product-editor .checkout-view__summary__title, .product-editor .checkout-view__summary__line, .product-editor .checkout-view__summary__line-total, .product-editor .item-view-placeholder, .product-editor .item-view, .product-editor .item-carousel__pictures-list, .product-editor .item-content__addToCart, .product-editor .item-content__share {
+    margin-bottom: 10px !important; }
+  .product-editor .product-editor-pictures__canvas {
+    width: 100%; }
+  .product-editor .product-editor-pictures__input {
+    display: none; }
 
 .products-list__item {
   color: #757575; }

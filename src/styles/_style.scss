@@ -41,6 +41,7 @@ body {
 	padding: $box__padding;
 }
 
+/******************************************************************************/
 /**
  * @mixin
  * @name box
@@ -79,4 +80,17 @@ body {
 @mixin box--white {
 	@include box--empty;
 	background-color: white;
+}
+
+/******************************************************************************/
+/**
+ * @mixin
+ * @name box__title
+ * @description block's title
+ * @example
+ * @include box__title;
+ */
+@mixin box__title {
+  color: $box__title-color;
+	font-size: $box__title-size;
 }

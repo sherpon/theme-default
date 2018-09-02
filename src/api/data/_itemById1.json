@@ -7,7 +7,7 @@
 	"categories":[
 		{
 			"name":"Vestido de noche",
-			"orden":1,
+			"order":1,
 			"type":"secundary",
 			"parent":"Ropa para mujeres"
 		}

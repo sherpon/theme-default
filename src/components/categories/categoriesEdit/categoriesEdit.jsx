@@ -44,7 +44,7 @@ const CategoriesEdit = ({
         key={parentKey}
         to={`/${username}/category/${noLinkEspace(parent.name)}`}
         name={`${parent.name}`}
-        order={parseInt(parent.orden)}
+        order={parseInt(parent.order)}
       />
     )
 
@@ -56,7 +56,7 @@ const CategoriesEdit = ({
           key={childKey}
           to={`/${username}/category/${noLinkEspace(parent.name)}/${noLinkEspace(child.name)}`}
           name={`${parent.name} - ${child.name}`}
-          order={parseInt(child.orden)}
+          order={parseInt(child.order)}
         />
       )
     }

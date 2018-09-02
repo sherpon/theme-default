@@ -7,7 +7,7 @@
 	"categories":[
 		{
 			"name":"Ropa para mujeres",
-			"orden":1,
+			"order":1,
 			"type":"primary",
 			"parent":""
 		}

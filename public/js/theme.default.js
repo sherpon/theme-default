@@ -36846,7 +36846,7 @@ var loadPurchase = exports.loadPurchase = function loadPurchase(purchaseId) {
   };
 };
 
-},{"../api/account":115,"../constants/ActionTypes":193,"../models/session":224,"../strings":242,"./fetching":109,"./pagination":113}],108:[function(require,module,exports){
+},{"../api/account":115,"../constants/ActionTypes":199,"../models/session":231,"../strings":249,"./fetching":109,"./pagination":113}],108:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37109,7 +37109,7 @@ var placeOrder = exports.placeOrder = function placeOrder() {
   };
 };
 
-},{"../api/purchase":132,"../constants/ActionTypes":193,"../models/history":222,"../models/paymentGateway/culqi":223,"../models/session":224,"../strings":242,"./fetching":109}],109:[function(require,module,exports){
+},{"../api/purchase":132,"../constants/ActionTypes":199,"../models/history":229,"../models/paymentGateway/culqi":230,"../models/session":231,"../strings":249,"./fetching":109}],109:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37135,7 +37135,7 @@ var stopFetching = exports.stopFetching = function stopFetching() {
   };
 };
 
-},{"../constants/ActionTypes":193}],110:[function(require,module,exports){
+},{"../constants/ActionTypes":199}],110:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37328,7 +37328,7 @@ var loadCategory = exports.loadCategory = function loadCategory(category) {
   };
 };
 
-},{"../api/item":130,"../config":192,"../constants/ActionTypes":193,"../constants/codes.json":194,"../models/history":222,"../models/session":224,"../models/tools":225,"../strings":242}],111:[function(require,module,exports){
+},{"../api/item":130,"../config":198,"../constants/ActionTypes":199,"../constants/codes.json":200,"../models/history":229,"../models/session":231,"../models/tools":232,"../strings":249}],111:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37785,7 +37785,7 @@ var shareWhatsapp = exports.shareWhatsapp = function shareWhatsapp() {
   window.location.href = "https://api.whatsapp.com/send?text=" + window.location.href + "?utm_source%3Dsherpon_store%26utm_medium%3Dwhatsapp_link%26utm_campaign%3Dsocial_shared_item";
 };
 
-},{"../api/item":130,"../config":192,"../constants/ActionTypes":193,"../models/history":222,"../models/session":224,"../strings":242,"./fetching":109}],112:[function(require,module,exports){
+},{"../api/item":130,"../config":198,"../constants/ActionTypes":199,"../models/history":229,"../models/session":231,"../strings":249,"./fetching":109}],112:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37908,7 +37908,7 @@ var logout = exports.logout = function logout() {
   };
 };
 
-},{"../api/login":131,"../constants/ActionTypes":193,"../constants/codes.json":194,"../models/history":222,"../models/session":224,"../strings":242,"./fetching":109}],113:[function(require,module,exports){
+},{"../api/login":131,"../constants/ActionTypes":199,"../constants/codes.json":200,"../models/history":229,"../models/session":231,"../strings":249,"./fetching":109}],113:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -38009,13 +38009,13 @@ var goToPage = exports.goToPage = function goToPage(index) {
 };
 /******************************************************************************/
 
-},{"../constants/ActionTypes":193,"./fetching":109}],114:[function(require,module,exports){
+},{"../constants/ActionTypes":199,"./fetching":109}],114:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.loadSale = exports.loadSalesList = exports.loadProductsList = exports.categoriesSaveButton = exports.paymentGatewaySaveButton = exports.marketingSaveButton = exports.homeSectionDeleteButton = exports.homeSectionModalPublishButton = exports.contactSaveButton = exports.termsSaveButton = exports.shortDescriptionSaveButton = exports.logoSaveButton = exports.coverSaveButton = exports.editStoreSwitch = undefined;
+exports.loadSale = exports.loadSalesList = exports.createNewProduct = exports.loadProductsList = exports.categoriesSaveButton = exports.paymentGatewaySaveButton = exports.marketingSaveButton = exports.homeSectionDeleteButton = exports.homeSectionModalPublishButton = exports.contactSaveButton = exports.termsSaveButton = exports.shortDescriptionSaveButton = exports.logoSaveButton = exports.coverSaveButton = exports.editStoreSwitch = undefined;
 
 var _ActionTypes = require('../constants/ActionTypes');
 
@@ -38029,6 +38029,10 @@ var _strings = require('../strings');
 
 var _strings2 = _interopRequireDefault(_strings);
 
+var _history = require('../models/history');
+
+var _history2 = _interopRequireDefault(_history);
+
 var _session = require('../models/session');
 
 var _session2 = _interopRequireDefault(_session);
@@ -38041,6 +38045,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
+/**
+ * @module actions/store
+ * @author Grover Lee
+ */
+
 var editStoreSwitch = exports.editStoreSwitch = function editStoreSwitch() {
   return function (dispatch, getState) {
     var isEditable = getState().isEditable;
@@ -38050,10 +38059,7 @@ var editStoreSwitch = exports.editStoreSwitch = function editStoreSwitch() {
       dispatch({ type: types.EDIT_START });
     }
   };
-}; /**
-    * @module actions/store
-    * @author Grover Lee
-    */
+};
 
 var coverSaveButton = exports.coverSaveButton = function coverSaveButton(callback) {
   return function (dispatch, getState) {
@@ -38071,7 +38077,7 @@ var coverSaveButton = exports.coverSaveButton = function coverSaveButton(callbac
     var uploadCoverPicture = function uploadCoverPicture() {
       var timestamp = new Date().getTime();
       var fileName = storeId + '_' + timestamp + '_' + (0, _tools.getRandomString)(5);
-      (0, _store.uploadImageStore)(coverInput, fileName, storeId, function (downloadURL) {
+      (0, _store.uploadImageStore)(coverInput.files[0], fileName, storeId, function (downloadURL) {
         newCoverUrl = downloadURL;
         updateTheme();
       });
@@ -38118,7 +38124,7 @@ var logoSaveButton = exports.logoSaveButton = function logoSaveButton(callback) 
     var uploadLogoPicture = function uploadLogoPicture() {
       var timestamp = new Date().getTime();
       var fileName = storeId + '_' + timestamp + '_' + (0, _tools.getRandomString)(5);
-      (0, _store.uploadImageStore)(logoInput, fileName, storeId, function (downloadURL) {
+      (0, _store.uploadImageStore)(logoInput.files[0], fileName, storeId, function (downloadURL) {
         newLogoUrl = downloadURL;
         updateTheme();
       });
@@ -38315,7 +38321,7 @@ var homeSectionModalPublishButton = exports.homeSectionModalPublishButton = func
     var uploadMobilePicture = function uploadMobilePicture() {
       var timestamp = new Date().getTime();
       var fileName = storeId + '_' + timestamp + '_' + (0, _tools.getRandomString)(5);
-      (0, _store.uploadImageStore)(mobileInput, fileName, storeId, function (downloadURL) {
+      (0, _store.uploadImageStore)(mobileInput.files[0], fileName, storeId, function (downloadURL) {
         pictureMobile = downloadURL;
         uploadDesktopPicture();
       });
@@ -38324,7 +38330,7 @@ var homeSectionModalPublishButton = exports.homeSectionModalPublishButton = func
     var uploadDesktopPicture = function uploadDesktopPicture() {
       var timestamp = new Date().getTime();
       var fileName = storeId + '_' + timestamp + '_' + (0, _tools.getRandomString)(5);
-      (0, _store.uploadImageStore)(desktopInput, fileName, storeId, function (downloadURL) {
+      (0, _store.uploadImageStore)(desktopInput.files[0], fileName, storeId, function (downloadURL) {
         pictureDesktop = downloadURL;
         updateTheme();
       });
@@ -38461,7 +38467,7 @@ var categoriesSaveButton = exports.categoriesSaveButton = function categoriesSav
 
     var newCategory = {
       name: newCategoryName,
-      orden: newCategoryOrder,
+      order: newCategoryOrder,
       type: newCategoryType,
       parent: newCategoryParent
     };
@@ -38526,6 +38532,199 @@ var loadProductsList = exports.loadProductsList = function loadProductsList() {
   };
 };
 /******************************************************************************/
+
+/******************************************************************************/
+/**
+ * @function
+ * @name createNewProduct
+ * @description Create store's new product
+ * // where's this function used?
+ * // - src/containers/productsPage.jsx
+ */
+var createNewProduct = exports.createNewProduct = function createNewProduct() {
+  return function (dispatch, getState) {
+    var userId = _session2.default.getUser().id;
+    var storeId = getState().store.id;
+
+    var newProduct = {
+      type: 'item', // default item
+      shortTitle: '',
+      longTitle: '',
+      tags: [], // default empty
+      categories: [],
+      description: '',
+      include: '',
+      characteristics: '',
+      currency: '',
+      symbol: '',
+      price: 0,
+      stock: 0,
+      shipping: [],
+      attributes: [],
+      variations: [],
+      picture1: '',
+      picture2: '',
+      picture3: '',
+      picture4: '',
+      picture5: '',
+      picture6: '',
+      picture7: ''
+    };
+
+    var inputPicture1 = document.getElementById('product-editor-pictures__picture-1');
+    var inputPicture2 = document.getElementById('product-editor-pictures__picture-2');
+    var inputPicture3 = document.getElementById('product-editor-pictures__picture-3');
+    var inputPicture4 = document.getElementById('product-editor-pictures__picture-4');
+    var inputPicture5 = document.getElementById('product-editor-pictures__picture-5');
+    var inputPicture6 = document.getElementById('product-editor-pictures__picture-6');
+    var inputPicture7 = document.getElementById('product-editor-pictures__picture-7');
+
+    var uploadPicture1 = function uploadPicture1() {
+
+      if (!inputPicture1.files[0]) {
+        uploadPicture2(); /** next ... */
+      } else {
+        var timestamp = new Date().getTime();
+        var fileName = storeId + '_' + timestamp + '_' + (0, _tools.getRandomString)(5);
+        (0, _store.uploadImageStore)(inputPicture1.files[0], fileName, storeId, function (downloadURL) {
+          newProduct.picture1 = downloadURL;
+          uploadPicture2(); /** next ... */
+        });
+      }
+    };
+
+    var uploadPicture2 = function uploadPicture2() {
+
+      if (!inputPicture2.files[0]) {
+        uploadPicture3(); /** next ... */
+      } else {
+        var timestamp = new Date().getTime();
+        var fileName = storeId + '_' + timestamp + '_' + (0, _tools.getRandomString)(5);
+        (0, _store.uploadImageStore)(inputPicture2.files[0], fileName, storeId, function (downloadURL) {
+          newProduct.picture2 = downloadURL;
+          uploadPicture3(); /** next ... */
+        });
+      }
+    };
+
+    var uploadPicture3 = function uploadPicture3() {
+
+      if (!inputPicture3.files[0]) {
+        uploadPicture4(); /** next ... */
+      } else {
+        var timestamp = new Date().getTime();
+        var fileName = storeId + '_' + timestamp + '_' + (0, _tools.getRandomString)(5);
+        (0, _store.uploadImageStore)(inputPicture3.files[0], fileName, storeId, function (downloadURL) {
+          newProduct.picture3 = downloadURL;
+          uploadPicture4(); /** next ... */
+        });
+      }
+    };
+
+    var uploadPicture4 = function uploadPicture4() {
+
+      if (!inputPicture4.files[0]) {
+        uploadPicture5(); /** next ... */
+      } else {
+        var timestamp = new Date().getTime();
+        var fileName = storeId + '_' + timestamp + '_' + (0, _tools.getRandomString)(5);
+        (0, _store.uploadImageStore)(inputPicture4.files[0], fileName, storeId, function (downloadURL) {
+          newProduct.picture4 = downloadURL;
+          uploadPicture5(); /** next ... */
+        });
+      }
+    };
+
+    var uploadPicture5 = function uploadPicture5() {
+
+      if (!inputPicture5.files[0]) {
+        uploadPicture6(); /** next ... */
+      } else {
+        var timestamp = new Date().getTime();
+        var fileName = storeId + '_' + timestamp + '_' + (0, _tools.getRandomString)(5);
+        (0, _store.uploadImageStore)(inputPicture5.files[0], fileName, storeId, function (downloadURL) {
+          newProduct.picture5 = downloadURL;
+          uploadPicture6(); /** next ... */
+        });
+      }
+    };
+
+    var uploadPicture6 = function uploadPicture6() {
+
+      if (!inputPicture6.files[0]) {
+        uploadPicture7(); /** next ... */
+      } else {
+        var timestamp = new Date().getTime();
+        var fileName = storeId + '_' + timestamp + '_' + (0, _tools.getRandomString)(5);
+        (0, _store.uploadImageStore)(inputPicture6.files[0], fileName, storeId, function (downloadURL) {
+          newProduct.picture6 = downloadURL;
+          uploadPicture7(); /** next ... */
+        });
+      }
+    };
+
+    var uploadPicture7 = function uploadPicture7() {
+
+      if (!inputPicture7.files[0]) {
+        next(); /** next ... */
+      } else {
+        var timestamp = new Date().getTime();
+        var fileName = storeId + '_' + timestamp + '_' + (0, _tools.getRandomString)(5);
+        (0, _store.uploadImageStore)(inputPicture7.files[0], fileName, storeId, function (downloadURL) {
+          newProduct.picture7 = downloadURL;
+          next(); /** next ... */
+        });
+      }
+    };
+
+    var next = function next() {
+      newProduct.shortTitle = document.getElementById('product-editor-information__shortTitle').value;
+      newProduct.longTitle = document.getElementById('product-editor-information__longTitle').value;
+      //tags: [],  // default empty
+      newProduct.categories = [JSON.parse(document.getElementById('product-editor-category__category').value) // give the category object
+      ];
+      newProduct.description = document.getElementById('product-editor-information__description').value;
+      newProduct.include = document.getElementById('product-editor-information__include').value;
+      newProduct.characteristics = document.getElementById('product-editor-information__characteristics').value;
+
+      var tmpPriceCurrencyObj = document.getElementById('product-editor-price__currency').value;
+      newProduct.currency = JSON.parse(tmpPriceCurrencyObj).currency;
+      newProduct.symbol = JSON.parse(tmpPriceCurrencyObj).symbol;
+
+      newProduct.price = document.getElementById('product-editor-price__amount').value;
+      newProduct.stock = document.getElementById('product-editor-information__stock').value;
+      /** temporaly, allow just one option of shipping */
+      var tmpShippingCurrencyObj = document.getElementById('product-editor-shipping__currency').value;
+      newProduct.shipping = [{
+        description: '',
+        currency: JSON.parse(tmpShippingCurrencyObj).currency,
+        symbol: JSON.parse(tmpShippingCurrencyObj).symbol,
+        price: document.getElementById('product-editor-shipping__price').value,
+        days: document.getElementById('product-editor-shipping__time').value
+      }];
+      //attributes: [],
+      //variations: [],
+      (0, _store.createNewProduct)(userId, storeId, newProduct, function (result) {
+        if (result.error !== null) {
+          /** show error message */
+          dispatch((0, _fetching.stopFetching)());
+        }
+        //dispatch(setPages(result.products, 30))
+        dispatch((0, _fetching.stopFetching)());
+        _history2.default.replace({
+          pathname: "/" + getState().store.username + '/products',
+          state: { some: "state" }
+        });
+      });
+    };
+
+    dispatch((0, _fetching.startFetching)());
+    /** start creating the new product */
+    uploadPicture1();
+  };
+};
+/******************************************************************************/
+
 /******************************************************************************/
 /**
  * @function
@@ -38549,6 +38748,7 @@ var loadSalesList = exports.loadSalesList = function loadSalesList() {
   };
 };
 /******************************************************************************/
+
 /******************************************************************************/
 /**
  * @function
@@ -38580,7 +38780,7 @@ var loadSale = exports.loadSale = function loadSale(saleId) {
 };
 /******************************************************************************/
 
-},{"../api/store":133,"../constants/ActionTypes":193,"../models/session":224,"../models/tools":225,"../strings":242,"./fetching":109,"./pagination":113}],115:[function(require,module,exports){
+},{"../api/store":133,"../constants/ActionTypes":199,"../models/history":229,"../models/session":231,"../models/tools":232,"../strings":249,"./fetching":109,"./pagination":113}],115:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -38660,7 +38860,7 @@ module.exports={
 	"categories":[
 		{
 			"name":"Vestido de noche",
-			"orden":1,
+			"order":1,
 			"type":"secundary",
 			"parent":"Ropa para mujeres"
 		}
@@ -38736,6 +38936,7 @@ module.exports={
 	"picture6":"",
 	"picture7":""
 }
+
 },{}],117:[function(require,module,exports){
 module.exports={
 	"id":"Hu3fU02Bdhgpo476Fej2",
@@ -38746,7 +38947,7 @@ module.exports={
 	"categories":[
 		{
 			"name":"Ropa para mujeres",
-			"orden":1,
+			"order":1,
 			"type":"primary",
 			"parent":""
 		}
@@ -38807,6 +39008,7 @@ module.exports={
 	"picture6":"/images/store/mockup/item3/picture7.jpg",
 	"picture7":"/images/store/mockup/item3/picture4.jpg"
 }
+
 },{}],118:[function(require,module,exports){
 module.exports={
 	"id":"Hu3fU02Bdhgpo476Fej3",
@@ -38817,7 +39019,7 @@ module.exports={
 	"categories":[
 		{
 			"name":"Ropa para mujeres",
-			"orden":1,
+			"order":1,
 			"type":"primary",
 			"parent":""
 		}
@@ -38862,6 +39064,7 @@ module.exports={
 	"picture6":"/images/store/mockup/item3/picture7.jpg",
 	"picture7":"/images/store/mockup/item3/picture4.jpg"
 }
+
 },{}],119:[function(require,module,exports){
 module.exports={
 	"id":"Hu3fU02Bdhgpo476Fej4",
@@ -38872,7 +39075,7 @@ module.exports={
 	"categories":[
 		{
 			"name":"Ropa para mujeres",
-			"orden":1,
+			"order":1,
 			"type":"primary",
 			"parent":""
 		}
@@ -38895,6 +39098,7 @@ module.exports={
 	"picture6":"/images/store/mockup/item3/picture7.jpg",
 	"picture7":"/images/store/mockup/item3/picture4.jpg"
 }
+
 },{}],120:[function(require,module,exports){
 module.exports=[
   	{ "id":"Hu3fU02Bdhgpo476Fej1","picture1":"/images/store/mockup/item1.jpg","shortTitle":"1 Black dress night","currency":"USD","symbol":"$","price":50.00 },
@@ -39419,7 +39623,7 @@ var createPurchase = exports.createPurchase = function createPurchase(payload, c
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getSale = exports.getSales = exports.getProducts = exports.uploadImageStore = exports.updateCategoriesStore = exports.updateDataStore = exports.updateDataTheme = undefined;
+exports.getSale = exports.getSales = exports.createNewProduct = exports.getProducts = exports.uploadImageStore = exports.updateCategoriesStore = exports.updateDataStore = exports.updateDataTheme = undefined;
 
 var _getProducts2 = require('./data/getProducts.json');
 
@@ -39476,6 +39680,7 @@ var updateCategoriesStore = exports.updateCategoriesStore = function updateCateg
   }, TIMEOUT);
 };
 
+/******************************************************************************/
 /**
  * Upload the store's image
  * @param {File} file - store's id.
@@ -39499,6 +39704,7 @@ var uploadImageStore = exports.uploadImageStore = function uploadImageStore(file
  * @callback uploadImageStore~callback
  * @param {string} downloadURL - picture's download url
  */
+/******************************************************************************/
 
 /******************************************************************************/
 /**
@@ -39531,6 +39737,60 @@ var getProducts = exports.getProducts = function getProducts(userId, storeId, ca
  * @property {Product[]} result.products - show the array of products
  */
 /******************************************************************************/
+
+/******************************************************************************/
+/**
+ * @function
+ * @name createNewProduct
+ * @description create the store's new product
+ * // where's this function used?
+ * // - src/actions/store.js
+ * // module:actions/store~
+ * @param {string} userId - user's id.
+ * @param {string} storeId - store's id.
+ * @param {Object} newProduct - store's new product.
+ * @property {string} newProduct.type - type of product. Options: item, models, clothes.
+ * @property {string} newProduct.shortTitle - short Title of product. Shouldn't be more than 30 words.
+ * @property {string} newProduct.longTitle - long Title of product.
+ * @property {string[]} newProduct.tags - tags of product. Could be words from title and category
+ * @property {Object[]} newProduct.categories - categories of product.
+ * @property {string} newProduct.description - description of product.
+ * @property {string} newProduct.include - include description of product.
+ * @property {string} newProduct.characteristics - description of product.
+ * @property {string} newProduct.currency - currency of product. Should be in int code. E.g. USD, PEN, EUR.
+ * @property {string} newProduct.symbol - symbol of product. E.g. $.
+ * @property {number} newProduct.price - price of product. E.g. 10.
+ * @property {number} newProduct.stock - stock of product. E.g. 20.
+ * @property {Object[]} newProduct.shipping - shipping methods of product.
+ * @property {Object[]} newProduct.attributes - attributes of product.
+ * @property {Object[]} newProduct.variations - variations of product.
+ * @property {string} newProduct.picture1 - picture1 of product.
+ * @property {string} newProduct.picture2 - picture2 of product.
+ * @property {string} newProduct.picture3 - picture3 of product.
+ * @property {string} newProduct.picture4 - picture4 of product.
+ * @property {string} newProduct.picture5 - picture5 of product.
+ * @property {string} newProduct.picture6 - picture6 of product.
+ * @property {string} newProduct.picture7 - picture7 of product.
+ * @param {createNewProduct~callback} callback - The callback that handles the response.
+ */
+var createNewProduct = exports.createNewProduct = function createNewProduct(userId, storeId, newProduct, callback) {
+  console.log('API.createNewProduct.payload');
+  var payload = { userId: userId, storeId: storeId, newProduct: newProduct };
+  console.log(payload);
+
+  setTimeout(function () {
+    callback({
+      error: null
+    });
+  }, TIMEOUT);
+};
+/**
+ * @callback createNewProduct~callback
+ * @param {Object} result - products list array
+ * @property {?number} result.error - show any error in the response or show null value
+ */
+/******************************************************************************/
+
 /******************************************************************************/
 /**
  * @function
@@ -39860,7 +40120,7 @@ Breadcrumbs.propTypes = {
 
 exports.default = Breadcrumbs;
 
-},{"../../models/tools":225,"prop-types":43,"react":92,"react-router-dom":75}],136:[function(require,module,exports){
+},{"../../models/tools":232,"prop-types":43,"react":92,"react-router-dom":75}],136:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40048,7 +40308,7 @@ CartItemView.defaultProps = {
 
 exports.default = CartItemView;
 
-},{"../../models/tools":225,"prop-types":43,"react":92,"react-router-dom":75}],137:[function(require,module,exports){
+},{"../../models/tools":232,"prop-types":43,"react":92,"react-router-dom":75}],137:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40197,7 +40457,7 @@ CartView.propTypes = {
 
 exports.default = CartView;
 
-},{"../../models/tools":225,"../cartItemView/cartItemView":136,"prop-types":43,"react":92}],138:[function(require,module,exports){
+},{"../../models/tools":232,"../cartItemView/cartItemView":136,"prop-types":43,"react":92}],138:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40303,7 +40563,7 @@ var CategoriesEdit = function CategoriesEdit(_ref2) {
       key: parentKey,
       to: '/' + username + '/category/' + noLinkEspace(parent.name),
       name: '' + parent.name,
-      order: parseInt(parent.orden)
+      order: parseInt(parent.order)
     }));
 
     for (var j = 0; j < parent.children.length; j++) {
@@ -40313,7 +40573,7 @@ var CategoriesEdit = function CategoriesEdit(_ref2) {
         key: childKey,
         to: '/' + username + '/category/' + noLinkEspace(parent.name) + '/' + noLinkEspace(child.name),
         name: parent.name + ' - ' + child.name,
-        order: parseInt(child.orden)
+        order: parseInt(child.order)
       }));
     }
   }
@@ -41153,7 +41413,7 @@ CheckoutView.propTypes = {
 
 exports.default = CheckoutView;
 
-},{"../../models/session":224,"../../models/tools":225,"prop-types":43,"react":92}],144:[function(require,module,exports){
+},{"../../models/session":231,"../../models/tools":232,"prop-types":43,"react":92}],144:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41260,7 +41520,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CongratulationPurchase);
 
-},{"../../strings":242,"prop-types":43,"react":92,"react-redux":57}],145:[function(require,module,exports){
+},{"../../strings":249,"prop-types":43,"react":92,"react-redux":57}],145:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42236,7 +42496,7 @@ HomeSectionModal.propTypes = {
 
 exports.default = HomeSectionModal;
 
-},{"../../models/tools":225,"prop-types":43,"react":92}],157:[function(require,module,exports){
+},{"../../models/tools":232,"prop-types":43,"react":92}],157:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42352,7 +42612,7 @@ ItemCarousel.propTypes = {
 
 exports.default = ItemCarousel;
 
-},{"../../models/tools":225,"prop-types":43,"react":92}],158:[function(require,module,exports){
+},{"../../models/tools":232,"prop-types":43,"react":92}],158:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42574,7 +42834,7 @@ ItemContent.propTypes = {
 
 exports.default = ItemContent;
 
-},{"../../models/tools":225,"../itemContentAttributes/itemContentAttributes":159,"../itemContentShipping/itemContentShipping":160,"prop-types":43,"react":92}],159:[function(require,module,exports){
+},{"../../models/tools":232,"../itemContentAttributes/itemContentAttributes":159,"../itemContentShipping/itemContentShipping":160,"prop-types":43,"react":92}],159:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42739,7 +42999,7 @@ ItemContentAttributes.propTypes = {
 
 exports.default = ItemContentAttributes;
 
-},{"../../models/tools":225,"prop-types":43,"react":92}],160:[function(require,module,exports){
+},{"../../models/tools":232,"prop-types":43,"react":92}],160:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42819,7 +43079,7 @@ ItemContentShipping.propTypes = {
 
 exports.default = ItemContentShipping;
 
-},{"../../models/tools":225,"prop-types":43,"react":92}],161:[function(require,module,exports){
+},{"../../models/tools":232,"prop-types":43,"react":92}],161:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44162,7 +44422,7 @@ PreviewItem.propTypes = {
 
 exports.default = PreviewItem;
 
-},{"../../models/tools.js":225,"prop-types":43,"react":92,"react-router-dom":75}],171:[function(require,module,exports){
+},{"../../models/tools.js":232,"prop-types":43,"react":92,"react-router-dom":75}],171:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44307,20 +44567,20 @@ var _productCreatorButton = require('./productCreatorButton/productCreatorButton
 
 var _productCreatorButton2 = _interopRequireDefault(_productCreatorButton);
 
+var _productEditor = require('./productEditor/productEditor.jsx');
+
+var _productEditor2 = _interopRequireDefault(_productEditor);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//import TermsEdit from './termsEdit/termsEdit.jsx'
-//import TermsModal from './termsModal/termsModal.jsx'
-
 var Product = {
-  CreatorButton: _productCreatorButton2.default
-  //Edit: ProductEdit,
-  //Modal: ProductModal
+  CreatorButton: _productCreatorButton2.default,
+  Editor: _productEditor2.default
 };
 
 exports.default = Product;
 
-},{"./productCreatorButton/productCreatorButton.jsx":174}],174:[function(require,module,exports){
+},{"./productCreatorButton/productCreatorButton.jsx":174,"./productEditor/productEditor.jsx":180}],174:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44363,6 +44623,713 @@ ProductCreatorButton.propTypes = {
 exports.default = ProductCreatorButton;
 
 },{"prop-types":43,"react":92,"react-router-dom":75}],175:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ProductEditorCategory = function ProductEditorCategory(_ref) {
+  var strings = _ref.strings,
+      categories = _ref.categories;
+
+  //const categories = []
+  var selectDestinationOptions = [];
+  for (var i = 0; i < categories.length; i++) {
+    var parent = categories[i];
+    var parentKey = i * 1000;
+    var tmpParent = _extends({}, parent);
+    delete tmpParent.children; /** delete all children*/
+    selectDestinationOptions.push(_react2.default.createElement(
+      'option',
+      {
+        key: parentKey,
+        value: JSON.stringify(tmpParent)
+      },
+      '' + parent.name
+    ));
+
+    for (var j = 0; j < parent.children.length; j++) {
+      var child = parent.children[j];
+      var childKey = i * 1000 + j + 1;
+      selectDestinationOptions.push(_react2.default.createElement(
+        'option',
+        {
+          key: childKey,
+          value: JSON.stringify(child)
+        },
+        parent.name + ' - ' + child.name
+      ));
+    }
+  }
+
+  return _react2.default.createElement(
+    'div',
+    { className: 'product-editor-category' },
+    _react2.default.createElement(
+      'div',
+      { className: 'product-editor__row' },
+      strings.labelCategoryTitle
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'input-field product-editor__row' },
+      _react2.default.createElement(
+        'select',
+        { id: 'product-editor-category__category', defaultValue: '{}' },
+        _react2.default.createElement(
+          'option',
+          { value: '{}', disabled: true },
+          '-'
+        ),
+        selectDestinationOptions.map(function (option) {
+          return option;
+        })
+      ),
+      _react2.default.createElement(
+        'label',
+        { htmlFor: 'product-editor-category__category' },
+        strings.labelCategorySelect
+      )
+    )
+  );
+};
+
+ProductEditorCategory.propTypes = {
+  strings: _propTypes2.default.object.isRequired
+};
+
+exports.default = ProductEditorCategory;
+
+},{"prop-types":43,"react":92}],176:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ProductEditorInformation = function ProductEditorInformation(_ref) {
+  var strings = _ref.strings;
+
+
+  return _react2.default.createElement(
+    'div',
+    { className: 'product-editor-information' },
+    _react2.default.createElement(
+      'div',
+      { className: 'product-editor__row' },
+      strings.labelInformationTitle
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'input-field product-editor__row' },
+      _react2.default.createElement('input', { id: 'product-editor-information__shortTitle', type: 'text', defaultValue: '' }),
+      _react2.default.createElement(
+        'label',
+        { htmlFor: 'product-editor-information__shortTitle' },
+        strings.labelInformationShortTitle
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'input-field product-editor__row' },
+      _react2.default.createElement('input', { id: 'product-editor-information__longTitle', type: 'text', defaultValue: '' }),
+      _react2.default.createElement(
+        'label',
+        { htmlFor: 'product-editor-information__longTitle' },
+        strings.labelInformationLongTitle
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'input-field' },
+      _react2.default.createElement('textarea', { id: 'product-editor-information__description', className: 'materialize-textarea' }),
+      _react2.default.createElement(
+        'label',
+        { htmlFor: 'product-editor-information__description' },
+        strings.labelInformationDescription
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'input-field' },
+      _react2.default.createElement('textarea', { id: 'product-editor-information__characteristics', className: 'materialize-textarea' }),
+      _react2.default.createElement(
+        'label',
+        { htmlFor: 'product-editor-information__characteristics' },
+        strings.labelInformationCharacteristics
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'input-field' },
+      _react2.default.createElement('textarea', { id: 'product-editor-information__include', className: 'materialize-textarea' }),
+      _react2.default.createElement(
+        'label',
+        { htmlFor: 'product-editor-information__include' },
+        strings.labelInformationInclude
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'input-field product-editor__row' },
+      _react2.default.createElement('input', { id: 'product-editor-information__stock', type: 'number', defaultValue: 0 }),
+      _react2.default.createElement(
+        'label',
+        { htmlFor: 'product-editor-information__stock' },
+        strings.labelInformationStock
+      )
+    )
+  );
+};
+
+ProductEditorInformation.propTypes = {
+  strings: _propTypes2.default.object.isRequired
+};
+
+exports.default = ProductEditorInformation;
+
+},{"prop-types":43,"react":92}],177:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ProductEditorPictures = function (_React$Component) {
+  _inherits(ProductEditorPictures, _React$Component);
+
+  function ProductEditorPictures(props) {
+    _classCallCheck(this, ProductEditorPictures);
+
+    return _possibleConstructorReturn(this, (ProductEditorPictures.__proto__ || Object.getPrototypeOf(ProductEditorPictures)).call(this, props));
+  }
+
+  _createClass(ProductEditorPictures, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var loadCanvas = this.props.loadCanvas;
+
+      var defaultPicture = '/images/store/placeholderSectionPicture.png';
+      loadCanvas('product-editor-pictures__picture-1__canvas', defaultPicture);
+      loadCanvas('product-editor-pictures__picture-2__canvas', defaultPicture);
+      loadCanvas('product-editor-pictures__picture-3__canvas', defaultPicture);
+      loadCanvas('product-editor-pictures__picture-4__canvas', defaultPicture);
+      loadCanvas('product-editor-pictures__picture-5__canvas', defaultPicture);
+      loadCanvas('product-editor-pictures__picture-6__canvas', defaultPicture);
+      loadCanvas('product-editor-pictures__picture-7__canvas', defaultPicture);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          strings = _props.strings,
+          loadPicture = _props.loadPicture;
+
+      var defaultPicture = '/images/store/placeholderSectionPicture.png';
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'product-editor-pictures' },
+        _react2.default.createElement(
+          'div',
+          { className: 'product-editor__row' },
+          strings.labelPicturesTitle
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'product-editor__row' },
+          strings.labelPicturesDimension
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'row ' },
+          _react2.default.createElement(
+            'div',
+            { className: 'col s4' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'product-editor-pictures__picture-1' },
+              strings.labelPicturesMessage,
+              _react2.default.createElement('canvas', { id: 'product-editor-pictures__picture-1__canvas', className: 'product-editor-pictures__canvas' })
+            ),
+            _react2.default.createElement('input', { type: 'file', id: 'product-editor-pictures__picture-1', className: 'product-editor-pictures__input',
+              onChange: function onChange() {
+                return loadPicture("product-editor-pictures__picture-1", "product-editor-pictures__picture-1__canvas", defaultPicture);
+              }
+            })
+          ),
+          _react2.default.createElement('div', { className: 'col s8' })
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'row ' },
+          _react2.default.createElement(
+            'div',
+            { className: 'col s4' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'product-editor-pictures__picture-2' },
+              strings.labelPicturesMessage,
+              _react2.default.createElement('canvas', { id: 'product-editor-pictures__picture-2__canvas', className: 'product-editor-pictures__canvas' })
+            ),
+            _react2.default.createElement('input', { type: 'file', id: 'product-editor-pictures__picture-2', className: 'product-editor-pictures__input',
+              onChange: function onChange() {
+                return loadPicture("product-editor-pictures__picture-2", "product-editor-pictures__picture-2__canvas", defaultPicture);
+              }
+            })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'col s4' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'product-editor-pictures__picture-3' },
+              strings.labelPicturesMessage,
+              _react2.default.createElement('canvas', { id: 'product-editor-pictures__picture-3__canvas', className: 'product-editor-pictures__canvas' })
+            ),
+            _react2.default.createElement('input', { type: 'file', id: 'product-editor-pictures__picture-3', className: 'product-editor-pictures__input',
+              onChange: function onChange() {
+                return loadPicture("product-editor-pictures__picture-3", "product-editor-pictures__picture-3__canvas", defaultPicture);
+              }
+            })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'col s4' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'product-editor-pictures__picture-4' },
+              strings.labelPicturesMessage,
+              _react2.default.createElement('canvas', { id: 'product-editor-pictures__picture-4__canvas', className: 'product-editor-pictures__canvas' })
+            ),
+            _react2.default.createElement('input', { type: 'file', id: 'product-editor-pictures__picture-4', className: 'product-editor-pictures__input',
+              onChange: function onChange() {
+                return loadPicture("product-editor-pictures__picture-4", "product-editor-pictures__picture-4__canvas", defaultPicture);
+              }
+            })
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'row ' },
+          _react2.default.createElement(
+            'div',
+            { className: 'col s4' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'product-editor-pictures__picture-5' },
+              strings.labelPicturesMessage,
+              _react2.default.createElement('canvas', { id: 'product-editor-pictures__picture-5__canvas', className: 'product-editor-pictures__canvas' })
+            ),
+            _react2.default.createElement('input', { type: 'file', id: 'product-editor-pictures__picture-5', className: 'product-editor-pictures__input',
+              onChange: function onChange() {
+                return loadPicture("product-editor-pictures__picture-5", "product-editor-pictures__picture-5__canvas", defaultPicture);
+              }
+            })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'col s4' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'product-editor-pictures__picture-6' },
+              strings.labelPicturesMessage,
+              _react2.default.createElement('canvas', { id: 'product-editor-pictures__picture-6__canvas', className: 'product-editor-pictures__canvas' })
+            ),
+            _react2.default.createElement('input', { type: 'file', id: 'product-editor-pictures__picture-6', className: 'product-editor-pictures__input',
+              onChange: function onChange() {
+                return loadPicture("product-editor-pictures__picture-6", "product-editor-pictures__picture-6__canvas", defaultPicture);
+              }
+            })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'col s4' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'product-editor-pictures__picture-7' },
+              strings.labelPicturesMessage,
+              _react2.default.createElement('canvas', { id: 'product-editor-pictures__picture-7__canvas', className: 'product-editor-pictures__canvas' })
+            ),
+            _react2.default.createElement('input', { type: 'file', id: 'product-editor-pictures__picture-7', className: 'product-editor-pictures__input',
+              onChange: function onChange() {
+                return loadPicture("product-editor-pictures__picture-7", "product-editor-pictures__picture-7__canvas", defaultPicture);
+              }
+            })
+          )
+        )
+      );
+    }
+  }]);
+
+  return ProductEditorPictures;
+}(_react2.default.Component);
+
+/* const ProductEditorPictures = ({ strings, loadCanvas, loadPicture }) => {
+  const defaultPicture = '/images/store/placeholderSectionPicture.png'
+
+  const init = () => {
+    loadCanvas('product-editor-pictures__picture-1__canvas', defaultPicture)
+  }
+
+  return (
+    <div className="product-editor-pictures">
+
+      <div className="product-editor__row">
+        {strings.labelPicturesTitle}
+      </div>
+
+      <div className="product-editor__row">
+        {strings.labelPicturesDimension}
+      </div>
+
+      <div className="row ">
+        <div className="col s4">
+          <label htmlFor="product-editor-pictures__picture-1">
+            {strings.labelPicturesMessage}
+            <canvas id="product-editor-pictures__picture-1__canvas" className="cover-modal__canvas"></canvas>
+          </label>
+          <input type='file' id="product-editor-pictures__picture-1" className="cover-modal__input"
+            onChange={ () => loadPicture("product-editor-pictures__picture-1", "product-editor-pictures__picture-1__canvas", defaultPicture) }
+          />
+        </div>
+        <div className="col s8">
+        </div>
+      </div>
+
+      <div className="row ">
+        <div className="col s4">
+        </div>
+        <div className="col s4">
+        </div>
+        <div className="col s4">
+        </div>
+      </div>
+
+      <div className="row ">
+        <div className="col s4">
+        </div>
+        <div className="col s4">
+        </div>
+        <div className="col s4">
+        </div>
+      </div>
+
+      {init()}
+    </div>
+  )
+} */
+
+ProductEditorPictures.propTypes = {
+  strings: _propTypes2.default.object.isRequired
+};
+
+exports.default = ProductEditorPictures;
+
+},{"prop-types":43,"react":92}],178:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ProductEditorPrice = function ProductEditorPrice(_ref) {
+  var strings = _ref.strings;
+
+
+  return _react2.default.createElement(
+    'div',
+    { className: 'product-editor-price' },
+    _react2.default.createElement(
+      'div',
+      { className: 'product-editor__row' },
+      strings.labelPriceTitle
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'input-field product-editor__row' },
+      _react2.default.createElement('input', { id: 'product-editor-price__amount', type: 'number', defaultValue: 0 }),
+      _react2.default.createElement(
+        'label',
+        { htmlFor: 'product-editor-price__amount' },
+        strings.labelPriceAmount
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'input-field product-editor__row' },
+      _react2.default.createElement(
+        'select',
+        { id: 'product-editor-price__currency', defaultValue: '{}' },
+        _react2.default.createElement(
+          'option',
+          { value: '{}', disabled: true },
+          '-'
+        ),
+        _react2.default.createElement(
+          'option',
+          { value: '{ "symbol":"S/.", "currency":"PEN" }' },
+          'Soles'
+        ),
+        _react2.default.createElement(
+          'option',
+          { value: '{ "symbol":"$", "currency":"USD" }' },
+          'D\xF3lares'
+        )
+      ),
+      _react2.default.createElement(
+        'label',
+        { htmlFor: 'product-editor-price__currency' },
+        strings.labelPriceCurrency
+      )
+    )
+  );
+};
+
+ProductEditorPrice.propTypes = {
+  strings: _propTypes2.default.object.isRequired
+};
+
+exports.default = ProductEditorPrice;
+
+},{"prop-types":43,"react":92}],179:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ProductEditorShipping = function ProductEditorShipping(_ref) {
+  var strings = _ref.strings;
+
+
+  return _react2.default.createElement(
+    'div',
+    { className: 'product-editor-shipping' },
+    _react2.default.createElement(
+      'div',
+      { className: 'product-editor__row' },
+      strings.labelShippingTitle
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'input-field product-editor__row' },
+      _react2.default.createElement('input', { id: 'product-editor-shipping__price', type: 'number', defaultValue: 0 }),
+      _react2.default.createElement(
+        'label',
+        { htmlFor: 'product-editor-shipping__price' },
+        strings.labelShippingPrice
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'input-field product-editor__row' },
+      _react2.default.createElement(
+        'select',
+        { id: 'product-editor-shipping__currency', defaultValue: '{}' },
+        _react2.default.createElement(
+          'option',
+          { value: '{}', disabled: true },
+          '-'
+        ),
+        _react2.default.createElement(
+          'option',
+          { value: '{ "symbol":"S/.", "currency":"PEN" }' },
+          'Soles'
+        ),
+        _react2.default.createElement(
+          'option',
+          { value: '{ "symbol":"$", "currency":"USD" }' },
+          'D\xF3lares'
+        )
+      ),
+      _react2.default.createElement(
+        'label',
+        { htmlFor: 'product-editor-shipping__currency' },
+        strings.labelShippingCurrency
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'input-field product-editor__row' },
+      _react2.default.createElement('input', { id: 'product-editor-shipping__time', type: 'number', defaultValue: 0 }),
+      _react2.default.createElement(
+        'label',
+        { htmlFor: 'product-editor-shipping__time' },
+        strings.labelShippingTime
+      )
+    )
+  );
+};
+
+ProductEditorShipping.propTypes = {
+  strings: _propTypes2.default.object.isRequired
+};
+
+exports.default = ProductEditorShipping;
+
+},{"prop-types":43,"react":92}],180:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _productEditorPictures = require('./partials/productEditorPictures.jsx');
+
+var _productEditorPictures2 = _interopRequireDefault(_productEditorPictures);
+
+var _productEditorInformation = require('./partials/productEditorInformation.jsx');
+
+var _productEditorInformation2 = _interopRequireDefault(_productEditorInformation);
+
+var _productEditorPrice = require('./partials/productEditorPrice.jsx');
+
+var _productEditorPrice2 = _interopRequireDefault(_productEditorPrice);
+
+var _productEditorShipping = require('./partials/productEditorShipping.jsx');
+
+var _productEditorShipping2 = _interopRequireDefault(_productEditorShipping);
+
+var _productEditorCategory = require('./partials/productEditorCategory.jsx');
+
+var _productEditorCategory2 = _interopRequireDefault(_productEditorCategory);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ProductEditor = function ProductEditor(_ref) {
+  var strings = _ref.strings,
+      categories = _ref.categories,
+      loadCanvas = _ref.loadCanvas,
+      loadPicture = _ref.loadPicture,
+      createNewProduct = _ref.createNewProduct;
+
+  var init = function init() {
+    $(document).ready(function () {
+      $('select').formSelect();
+    });
+  };
+
+  return _react2.default.createElement(
+    'div',
+    { className: 'product-editor' },
+    _react2.default.createElement(
+      'div',
+      { className: 'product-editor__title' },
+      strings.labelTitle
+    ),
+    _react2.default.createElement(_productEditorPictures2.default, {
+      strings: strings,
+      loadCanvas: loadCanvas,
+      loadPicture: loadPicture
+    }),
+    _react2.default.createElement(_productEditorInformation2.default, {
+      strings: strings
+    }),
+    _react2.default.createElement(_productEditorPrice2.default, {
+      strings: strings
+    }),
+    _react2.default.createElement(_productEditorShipping2.default, {
+      strings: strings
+    }),
+    _react2.default.createElement(_productEditorCategory2.default, {
+      strings: strings,
+      categories: categories
+    }),
+    _react2.default.createElement(
+      'div',
+      { className: 'product-editor__button' },
+      _react2.default.createElement(
+        'a',
+        {
+          onClick: function onClick() {
+            return createNewProduct();
+          },
+          className: 'waves-effect waves-light btn-small z-depth-0'
+        },
+        strings.buttonCreateProduct
+      )
+    ),
+    init()
+  );
+};
+
+ProductEditor.propTypes = {
+  strings: _propTypes2.default.object.isRequired
+};
+
+exports.default = ProductEditor;
+
+},{"./partials/productEditorCategory.jsx":175,"./partials/productEditorInformation.jsx":176,"./partials/productEditorPictures.jsx":177,"./partials/productEditorPrice.jsx":178,"./partials/productEditorShipping.jsx":179,"prop-types":43,"react":92}],181:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44473,7 +45440,7 @@ ProductsList.propTypes = {
 
 exports.default = ProductsList;
 
-},{"../../models/tools.js":225,"prop-types":43,"react":92,"react-router-dom":75}],176:[function(require,module,exports){
+},{"../../models/tools.js":232,"prop-types":43,"react":92,"react-router-dom":75}],182:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44563,7 +45530,7 @@ Profile.propTypes = {
 
 exports.default = Profile;
 
-},{"../../containers/logoContainer":207,"../../containers/shortDescriptionContainer.jsx":216,"prop-types":43,"react":92}],177:[function(require,module,exports){
+},{"../../containers/logoContainer":213,"../../containers/shortDescriptionContainer.jsx":223,"prop-types":43,"react":92}],183:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44851,7 +45818,7 @@ PurchaseView.propTypes = {
 
 exports.default = PurchaseView;
 
-},{"../../models/tools.js":225,"../cartItemView/cartItemView":136,"prop-types":43,"react":92}],178:[function(require,module,exports){
+},{"../../models/tools.js":232,"../cartItemView/cartItemView":136,"prop-types":43,"react":92}],184:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44962,7 +45929,7 @@ PurchasesList.propTypes = {
 
 exports.default = PurchasesList;
 
-},{"../../models/tools.js":225,"prop-types":43,"react":92,"react-router-dom":75}],179:[function(require,module,exports){
+},{"../../models/tools.js":232,"prop-types":43,"react":92,"react-router-dom":75}],185:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44998,7 +45965,7 @@ ResultCount.propTypes = {
 
 exports.default = ResultCount;
 
-},{"prop-types":43,"react":92}],180:[function(require,module,exports){
+},{"prop-types":43,"react":92}],186:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45027,7 +45994,7 @@ var Sale = {
 
 exports.default = Sale;
 
-},{"./saleView/saleView.jsx":181,"./salesList/salesList.jsx":182}],181:[function(require,module,exports){
+},{"./saleView/saleView.jsx":187,"./salesList/salesList.jsx":188}],187:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45358,7 +46325,7 @@ SaleView.propTypes = {
 
 exports.default = SaleView;
 
-},{"../../../models/tools.js":225,"../../cartItemView/cartItemView":136,"prop-types":43,"react":92}],182:[function(require,module,exports){
+},{"../../../models/tools.js":232,"../../cartItemView/cartItemView":136,"prop-types":43,"react":92}],188:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45469,7 +46436,7 @@ SalesList.propTypes = {
 
 exports.default = SalesList;
 
-},{"../../../models/tools.js":225,"prop-types":43,"react":92,"react-router-dom":75}],183:[function(require,module,exports){
+},{"../../../models/tools.js":232,"prop-types":43,"react":92,"react-router-dom":75}],189:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45493,7 +46460,7 @@ var ShortDescription = {
 
 exports.default = ShortDescription;
 
-},{"./shortDescriptionEdit/shortDescriptionEdit.jsx":184,"./shortDescriptionModal/shortDescriptionModal.jsx":185}],184:[function(require,module,exports){
+},{"./shortDescriptionEdit/shortDescriptionEdit.jsx":190,"./shortDescriptionModal/shortDescriptionModal.jsx":191}],190:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45541,7 +46508,7 @@ ShortDescriptionEdit.propTypes = {
 
 exports.default = ShortDescriptionEdit;
 
-},{"prop-types":43,"react":92}],185:[function(require,module,exports){
+},{"prop-types":43,"react":92}],191:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45682,7 +46649,7 @@ ShortDescriptionModal.propTypes = {
 
 exports.default = ShortDescriptionModal;
 
-},{"prop-types":43,"react":92}],186:[function(require,module,exports){
+},{"prop-types":43,"react":92}],192:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45723,7 +46690,7 @@ Spinner.propTypes = {
 
 exports.default = Spinner;
 
-},{"prop-types":43,"react":92}],187:[function(require,module,exports){
+},{"prop-types":43,"react":92}],193:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45847,7 +46814,7 @@ TabsHero.propTypes = {
 
 exports.default = TabsHero;
 
-},{"prop-types":43,"react":92,"react-router-dom":75}],188:[function(require,module,exports){
+},{"prop-types":43,"react":92,"react-router-dom":75}],194:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45876,7 +46843,7 @@ var Terms = {
 
 exports.default = Terms;
 
-},{"./termsEdit/termsEdit.jsx":189,"./termsModal/termsModal.jsx":190,"./termsView/termsView.jsx":191}],189:[function(require,module,exports){
+},{"./termsEdit/termsEdit.jsx":195,"./termsModal/termsModal.jsx":196,"./termsView/termsView.jsx":197}],195:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45927,7 +46894,7 @@ TermsEdit.propTypes = {
 
 exports.default = TermsEdit;
 
-},{"../termsView/termsView.jsx":191,"prop-types":43,"react":92}],190:[function(require,module,exports){
+},{"../termsView/termsView.jsx":197,"prop-types":43,"react":92}],196:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46080,7 +47047,7 @@ TermsModal.propTypes = {
 
 exports.default = TermsModal;
 
-},{"prop-types":43,"react":92}],191:[function(require,module,exports){
+},{"prop-types":43,"react":92}],197:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46142,7 +47109,7 @@ TermsView.propTypes = {
 
 exports.default = TermsView;
 
-},{"prop-types":43,"react":92}],192:[function(require,module,exports){
+},{"prop-types":43,"react":92}],198:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -46232,7 +47199,7 @@ var getEnv = exports.getEnv = function getEnv() {
   }
 };
 
-},{}],193:[function(require,module,exports){
+},{}],199:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46283,7 +47250,7 @@ var UPDATE_CATEGORIES_STORE = exports.UPDATE_CATEGORIES_STORE = 'UPDATE_CATEGORI
 var CLEAN_SALE = exports.CLEAN_SALE = 'CLEAN_SALE';
 var LOAD_SALE = exports.LOAD_SALE = 'LOAD_SALE';
 
-},{}],194:[function(require,module,exports){
+},{}],200:[function(require,module,exports){
 module.exports={
   "API_AUTH_SET_SUCCEED":4000,
   "API_AUTH_SET_FAILED":4001,
@@ -46292,7 +47259,7 @@ module.exports={
   "API_USER_LOGIN_NO_FOUND":5010,
   "API_STORE_CREATE_USERNAME_EXIST":6000
 }
-},{}],195:[function(require,module,exports){
+},{}],201:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46446,7 +47413,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(AccountPage));
 
-},{"../actions/account":107,"../components/accountView/accountView":134,"../components/breadcrumbs/breadcrumbs":135,"../models/analytics":219,"../models/facebookPixel":221,"../models/session":224,"../strings":242,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],196:[function(require,module,exports){
+},{"../actions/account":107,"../components/accountView/accountView":134,"../components/breadcrumbs/breadcrumbs":135,"../models/analytics":226,"../models/facebookPixel":228,"../models/session":231,"../strings":249,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],202:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46591,7 +47558,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CartPage));
 
-},{"../actions/cart":108,"../components/cartView/cartView":137,"../components/emptyCartView/emptyCartView":151,"../models/analytics":219,"../models/facebookPixel":221,"../strings":242,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],197:[function(require,module,exports){
+},{"../actions/cart":108,"../components/cartView/cartView":137,"../components/emptyCartView/emptyCartView":151,"../models/analytics":226,"../models/facebookPixel":228,"../strings":249,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],203:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46764,7 +47731,7 @@ mapDispatchToProps)(CategoriesPage);
 />
 */
 
-},{"../actions/store":114,"../components/categories":142,"../components/terms":188,"../models/analytics":219,"../models/facebookPixel":221,"../models/tools":225,"../strings":242,"prop-types":43,"react":92,"react-redux":57}],198:[function(require,module,exports){
+},{"../actions/store":114,"../components/categories":142,"../components/terms":194,"../models/analytics":226,"../models/facebookPixel":228,"../models/tools":232,"../strings":249,"prop-types":43,"react":92,"react-redux":57}],204:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46962,7 +47929,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CategoryPage));
 
-},{"../actions":110,"../components/breadcrumbs/breadcrumbs":135,"../components/pagination/pagination":168,"../components/previewList/previewList":171,"../components/previewListPlaceholder/previewListPlaceholder":172,"../components/resultCount/resultCount":179,"../models/analytics":219,"../models/facebookPixel":221,"../models/tools":225,"../strings":242,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],199:[function(require,module,exports){
+},{"../actions":110,"../components/breadcrumbs/breadcrumbs":135,"../components/pagination/pagination":168,"../components/previewList/previewList":171,"../components/previewListPlaceholder/previewListPlaceholder":172,"../components/resultCount/resultCount":185,"../models/analytics":226,"../models/facebookPixel":228,"../models/tools":232,"../strings":249,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],205:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47080,7 +48047,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CheckoutPage));
 
-},{"../actions/cart":108,"../components/checkoutView/checkoutView":143,"../models/analytics":219,"../models/facebookPixel":221,"../strings":242,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],200:[function(require,module,exports){
+},{"../actions/cart":108,"../components/checkoutView/checkoutView":143,"../models/analytics":226,"../models/facebookPixel":228,"../strings":249,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],206:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47164,7 +48131,7 @@ ContactContainer.propTypes = {
   )(ContactContainer))*/
 };exports.default = ContactContainer;
 
-},{"../components/contact":148,"prop-types":43,"react":92}],201:[function(require,module,exports){
+},{"../components/contact":148,"prop-types":43,"react":92}],207:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47252,7 +48219,7 @@ CoverContainer.propTypes = {
 
 exports.default = CoverContainer;
 
-},{"../components/coverModal/coverModal":149,"prop-types":43,"react":92}],202:[function(require,module,exports){
+},{"../components/coverModal/coverModal":149,"prop-types":43,"react":92}],208:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47394,7 +48361,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Hero));
 
-},{"../actions/store":114,"../components/profile/profile.js":176,"../components/tabsHero/tabsHero.js":187,"../models/canvas":220,"../strings":242,"./coverContainer":201,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],203:[function(require,module,exports){
+},{"../actions/store":114,"../components/profile/profile.js":182,"../components/tabsHero/tabsHero.js":193,"../models/canvas":227,"../strings":249,"./coverContainer":207,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],209:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47577,7 +48544,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(HomePage);
 
-},{"../actions/store":114,"../components/createSection/createSection":150,"../models/analytics":219,"../models/canvas":220,"../models/facebookPixel":221,"../models/tools":225,"../strings":242,"./homeSectionContainer.jsx":204,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],204:[function(require,module,exports){
+},{"../actions/store":114,"../components/createSection/createSection":150,"../models/analytics":226,"../models/canvas":227,"../models/facebookPixel":228,"../models/tools":232,"../strings":249,"./homeSectionContainer.jsx":210,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],210:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47642,7 +48609,7 @@ HomeSectionContainer.propTypes = {
 
 exports.default = HomeSectionContainer;
 
-},{"../components/homeSection":155,"prop-types":43,"react":92}],205:[function(require,module,exports){
+},{"../components/homeSection":155,"prop-types":43,"react":92}],211:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47840,7 +48807,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(ItemPage));
 
-},{"../actions":110,"../actions/item":111,"../components/breadcrumbs/breadcrumbs":135,"../components/itemView/itemView":161,"../components/itemViewPlaceholder/itemViewPlaceholder":162,"../models/analytics":219,"../models/facebookPixel":221,"../strings":242,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],206:[function(require,module,exports){
+},{"../actions":110,"../actions/item":111,"../components/breadcrumbs/breadcrumbs":135,"../components/itemView/itemView":161,"../components/itemViewPlaceholder/itemViewPlaceholder":162,"../models/analytics":226,"../models/facebookPixel":228,"../strings":249,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],212:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47972,7 +48939,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(LoginPage));
 
-},{"../actions/login":112,"../components/loginView/loginView":163,"../models/analytics":219,"../models/facebookPixel":221,"../strings":242,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],207:[function(require,module,exports){
+},{"../actions/login":112,"../components/loginView/loginView":163,"../models/analytics":226,"../models/facebookPixel":228,"../strings":249,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],213:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48045,7 +49012,7 @@ LogoContainer.propTypes = {
 
 exports.default = LogoContainer;
 
-},{"../components/logoEdit/logoEdit":164,"../components/logoModal/logoModal":165,"prop-types":43,"react":92}],208:[function(require,module,exports){
+},{"../components/logoEdit/logoEdit":164,"../components/logoModal/logoModal":165,"prop-types":43,"react":92}],214:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48192,7 +49159,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(MarketingPage));
 
-},{"../actions/store":114,"../components/breadcrumbs/breadcrumbs":135,"../components/marketingView/marketingView.jsx":166,"../models/analytics":219,"../models/facebookPixel":221,"../models/session":224,"../strings":242,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],209:[function(require,module,exports){
+},{"../actions/store":114,"../components/breadcrumbs/breadcrumbs":135,"../components/marketingView/marketingView.jsx":166,"../models/analytics":226,"../models/facebookPixel":228,"../models/session":231,"../strings":249,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],215:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48339,7 +49306,162 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(PaymentGatewayPage));
 
-},{"../actions/store":114,"../components/breadcrumbs/breadcrumbs":135,"../components/paymentGatewayView/paymentGatewayView.jsx":169,"../models/analytics":219,"../models/facebookPixel":221,"../models/session":224,"../strings":242,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],210:[function(require,module,exports){
+},{"../actions/store":114,"../components/breadcrumbs/breadcrumbs":135,"../components/paymentGatewayView/paymentGatewayView.jsx":169,"../models/analytics":226,"../models/facebookPixel":228,"../models/session":231,"../strings":249,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],216:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactRedux = require('react-redux');
+
+var _reactRouterDom = require('react-router-dom');
+
+var _store = require('../actions/store');
+
+var _canvas = require('../models/canvas');
+
+var _strings = require('../strings');
+
+var _strings2 = _interopRequireDefault(_strings);
+
+var _session = require('../models/session');
+
+var _session2 = _interopRequireDefault(_session);
+
+var _analytics = require('../models/analytics');
+
+var _facebookPixel = require('../models/facebookPixel');
+
+var _breadcrumbs = require('../components/breadcrumbs/breadcrumbs');
+
+var _breadcrumbs2 = _interopRequireDefault(_breadcrumbs);
+
+var _product = require('../components/product');
+
+var _product2 = _interopRequireDefault(_product);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ProductPage = function (_React$Component) {
+  _inherits(ProductPage, _React$Component);
+
+  function ProductPage(props) {
+    _classCallCheck(this, ProductPage);
+
+    var _this = _possibleConstructorReturn(this, (ProductPage.__proto__ || Object.getPrototypeOf(ProductPage)).call(this, props));
+
+    var _this$props = _this.props,
+        analytics = _this$props.analytics,
+        facebookPixel = _this$props.facebookPixel,
+        analyticsTrackerId = _this$props.analyticsTrackerId,
+        facebookPixelId = _this$props.facebookPixelId;
+
+    analytics(analyticsTrackerId);
+    facebookPixel(facebookPixelId);
+    return _this;
+  }
+
+  _createClass(ProductPage, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          strings = _props.strings,
+          username = _props.username,
+          categories = _props.categories,
+          isFetching = _props.isFetching,
+          createNewProduct = _props.createNewProduct;
+
+
+      if (!_session2.default.inUserSession()) {
+        return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/' + username });
+      }
+
+      return _react2.default.createElement(
+        'section',
+        { className: 'product-page' },
+        _react2.default.createElement(_breadcrumbs2.default, {
+          username: username,
+          home: strings.breadcrumbHome,
+          route: '/product',
+          parent: null,
+          child: strings.breadcrumbNewProduct,
+          onClick: function onClick() {
+            return true;
+          },
+          disabledChild: true
+        }),
+        _react2.default.createElement(_product2.default.Editor, {
+          strings: strings,
+          categories: categories,
+          loadCanvas: _canvas.loadCanvas,
+          loadPicture: _canvas.loadPicture,
+          createNewProduct: createNewProduct
+        })
+      );
+    }
+  }]);
+
+  return ProductPage;
+}(_react2.default.Component);
+
+ProductPage.propTypes = {
+  strings: _propTypes2.default.object.isRequired,
+  username: _propTypes2.default.string.isRequired,
+  categories: _propTypes2.default.array.isRequired,
+  analyticsTrackerId: _propTypes2.default.string.isRequired,
+  facebookPixelId: _propTypes2.default.string.isRequired,
+  isFetching: _propTypes2.default.bool.isRequired,
+  analytics: _propTypes2.default.func.isRequired,
+  facebookPixel: _propTypes2.default.func.isRequired,
+  createNewProduct: _propTypes2.default.func.isRequired
+};
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {
+    strings: (0, _strings2.default)(state.language).pages.product,
+    username: state.store.username,
+    categories: state.store.categories,
+    analyticsTrackerId: state.store.data.analytics,
+    facebookPixelId: state.store.data.facebookPixel,
+    isFetching: state.isFetching
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    analytics: function analytics(analyticsTrackerId) {
+      return (0, _analytics.pageView)(analyticsTrackerId);
+    },
+    facebookPixel: function facebookPixel(facebookPixelId) {
+      return (0, _facebookPixel.pixelPageView)(facebookPixelId);
+    },
+    createNewProduct: function createNewProduct() {
+      return dispatch((0, _store.createNewProduct)());
+    }
+  };
+};
+
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
+mapDispatchToProps)(ProductPage));
+
+},{"../actions/store":114,"../components/breadcrumbs/breadcrumbs":135,"../components/product":173,"../models/analytics":226,"../models/canvas":227,"../models/facebookPixel":228,"../models/session":231,"../strings":249,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],217:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48531,7 +49653,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(ProductsPage));
 
-},{"../actions/pagination":113,"../actions/store":114,"../components/breadcrumbs/breadcrumbs":135,"../components/pagination/pagination":168,"../components/product":173,"../components/productsList/productsList.jsx":175,"../models/analytics":219,"../models/facebookPixel":221,"../models/session":224,"../strings":242,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],211:[function(require,module,exports){
+},{"../actions/pagination":113,"../actions/store":114,"../components/breadcrumbs/breadcrumbs":135,"../components/pagination/pagination":168,"../components/product":173,"../components/productsList/productsList.jsx":181,"../models/analytics":226,"../models/facebookPixel":228,"../models/session":231,"../strings":249,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],218:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48694,7 +49816,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(PurchasePage));
 
-},{"../actions/account":107,"../components/breadcrumbs/breadcrumbs":135,"../components/purchaseView/purchaseView":177,"../models/analytics":219,"../models/facebookPixel":221,"../models/session":224,"../strings":242,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],212:[function(require,module,exports){
+},{"../actions/account":107,"../components/breadcrumbs/breadcrumbs":135,"../components/purchaseView/purchaseView":183,"../models/analytics":226,"../models/facebookPixel":228,"../models/session":231,"../strings":249,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],219:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48878,7 +50000,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(PurchasesPage));
 
-},{"../actions/account":107,"../actions/pagination":113,"../components/breadcrumbs/breadcrumbs":135,"../components/pagination/pagination":168,"../components/purchasesList/purchasesList":178,"../models/analytics":219,"../models/facebookPixel":221,"../models/session":224,"../strings":242,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],213:[function(require,module,exports){
+},{"../actions/account":107,"../actions/pagination":113,"../components/breadcrumbs/breadcrumbs":135,"../components/pagination/pagination":168,"../components/purchasesList/purchasesList":184,"../models/analytics":226,"../models/facebookPixel":228,"../models/session":231,"../strings":249,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],220:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49041,7 +50163,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(PurchasePage));
 
-},{"../actions/store":114,"../components/breadcrumbs/breadcrumbs":135,"../components/sale":180,"../models/analytics":219,"../models/facebookPixel":221,"../models/session":224,"../strings":242,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],214:[function(require,module,exports){
+},{"../actions/store":114,"../components/breadcrumbs/breadcrumbs":135,"../components/sale":186,"../models/analytics":226,"../models/facebookPixel":228,"../models/session":231,"../strings":249,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],221:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49226,7 +50348,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(SalesPage));
 
-},{"../actions/pagination":113,"../actions/store":114,"../components/breadcrumbs/breadcrumbs":135,"../components/pagination/pagination":168,"../components/sale":180,"../models/analytics":219,"../models/facebookPixel":221,"../models/session":224,"../strings":242,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],215:[function(require,module,exports){
+},{"../actions/pagination":113,"../actions/store":114,"../components/breadcrumbs/breadcrumbs":135,"../components/pagination/pagination":168,"../components/sale":186,"../models/analytics":226,"../models/facebookPixel":228,"../models/session":231,"../strings":249,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],222:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49421,7 +50543,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(SearchPage));
 
-},{"../actions":110,"../components/breadcrumbs/breadcrumbs":135,"../components/pagination/pagination":168,"../components/previewList/previewList":171,"../components/previewListPlaceholder/previewListPlaceholder":172,"../components/resultCount/resultCount":179,"../models/analytics":219,"../models/facebookPixel":221,"../models/tools":225,"../strings":242,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],216:[function(require,module,exports){
+},{"../actions":110,"../components/breadcrumbs/breadcrumbs":135,"../components/pagination/pagination":168,"../components/previewList/previewList":171,"../components/previewListPlaceholder/previewListPlaceholder":172,"../components/resultCount/resultCount":185,"../models/analytics":226,"../models/facebookPixel":228,"../models/tools":232,"../strings":249,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],223:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49488,7 +50610,7 @@ ShortDescriptionContainer.propTypes = {
 
 exports.default = ShortDescriptionContainer;
 
-},{"../components/shortDescription":183,"prop-types":43,"react":92}],217:[function(require,module,exports){
+},{"../components/shortDescription":189,"prop-types":43,"react":92}],224:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49594,6 +50716,10 @@ var _searchPage2 = _interopRequireDefault(_searchPage);
 var _termsPage = require('./termsPage.js');
 
 var _termsPage2 = _interopRequireDefault(_termsPage);
+
+var _productPage = require('./productPage.jsx');
+
+var _productPage2 = _interopRequireDefault(_productPage);
 
 var _productsPage = require('./productsPage.jsx');
 
@@ -49712,6 +50838,7 @@ var Store = function (_React$Component) {
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/purchases', component: _purchasesPage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/products', component: _productsPage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/product/:title/:id', component: _itemPage2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/product/new', component: _productPage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/marketing', component: _marketingPage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/sales', component: _salesPage2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/:storeusername/sale/:id', component: _salePage2.default }),
@@ -49794,7 +50921,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(Store));
 
-},{"../actions":110,"../actions/login":112,"../actions/store":114,"../components/congratulationPurchase/congratulationPurchase.js":144,"../components/footer/footer.js":152,"../components/navbar/navbar.js":167,"../components/spinner/spinner.js":186,"../models/session":224,"../strings":242,"./accountPage.js":195,"./cartPage.js":196,"./categoriesPage.jsx":197,"./categoryPage.js":198,"./checkoutPage.js":199,"./contactContainer.jsx":200,"./hero.js":202,"./homePage.js":203,"./itemPage.js":205,"./loginPage.js":206,"./marketingPage.jsx":208,"./paymentGatewayPage.jsx":209,"./productsPage.jsx":210,"./purchasePage.js":211,"./purchasesPage.js":212,"./salePage.jsx":213,"./salesPage.jsx":214,"./searchPage.js":215,"./termsPage.js":218,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],218:[function(require,module,exports){
+},{"../actions":110,"../actions/login":112,"../actions/store":114,"../components/congratulationPurchase/congratulationPurchase.js":144,"../components/footer/footer.js":152,"../components/navbar/navbar.js":167,"../components/spinner/spinner.js":192,"../models/session":231,"../strings":249,"./accountPage.js":201,"./cartPage.js":202,"./categoriesPage.jsx":203,"./categoryPage.js":204,"./checkoutPage.js":205,"./contactContainer.jsx":206,"./hero.js":208,"./homePage.js":209,"./itemPage.js":211,"./loginPage.js":212,"./marketingPage.jsx":214,"./paymentGatewayPage.jsx":215,"./productPage.jsx":216,"./productsPage.jsx":217,"./purchasePage.js":218,"./purchasesPage.js":219,"./salePage.jsx":220,"./salesPage.jsx":221,"./searchPage.js":222,"./termsPage.js":225,"prop-types":43,"react":92,"react-redux":57,"react-router-dom":75}],225:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49939,7 +51066,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(TermsPage);
 
-},{"../actions/store":114,"../components/terms":188,"../models/analytics":219,"../models/facebookPixel":221,"../strings":242,"prop-types":43,"react":92,"react-redux":57}],219:[function(require,module,exports){
+},{"../actions/store":114,"../components/terms":194,"../models/analytics":226,"../models/facebookPixel":228,"../strings":249,"prop-types":43,"react":92,"react-redux":57}],226:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49961,7 +51088,7 @@ var pageView = exports.pageView = function pageView(storeTrackerId) {
   ga('sherponTracker.send', 'pageview');
 };
 
-},{"../config":192}],220:[function(require,module,exports){
+},{"../config":198}],227:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50050,7 +51177,7 @@ var loadPicture = exports.loadPicture = function loadPicture(inputId, canvasId, 
     }
 };
 
-},{}],221:[function(require,module,exports){
+},{}],228:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50070,7 +51197,7 @@ var pixelPageView = exports.pixelPageView = function pixelPageView(storePixelId)
   fbq('track', 'PageView');
 };
 
-},{"../config":192}],222:[function(require,module,exports){
+},{"../config":198}],229:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -50081,7 +51208,7 @@ var _history = require("history");
 
 exports.default = (0, _history.createBrowserHistory)({ basename: "/" });
 
-},{"history":22}],223:[function(require,module,exports){
+},{"history":22}],230:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50136,7 +51263,7 @@ Diners Club       3600 020000 0006      01/2020   230   fraudulent
 
  */
 
-},{"../tools":225}],224:[function(require,module,exports){
+},{"../tools":232}],231:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50197,7 +51324,7 @@ exports.default = {
   inCartSession: inCartSession
 };
 
-},{}],225:[function(require,module,exports){
+},{}],232:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -50211,7 +51338,7 @@ Object.defineProperty(exports, "__esModule", {
 var sortArrayCategory = function sortArrayCategory(category) {
   for (var i = 0; i < category.length - 1; i++) {
     for (var j = i + 1; j < category.length; j++) {
-      if (category[j].orden < category[i].orden) {
+      if (category[j].order < category[i].order) {
         var tmp = category[i];
         category[i] = category[j];
         category[j] = tmp;
@@ -50346,7 +51473,7 @@ var getRandomString = exports.getRandomString = function getRandomString() {
   }return text;
 };
 
-},{}],226:[function(require,module,exports){
+},{}],233:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50481,7 +51608,7 @@ var Cart = function Cart() {
 
 exports.default = Cart;
 
-},{"../constants/ActionTypes":193,"../models/session":224}],227:[function(require,module,exports){
+},{"../constants/ActionTypes":199,"../models/session":231}],234:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50512,7 +51639,7 @@ var inSession = function inSession() {
 
 exports.default = inSession;
 
-},{"../constants/ActionTypes":193,"../models/session":224}],228:[function(require,module,exports){
+},{"../constants/ActionTypes":199,"../models/session":231}],235:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50591,7 +51718,7 @@ exports.default = (0, _redux.combineReducers)({
   store: _store2.default
 });
 
-},{"./cart":226,"./inSession":227,"./isAdmin":229,"./isEditable":230,"./isFetching":231,"./isResultLoaded":232,"./item":233,"./language":234,"./pagination":235,"./purchase":236,"./result":237,"./sale":238,"./store":239,"redux":100}],229:[function(require,module,exports){
+},{"./cart":233,"./inSession":234,"./isAdmin":236,"./isEditable":237,"./isFetching":238,"./isResultLoaded":239,"./item":240,"./language":241,"./pagination":242,"./purchase":243,"./result":244,"./sale":245,"./store":246,"redux":100}],236:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50638,7 +51765,7 @@ var isAdmin = function isAdmin() {
 
 exports.default = isAdmin;
 
-},{"../constants/ActionTypes":193,"../models/session":224}],230:[function(require,module,exports){
+},{"../constants/ActionTypes":199,"../models/session":231}],237:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50685,7 +51812,7 @@ var isEditable = function isEditable() {
 
 exports.default = isEditable;
 
-},{"../constants/ActionTypes":193,"../models/session":224}],231:[function(require,module,exports){
+},{"../constants/ActionTypes":199,"../models/session":231}],238:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50710,7 +51837,7 @@ var isFetching = function isFetching() {
 
 exports.default = isFetching;
 
-},{"../constants/ActionTypes":193}],232:[function(require,module,exports){
+},{"../constants/ActionTypes":199}],239:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50735,7 +51862,7 @@ var isResultLoaded = function isResultLoaded() {
 
 exports.default = isResultLoaded;
 
-},{"../constants/ActionTypes":193}],233:[function(require,module,exports){
+},{"../constants/ActionTypes":199}],240:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -50798,7 +51925,7 @@ var item = function item() {
 
 exports.default = item;
 
-},{"../constants/ActionTypes":193}],234:[function(require,module,exports){
+},{"../constants/ActionTypes":199}],241:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50823,7 +51950,7 @@ var language = function language() {
 
 exports.default = language;
 
-},{"../constants/ActionTypes":193}],235:[function(require,module,exports){
+},{"../constants/ActionTypes":199}],242:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50868,7 +51995,7 @@ var pagination = function pagination() {
 
 exports.default = pagination;
 
-},{"../constants/ActionTypes":193}],236:[function(require,module,exports){
+},{"../constants/ActionTypes":199}],243:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -50924,7 +52051,7 @@ var purchase = function purchase() {
 
 exports.default = purchase;
 
-},{"../constants/ActionTypes":193}],237:[function(require,module,exports){
+},{"../constants/ActionTypes":199}],244:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50947,7 +52074,7 @@ var result = function result() {
 
 exports.default = result;
 
-},{"../constants/ActionTypes":193}],238:[function(require,module,exports){
+},{"../constants/ActionTypes":199}],245:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51003,7 +52130,7 @@ var sale = function sale() {
 
 exports.default = sale;
 
-},{"../constants/ActionTypes":193}],239:[function(require,module,exports){
+},{"../constants/ActionTypes":199}],246:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -51054,7 +52181,7 @@ var storeState = function storeState() {
 
 exports.default = storeState;
 
-},{"../constants/ActionTypes":193}],240:[function(require,module,exports){
+},{"../constants/ActionTypes":199}],247:[function(require,module,exports){
 module.exports={
 	"store":{
 		"text1":"text"
@@ -51065,7 +52192,7 @@ module.exports={
 		"navbarItemAccount":"Mi cuenta"
 	}
 }
-},{}],241:[function(require,module,exports){
+},{}],248:[function(require,module,exports){
 module.exports={
 	"store":{
 		"text1":"text"
@@ -51401,6 +52528,36 @@ module.exports={
 			"headerPrice":"Precio",
 			"headerStock":"Disponible"
 		},
+		"product":{
+			"breadcrumbHome":"Inicio",
+			"breadcrumbNewProduct":"Crear nuevo producto",
+			"labelTitle":"Crear nuevo producto",
+			"buttonCreateProduct":"Crear nuevo producto",
+			"labelPicturesTitle":"Fotos del artículo",
+			"labelPicturesDimension":"tamaño recomendado de cada imagen es 1020x1600",
+			"labelPicturesMain":"Imagen principal",
+			"labelPicturesMessage":"Presiona la imagen para cambiarla",
+			"labelInformationTitle":"Información del producto",
+			"labelInformationShortTitle":"Título corto",
+			"labelInformationLongTitle":"Título largo",
+			"labelInformationDescription":"Descripción",
+			"labelInformationCharacteristics":"Características",
+			"labelInformationInclude":"Incluye",
+			"labelInformationStock":"Cantidad disponible",
+			"labelPriceTitle":"Precio",
+			"labelPriceAmount":"Monto",
+			"labelPriceCurrency":"Moneda",
+			"labelShippingTitle":"Opciones de envío",
+			"labelShippingCheckbox":"No necesita envío",
+			"labelShippingPrice":"Costo de envío",
+			"labelShippingCurrency":"Moneda",
+			"labelShippingTime":"Tiempo estimado de envío en días",
+			"errorShippingEmpty":"Debes seleccionar una opción de envío",
+			"labelCategoryTitle":"Categoría",
+			"labelCategorySelect":"Elige la categoría",
+			"errorAmount":"La cantidad solicitada debe ser mayor o igual a uno",
+			"errorNegativeStock":"La cantidad solicitada excede a la disponibilidad del artículo"
+		},
 		"sales":{
 			"breadcrumbHome":"Inicio",
 			"breadcrumbSales":"Mis Ventas",
@@ -51448,7 +52605,7 @@ module.exports={
 	}
 }
 
-},{}],242:[function(require,module,exports){
+},{}],249:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -51474,7 +52631,7 @@ Notes
 var userLang = navigator.language || navigator.userLanguage; 
  */
 
-},{"./EN.json":240,"./ES.json":241}],243:[function(require,module,exports){
+},{"./EN.json":247,"./ES.json":248}],250:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -51545,4 +52702,4 @@ Notes
  */
 
 }).call(this,require('_process'))
-},{"./containers/store.js":217,"./models/history":222,"./reducers":228,"_process":39,"jquery":25,"react":92,"react-dom":47,"react-redux":57,"react-router-dom":75,"redux":100,"redux-logger":93,"redux-thunk":94}]},{},[243]);
+},{"./containers/store.js":224,"./models/history":229,"./reducers":235,"_process":39,"jquery":25,"react":92,"react-dom":47,"react-redux":57,"react-router-dom":75,"redux":100,"redux-logger":93,"redux-thunk":94}]},{},[250]);

@@ -6,7 +6,7 @@
 const sortArrayCategory = (category) => {
   for (var i=0;i<category.length-1;i++) {
     for (var j=i+1;j<category.length;j++) {
-      if (category[j].orden<category[i].orden) {
+      if (category[j].order<category[i].order) {
         let tmp = category[i]
         category[i] = category[j]
         category[j] = tmp
