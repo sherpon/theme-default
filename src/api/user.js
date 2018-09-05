@@ -1,3 +1,12 @@
+import { post } from './post.js'
+
+export const login = ( payload, callback ) => post( "user/login", payload, callback )
+
+export const signup = ( payload, callback ) => post( "user/signup", payload, callback )
+
+export const logout = (payload, callback) => callback()
+
+/*
 import _loginSuccess from './data/loginSuccess.json'
 import _loginB from './data/loginB.json'
 import _loginError from './data/loginError.json'
@@ -40,3 +49,4 @@ export const logout = (payload, callback) => {
     callback(true)
   },TIMEOUT )
 }
+*/

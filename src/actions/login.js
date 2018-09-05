@@ -6,7 +6,7 @@ import session from '../models/session'
 import Strings from '../strings'
 import codes from '../constants/codes.json'
 
-import { login as apiLogin, signup as apiSignup } from '../api/login'
+import { login as apiLogin, signup as apiSignup } from '../api/user'
 
 export const login = (email, password) => (dispatch, getState) => {
 
@@ -96,5 +96,5 @@ export const logout = () => (dispatch, getState) => {
   history.replace({
     pathname: "/" + getState().store.username + '',
     state: { some: "state" }
-  }) 
+  })
 }

@@ -109,7 +109,7 @@ gulp.task('watch-dev', function () {
   server
 */
 const _storeusername = 'paolaboutique'
-const _host = '0.0.0.0'
+const _host = 'localhost'
 const _port = 8080
 
 gulp.task('server', function () {

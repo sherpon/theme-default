@@ -14,6 +14,24 @@ const inUserSession = () => {
   }
 }
 
+/**
+ * @function
+ * @name isAdmin
+ * @description check if the user is admin of the store.
+ * @return {bool} Returns true if is admin, else returns false
+ */
+const isAdmin = () => {
+  let _isAdmin = false
+  if ( inUserSession() ) {
+    if ( getUser().publicKey !== undefined ) {
+      if (getUser().publicKey === window._store.publicKey) {
+        _isAdmin = true
+      }
+    }
+  }
+  return _isAdmin
+}
+
 const CART_NAME = 'cartSession'
 
 const setCart = ( cart ) => localStorage.setItem(CART_NAME,JSON.stringify(cart))
@@ -35,6 +53,7 @@ export default {
   getUser,
   unsetUser,
   inUserSession,
+  isAdmin,
   setCart,
   getCart,
   unsetCart,

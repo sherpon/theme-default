@@ -85,9 +85,9 @@ Hero.propTypes = {
 
 const mapStateToProps = state => ({
   isEditable: state.isEditable,
-  cover: state.store.theme.data.cover,
+  cover: ( state.store.theme.data.cover !== '' ) ? ( state.store.theme.data.cover ) : ( '/images/store/placeholderCover.png' ),
   stringsCover: Strings(state.language).coverContainer,
-  logo: state.store.theme.data.logo,
+  logo: ( state.store.theme.data.logo !== '' ) ? ( state.store.theme.data.logo ) : ( '/images/store/placeholderLogo.png' ),
   stringsLogo: Strings(state.language).logoContainer,
   name: state.store.name,
   username: state.store.username,

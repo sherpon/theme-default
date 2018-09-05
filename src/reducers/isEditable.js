@@ -7,26 +7,14 @@ import {
 
 import session from '../models/session'
 
-const getAdminState = () => {
-  let initState = false
-  if ( session.inUserSession() ) {
-    if ( session.getUser().role !== undefined ) {
-      if (session.getUser().role === 'admin') {
-        initState = true
-      }
-    }
-  }
-  return initState
-}
-
-const isEditable = (state = getAdminState(), action) => {
+const isEditable = (state = session.isAdmin(), action) => {
   switch (action.type) {
     case EDIT_START:
       return true
     case EDIT_END:
       return false
     case LOGIN:
-      return getAdminState()
+      return session.isAdmin()
     case LOGOUT:
       return false
     default:

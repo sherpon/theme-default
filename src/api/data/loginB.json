@@ -6,6 +6,7 @@
 		"lastname":"Lee",
 		"phone":"949799020",
 		"email":"grover@gmail.com",
-    "role":"admin"
+    "role":"admin",
+		"publicKey":"asdfghjkl"
 	}
 }
