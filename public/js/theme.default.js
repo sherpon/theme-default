@@ -37328,7 +37328,7 @@ var loadPurchase = exports.loadPurchase = function loadPurchase(purchaseId) {
   };
 };
 
-},{"../api/account":116,"../constants/ActionTypes":198,"../models/session":230,"../strings":248,"./fetching":110,"./pagination":114}],109:[function(require,module,exports){
+},{"../api/account":116,"../constants/ActionTypes":187,"../models/session":221,"../strings":239,"./fetching":110,"./pagination":114}],109:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37591,7 +37591,7 @@ var placeOrder = exports.placeOrder = function placeOrder() {
   };
 };
 
-},{"../api/purchase":130,"../constants/ActionTypes":198,"../models/history":228,"../models/paymentGateway/culqi":229,"../models/session":230,"../strings":248,"./fetching":110}],110:[function(require,module,exports){
+},{"../api/purchase":119,"../constants/ActionTypes":187,"../models/history":219,"../models/paymentGateway/culqi":220,"../models/session":221,"../strings":239,"./fetching":110}],110:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37617,7 +37617,7 @@ var stopFetching = exports.stopFetching = function stopFetching() {
   };
 };
 
-},{"../constants/ActionTypes":198}],111:[function(require,module,exports){
+},{"../constants/ActionTypes":187}],111:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37810,7 +37810,7 @@ var loadCategory = exports.loadCategory = function loadCategory(category) {
   };
 };
 
-},{"../api/item":128,"../config":197,"../constants/ActionTypes":198,"../constants/codes.json":199,"../models/history":228,"../models/session":230,"../models/tools":231,"../strings":248}],112:[function(require,module,exports){
+},{"../api/item":117,"../config":186,"../constants/ActionTypes":187,"../constants/codes.json":188,"../models/history":219,"../models/session":221,"../models/tools":222,"../strings":239}],112:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -38267,7 +38267,7 @@ var shareWhatsapp = exports.shareWhatsapp = function shareWhatsapp() {
   window.location.href = "https://api.whatsapp.com/send?text=" + window.location.href + "?utm_source%3Dsherpon_store%26utm_medium%3Dwhatsapp_link%26utm_campaign%3Dsocial_shared_item";
 };
 
-},{"../api/item":128,"../config":197,"../constants/ActionTypes":198,"../models/history":228,"../models/session":230,"../strings":248,"./fetching":110}],113:[function(require,module,exports){
+},{"../api/item":117,"../config":186,"../constants/ActionTypes":187,"../models/history":219,"../models/session":221,"../strings":239,"./fetching":110}],113:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -38390,7 +38390,7 @@ var logout = exports.logout = function logout() {
   };
 };
 
-},{"../api/user":132,"../constants/ActionTypes":198,"../constants/codes.json":199,"../models/history":228,"../models/session":230,"../strings":248,"./fetching":110}],114:[function(require,module,exports){
+},{"../api/user":121,"../constants/ActionTypes":187,"../constants/codes.json":188,"../models/history":219,"../models/session":221,"../strings":239,"./fetching":110}],114:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -38491,7 +38491,7 @@ var goToPage = exports.goToPage = function goToPage(index) {
 };
 /******************************************************************************/
 
-},{"../constants/ActionTypes":198,"./fetching":110}],115:[function(require,module,exports){
+},{"../constants/ActionTypes":187,"./fetching":110}],115:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -38649,6 +38649,7 @@ var shortDescriptionSaveButton = exports.shortDescriptionSaveButton = function s
 
     dispatch((0, _fetching.startFetching)());
     var newShortDescription = shortDescriptionInput.value;
+    newShortDescription = newShortDescription.split('\n').join(' ');
 
     var dataTheme = getState().store.theme.data;
     dataTheme.description = newShortDescription;
@@ -38687,6 +38688,9 @@ var termsSaveButton = exports.termsSaveButton = function termsSaveButton(callbac
     var newExchange = exchangeInput.value;
     var newRefund = refundInput.value;
 
+    newExchange = newExchange.split('\n').join(' ');
+    newRefund = newRefund.split('\n').join(' ');
+
     var dataTheme = getState().store.theme.data;
     dataTheme.terms.exchange = newExchange;
     dataTheme.terms.refund = newRefund;
@@ -38719,6 +38723,9 @@ var contactSaveButton = exports.contactSaveButton = function contactSaveButton(c
     var newPhone = document.getElementById('contact-modal__phone__input').value;
     var newEmail = document.getElementById('contact-modal__email__input').value;
     var newAddress = document.getElementById('contact-modal__address__input').value;
+
+    newAddress = newAddress.split('\n').join(' ');
+
     //if (!logoInput.files[0]) {
     //  M.toast({html: Strings(getState().language).coverContainer.modal.errorCoverPicture})
     //  return false
@@ -38733,6 +38740,7 @@ var contactSaveButton = exports.contactSaveButton = function contactSaveButton(c
     dataTheme.contact.phone = newPhone;
     dataTheme.contact.email = newEmail;
     dataTheme.contact.address = newAddress;
+
     var newDataTheme = dataTheme;
     (0, _store.updateDataTheme)(userId, storeId, newDataTheme, function (response) {
       // update local dataTheme store state, then...
@@ -38904,6 +38912,7 @@ var marketingSaveButton = exports.marketingSaveButton = function marketingSaveBu
         dataStore: newDataStore
       });
       dispatch((0, _fetching.stopFetching)());
+      M.toast({ html: (0, _strings2.default)(getState().language).marketingPage.successUpdate });
     });
   };
 };
@@ -38934,6 +38943,7 @@ var paymentGatewaySaveButton = exports.paymentGatewaySaveButton = function payme
         dataStore: newDataStore
       });
       dispatch((0, _fetching.stopFetching)());
+      M.toast({ html: (0, _strings2.default)(getState().language).paymentGatewayPage.successUpdate });
     });
   };
 };
@@ -38949,7 +38959,7 @@ var categoriesSaveButton = exports.categoriesSaveButton = function categoriesSav
 
     var newCategory = {
       name: newCategoryName,
-      order: newCategoryOrder,
+      order: newCategoryOrder === '' ? 0 : parseInt(newCategoryOrder),
       type: newCategoryType,
       parent: newCategoryParent
     };
@@ -38957,6 +38967,7 @@ var categoriesSaveButton = exports.categoriesSaveButton = function categoriesSav
     dispatch((0, _fetching.startFetching)());
 
     (0, _store.updateCategoriesStore)(userId, storeId, newCategory, function (response) {
+      debugger;
       // update local dataStore store state, then...
       if (response.error !== null) {
         // if there's an error...
@@ -39262,23 +39273,12 @@ var loadSale = exports.loadSale = function loadSale(saleId) {
 };
 /******************************************************************************/
 
-},{"../api/store":131,"../constants/ActionTypes":198,"../models/history":228,"../models/session":230,"../models/tools":231,"../strings":248,"./fetching":110,"./pagination":114}],116:[function(require,module,exports){
+},{"../api/store":120,"../constants/ActionTypes":187,"../models/history":219,"../models/session":221,"../models/tools":222,"../strings":239,"./fetching":110,"./pagination":114}],116:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.loadPurchase = exports.loadPurchasesList = exports.updatePassword = exports.updateAccount = undefined;
-
-var _purchasesList2 = require('./data/purchasesList.json');
-
-var _purchasesList3 = _interopRequireDefault(_purchasesList2);
-
-var _purchaseItem2 = require('./data/purchaseItem.json');
-
-var _purchaseItem3 = _interopRequireDefault(_purchaseItem2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var TIMEOUT = 500;
 
@@ -39304,14 +39304,13 @@ var updatePassword = exports.updatePassword = function updatePassword(payload, c
   }, TIMEOUT);
 };
 
-var loadPurchasesList = exports.loadPurchasesList = function loadPurchasesList(payload, callback) {
-  console.log('API.loadPurchasesList.payload');
-  console.log(payload);
+var loadPurchasesList = exports.loadPurchasesList = function loadPurchasesList(payload, callback) {}
+/*console.log('API.loadPurchasesList.payload')
+console.log(payload)
+ setTimeout( () => {
+  callback(_purchasesList)
+},TIMEOUT )*/
 
-  setTimeout(function () {
-    callback(_purchasesList3.default);
-  }, TIMEOUT);
-};
 
 /**
  * Returns the user's purchase json
@@ -39319,680 +39318,53 @@ var loadPurchasesList = exports.loadPurchasesList = function loadPurchasesList(p
  * @param {string} purchaseId - purchase's id.
  * @param {loadPurchase~callback} callback - The callback that handles the response.
  */
-var loadPurchase = exports.loadPurchase = function loadPurchase(storeId, purchaseId, callback) {
-  console.log('API.loadPurchase.payload');
-  console.log({ storeId: storeId, purchaseId: purchaseId });
+;var loadPurchase = exports.loadPurchase = function loadPurchase(storeId, purchaseId, callback) {}
+/*console.log('API.loadPurchase.payload')
+console.log({storeId, purchaseId})
+ setTimeout( () => {
+  callback(_purchaseItem)
+},TIMEOUT )*/
 
-  setTimeout(function () {
-    callback(_purchaseItem3.default);
-  }, TIMEOUT);
-};
 /**
  * @callback loadPurchase~callback
  * @param {object} purchase - purchase's object
  */
+;
 
-},{"./data/purchaseItem.json":126,"./data/purchasesList.json":127}],117:[function(require,module,exports){
-module.exports={
-	"id":"Hu3fU02Bdhgpo476Fej1",
-	"type":"clothes",
-	"shortTitle":"1 Black dress night",
-	"longTitle":"1 Best Of Black dress night, Black",
-	"tags":"",
-	"categories":[
-		{
-			"name":"Vestido de noche",
-			"order":1,
-			"type":"secundary",
-			"parent":"Ropa para mujeres"
-		}
-	],
-	"description":"This dress is so perfect for brides to be! It's will look amazing at any shower you have! It is also great for a romantic date night! The fit is so flattering and the look ultra classy! This lace is a must have for any girl's closet! Material has no amount of stretch. Whitney is wearing the small. Sizes fit: Small- 0-4; Medium- 6; Large- 8-10 ",
-	"include":"One dress",
-	"characteristics":"Adjustable: No \nAttributesClosure Type: Zipper \nAttributesClosure Location: Back \nAttributesLining: Full \nAttributesMain Color: Ivory \nAttributesLength: 35\" \nAttributesBust: 32\" ",
-	"currency":"USD",
-	"symbol":"$",
-	"price":50.00,
-	"shipping":[
-		{
-			"description":"Destination USA",
-			"currency":"USD",
-			"symbol":"$",
-			"price":5,
-			"days":"5-7 days",
-		},
-		{
-			"description":"Destination Brazil",
-			"currency":"USD",
-			"symbol":"$",
-			"price":10,
-			"days":"5-7 days",
-		},
-		{
-			"description":"Destination Canada",
-			"currency":"USD",
-			"symbol":"$",
-			"price":0,
-			"days":"5-7 days",
-		}
-	],
-	"attributes":[
-		["small","medium"],
-		["white","black","blue"]
-	],
-	"variations":[
-		{
-			"attributes":["small","white"],
-			"stock":6,
-			"currency":"USD",
-			"symbol":"$",
-			"price":50.00
-		},
-		{
-			"attributes":["medium","white"],
-			"stock":1,
-			"currency":"USD",
-			"symbol":"$",
-			"price":55.00
-		},
-		{
-			"attributes":["medium","black"],
-			"stock":2,
-			"currency":"USD",
-			"symbol":"$",
-			"price":60.00
-		},
-		{
-			"attributes":["medium","blue"],
-			"stock":0,
-			"currency":"USD",
-			"symbol":"$",
-			"price":40.00
-		}
-	],
-	"picture1":"/images/store/mockup/item1/picture1.jpg",
-	"picture2":"/images/store/mockup/item1/picture2.jpg",
-	"picture3":"/images/store/mockup/item1/picture3.jpg",
-	"picture4":"/images/store/mockup/item1/picture4.jpg",
-	"picture5":"",
-	"picture6":"",
-	"picture7":""
-}
-
-},{}],118:[function(require,module,exports){
-module.exports={
-	"id":"Hu3fU02Bdhgpo476Fej2",
-	"type":"models",
-	"shortTitle":"2 Warm And Bright Top, Blush",
-	"longTitle":"2 Warm And Bright Top, Blush night, Black",
-	"tags":"",
-	"categories":[
-		{
-			"name":"Ropa para mujeres",
-			"order":1,
-			"type":"primary",
-			"parent":""
-		}
-	],
-	"description":"This dress is so perfect for brides to be! It's will look amazing at any shower you have! It is also great for a romantic date night! The fit is so flattering and the look ultra classy! This lace is a must have for any girl's closet! Material has no amount of stretch. Whitney is wearing the small. Sizes fit: Small- 0-4; Medium- 6; Large- 8-10 ",
-	"include":"One dress",
-	"characteristics":"Adjustable: No \nAttributesClosure Type: Zipper \nAttributesClosure Location: Back \nAttributesLining: Full \nAttributesMain Color: Ivory \nAttributesLength: 35\" \nAttributesBust: 32\" ",
-	"currency":"USD",
-	"symbol":"$",
-	"price":40.00,
-	"shipping":[
-		{
-			"description":"Destination USA",
-			"currency":"USD",
-			"symbol":"$",
-			"price":5,
-			"days":"5-7 days",
-		},
-		{
-			"description":"Destination Brazil",
-			"currency":"USD",
-			"symbol":"$",
-			"price":10,
-			"days":"5-7 days",
-		},
-		{
-			"description":"Destination Canada",
-			"currency":"USD",
-			"symbol":"$",
-			"price":6,
-			"days":"5-7 days",
-		}
-	],
-	"attributes":[
-		["small","medium"]
-	],
-	"variations":[
-		{
-			"attributes":["small"],
-			"stock":5,
-			"currency":"USD",
-			"symbol":"$",
-			"price":50.00
-		},
-		{
-			"attributes":["medium"],
-			"stock":0,
-			"currency":"USD",
-			"symbol":"$",
-			"price":65.00
-		}
-	],
-	"picture1":"/images/store/mockup/item3/picture1.jpg",
-	"picture2":"/images/store/mockup/item3/picture2.jpg",
-	"picture3":"/images/store/mockup/item3/picture3.jpg",
-	"picture4":"/images/store/mockup/item3/picture5.jpg",
-	"picture5":"/images/store/mockup/item3/picture6.jpg",
-	"picture6":"/images/store/mockup/item3/picture7.jpg",
-	"picture7":"/images/store/mockup/item3/picture4.jpg"
-}
-
-},{}],119:[function(require,module,exports){
-module.exports={
-	"id":"Hu3fU02Bdhgpo476Fej3",
-	"type":"item",
-	"shortTitle":"3 Warm And Bright Top, Blush",
-	"longTitle":"3 Warm And Bright Top, Blush night, Black",
-	"tags":"",
-	"categories":[
-		{
-			"name":"Ropa para mujeres",
-			"order":1,
-			"type":"primary",
-			"parent":""
-		}
-	],
-	"description":"This dress is so perfect for brides to be! It's will look amazing at any shower you have! It is also great for a romantic date night! The fit is so flattering and the look ultra classy! This lace is a must have for any girl's closet! Material has no amount of stretch. Whitney is wearing the small. Sizes fit: Small- 0-4; Medium- 6; Large- 8-10 ",
-	"include":"One dress",
-	"characteristics":"Adjustable: No \nAttributesClosure Type: Zipper \nAttributesClosure Location: Back \nAttributesLining: Full \nAttributesMain Color: Ivory \nAttributesLength: 35\" \nAttributesBust: 32\" ",
-	"currency":"USD",
-	"symbol":"$",
-	"price":40.00,
-	"stock":0,
-	"shipping":[
-		{
-			"description":"Destination USA",
-			"currency":"USD",
-			"symbol":"$",
-			"price":5,
-			"days":"5-7 days",
-		},
-		{
-			"description":"Destination Brazil",
-			"currency":"USD",
-			"symbol":"$",
-			"price":10,
-			"days":"5-7 days",
-		},
-		{
-			"description":"Destination Canada",
-			"currency":"USD",
-			"symbol":"$",
-			"price":6,
-			"days":"5-7 days",
-		}
-	],
-	"attributes":[],
-	"variations":[],
-	"picture1":"/images/store/mockup/item3/picture1.jpg",
-	"picture2":"/images/store/mockup/item3/picture2.jpg",
-	"picture3":"/images/store/mockup/item3/picture3.jpg",
-	"picture4":"/images/store/mockup/item3/picture5.jpg",
-	"picture5":"/images/store/mockup/item3/picture6.jpg",
-	"picture6":"/images/store/mockup/item3/picture7.jpg",
-	"picture7":"/images/store/mockup/item3/picture4.jpg"
-}
-
-},{}],120:[function(require,module,exports){
-module.exports={
-	"id":"Hu3fU02Bdhgpo476Fej4",
-	"type":"item",
-	"shortTitle":"4 Warm And Bright Top, Blush",
-	"longTitle":"4 Warm And Bright Top, Blush night, Black",
-	"tags":"",
-	"categories":[
-		{
-			"name":"Ropa para mujeres",
-			"order":1,
-			"type":"primary",
-			"parent":""
-		}
-	],
-	"description":"This dress is so perfect for brides to be! It's will look amazing at any shower you have! It is also great for a romantic date night! The fit is so flattering and the look ultra classy! This lace is a must have for any girl's closet! Material has no amount of stretch. Whitney is wearing the small. Sizes fit: Small- 0-4; Medium- 6; Large- 8-10 ",
-	"include":"One dress",
-	"characteristics":"Adjustable: No \nAttributesClosure Type: Zipper \nAttributesClosure Location: Back \nAttributesLining: Full \nAttributesMain Color: Ivory \nAttributesLength: 35\" \nAttributesBust: 32\" ",
-	"currency":"USD",
-	"symbol":"$",
-	"price":40.00,
-	"stock":5,
-	"shipping":[],
-	"attributes":[],
-	"variations":[],
-	"picture1":"/images/store/mockup/item3/picture1.jpg",
-	"picture2":"/images/store/mockup/item3/picture2.jpg",
-	"picture3":"/images/store/mockup/item3/picture3.jpg",
-	"picture4":"/images/store/mockup/item3/picture5.jpg",
-	"picture5":"/images/store/mockup/item3/picture6.jpg",
-	"picture6":"/images/store/mockup/item3/picture7.jpg",
-	"picture7":"/images/store/mockup/item3/picture4.jpg"
-}
-
-},{}],121:[function(require,module,exports){
-module.exports=[
-  	{ "id":"Hu3fU02Bdhgpo476Fej1","picture1":"/images/store/mockup/item1.jpg","shortTitle":"1 Black dress night","currency":"USD","symbol":"$","price":50.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej2","picture1":"/images/store/mockup/item3.jpg","shortTitle":"2 Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej3","picture1":"/images/store/mockup/item4.jpg","shortTitle":"3 Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej4","picture1":"/images/store/mockup/item5.jpg","shortTitle":"4 Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item6.jpg","shortTitle":"5 Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item7.jpg","shortTitle":"6 My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item8.jpg","shortTitle":"7 Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item3.jpg","shortTitle":"8 Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item4.jpg","shortTitle":"9 Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item5.jpg","shortTitle":"10 Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item6.jpg","shortTitle":"11 Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item7.jpg","shortTitle":"12 My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item8.jpg","shortTitle":"13 Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item3.jpg","shortTitle":"14 Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item4.jpg","shortTitle":"15 Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item5.jpg","shortTitle":"16 Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item6.jpg","shortTitle":"17 Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item7.jpg","shortTitle":"18 My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item8.jpg","shortTitle":"19 Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item3.jpg","shortTitle":"20 Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item4.jpg","shortTitle":"21 Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item5.jpg","shortTitle":"22 Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item6.jpg","shortTitle":"23 Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item7.jpg","shortTitle":"24 My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item8.jpg","shortTitle":"25 Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item3.jpg","shortTitle":"26 Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item4.jpg","shortTitle":"27 Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item5.jpg","shortTitle":"28 Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item6.jpg","shortTitle":"29 Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item7.jpg","shortTitle":"30 My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item8.jpg","shortTitle":"31 Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item3.jpg","shortTitle":"32 Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item4.jpg","shortTitle":"33 Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item5.jpg","shortTitle":"34 Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item6.jpg","shortTitle":"35 Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item7.jpg","shortTitle":"36 My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item8.jpg","shortTitle":"37 Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item3.jpg","shortTitle":"38 Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item4.jpg","shortTitle":"39 Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item5.jpg","shortTitle":"40 Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item6.jpg","shortTitle":"Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item7.jpg","shortTitle":"My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item8.jpg","shortTitle":"Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item3.jpg","shortTitle":"Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item4.jpg","shortTitle":"Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item5.jpg","shortTitle":"Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item6.jpg","shortTitle":"Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item7.jpg","shortTitle":"My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item8.jpg","shortTitle":"Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item3.jpg","shortTitle":"Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item4.jpg","shortTitle":"Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item5.jpg","shortTitle":"Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item6.jpg","shortTitle":"Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item7.jpg","shortTitle":"My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item8.jpg","shortTitle":"Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item3.jpg","shortTitle":"Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item4.jpg","shortTitle":"Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item5.jpg","shortTitle":"Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item6.jpg","shortTitle":"Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item7.jpg","shortTitle":"My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item8.jpg","shortTitle":"Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item3.jpg","shortTitle":"Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item4.jpg","shortTitle":"Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item5.jpg","shortTitle":"Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item6.jpg","shortTitle":"Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item7.jpg","shortTitle":"My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item8.jpg","shortTitle":"Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item3.jpg","shortTitle":"Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item4.jpg","shortTitle":"Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item5.jpg","shortTitle":"Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item6.jpg","shortTitle":"Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item7.jpg","shortTitle":"My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item8.jpg","shortTitle":"Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item3.jpg","shortTitle":"Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item4.jpg","shortTitle":"Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item5.jpg","shortTitle":"Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item6.jpg","shortTitle":"Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item7.jpg","shortTitle":"My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item8.jpg","shortTitle":"Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item3.jpg","shortTitle":"Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item4.jpg","shortTitle":"Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item5.jpg","shortTitle":"Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item6.jpg","shortTitle":"Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item7.jpg","shortTitle":"My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item8.jpg","shortTitle":"Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item3.jpg","shortTitle":"Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item4.jpg","shortTitle":"Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item5.jpg","shortTitle":"Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item6.jpg","shortTitle":"Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item7.jpg","shortTitle":"My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item8.jpg","shortTitle":"Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item3.jpg","shortTitle":"Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item4.jpg","shortTitle":"Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item5.jpg","shortTitle":"Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item6.jpg","shortTitle":"Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item7.jpg","shortTitle":"My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","picture1":"/images/store/mockup/item8.jpg","shortTitle":"Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 }
-]
-},{}],122:[function(require,module,exports){
-module.exports=[
-  	{ "id":"Hu3fU02Bdhgpo476Fej1","picture1":"/images/store/mockup/item1.jpg","shortTitle":"1 Black dress night","currency":"USD","symbol":"$","price":50.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej2","picture1":"/images/store/mockup/item3.jpg","shortTitle":"2 Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 }
-]
-},{}],123:[function(require,module,exports){
-module.exports=[
-  	{ "id":"Hu3fU02Bdhgpo476Fej1","stock":10, "picture1":"/images/store/mockup/item1.jpg","shortTitle":"1 Black dress night","currency":"USD","symbol":"$","price":50.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej2","stock":10, "picture1":"/images/store/mockup/item3.jpg","shortTitle":"2 Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej3","stock":10, "picture1":"/images/store/mockup/item4.jpg","shortTitle":"3 Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej4","stock":10, "picture1":"/images/store/mockup/item5.jpg","shortTitle":"4 Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item6.jpg","shortTitle":"5 Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item7.jpg","shortTitle":"6 My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item8.jpg","shortTitle":"7 Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item3.jpg","shortTitle":"8 Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item4.jpg","shortTitle":"9 Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item5.jpg","shortTitle":"10 Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item6.jpg","shortTitle":"11 Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item7.jpg","shortTitle":"12 My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item8.jpg","shortTitle":"13 Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item3.jpg","shortTitle":"14 Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item4.jpg","shortTitle":"15 Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item5.jpg","shortTitle":"16 Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item6.jpg","shortTitle":"17 Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item7.jpg","shortTitle":"18 My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item8.jpg","shortTitle":"19 Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item3.jpg","shortTitle":"20 Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item4.jpg","shortTitle":"21 Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item5.jpg","shortTitle":"22 Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item6.jpg","shortTitle":"23 Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item7.jpg","shortTitle":"24 My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item8.jpg","shortTitle":"25 Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item3.jpg","shortTitle":"26 Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item4.jpg","shortTitle":"27 Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item5.jpg","shortTitle":"28 Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item6.jpg","shortTitle":"29 Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item7.jpg","shortTitle":"30 My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item8.jpg","shortTitle":"31 Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item3.jpg","shortTitle":"32 Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item4.jpg","shortTitle":"33 Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item5.jpg","shortTitle":"34 Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item6.jpg","shortTitle":"35 Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item7.jpg","shortTitle":"36 My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item8.jpg","shortTitle":"37 Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item3.jpg","shortTitle":"38 Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item4.jpg","shortTitle":"39 Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item5.jpg","shortTitle":"40 Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item6.jpg","shortTitle":"Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item7.jpg","shortTitle":"My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item8.jpg","shortTitle":"Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item3.jpg","shortTitle":"Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item4.jpg","shortTitle":"Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item5.jpg","shortTitle":"Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item6.jpg","shortTitle":"Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item7.jpg","shortTitle":"My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item8.jpg","shortTitle":"Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item3.jpg","shortTitle":"Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item4.jpg","shortTitle":"Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item5.jpg","shortTitle":"Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item6.jpg","shortTitle":"Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item7.jpg","shortTitle":"My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item8.jpg","shortTitle":"Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item3.jpg","shortTitle":"Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item4.jpg","shortTitle":"Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item5.jpg","shortTitle":"Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item6.jpg","shortTitle":"Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item7.jpg","shortTitle":"My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item8.jpg","shortTitle":"Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item3.jpg","shortTitle":"Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item4.jpg","shortTitle":"Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item5.jpg","shortTitle":"Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item6.jpg","shortTitle":"Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item7.jpg","shortTitle":"My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item8.jpg","shortTitle":"Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item3.jpg","shortTitle":"Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item4.jpg","shortTitle":"Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item5.jpg","shortTitle":"Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item6.jpg","shortTitle":"Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item7.jpg","shortTitle":"My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item8.jpg","shortTitle":"Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item3.jpg","shortTitle":"Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item4.jpg","shortTitle":"Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item5.jpg","shortTitle":"Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item6.jpg","shortTitle":"Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item7.jpg","shortTitle":"My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item8.jpg","shortTitle":"Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item3.jpg","shortTitle":"Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item4.jpg","shortTitle":"Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item5.jpg","shortTitle":"Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item6.jpg","shortTitle":"Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item7.jpg","shortTitle":"My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item8.jpg","shortTitle":"Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item3.jpg","shortTitle":"Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item4.jpg","shortTitle":"Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item5.jpg","shortTitle":"Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item6.jpg","shortTitle":"Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item7.jpg","shortTitle":"My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item8.jpg","shortTitle":"Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item3.jpg","shortTitle":"Warm And Bright Top, Blush","currency":"USD","symbol":"$","price":42.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item4.jpg","shortTitle":"Get Back To Beauty Cardigan, Heather Gray","currency":"USD","symbol":"$","price":55.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item5.jpg","shortTitle":"Just The Beginning Top, Wine","currency":"USD","symbol":"$","price":28.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item6.jpg","shortTitle":"Instant Love Sweater, Heather Gray","currency":"USD","symbol":"$","price":34.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item7.jpg","shortTitle":"My Heart Is Happy Top, Royal Blue","currency":"USD","symbol":"$","price":38.00 },
-	{ "id":"Hu3fU02Bdhgpo476Fej","stock":10, "picture1":"/images/store/mockup/item8.jpg","shortTitle":"Watch You Go Top, Lilac Gray","currency":"USD","symbol":"$","price":41.00 }
-]
-
-},{}],124:[function(require,module,exports){
-module.exports={
-  "id":"aaaa",
-  "timestamp":1534344986716,
-  "state":"pending",
-  "history":[
-    {
-      "timestamp":1234667890123,
-      "description":"Read",
-      "userId":"ZZZ",
-      "userName":"Alberto"
-    }
-  ],
-  "user":{
-    "id": "AAA",
-    "name": "Carlos",
-    "lastname": "Sanchez",
-    "phone": "949799020",
-    "email": "carlos@gmail.com"
-  },
-  "cart":{
-    "quantity": 1,
-    "items": [
-      {
-        "id": "Hu3fU02Bdhgpo476Fej1",
-        "type": "clothes",
-        "shortTitle": "1 Black dress night",
-        "picture": "/images/store/mockup/item1/picture1.jpg",
-        "currency": "USD",
-        "symbol": "$",
-        "price": 50,
-        "amount": 1,
-        "attributes": [
-          "small",
-          "white"
-        ],
-        "shipping": {
-          "description": "Destination USA",
-          "currency": "USD",
-          "symbol": "$",
-          "price": 5,
-          "days": "5-7 days"
-        }
-      }
-    ],
-    "shipping": {
-      "currency": "USD",
-      "symbol": "$",
-      "price": 5
-    },
-    "subTotal": {
-      "currency": "USD",
-      "symbol": "$",
-      "price": 50
-    },
-    "taxes": [],
-    "total": {
-      "currency": "USD",
-      "symbol": "$",
-      "price": 55
-    }
-  },
-  "payment":{},
-  "shipping":{
-    "name": "Carlos",
-    "lastname": "Sanchez",
-    "address1": "calle santa felicidad 382",
-    "address2": "Urb. Pando",
-    "city": "Lima",
-    "state": "Lima",
-    "zipCode": "01",
-    "country": "peru"
-  },
-  "billing":{
-    "name": "Carlos",
-    "lastname": "Sanchez",
-    "address1": "calle santa felicidad 382",
-    "address2": "Urb. Pando",
-    "city": "Lima",
-    "state": "Lima",
-    "zipCode": "01",
-    "country": "peru"
-  }
-}
-
-},{}],125:[function(require,module,exports){
-module.exports=[
-  {
-    "id":"aaaa",
-    "timestamp":1534344986716,
-    "state":"pending",
-    "currency":"USD",
-    "symbol":"$",
-    "amount":"20"
-  },
-  {
-    "id":"aaab",
-    "timestamp":1534344976716,
-    "state":"pending",
-    "currency":"USD",
-    "symbol":"$",
-    "amount":"25"
-  },
-  {
-    "id":"aaac",
-    "timestamp":1534344966716,
-    "state":"pending",
-    "currency":"USD",
-    "symbol":"$",
-    "amount":"34"
-  },
-  {
-    "id":"aaad",
-    "timestamp":1534344956716,
-    "state":"pending",
-    "currency":"USD",
-    "symbol":"$",
-    "amount":"15"
-  }
-]
-
-},{}],126:[function(require,module,exports){
-arguments[4][124][0].apply(exports,arguments)
-},{"dup":124}],127:[function(require,module,exports){
-arguments[4][125][0].apply(exports,arguments)
-},{"dup":125}],128:[function(require,module,exports){
-'use strict';
+},{}],117:[function(require,module,exports){
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getItemById = exports.getItemsBySearch = exports.getItemsByCategory = undefined;
 
-var _itemsByCategory2 = require('./data/_itemsByCategory.json');
-
-var _itemsByCategory3 = _interopRequireDefault(_itemsByCategory2);
-
-var _itemsBySearch2 = require('./data/_itemsBySearch.json');
-
-var _itemsBySearch3 = _interopRequireDefault(_itemsBySearch2);
-
-var _itemById = require('./data/_itemById1.json');
-
-var _itemById5 = _interopRequireDefault(_itemById);
-
-var _itemById6 = require('./data/_itemById2.json');
-
-var _itemById7 = _interopRequireDefault(_itemById6);
-
-var _itemById8 = require('./data/_itemById3.json');
-
-var _itemById9 = _interopRequireDefault(_itemById8);
-
-var _itemById10 = require('./data/_itemById4.json');
-
-var _itemById11 = _interopRequireDefault(_itemById10);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-//const _itemById4 = {}
-
-//const _itemById2 = {}
-
-// const _itemsBySearch = []
 var TIMEOUT = 500;
-//const _itemById3 = {}
 
-//const _itemById1 = {}
-
-// const _itemsByCategory = []
 var getItemsByCategory = exports.getItemsByCategory = function getItemsByCategory(storeId, category, callback) {
-  setTimeout(function () {
-    callback(_itemsByCategory3.default);
-  }, TIMEOUT);
+  //setTimeout( () => { callback(_itemsByCategory) },TIMEOUT )
 };
 var getItemsBySearch = exports.getItemsBySearch = function getItemsBySearch(storeId, search, callback) {
-  setTimeout(function () {
-    callback(_itemsBySearch3.default);
-  }, TIMEOUT);
+  //setTimeout( () => { callback(_itemsBySearch) },TIMEOUT )
 };
-var getItemById = exports.getItemById = function getItemById(storeId, itemId, callback) {
-  if (itemId === 'Hu3fU02Bdhgpo476Fej1') {
-    setTimeout(function () {
-      callback(_itemById5.default);
-    }, TIMEOUT);
-  } else if (itemId === 'Hu3fU02Bdhgpo476Fej2') {
-    setTimeout(function () {
-      callback(_itemById7.default);
-    }, TIMEOUT);
-  } else if (itemId === 'Hu3fU02Bdhgpo476Fej3') {
-    setTimeout(function () {
-      callback(_itemById9.default);
-    }, TIMEOUT);
-  } else {
-    setTimeout(function () {
-      callback(_itemById11.default);
-    }, TIMEOUT);
-  }
-};
+var getItemById = exports.getItemById = function getItemById(storeId, itemId, callback) {}
+/*if (itemId==='Hu3fU02Bdhgpo476Fej1') {
+  setTimeout( () => { callback(_itemById1) },TIMEOUT )
+} else if (itemId==='Hu3fU02Bdhgpo476Fej2') {
+  setTimeout( () => { callback(_itemById2) },TIMEOUT )
+} else if (itemId==='Hu3fU02Bdhgpo476Fej3') {
+  setTimeout( () => { callback(_itemById3) },TIMEOUT )
+} else {
+  setTimeout( () => { callback(_itemById4) },TIMEOUT )
+}*/
+
 
 /*
 
 
  */
+;
 
-},{"./data/_itemById1.json":117,"./data/_itemById2.json":118,"./data/_itemById3.json":119,"./data/_itemById4.json":120,"./data/_itemsByCategory.json":121,"./data/_itemsBySearch.json":122}],129:[function(require,module,exports){
+},{}],118:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40023,7 +39395,7 @@ var post = exports.post = function post(api, payload, callback) {
   });
 };
 
-},{"../config":197,"cross-fetch":1}],130:[function(require,module,exports){
+},{"../config":186,"cross-fetch":1}],119:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40040,7 +39412,7 @@ var createPurchase = exports.createPurchase = function createPurchase(payload, c
   }, TIMEOUT);
 };
 
-},{}],131:[function(require,module,exports){
+},{}],120:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40048,59 +39420,27 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getSale = exports.getSales = exports.createNewProduct = exports.getProducts = exports.uploadImageStore = exports.updateCategoriesStore = exports.updateDataStore = exports.updateDataTheme = undefined;
 
-var _getProducts2 = require('./data/getProducts.json');
+var _post = require('./post.js');
 
-var _getProducts3 = _interopRequireDefault(_getProducts2);
+var _firebaseStorage = require('../models/firebase/firebaseStorage');
 
-var _getSales2 = require('./data/getSales.json');
+/**
+ * @module api/store
+ * @author Grover Lee
+ */
 
-var _getSales3 = _interopRequireDefault(_getSales2);
-
-var _getSale2 = require('./data/getSale.json');
-
-var _getSale3 = _interopRequireDefault(_getSale2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var TIMEOUT = 500; /**
-                    * @module api/store
-                    * @author Grover Lee
-                    */
+var TIMEOUT = 500;
 
 var updateDataTheme = exports.updateDataTheme = function updateDataTheme(userId, storeId, newDataTheme, callback) {
-  console.log('API.updateDataTheme.payload');
-  var payload = { userId: userId, storeId: storeId, newDataTheme: newDataTheme };
-  console.log(payload);
-
-  setTimeout(function () {
-    callback({
-      error: null
-    });
-  }, TIMEOUT);
+  (0, _post.post)("store/theme/data/update", { userId: userId, storeId: storeId, newDataTheme: newDataTheme }, callback);
 };
 
 var updateDataStore = exports.updateDataStore = function updateDataStore(userId, storeId, newDataStore, callback) {
-  console.log('API.updateDataStore.payload');
-  var payload = { userId: userId, storeId: storeId, newDataStore: newDataStore };
-  console.log(payload);
-
-  setTimeout(function () {
-    callback({
-      error: null
-    });
-  }, TIMEOUT);
+  (0, _post.post)("store/data/update", { userId: userId, storeId: storeId, newDataStore: newDataStore }, callback);
 };
 
 var updateCategoriesStore = exports.updateCategoriesStore = function updateCategoriesStore(userId, storeId, newCategory, callback) {
-  console.log('API.updateCategoriesStore.payload');
-  var payload = { userId: userId, storeId: storeId, newCategory: newCategory };
-  console.log(payload);
-
-  setTimeout(function () {
-    callback({
-      error: null
-    });
-  }, TIMEOUT);
+  (0, _post.post)("store/categories/update", { userId: userId, storeId: storeId, newCategory: newCategory }, callback);
 };
 
 /******************************************************************************/
@@ -40112,16 +39452,7 @@ var updateCategoriesStore = exports.updateCategoriesStore = function updateCateg
  * @param {uploadImageStore~callback} callback - The callback that handles the response.
  */
 var uploadImageStore = exports.uploadImageStore = function uploadImageStore(file, fileName, storeId, callback) {
-  /**
-  temporalmente se va a mandar la misma url del archivo, luego se implementara firestore
-  */
-  setTimeout(function () {
-    //let fr = new FileReader()
-    //fr.readAsDataURL(file)
-    //console.log('uploadImageStore.callback')
-    //console.log(fr.result)
-    callback(fileName);
-  }, TIMEOUT);
+  (0, _firebaseStorage.uploadPicture)(file, fileName, storeId, callback);
 };
 /**
  * @callback uploadImageStore~callback
@@ -40142,16 +39473,7 @@ var uploadImageStore = exports.uploadImageStore = function uploadImageStore(file
  * @param {getProducts~callback} callback - The callback that handles the response.
  */
 var getProducts = exports.getProducts = function getProducts(userId, storeId, callback) {
-  console.log('API.getProducts.payload');
-  var payload = { userId: userId, storeId: storeId };
-  console.log(payload);
-
-  setTimeout(function () {
-    callback({
-      error: null,
-      products: _getProducts3.default
-    });
-  }, TIMEOUT);
+  (0, _post.post)("product/list", { userId: userId, storeId: storeId }, callback);
 };
 /**
  * @callback getProducts~callback
@@ -40197,15 +39519,7 @@ var getProducts = exports.getProducts = function getProducts(userId, storeId, ca
  * @param {createNewProduct~callback} callback - The callback that handles the response.
  */
 var createNewProduct = exports.createNewProduct = function createNewProduct(userId, storeId, newProduct, callback) {
-  console.log('API.createNewProduct.payload');
-  var payload = { userId: userId, storeId: storeId, newProduct: newProduct };
-  console.log(payload);
-
-  setTimeout(function () {
-    callback({
-      error: null
-    });
-  }, TIMEOUT);
+  (0, _post.post)("product/create", { userId: userId, storeId: storeId, newProduct: newProduct }, callback);
 };
 /**
  * @callback createNewProduct~callback
@@ -40227,16 +39541,7 @@ var createNewProduct = exports.createNewProduct = function createNewProduct(user
  * @param {getSales~callback} callback - The callback that handles the response.
  */
 var getSales = exports.getSales = function getSales(userId, storeId, callback) {
-  console.log('API.getSales.payload');
-  var payload = { userId: userId, storeId: storeId };
-  console.log(payload);
-
-  setTimeout(function () {
-    callback({
-      error: null,
-      sales: _getSales3.default
-    });
-  }, TIMEOUT);
+  (0, _post.post)("sale/list", { userId: userId, storeId: storeId }, callback);
 };
 /**
  * @callback getSales~callback
@@ -40245,6 +39550,7 @@ var getSales = exports.getSales = function getSales(userId, storeId, callback) {
  * @property {Sales[]} result.sales - show the array of sales
  */
 /******************************************************************************/
+
 /******************************************************************************/
 /**
  * @function
@@ -40259,16 +39565,7 @@ var getSales = exports.getSales = function getSales(userId, storeId, callback) {
  * @param {getSale~callback} callback - The callback that handles the response.
  */
 var getSale = exports.getSale = function getSale(userId, storeId, saleId, callback) {
-  console.log('API.getSale.payload');
-  var payload = { userId: userId, storeId: storeId, saleId: saleId };
-  console.log(payload);
-
-  setTimeout(function () {
-    callback({
-      error: null,
-      sale: _getSale3.default
-    });
-  }, TIMEOUT);
+  (0, _post.post)("sale/get", { userId: userId, storeId: storeId, saleId: saleId }, callback);
 };
 /**
  * @callback getSale~callback
@@ -40278,7 +39575,7 @@ var getSale = exports.getSale = function getSale(userId, storeId, saleId, callba
  */
 /******************************************************************************/
 
-},{"./data/getProducts.json":123,"./data/getSale.json":124,"./data/getSales.json":125}],132:[function(require,module,exports){
+},{"../models/firebase/firebaseStorage":218,"./post.js":118}],121:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40300,52 +39597,7 @@ var logout = exports.logout = function logout(payload, callback) {
   return callback();
 };
 
-/*
-import _loginSuccess from './data/loginSuccess.json'
-import _loginB from './data/loginB.json'
-import _loginError from './data/loginError.json'
-
-const TIMEOUT = 500
-
-export const login = (payload, callback) => {
-  console.log('API.login.payload')
-  console.log(payload)
-
-  setTimeout( () => {
-    if (payload.email==='a' && payload.password==='a') {
-      callback(_loginSuccess)
-    } else if (payload.email==='b' && payload.password==='b') {
-      callback(_loginB)
-    } else {
-      callback(_loginError)
-    }
-  },TIMEOUT )
-}
-
-export const signup = (payload, callback) => {
-  console.log('API.signup.payload')
-  console.log(payload)
-
-  setTimeout( () => {
-    if (payload.email!=='a') {
-      callback(_loginSuccess)
-    } else {
-      callback(_loginError)
-    }
-  },TIMEOUT )
-}
-
-export const logout = (payload, callback) => {
-  console.log('API.logout.payload')
-  console.log(payload)
-
-  setTimeout( () => {
-    callback(true)
-  },TIMEOUT )
-}
-*/
-
-},{"./post.js":129}],133:[function(require,module,exports){
+},{"./post.js":118}],122:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40526,7 +39778,7 @@ AccountView.propsType = {
 
 exports.default = AccountView;
 
-},{"prop-types":44,"react":93}],134:[function(require,module,exports){
+},{"prop-types":44,"react":93}],123:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40610,7 +39862,7 @@ Breadcrumbs.propTypes = {
 
 exports.default = Breadcrumbs;
 
-},{"../../models/tools":231,"prop-types":44,"react":93,"react-router-dom":76}],135:[function(require,module,exports){
+},{"../../models/tools":222,"prop-types":44,"react":93,"react-router-dom":76}],124:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40798,7 +40050,7 @@ CartItemView.defaultProps = {
 
 exports.default = CartItemView;
 
-},{"../../models/tools":231,"prop-types":44,"react":93,"react-router-dom":76}],136:[function(require,module,exports){
+},{"../../models/tools":222,"prop-types":44,"react":93,"react-router-dom":76}],125:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40947,7 +40199,7 @@ CartView.propTypes = {
 
 exports.default = CartView;
 
-},{"../../models/tools":231,"../cartItemView/cartItemView":135,"prop-types":44,"react":93}],137:[function(require,module,exports){
+},{"../../models/tools":222,"../cartItemView/cartItemView":124,"prop-types":44,"react":93}],126:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40984,7 +40236,7 @@ CategoriesCreator.propTypes = {
 
 exports.default = CategoriesCreator;
 
-},{"prop-types":44,"react":93}],138:[function(require,module,exports){
+},{"prop-types":44,"react":93}],127:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41105,7 +40357,7 @@ CategoriesEdit.propTypes = {
 
 exports.default = CategoriesEdit;
 
-},{"prop-types":44,"react":93,"react-router-dom":76}],139:[function(require,module,exports){
+},{"prop-types":44,"react":93,"react-router-dom":76}],128:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41338,7 +40590,7 @@ CategoriesModal.propTypes = {
 
 exports.default = CategoriesModal;
 
-},{"prop-types":44,"react":93}],140:[function(require,module,exports){
+},{"prop-types":44,"react":93}],129:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41438,7 +40690,7 @@ Categories.propTypes = {
 
 exports.default = Categories;
 
-},{"prop-types":44,"react":93,"react-router-dom":76}],141:[function(require,module,exports){
+},{"prop-types":44,"react":93,"react-router-dom":76}],130:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41472,7 +40724,7 @@ var Categories = {
 
 exports.default = Categories;
 
-},{"./categoriesCreator/categoriesCreator.jsx":137,"./categoriesEdit/categoriesEdit.jsx":138,"./categoriesModal/categoriesModal.jsx":139,"./categoriesView/categoriesView.jsx":140}],142:[function(require,module,exports){
+},{"./categoriesCreator/categoriesCreator.jsx":126,"./categoriesEdit/categoriesEdit.jsx":127,"./categoriesModal/categoriesModal.jsx":128,"./categoriesView/categoriesView.jsx":129}],131:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41903,7 +41155,7 @@ CheckoutView.propTypes = {
 
 exports.default = CheckoutView;
 
-},{"../../models/session":230,"../../models/tools":231,"prop-types":44,"react":93}],143:[function(require,module,exports){
+},{"../../models/session":221,"../../models/tools":222,"prop-types":44,"react":93}],132:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42010,7 +41262,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CongratulationPurchase);
 
-},{"../../strings":248,"prop-types":44,"react":93,"react-redux":58}],144:[function(require,module,exports){
+},{"../../strings":239,"prop-types":44,"react":93,"react-redux":58}],133:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42061,7 +41313,7 @@ ContactEdit.propTypes = {
 
 exports.default = ContactEdit;
 
-},{"../contactView/contactView.jsx":146,"prop-types":44,"react":93}],145:[function(require,module,exports){
+},{"../contactView/contactView.jsx":135,"prop-types":44,"react":93}],134:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42228,7 +41480,7 @@ ContactModal.propTypes = {
 
 exports.default = ContactModal;
 
-},{"prop-types":44,"react":93}],146:[function(require,module,exports){
+},{"prop-types":44,"react":93}],135:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42318,7 +41570,7 @@ Contact.propTypes = {
 
 exports.default = Contact;
 
-},{"prop-types":44,"react":93}],147:[function(require,module,exports){
+},{"prop-types":44,"react":93}],136:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42347,7 +41599,7 @@ var Contact = {
 
 exports.default = Contact;
 
-},{"./contactEdit/contactEdit.jsx":144,"./contactModal/contactModal.jsx":145,"./contactView/contactView.jsx":146}],148:[function(require,module,exports){
+},{"./contactEdit/contactEdit.jsx":133,"./contactModal/contactModal.jsx":134,"./contactView/contactView.jsx":135}],137:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42484,7 +41736,7 @@ CoverModal.propTypes = {
 
 exports.default = CoverModal;
 
-},{"prop-types":44,"react":93}],149:[function(require,module,exports){
+},{"prop-types":44,"react":93}],138:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42543,7 +41795,7 @@ CreateSection.propTypes = {
 
 exports.default = CreateSection;
 
-},{"../homeSectionModal/homeSectionModal":155,"prop-types":44,"react":93}],150:[function(require,module,exports){
+},{"../homeSectionModal/homeSectionModal":144,"prop-types":44,"react":93}],139:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42576,7 +41828,7 @@ EmptyCartView.propTypes = {
 
 exports.default = EmptyCartView;
 
-},{"prop-types":44,"react":93}],151:[function(require,module,exports){
+},{"prop-types":44,"react":93}],140:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42615,7 +41867,7 @@ Cover.propTypes = {
 
 exports.default = Cover;
 
-},{"prop-types":44,"react":93}],152:[function(require,module,exports){
+},{"prop-types":44,"react":93}],141:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42684,7 +41936,7 @@ HomeSectionEdit.propTypes = {
 
 exports.default = HomeSectionEdit;
 
-},{"../homeSectionView/homeSectionView.jsx":153,"prop-types":44,"react":93}],153:[function(require,module,exports){
+},{"../homeSectionView/homeSectionView.jsx":142,"prop-types":44,"react":93}],142:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42726,7 +41978,7 @@ HomeSectionView.propTypes = {
 
 exports.default = HomeSectionView;
 
-},{"prop-types":44,"react":93,"react-router-dom":76}],154:[function(require,module,exports){
+},{"prop-types":44,"react":93,"react-router-dom":76}],143:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42750,7 +42002,7 @@ var HomeSection = {
 
 exports.default = HomeSection;
 
-},{"./homeSectionEdit/homeSectionEdit.jsx":152,"./homeSectionView/homeSectionView.jsx":153}],155:[function(require,module,exports){
+},{"./homeSectionEdit/homeSectionEdit.jsx":141,"./homeSectionView/homeSectionView.jsx":142}],144:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42986,7 +42238,7 @@ HomeSectionModal.propTypes = {
 
 exports.default = HomeSectionModal;
 
-},{"../../models/tools":231,"prop-types":44,"react":93}],156:[function(require,module,exports){
+},{"../../models/tools":222,"prop-types":44,"react":93}],145:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43102,7 +42354,7 @@ ItemCarousel.propTypes = {
 
 exports.default = ItemCarousel;
 
-},{"../../models/tools":231,"prop-types":44,"react":93}],157:[function(require,module,exports){
+},{"../../models/tools":222,"prop-types":44,"react":93}],146:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43324,7 +42576,7 @@ ItemContent.propTypes = {
 
 exports.default = ItemContent;
 
-},{"../../models/tools":231,"../itemContentAttributes/itemContentAttributes":158,"../itemContentShipping/itemContentShipping":159,"prop-types":44,"react":93}],158:[function(require,module,exports){
+},{"../../models/tools":222,"../itemContentAttributes/itemContentAttributes":147,"../itemContentShipping/itemContentShipping":148,"prop-types":44,"react":93}],147:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43489,7 +42741,7 @@ ItemContentAttributes.propTypes = {
 
 exports.default = ItemContentAttributes;
 
-},{"../../models/tools":231,"prop-types":44,"react":93}],159:[function(require,module,exports){
+},{"../../models/tools":222,"prop-types":44,"react":93}],148:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43569,7 +42821,7 @@ ItemContentShipping.propTypes = {
 
 exports.default = ItemContentShipping;
 
-},{"../../models/tools":231,"prop-types":44,"react":93}],160:[function(require,module,exports){
+},{"../../models/tools":222,"prop-types":44,"react":93}],149:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43652,7 +42904,7 @@ ItemView.propTypes = {
 
 exports.default = ItemView;
 
-},{"../itemCarousel/itemCarousel":156,"../itemContent/itemContent":157,"prop-types":44,"react":93}],161:[function(require,module,exports){
+},{"../itemCarousel/itemCarousel":145,"../itemContent/itemContent":146,"prop-types":44,"react":93}],150:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -43688,7 +42940,7 @@ var ItemViewPlaceholder = function ItemViewPlaceholder(_ref) {
 
 exports.default = ItemViewPlaceholder;
 
-},{"react":93}],162:[function(require,module,exports){
+},{"react":93}],151:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -43993,7 +43245,7 @@ LoginView.propTypes = {
 
 exports.default = LoginView;
 
-},{"prop-types":44,"react":93,"react-router-dom":76}],163:[function(require,module,exports){
+},{"prop-types":44,"react":93,"react-router-dom":76}],152:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44037,7 +43289,7 @@ LogoEdit.propTypes = {
 
 exports.default = LogoEdit;
 
-},{"prop-types":44,"react":93}],164:[function(require,module,exports){
+},{"prop-types":44,"react":93}],153:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44174,7 +43426,7 @@ LogoModal.propTypes = {
 
 exports.default = LogoModal;
 
-},{"prop-types":44,"react":93}],165:[function(require,module,exports){
+},{"prop-types":44,"react":93}],154:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44259,7 +43511,7 @@ MarketingView.propsType = {
 
 exports.default = MarketingView;
 
-},{"prop-types":44,"react":93}],166:[function(require,module,exports){
+},{"prop-types":44,"react":93}],155:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44606,7 +43858,7 @@ Navbar.propTypes = {
 
 exports.default = Navbar;
 
-},{"prop-types":44,"react":93,"react-router-dom":76}],167:[function(require,module,exports){
+},{"prop-types":44,"react":93,"react-router-dom":76}],156:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44754,7 +44006,7 @@ Pagination.propTypes = {
 
 exports.default = Pagination;
 
-},{"prop-types":44,"react":93}],168:[function(require,module,exports){
+},{"prop-types":44,"react":93}],157:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44806,7 +44058,7 @@ var PaymentGatewayView = function PaymentGatewayView(_ref) {
         ),
         _react2.default.createElement(
           'option',
-          { value: 'culqi', disabled: true },
+          { value: 'culqi' },
           'Culqi'
         )
       ),
@@ -44852,7 +44104,7 @@ PaymentGatewayView.propsType = {
 
 exports.default = PaymentGatewayView;
 
-},{"prop-types":44,"react":93}],169:[function(require,module,exports){
+},{"prop-types":44,"react":93}],158:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44912,7 +44164,7 @@ PreviewItem.propTypes = {
 
 exports.default = PreviewItem;
 
-},{"../../models/tools.js":231,"prop-types":44,"react":93,"react-router-dom":76}],170:[function(require,module,exports){
+},{"../../models/tools.js":222,"prop-types":44,"react":93,"react-router-dom":76}],159:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45005,7 +44257,7 @@ return (
 
  */
 
-},{"../previewItem/previewItem":169,"prop-types":44,"react":93}],171:[function(require,module,exports){
+},{"../previewItem/previewItem":158,"prop-types":44,"react":93}],160:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -45046,7 +44298,7 @@ var PreviewListPlaceholder = function PreviewListPlaceholder(_ref) {
 
 exports.default = PreviewListPlaceholder;
 
-},{"react":93}],172:[function(require,module,exports){
+},{"react":93}],161:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45070,7 +44322,7 @@ var Product = {
 
 exports.default = Product;
 
-},{"./productCreatorButton/productCreatorButton.jsx":173,"./productEditor/productEditor.jsx":179}],173:[function(require,module,exports){
+},{"./productCreatorButton/productCreatorButton.jsx":162,"./productEditor/productEditor.jsx":168}],162:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45112,7 +44364,7 @@ ProductCreatorButton.propTypes = {
 
 exports.default = ProductCreatorButton;
 
-},{"prop-types":44,"react":93,"react-router-dom":76}],174:[function(require,module,exports){
+},{"prop-types":44,"react":93,"react-router-dom":76}],163:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45203,7 +44455,7 @@ ProductEditorCategory.propTypes = {
 
 exports.default = ProductEditorCategory;
 
-},{"prop-types":44,"react":93}],175:[function(require,module,exports){
+},{"prop-types":44,"react":93}],164:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45301,7 +44553,7 @@ ProductEditorInformation.propTypes = {
 
 exports.default = ProductEditorInformation;
 
-},{"prop-types":44,"react":93}],176:[function(require,module,exports){
+},{"prop-types":44,"react":93}],165:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45557,7 +44809,7 @@ ProductEditorPictures.propTypes = {
 
 exports.default = ProductEditorPictures;
 
-},{"prop-types":44,"react":93}],177:[function(require,module,exports){
+},{"prop-types":44,"react":93}],166:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45633,7 +44885,7 @@ ProductEditorPrice.propTypes = {
 
 exports.default = ProductEditorPrice;
 
-},{"prop-types":44,"react":93}],178:[function(require,module,exports){
+},{"prop-types":44,"react":93}],167:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45719,7 +44971,7 @@ ProductEditorShipping.propTypes = {
 
 exports.default = ProductEditorShipping;
 
-},{"prop-types":44,"react":93}],179:[function(require,module,exports){
+},{"prop-types":44,"react":93}],168:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45819,7 +45071,7 @@ ProductEditor.propTypes = {
 
 exports.default = ProductEditor;
 
-},{"./partials/productEditorCategory.jsx":174,"./partials/productEditorInformation.jsx":175,"./partials/productEditorPictures.jsx":176,"./partials/productEditorPrice.jsx":177,"./partials/productEditorShipping.jsx":178,"prop-types":44,"react":93}],180:[function(require,module,exports){
+},{"./partials/productEditorCategory.jsx":163,"./partials/productEditorInformation.jsx":164,"./partials/productEditorPictures.jsx":165,"./partials/productEditorPrice.jsx":166,"./partials/productEditorShipping.jsx":167,"prop-types":44,"react":93}],169:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45930,7 +45182,7 @@ ProductsList.propTypes = {
 
 exports.default = ProductsList;
 
-},{"../../models/tools.js":231,"prop-types":44,"react":93,"react-router-dom":76}],181:[function(require,module,exports){
+},{"../../models/tools.js":222,"prop-types":44,"react":93,"react-router-dom":76}],170:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46020,7 +45272,7 @@ Profile.propTypes = {
 
 exports.default = Profile;
 
-},{"../../containers/logoContainer":212,"../../containers/shortDescriptionContainer.jsx":222,"prop-types":44,"react":93}],182:[function(require,module,exports){
+},{"../../containers/logoContainer":201,"../../containers/shortDescriptionContainer.jsx":211,"prop-types":44,"react":93}],171:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46308,7 +45560,7 @@ PurchaseView.propTypes = {
 
 exports.default = PurchaseView;
 
-},{"../../models/tools.js":231,"../cartItemView/cartItemView":135,"prop-types":44,"react":93}],183:[function(require,module,exports){
+},{"../../models/tools.js":222,"../cartItemView/cartItemView":124,"prop-types":44,"react":93}],172:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46419,7 +45671,7 @@ PurchasesList.propTypes = {
 
 exports.default = PurchasesList;
 
-},{"../../models/tools.js":231,"prop-types":44,"react":93,"react-router-dom":76}],184:[function(require,module,exports){
+},{"../../models/tools.js":222,"prop-types":44,"react":93,"react-router-dom":76}],173:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46455,7 +45707,7 @@ ResultCount.propTypes = {
 
 exports.default = ResultCount;
 
-},{"prop-types":44,"react":93}],185:[function(require,module,exports){
+},{"prop-types":44,"react":93}],174:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46484,7 +45736,7 @@ var Sale = {
 
 exports.default = Sale;
 
-},{"./saleView/saleView.jsx":186,"./salesList/salesList.jsx":187}],186:[function(require,module,exports){
+},{"./saleView/saleView.jsx":175,"./salesList/salesList.jsx":176}],175:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46815,7 +46067,7 @@ SaleView.propTypes = {
 
 exports.default = SaleView;
 
-},{"../../../models/tools.js":231,"../../cartItemView/cartItemView":135,"prop-types":44,"react":93}],187:[function(require,module,exports){
+},{"../../../models/tools.js":222,"../../cartItemView/cartItemView":124,"prop-types":44,"react":93}],176:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46926,7 +46178,7 @@ SalesList.propTypes = {
 
 exports.default = SalesList;
 
-},{"../../../models/tools.js":231,"prop-types":44,"react":93,"react-router-dom":76}],188:[function(require,module,exports){
+},{"../../../models/tools.js":222,"prop-types":44,"react":93,"react-router-dom":76}],177:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46950,7 +46202,7 @@ var ShortDescription = {
 
 exports.default = ShortDescription;
 
-},{"./shortDescriptionEdit/shortDescriptionEdit.jsx":189,"./shortDescriptionModal/shortDescriptionModal.jsx":190}],189:[function(require,module,exports){
+},{"./shortDescriptionEdit/shortDescriptionEdit.jsx":178,"./shortDescriptionModal/shortDescriptionModal.jsx":179}],178:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46998,7 +46250,7 @@ ShortDescriptionEdit.propTypes = {
 
 exports.default = ShortDescriptionEdit;
 
-},{"prop-types":44,"react":93}],190:[function(require,module,exports){
+},{"prop-types":44,"react":93}],179:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47139,7 +46391,7 @@ ShortDescriptionModal.propTypes = {
 
 exports.default = ShortDescriptionModal;
 
-},{"prop-types":44,"react":93}],191:[function(require,module,exports){
+},{"prop-types":44,"react":93}],180:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47180,7 +46432,7 @@ Spinner.propTypes = {
 
 exports.default = Spinner;
 
-},{"prop-types":44,"react":93}],192:[function(require,module,exports){
+},{"prop-types":44,"react":93}],181:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47304,7 +46556,7 @@ TabsHero.propTypes = {
 
 exports.default = TabsHero;
 
-},{"prop-types":44,"react":93,"react-router-dom":76}],193:[function(require,module,exports){
+},{"prop-types":44,"react":93,"react-router-dom":76}],182:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47333,7 +46585,7 @@ var Terms = {
 
 exports.default = Terms;
 
-},{"./termsEdit/termsEdit.jsx":194,"./termsModal/termsModal.jsx":195,"./termsView/termsView.jsx":196}],194:[function(require,module,exports){
+},{"./termsEdit/termsEdit.jsx":183,"./termsModal/termsModal.jsx":184,"./termsView/termsView.jsx":185}],183:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47384,7 +46636,7 @@ TermsEdit.propTypes = {
 
 exports.default = TermsEdit;
 
-},{"../termsView/termsView.jsx":196,"prop-types":44,"react":93}],195:[function(require,module,exports){
+},{"../termsView/termsView.jsx":185,"prop-types":44,"react":93}],184:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47537,7 +46789,7 @@ TermsModal.propTypes = {
 
 exports.default = TermsModal;
 
-},{"prop-types":44,"react":93}],196:[function(require,module,exports){
+},{"prop-types":44,"react":93}],185:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47599,7 +46851,7 @@ TermsView.propTypes = {
 
 exports.default = TermsView;
 
-},{"prop-types":44,"react":93}],197:[function(require,module,exports){
+},{"prop-types":44,"react":93}],186:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -47689,7 +46941,7 @@ var getEnv = exports.getEnv = function getEnv() {
   }
 };
 
-},{}],198:[function(require,module,exports){
+},{}],187:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47740,7 +46992,7 @@ var UPDATE_CATEGORIES_STORE = exports.UPDATE_CATEGORIES_STORE = 'UPDATE_CATEGORI
 var CLEAN_SALE = exports.CLEAN_SALE = 'CLEAN_SALE';
 var LOAD_SALE = exports.LOAD_SALE = 'LOAD_SALE';
 
-},{}],199:[function(require,module,exports){
+},{}],188:[function(require,module,exports){
 module.exports={
   "API_AUTH_SET_SUCCEED":4000,
   "API_AUTH_SET_FAILED":4001,
@@ -47752,7 +47004,7 @@ module.exports={
   "API_STORE_CREATE_USERNAME_EXIST":6000
 }
 
-},{}],200:[function(require,module,exports){
+},{}],189:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47906,7 +47158,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(AccountPage));
 
-},{"../actions/account":108,"../components/accountView/accountView":133,"../components/breadcrumbs/breadcrumbs":134,"../models/analytics":225,"../models/facebookPixel":227,"../models/session":230,"../strings":248,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],201:[function(require,module,exports){
+},{"../actions/account":108,"../components/accountView/accountView":122,"../components/breadcrumbs/breadcrumbs":123,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":221,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],190:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48051,7 +47303,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CartPage));
 
-},{"../actions/cart":109,"../components/cartView/cartView":136,"../components/emptyCartView/emptyCartView":150,"../models/analytics":225,"../models/facebookPixel":227,"../strings":248,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],202:[function(require,module,exports){
+},{"../actions/cart":109,"../components/cartView/cartView":125,"../components/emptyCartView/emptyCartView":139,"../models/analytics":214,"../models/facebookPixel":216,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],191:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48224,7 +47476,7 @@ mapDispatchToProps)(CategoriesPage);
 />
 */
 
-},{"../actions/store":115,"../components/categories":141,"../components/terms":193,"../models/analytics":225,"../models/facebookPixel":227,"../models/tools":231,"../strings":248,"prop-types":44,"react":93,"react-redux":58}],203:[function(require,module,exports){
+},{"../actions/store":115,"../components/categories":130,"../components/terms":182,"../models/analytics":214,"../models/facebookPixel":216,"../models/tools":222,"../strings":239,"prop-types":44,"react":93,"react-redux":58}],192:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48422,7 +47674,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CategoryPage));
 
-},{"../actions":111,"../components/breadcrumbs/breadcrumbs":134,"../components/pagination/pagination":167,"../components/previewList/previewList":170,"../components/previewListPlaceholder/previewListPlaceholder":171,"../components/resultCount/resultCount":184,"../models/analytics":225,"../models/facebookPixel":227,"../models/tools":231,"../strings":248,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],204:[function(require,module,exports){
+},{"../actions":111,"../components/breadcrumbs/breadcrumbs":123,"../components/pagination/pagination":156,"../components/previewList/previewList":159,"../components/previewListPlaceholder/previewListPlaceholder":160,"../components/resultCount/resultCount":173,"../models/analytics":214,"../models/facebookPixel":216,"../models/tools":222,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],193:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48540,7 +47792,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CheckoutPage));
 
-},{"../actions/cart":109,"../components/checkoutView/checkoutView":142,"../models/analytics":225,"../models/facebookPixel":227,"../strings":248,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],205:[function(require,module,exports){
+},{"../actions/cart":109,"../components/checkoutView/checkoutView":131,"../models/analytics":214,"../models/facebookPixel":216,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],194:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48624,7 +47876,7 @@ ContactContainer.propTypes = {
   )(ContactContainer))*/
 };exports.default = ContactContainer;
 
-},{"../components/contact":147,"prop-types":44,"react":93}],206:[function(require,module,exports){
+},{"../components/contact":136,"prop-types":44,"react":93}],195:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48712,7 +47964,7 @@ CoverContainer.propTypes = {
 
 exports.default = CoverContainer;
 
-},{"../components/coverModal/coverModal":148,"prop-types":44,"react":93}],207:[function(require,module,exports){
+},{"../components/coverModal/coverModal":137,"prop-types":44,"react":93}],196:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48854,7 +48106,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Hero));
 
-},{"../actions/store":115,"../components/profile/profile.js":181,"../components/tabsHero/tabsHero.js":192,"../models/canvas":226,"../strings":248,"./coverContainer":206,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],208:[function(require,module,exports){
+},{"../actions/store":115,"../components/profile/profile.js":170,"../components/tabsHero/tabsHero.js":181,"../models/canvas":215,"../strings":239,"./coverContainer":195,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],197:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49037,7 +48289,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(HomePage);
 
-},{"../actions/store":115,"../components/createSection/createSection":149,"../models/analytics":225,"../models/canvas":226,"../models/facebookPixel":227,"../models/tools":231,"../strings":248,"./homeSectionContainer.jsx":209,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],209:[function(require,module,exports){
+},{"../actions/store":115,"../components/createSection/createSection":138,"../models/analytics":214,"../models/canvas":215,"../models/facebookPixel":216,"../models/tools":222,"../strings":239,"./homeSectionContainer.jsx":198,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],198:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49102,7 +48354,7 @@ HomeSectionContainer.propTypes = {
 
 exports.default = HomeSectionContainer;
 
-},{"../components/homeSection":154,"prop-types":44,"react":93}],210:[function(require,module,exports){
+},{"../components/homeSection":143,"prop-types":44,"react":93}],199:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49300,7 +48552,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(ItemPage));
 
-},{"../actions":111,"../actions/item":112,"../components/breadcrumbs/breadcrumbs":134,"../components/itemView/itemView":160,"../components/itemViewPlaceholder/itemViewPlaceholder":161,"../models/analytics":225,"../models/facebookPixel":227,"../strings":248,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],211:[function(require,module,exports){
+},{"../actions":111,"../actions/item":112,"../components/breadcrumbs/breadcrumbs":123,"../components/itemView/itemView":149,"../components/itemViewPlaceholder/itemViewPlaceholder":150,"../models/analytics":214,"../models/facebookPixel":216,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],200:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49432,7 +48684,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(LoginPage));
 
-},{"../actions/login":113,"../components/loginView/loginView":162,"../models/analytics":225,"../models/facebookPixel":227,"../strings":248,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],212:[function(require,module,exports){
+},{"../actions/login":113,"../components/loginView/loginView":151,"../models/analytics":214,"../models/facebookPixel":216,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],201:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49505,7 +48757,7 @@ LogoContainer.propTypes = {
 
 exports.default = LogoContainer;
 
-},{"../components/logoEdit/logoEdit":163,"../components/logoModal/logoModal":164,"prop-types":44,"react":93}],213:[function(require,module,exports){
+},{"../components/logoEdit/logoEdit":152,"../components/logoModal/logoModal":153,"prop-types":44,"react":93}],202:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49652,7 +48904,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(MarketingPage));
 
-},{"../actions/store":115,"../components/breadcrumbs/breadcrumbs":134,"../components/marketingView/marketingView.jsx":165,"../models/analytics":225,"../models/facebookPixel":227,"../models/session":230,"../strings":248,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],214:[function(require,module,exports){
+},{"../actions/store":115,"../components/breadcrumbs/breadcrumbs":123,"../components/marketingView/marketingView.jsx":154,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":221,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],203:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49799,7 +49051,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(PaymentGatewayPage));
 
-},{"../actions/store":115,"../components/breadcrumbs/breadcrumbs":134,"../components/paymentGatewayView/paymentGatewayView.jsx":168,"../models/analytics":225,"../models/facebookPixel":227,"../models/session":230,"../strings":248,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],215:[function(require,module,exports){
+},{"../actions/store":115,"../components/breadcrumbs/breadcrumbs":123,"../components/paymentGatewayView/paymentGatewayView.jsx":157,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":221,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],204:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49954,7 +49206,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(ProductPage));
 
-},{"../actions/store":115,"../components/breadcrumbs/breadcrumbs":134,"../components/product":172,"../models/analytics":225,"../models/canvas":226,"../models/facebookPixel":227,"../models/session":230,"../strings":248,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],216:[function(require,module,exports){
+},{"../actions/store":115,"../components/breadcrumbs/breadcrumbs":123,"../components/product":161,"../models/analytics":214,"../models/canvas":215,"../models/facebookPixel":216,"../models/session":221,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],205:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50146,7 +49398,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(ProductsPage));
 
-},{"../actions/pagination":114,"../actions/store":115,"../components/breadcrumbs/breadcrumbs":134,"../components/pagination/pagination":167,"../components/product":172,"../components/productsList/productsList.jsx":180,"../models/analytics":225,"../models/facebookPixel":227,"../models/session":230,"../strings":248,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],217:[function(require,module,exports){
+},{"../actions/pagination":114,"../actions/store":115,"../components/breadcrumbs/breadcrumbs":123,"../components/pagination/pagination":156,"../components/product":161,"../components/productsList/productsList.jsx":169,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":221,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],206:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50309,7 +49561,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(PurchasePage));
 
-},{"../actions/account":108,"../components/breadcrumbs/breadcrumbs":134,"../components/purchaseView/purchaseView":182,"../models/analytics":225,"../models/facebookPixel":227,"../models/session":230,"../strings":248,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],218:[function(require,module,exports){
+},{"../actions/account":108,"../components/breadcrumbs/breadcrumbs":123,"../components/purchaseView/purchaseView":171,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":221,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],207:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50493,7 +49745,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(PurchasesPage));
 
-},{"../actions/account":108,"../actions/pagination":114,"../components/breadcrumbs/breadcrumbs":134,"../components/pagination/pagination":167,"../components/purchasesList/purchasesList":183,"../models/analytics":225,"../models/facebookPixel":227,"../models/session":230,"../strings":248,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],219:[function(require,module,exports){
+},{"../actions/account":108,"../actions/pagination":114,"../components/breadcrumbs/breadcrumbs":123,"../components/pagination/pagination":156,"../components/purchasesList/purchasesList":172,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":221,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],208:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50656,7 +49908,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(PurchasePage));
 
-},{"../actions/store":115,"../components/breadcrumbs/breadcrumbs":134,"../components/sale":185,"../models/analytics":225,"../models/facebookPixel":227,"../models/session":230,"../strings":248,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],220:[function(require,module,exports){
+},{"../actions/store":115,"../components/breadcrumbs/breadcrumbs":123,"../components/sale":174,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":221,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],209:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50841,7 +50093,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(SalesPage));
 
-},{"../actions/pagination":114,"../actions/store":115,"../components/breadcrumbs/breadcrumbs":134,"../components/pagination/pagination":167,"../components/sale":185,"../models/analytics":225,"../models/facebookPixel":227,"../models/session":230,"../strings":248,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],221:[function(require,module,exports){
+},{"../actions/pagination":114,"../actions/store":115,"../components/breadcrumbs/breadcrumbs":123,"../components/pagination/pagination":156,"../components/sale":174,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":221,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],210:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -51036,7 +50288,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(SearchPage));
 
-},{"../actions":111,"../components/breadcrumbs/breadcrumbs":134,"../components/pagination/pagination":167,"../components/previewList/previewList":170,"../components/previewListPlaceholder/previewListPlaceholder":171,"../components/resultCount/resultCount":184,"../models/analytics":225,"../models/facebookPixel":227,"../models/tools":231,"../strings":248,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],222:[function(require,module,exports){
+},{"../actions":111,"../components/breadcrumbs/breadcrumbs":123,"../components/pagination/pagination":156,"../components/previewList/previewList":159,"../components/previewListPlaceholder/previewListPlaceholder":160,"../components/resultCount/resultCount":173,"../models/analytics":214,"../models/facebookPixel":216,"../models/tools":222,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],211:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -51103,7 +50355,7 @@ ShortDescriptionContainer.propTypes = {
 
 exports.default = ShortDescriptionContainer;
 
-},{"../components/shortDescription":188,"prop-types":44,"react":93}],223:[function(require,module,exports){
+},{"../components/shortDescription":177,"prop-types":44,"react":93}],212:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -51414,7 +50666,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(Store));
 
-},{"../actions":111,"../actions/login":113,"../actions/store":115,"../components/congratulationPurchase/congratulationPurchase.js":143,"../components/footer/footer.js":151,"../components/navbar/navbar.js":166,"../components/spinner/spinner.js":191,"../models/session":230,"../strings":248,"./accountPage.js":200,"./cartPage.js":201,"./categoriesPage.jsx":202,"./categoryPage.js":203,"./checkoutPage.js":204,"./contactContainer.jsx":205,"./hero.js":207,"./homePage.js":208,"./itemPage.js":210,"./loginPage.js":211,"./marketingPage.jsx":213,"./paymentGatewayPage.jsx":214,"./productPage.jsx":215,"./productsPage.jsx":216,"./purchasePage.js":217,"./purchasesPage.js":218,"./salePage.jsx":219,"./salesPage.jsx":220,"./searchPage.js":221,"./termsPage.js":224,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],224:[function(require,module,exports){
+},{"../actions":111,"../actions/login":113,"../actions/store":115,"../components/congratulationPurchase/congratulationPurchase.js":132,"../components/footer/footer.js":140,"../components/navbar/navbar.js":155,"../components/spinner/spinner.js":180,"../models/session":221,"../strings":239,"./accountPage.js":189,"./cartPage.js":190,"./categoriesPage.jsx":191,"./categoryPage.js":192,"./checkoutPage.js":193,"./contactContainer.jsx":194,"./hero.js":196,"./homePage.js":197,"./itemPage.js":199,"./loginPage.js":200,"./marketingPage.jsx":202,"./paymentGatewayPage.jsx":203,"./productPage.jsx":204,"./productsPage.jsx":205,"./purchasePage.js":206,"./purchasesPage.js":207,"./salePage.jsx":208,"./salesPage.jsx":209,"./searchPage.js":210,"./termsPage.js":213,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],213:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -51559,7 +50811,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(TermsPage);
 
-},{"../actions/store":115,"../components/terms":193,"../models/analytics":225,"../models/facebookPixel":227,"../strings":248,"prop-types":44,"react":93,"react-redux":58}],225:[function(require,module,exports){
+},{"../actions/store":115,"../components/terms":182,"../models/analytics":214,"../models/facebookPixel":216,"../strings":239,"prop-types":44,"react":93,"react-redux":58}],214:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -51581,7 +50833,7 @@ var pageView = exports.pageView = function pageView(storeTrackerId) {
   ga('sherponTracker.send', 'pageview');
 };
 
-},{"../config":197}],226:[function(require,module,exports){
+},{"../config":186}],215:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -51670,7 +50922,7 @@ var loadPicture = exports.loadPicture = function loadPicture(inputId, canvasId, 
     }
 };
 
-},{}],227:[function(require,module,exports){
+},{}],216:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -51690,7 +50942,103 @@ var pixelPageView = exports.pixelPageView = function pixelPageView(storePixelId)
   fbq('track', 'PageView');
 };
 
-},{"../config":197}],228:[function(require,module,exports){
+},{"../config":186}],217:[function(require,module,exports){
+'use strict';
+
+var _config = require('../../config');
+
+module.exports = function () {
+
+  if (!firebase.apps.length) {
+    firebase.initializeApp((0, _config.getEnv)().FIREBASE_APP);
+  }
+
+  //firebase.initializeApp(config);
+  return firebase;
+};
+
+},{"../../config":186}],218:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var firebase = require('./firebaseInit.js')();
+
+/******************************************************************************/
+/**
+ * Upload the store's image
+ * @param {File} file - store's id.
+ * @param {string} fileName - image's name.
+ * @param {string} storeId - store's id.
+ * @param {uploadImageStore~callback} callback - The callback that handles the response.
+ */
+var uploadPicture = exports.uploadPicture = function uploadPicture(file, fileName, storeId, callback) {
+
+  if (file === undefined) {
+    callback(null);
+  } else {
+    // Create a root reference
+    var storageRef = firebase.storage().ref();
+
+    // get the extension
+    var fileExtension = file.name.split('.').pop();
+
+    // Create the file metadata
+    var metadata = {
+      contentType: 'image/' + fileExtension
+    };
+
+    var uploadTask = storageRef.child('stores/' + storeId + '/' + fileName).put(file, metadata);
+
+    // Listen for state changes, errors, and completion of the upload.
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+    function (snapshot) {
+      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+      var progress = snapshot.bytesTransferred / snapshot.totalBytes * 100;
+      console.log("firebase_storage.uploadPicture", "Upload is: ", progress, false);
+      //console.log('Upload is ' + progress + '% done');
+      switch (snapshot.state) {
+        case firebase.storage.TaskState.PAUSED:
+          // or 'paused'
+          console.log("firebase_storage.uploadPicture", "Upload is paused.", null, false);
+          //console.log('Upload is paused');
+          break;
+        case firebase.storage.TaskState.RUNNING:
+          // or 'running'
+          console.log("firebase_storage.uploadPicture", "Upload is running.", null, false);
+          //console.log('Upload is running');
+          break;
+      }
+    }, function (error) {
+      // A full list of error codes is available at
+      // https://firebase.google.com/docs/storage/web/handle-errors
+      console.log("firebase_storage.uploadPicture", "Error: ", error.code, false);
+      switch (error.code) {
+        case 'storage/unauthorized':
+          // User doesn't have permission to access the object
+          break;
+        case 'storage/canceled':
+          // User canceled the upload
+          break;
+        case 'storage/unknown':
+          // Unknown error occurred, inspect error.serverResponse
+          break;
+      }
+      callback(error.code);
+    }, function () {
+      // Upload completed successfully, now we can get the download URL
+      var downloadURL = uploadTask.snapshot.downloadURL;
+      callback(downloadURL);
+    });
+  }
+};
+/**
+ * @callback uploadImageStore~callback
+ * @param {string} downloadURL - picture's download url
+ */
+
+},{"./firebaseInit.js":217}],219:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51701,7 +51049,7 @@ var _history = require("history");
 
 exports.default = (0, _history.createBrowserHistory)({ basename: "/" });
 
-},{"history":23}],229:[function(require,module,exports){
+},{"history":23}],220:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -51756,7 +51104,7 @@ Diners Club       3600 020000 0006      01/2020   230   fraudulent
 
  */
 
-},{"../tools":231}],230:[function(require,module,exports){
+},{"../tools":222}],221:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -51836,7 +51184,7 @@ exports.default = {
   inCartSession: inCartSession
 };
 
-},{}],231:[function(require,module,exports){
+},{}],222:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51985,7 +51333,7 @@ var getRandomString = exports.getRandomString = function getRandomString() {
   }return text;
 };
 
-},{}],232:[function(require,module,exports){
+},{}],223:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -52120,7 +51468,7 @@ var Cart = function Cart() {
 
 exports.default = Cart;
 
-},{"../constants/ActionTypes":198,"../models/session":230}],233:[function(require,module,exports){
+},{"../constants/ActionTypes":187,"../models/session":221}],224:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -52151,7 +51499,7 @@ var inSession = function inSession() {
 
 exports.default = inSession;
 
-},{"../constants/ActionTypes":198,"../models/session":230}],234:[function(require,module,exports){
+},{"../constants/ActionTypes":187,"../models/session":221}],225:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -52230,7 +51578,7 @@ exports.default = (0, _redux.combineReducers)({
   store: _store2.default
 });
 
-},{"./cart":232,"./inSession":233,"./isAdmin":235,"./isEditable":236,"./isFetching":237,"./isResultLoaded":238,"./item":239,"./language":240,"./pagination":241,"./purchase":242,"./result":243,"./sale":244,"./store":245,"redux":101}],235:[function(require,module,exports){
+},{"./cart":223,"./inSession":224,"./isAdmin":226,"./isEditable":227,"./isFetching":228,"./isResultLoaded":229,"./item":230,"./language":231,"./pagination":232,"./purchase":233,"./result":234,"./sale":235,"./store":236,"redux":101}],226:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -52265,7 +51613,7 @@ var isAdmin = function isAdmin() {
 
 exports.default = isAdmin;
 
-},{"../constants/ActionTypes":198,"../models/session":230}],236:[function(require,module,exports){
+},{"../constants/ActionTypes":187,"../models/session":221}],227:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -52300,7 +51648,7 @@ var isEditable = function isEditable() {
 
 exports.default = isEditable;
 
-},{"../constants/ActionTypes":198,"../models/session":230}],237:[function(require,module,exports){
+},{"../constants/ActionTypes":187,"../models/session":221}],228:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -52325,7 +51673,7 @@ var isFetching = function isFetching() {
 
 exports.default = isFetching;
 
-},{"../constants/ActionTypes":198}],238:[function(require,module,exports){
+},{"../constants/ActionTypes":187}],229:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -52350,7 +51698,7 @@ var isResultLoaded = function isResultLoaded() {
 
 exports.default = isResultLoaded;
 
-},{"../constants/ActionTypes":198}],239:[function(require,module,exports){
+},{"../constants/ActionTypes":187}],230:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -52413,7 +51761,7 @@ var item = function item() {
 
 exports.default = item;
 
-},{"../constants/ActionTypes":198}],240:[function(require,module,exports){
+},{"../constants/ActionTypes":187}],231:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -52438,7 +51786,7 @@ var language = function language() {
 
 exports.default = language;
 
-},{"../constants/ActionTypes":198}],241:[function(require,module,exports){
+},{"../constants/ActionTypes":187}],232:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -52483,7 +51831,7 @@ var pagination = function pagination() {
 
 exports.default = pagination;
 
-},{"../constants/ActionTypes":198}],242:[function(require,module,exports){
+},{"../constants/ActionTypes":187}],233:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -52539,7 +51887,7 @@ var purchase = function purchase() {
 
 exports.default = purchase;
 
-},{"../constants/ActionTypes":198}],243:[function(require,module,exports){
+},{"../constants/ActionTypes":187}],234:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -52562,7 +51910,7 @@ var result = function result() {
 
 exports.default = result;
 
-},{"../constants/ActionTypes":198}],244:[function(require,module,exports){
+},{"../constants/ActionTypes":187}],235:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -52618,7 +51966,7 @@ var sale = function sale() {
 
 exports.default = sale;
 
-},{"../constants/ActionTypes":198}],245:[function(require,module,exports){
+},{"../constants/ActionTypes":187}],236:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -52669,7 +52017,7 @@ var storeState = function storeState() {
 
 exports.default = storeState;
 
-},{"../constants/ActionTypes":198}],246:[function(require,module,exports){
+},{"../constants/ActionTypes":187}],237:[function(require,module,exports){
 module.exports={
 	"store":{
 		"text1":"text"
@@ -52680,7 +52028,7 @@ module.exports={
 		"navbarItemAccount":"Mi cuenta"
 	}
 }
-},{}],247:[function(require,module,exports){
+},{}],238:[function(require,module,exports){
 module.exports={
 	"store":{
 		"text1":"text"
@@ -53093,7 +52441,7 @@ module.exports={
 	}
 }
 
-},{}],248:[function(require,module,exports){
+},{}],239:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -53119,7 +52467,7 @@ Notes
 var userLang = navigator.language || navigator.userLanguage; 
  */
 
-},{"./EN.json":246,"./ES.json":247}],249:[function(require,module,exports){
+},{"./EN.json":237,"./ES.json":238}],240:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -53190,4 +52538,4 @@ Notes
  */
 
 }).call(this,require('_process'))
-},{"./containers/store.js":223,"./models/history":228,"./reducers":234,"_process":40,"jquery":26,"react":93,"react-dom":48,"react-redux":58,"react-router-dom":76,"redux":101,"redux-logger":94,"redux-thunk":95}]},{},[249]);
+},{"./containers/store.js":212,"./models/history":219,"./reducers":225,"_process":40,"jquery":26,"react":93,"react-dom":48,"react-redux":58,"react-router-dom":76,"redux":101,"redux-logger":94,"redux-thunk":95}]},{},[240]);

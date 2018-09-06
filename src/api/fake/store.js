@@ -3,21 +3,48 @@
  * @author Grover Lee
  */
 
-import { post } from './post.js'
 import { uploadPicture } from '../models/firebase/firebaseStorage'
+
+ import _getProducts from './data/getProducts.json'
+ import _getSales from './data/getSales.json'
+ import _getSale from './data/getSale.json'
 
 const TIMEOUT = 500
 
 export const updateDataTheme = (userId, storeId, newDataTheme, callback) => {
-  post( "store/theme/data/update", { userId, storeId, newDataTheme }, callback )
+  console.log('API.updateDataTheme.payload')
+  const payload = { userId, storeId, newDataTheme }
+  console.log(payload)
+
+  setTimeout( () => {
+    callback({
+      error: null
+    })
+  },TIMEOUT )
 }
 
 export const updateDataStore = (userId, storeId, newDataStore, callback) => {
-  post( "store/data/update", { userId, storeId, newDataStore }, callback )
+  console.log('API.updateDataStore.payload')
+  const payload = { userId, storeId, newDataStore }
+  console.log(payload)
+
+  setTimeout( () => {
+    callback({
+      error: null
+    })
+  },TIMEOUT )
 }
 
 export const updateCategoriesStore = (userId, storeId, newCategory, callback) => {
-  post( "store/categories/update", { userId, storeId, newCategory }, callback )
+  console.log('API.updateCategoriesStore.payload')
+  const payload = { userId, storeId, newCategory }
+  console.log(payload)
+
+  setTimeout( () => {
+    callback({
+      error: null
+    })
+  },TIMEOUT )
 }
 
 /******************************************************************************/
@@ -29,6 +56,16 @@ export const updateCategoriesStore = (userId, storeId, newCategory, callback) =>
  * @param {uploadImageStore~callback} callback - The callback that handles the response.
  */
 export const uploadImageStore = (file, fileName, storeId, callback) => {
+  /**
+  temporalmente se va a mandar la misma url del archivo, luego se implementara firestore
+  */
+  /*setTimeout( () => {
+    //let fr = new FileReader()
+    //fr.readAsDataURL(file)
+    //console.log('uploadImageStore.callback')
+    //console.log(fr.result)
+    callback(fileName)
+  },TIMEOUT )*/
   uploadPicture(file, fileName, storeId, callback)
 }
 /**
@@ -50,7 +87,16 @@ export const uploadImageStore = (file, fileName, storeId, callback) => {
  * @param {getProducts~callback} callback - The callback that handles the response.
  */
 export const getProducts = (userId, storeId, callback) => {
-  post( "product/list", { userId, storeId }, callback )
+  console.log('API.getProducts.payload')
+  const payload = { userId, storeId }
+  console.log(payload)
+
+  setTimeout( () => {
+    callback({
+      error: null,
+      products: _getProducts
+    })
+  },TIMEOUT )
 }
 /**
  * @callback getProducts~callback
@@ -95,8 +141,21 @@ export const getProducts = (userId, storeId, callback) => {
  * @property {string} newProduct.picture7 - picture7 of product.
  * @param {createNewProduct~callback} callback - The callback that handles the response.
  */
-export const createNewProduct = ( userId, storeId, newProduct, callback ) => {
-  post( "product/create", { userId, storeId, newProduct }, callback )
+export const createNewProduct = (
+    userId,
+    storeId,
+    newProduct,
+    callback
+  ) => {
+  console.log('API.createNewProduct.payload')
+  const payload = { userId, storeId, newProduct }
+  console.log(payload)
+
+  setTimeout( () => {
+    callback({
+      error: null
+    })
+  },TIMEOUT )
 }
 /**
  * @callback createNewProduct~callback
@@ -118,7 +177,16 @@ export const createNewProduct = ( userId, storeId, newProduct, callback ) => {
  * @param {getSales~callback} callback - The callback that handles the response.
  */
 export const getSales = (userId, storeId, callback) => {
-  post( "sale/list", { userId, storeId }, callback )
+  console.log('API.getSales.payload')
+  const payload = { userId, storeId }
+  console.log(payload)
+
+  setTimeout( () => {
+    callback({
+      error: null,
+      sales: _getSales
+    })
+  },TIMEOUT )
 }
 /**
  * @callback getSales~callback
@@ -127,7 +195,6 @@ export const getSales = (userId, storeId, callback) => {
  * @property {Sales[]} result.sales - show the array of sales
  */
 /******************************************************************************/
-
 /******************************************************************************/
 /**
  * @function
@@ -142,7 +209,16 @@ export const getSales = (userId, storeId, callback) => {
  * @param {getSale~callback} callback - The callback that handles the response.
  */
 export const getSale = (userId, storeId, saleId, callback) => {
-  post( "sale/get", { userId, storeId, saleId }, callback )
+  console.log('API.getSale.payload')
+  const payload = { userId, storeId, saleId }
+  console.log(payload)
+
+  setTimeout( () => {
+    callback({
+      error: null,
+      sale: _getSale
+    })
+  },TIMEOUT )
 }
 /**
  * @callback getSale~callback

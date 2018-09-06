@@ -24,7 +24,7 @@ const PaymentGatewayView = ({
       <div className="input-field">
         <select id="payment-gateway-view__name" defaultValue={paymentGateway.name}>
           <option value="" disabled>-</option>
-          <option value="culqi" disabled>Culqi</option>
+          <option value="culqi">Culqi</option>
         </select>
         <label htmlFor="payment-gateway-view__name">{strings.labelPaymentGateway}</label>
       </div>

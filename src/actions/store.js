@@ -132,6 +132,7 @@ export const shortDescriptionSaveButton = (callback) => (dispatch, getState) => 
 
   dispatch(startFetching())
   let newShortDescription = shortDescriptionInput.value
+  newShortDescription = newShortDescription.split('\n').join(' ')
 
   const dataTheme = getState().store.theme.data
   dataTheme.description = newShortDescription
@@ -169,6 +170,9 @@ export const termsSaveButton = (callback) => (dispatch, getState) => {
   let newExchange = exchangeInput.value
   let newRefund = refundInput.value
 
+  newExchange = newExchange.split('\n').join(' ')
+  newRefund = newRefund.split('\n').join(' ')
+
   const dataTheme = getState().store.theme.data
   dataTheme.terms.exchange = newExchange
   dataTheme.terms.refund = newRefund
@@ -199,7 +203,10 @@ export const contactSaveButton = (callback) => (dispatch, getState) => {
   const newWhatsapp = document.getElementById('contact-modal__whatsapp__input').value
   const newPhone = document.getElementById('contact-modal__phone__input').value
   const newEmail = document.getElementById('contact-modal__email__input').value
-  const newAddress = document.getElementById('contact-modal__address__input').value
+  let newAddress = document.getElementById('contact-modal__address__input').value
+
+  newAddress = newAddress.split('\n').join(' ')
+
   //if (!logoInput.files[0]) {
   //  M.toast({html: Strings(getState().language).coverContainer.modal.errorCoverPicture})
   //  return false
@@ -214,6 +221,7 @@ export const contactSaveButton = (callback) => (dispatch, getState) => {
   dataTheme.contact.phone = newPhone
   dataTheme.contact.email = newEmail
   dataTheme.contact.address = newAddress
+
   const newDataTheme = dataTheme
   apiUpdateDataTheme(userId, storeId, newDataTheme, (response) => {
     // update local dataTheme store state, then...
@@ -382,6 +390,7 @@ export const marketingSaveButton = () => (dispatch, getState) => {
       dataStore: newDataStore
     })
     dispatch(stopFetching())
+    M.toast({html: Strings(getState().language).marketingPage.successUpdate})
   })
 
 }
@@ -411,6 +420,7 @@ export const paymentGatewaySaveButton = () => (dispatch, getState) => {
       dataStore: newDataStore
     })
     dispatch(stopFetching())
+    M.toast({html: Strings(getState().language).paymentGatewayPage.successUpdate})
   })
 
 }
@@ -425,7 +435,7 @@ export const categoriesSaveButton = () => (dispatch, getState) => {
 
   const newCategory = {
     name: newCategoryName,
-    order: newCategoryOrder,
+    order: (newCategoryOrder==='') ? ( 0 ) : ( parseInt(newCategoryOrder) ),
     type: newCategoryType,
     parent: newCategoryParent
   }
@@ -433,6 +443,7 @@ export const categoriesSaveButton = () => (dispatch, getState) => {
   dispatch(startFetching())
 
   apiUpdateCategoriesStore(userId, storeId, newCategory, (response) => {
+    debugger
     // update local dataStore store state, then...
     if (response.error!==null) {
       // if there's an error...
