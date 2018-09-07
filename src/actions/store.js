@@ -443,7 +443,6 @@ export const categoriesSaveButton = () => (dispatch, getState) => {
   dispatch(startFetching())
 
   apiUpdateCategoriesStore(userId, storeId, newCategory, (response) => {
-    debugger
     // update local dataStore store state, then...
     if (response.error!==null) {
       // if there's an error...
@@ -544,6 +543,24 @@ export const createNewProduct = () => (dispatch, getState) => {
   const inputPicture5 = document.getElementById('product-editor-pictures__picture-5')
   const inputPicture6 = document.getElementById('product-editor-pictures__picture-6')
   const inputPicture7 = document.getElementById('product-editor-pictures__picture-7')
+
+  const tmpCategoriesStr = document.getElementById('product-editor-category__category').value
+  if ( tmpCategoriesStr === '{}' ) {
+    M.toast({html: Strings(getState().language).pages.product.errorCategory})
+    return false
+  }
+
+  const tmpPriceCurrencyStr = document.getElementById('product-editor-price__currency').value
+  if ( tmpPriceCurrencyStr === '{}' ) {
+    M.toast({html: Strings(getState().language).pages.product.errorPriceCurrency})
+    return false
+  }
+
+  const tmpShippingCurrencyStr = document.getElementById('product-editor-shipping__currency').value
+  if ( tmpShippingCurrencyStr === '{}' ) {
+    M.toast({html: Strings(getState().language).pages.product.errorShippingCurrency})
+    return false
+  }
 
   const uploadPicture1 = () => {
 
@@ -647,26 +664,27 @@ export const createNewProduct = () => (dispatch, getState) => {
     newProduct.shortTitle = document.getElementById('product-editor-information__shortTitle').value
     newProduct.longTitle = document.getElementById('product-editor-information__longTitle').value
     //tags: [],  // default empty
+
+    const tmpCategories = JSON.parse( tmpCategoriesStr )  // give the category object
     newProduct.categories = [
-      JSON.parse( document.getElementById('product-editor-category__category').value )  // give the category object
+      tmpCategories
     ]
+
     newProduct.description = document.getElementById('product-editor-information__description').value
     newProduct.include = document.getElementById('product-editor-information__include').value
     newProduct.characteristics = document.getElementById('product-editor-information__characteristics').value
 
-    const tmpPriceCurrencyObj = document.getElementById('product-editor-price__currency').value
-    newProduct.currency = JSON.parse(tmpPriceCurrencyObj).currency
-    newProduct.symbol = JSON.parse(tmpPriceCurrencyObj).symbol
+    newProduct.currency = JSON.parse(tmpPriceCurrencyStr).currency
+    newProduct.symbol = JSON.parse(tmpPriceCurrencyStr).symbol
 
     newProduct.price = document.getElementById('product-editor-price__amount').value
     newProduct.stock = document.getElementById('product-editor-information__stock').value
     /** temporaly, allow just one option of shipping */
-    const tmpShippingCurrencyObj = document.getElementById('product-editor-shipping__currency').value
     newProduct.shipping = [
       {
         description: '',
-  			currency: JSON.parse(tmpShippingCurrencyObj).currency,
-  			symbol: JSON.parse(tmpShippingCurrencyObj).symbol,
+  			currency: JSON.parse(tmpShippingCurrencyStr).currency,
+  			symbol: JSON.parse(tmpShippingCurrencyStr).symbol,
   			price: document.getElementById('product-editor-shipping__price').value,
   			days: document.getElementById('product-editor-shipping__time').value,
       }

@@ -361,7 +361,10 @@
 			"labelCategoryTitle":"Categoría",
 			"labelCategorySelect":"Elige la categoría",
 			"errorAmount":"La cantidad solicitada debe ser mayor o igual a uno",
-			"errorNegativeStock":"La cantidad solicitada excede a la disponibilidad del artículo"
+			"errorNegativeStock":"La cantidad solicitada excede a la disponibilidad del artículo",
+			"errorCategory":"Debe seleccionar una categoría",
+			"errorPriceCurrency":"Debe seleccionar una moneda para el precio",
+			"errorShippingCurrency":"Debe seleccionar una moneda para el envío"
 		},
 		"sales":{
 			"breadcrumbHome":"Inicio",

@@ -37328,7 +37328,7 @@ var loadPurchase = exports.loadPurchase = function loadPurchase(purchaseId) {
   };
 };
 
-},{"../api/account":116,"../constants/ActionTypes":187,"../models/session":221,"../strings":239,"./fetching":110,"./pagination":114}],109:[function(require,module,exports){
+},{"../api/account":116,"../constants/ActionTypes":187,"../models/session":222,"../strings":240,"./fetching":110,"./pagination":114}],109:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37591,7 +37591,7 @@ var placeOrder = exports.placeOrder = function placeOrder() {
   };
 };
 
-},{"../api/purchase":119,"../constants/ActionTypes":187,"../models/history":219,"../models/paymentGateway/culqi":220,"../models/session":221,"../strings":239,"./fetching":110}],110:[function(require,module,exports){
+},{"../api/purchase":119,"../constants/ActionTypes":187,"../models/history":220,"../models/paymentGateway/culqi":221,"../models/session":222,"../strings":240,"./fetching":110}],110:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -37810,7 +37810,7 @@ var loadCategory = exports.loadCategory = function loadCategory(category) {
   };
 };
 
-},{"../api/item":117,"../config":186,"../constants/ActionTypes":187,"../constants/codes.json":188,"../models/history":219,"../models/session":221,"../models/tools":222,"../strings":239}],112:[function(require,module,exports){
+},{"../api/item":117,"../config":186,"../constants/ActionTypes":187,"../constants/codes.json":188,"../models/history":220,"../models/session":222,"../models/tools":223,"../strings":240}],112:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -38267,7 +38267,7 @@ var shareWhatsapp = exports.shareWhatsapp = function shareWhatsapp() {
   window.location.href = "https://api.whatsapp.com/send?text=" + window.location.href + "?utm_source%3Dsherpon_store%26utm_medium%3Dwhatsapp_link%26utm_campaign%3Dsocial_shared_item";
 };
 
-},{"../api/item":117,"../config":186,"../constants/ActionTypes":187,"../models/history":219,"../models/session":221,"../strings":239,"./fetching":110}],113:[function(require,module,exports){
+},{"../api/item":117,"../config":186,"../constants/ActionTypes":187,"../models/history":220,"../models/session":222,"../strings":240,"./fetching":110}],113:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -38390,7 +38390,7 @@ var logout = exports.logout = function logout() {
   };
 };
 
-},{"../api/user":121,"../constants/ActionTypes":187,"../constants/codes.json":188,"../models/history":219,"../models/session":221,"../strings":239,"./fetching":110}],114:[function(require,module,exports){
+},{"../api/user":121,"../constants/ActionTypes":187,"../constants/codes.json":188,"../models/history":220,"../models/session":222,"../strings":240,"./fetching":110}],114:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -38967,7 +38967,6 @@ var categoriesSaveButton = exports.categoriesSaveButton = function categoriesSav
     dispatch((0, _fetching.startFetching)());
 
     (0, _store.updateCategoriesStore)(userId, storeId, newCategory, function (response) {
-      debugger;
       // update local dataStore store state, then...
       if (response.error !== null) {
         // if there's an error...
@@ -39072,6 +39071,24 @@ var createNewProduct = exports.createNewProduct = function createNewProduct() {
     var inputPicture6 = document.getElementById('product-editor-pictures__picture-6');
     var inputPicture7 = document.getElementById('product-editor-pictures__picture-7');
 
+    var tmpCategoriesStr = document.getElementById('product-editor-category__category').value;
+    if (tmpCategoriesStr === '{}') {
+      M.toast({ html: (0, _strings2.default)(getState().language).pages.product.errorCategory });
+      return false;
+    }
+
+    var tmpPriceCurrencyStr = document.getElementById('product-editor-price__currency').value;
+    if (tmpPriceCurrencyStr === '{}') {
+      M.toast({ html: (0, _strings2.default)(getState().language).pages.product.errorPriceCurrency });
+      return false;
+    }
+
+    var tmpShippingCurrencyStr = document.getElementById('product-editor-shipping__currency').value;
+    if (tmpShippingCurrencyStr === '{}') {
+      M.toast({ html: (0, _strings2.default)(getState().language).pages.product.errorShippingCurrency });
+      return false;
+    }
+
     var uploadPicture1 = function uploadPicture1() {
 
       if (!inputPicture1.files[0]) {
@@ -39174,24 +39191,24 @@ var createNewProduct = exports.createNewProduct = function createNewProduct() {
       newProduct.shortTitle = document.getElementById('product-editor-information__shortTitle').value;
       newProduct.longTitle = document.getElementById('product-editor-information__longTitle').value;
       //tags: [],  // default empty
-      newProduct.categories = [JSON.parse(document.getElementById('product-editor-category__category').value) // give the category object
-      ];
+
+      var tmpCategories = JSON.parse(tmpCategoriesStr); // give the category object
+      newProduct.categories = [tmpCategories];
+
       newProduct.description = document.getElementById('product-editor-information__description').value;
       newProduct.include = document.getElementById('product-editor-information__include').value;
       newProduct.characteristics = document.getElementById('product-editor-information__characteristics').value;
 
-      var tmpPriceCurrencyObj = document.getElementById('product-editor-price__currency').value;
-      newProduct.currency = JSON.parse(tmpPriceCurrencyObj).currency;
-      newProduct.symbol = JSON.parse(tmpPriceCurrencyObj).symbol;
+      newProduct.currency = JSON.parse(tmpPriceCurrencyStr).currency;
+      newProduct.symbol = JSON.parse(tmpPriceCurrencyStr).symbol;
 
       newProduct.price = document.getElementById('product-editor-price__amount').value;
       newProduct.stock = document.getElementById('product-editor-information__stock').value;
       /** temporaly, allow just one option of shipping */
-      var tmpShippingCurrencyObj = document.getElementById('product-editor-shipping__currency').value;
       newProduct.shipping = [{
         description: '',
-        currency: JSON.parse(tmpShippingCurrencyObj).currency,
-        symbol: JSON.parse(tmpShippingCurrencyObj).symbol,
+        currency: JSON.parse(tmpShippingCurrencyStr).currency,
+        symbol: JSON.parse(tmpShippingCurrencyStr).symbol,
         price: document.getElementById('product-editor-shipping__price').value,
         days: document.getElementById('product-editor-shipping__time').value
       }];
@@ -39273,7 +39290,7 @@ var loadSale = exports.loadSale = function loadSale(saleId) {
 };
 /******************************************************************************/
 
-},{"../api/store":120,"../constants/ActionTypes":187,"../models/history":219,"../models/session":221,"../models/tools":222,"../strings":239,"./fetching":110,"./pagination":114}],116:[function(require,module,exports){
+},{"../api/store":120,"../constants/ActionTypes":187,"../models/history":220,"../models/session":222,"../models/tools":223,"../strings":240,"./fetching":110,"./pagination":114}],116:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39424,12 +39441,12 @@ var _post = require('./post.js');
 
 var _firebaseStorage = require('../models/firebase/firebaseStorage');
 
-/**
- * @module api/store
- * @author Grover Lee
- */
+var _firebaseFirestore = require('../models/firebase/firebaseFirestore');
 
-var TIMEOUT = 500;
+var TIMEOUT = 500; /**
+                    * @module api/store
+                    * @author Grover Lee
+                    */
 
 var updateDataTheme = exports.updateDataTheme = function updateDataTheme(userId, storeId, newDataTheme, callback) {
   (0, _post.post)("store/theme/data/update", { userId: userId, storeId: storeId, newDataTheme: newDataTheme }, callback);
@@ -39473,7 +39490,8 @@ var uploadImageStore = exports.uploadImageStore = function uploadImageStore(file
  * @param {getProducts~callback} callback - The callback that handles the response.
  */
 var getProducts = exports.getProducts = function getProducts(userId, storeId, callback) {
-  (0, _post.post)("product/list", { userId: userId, storeId: storeId }, callback);
+  //post( "product/list", { userId, storeId }, callback )
+  (0, _firebaseFirestore.getProductsList)(storeId, callback);
 };
 /**
  * @callback getProducts~callback
@@ -39575,7 +39593,7 @@ var getSale = exports.getSale = function getSale(userId, storeId, saleId, callba
  */
 /******************************************************************************/
 
-},{"../models/firebase/firebaseStorage":218,"./post.js":118}],121:[function(require,module,exports){
+},{"../models/firebase/firebaseFirestore":217,"../models/firebase/firebaseStorage":219,"./post.js":118}],121:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -39862,7 +39880,7 @@ Breadcrumbs.propTypes = {
 
 exports.default = Breadcrumbs;
 
-},{"../../models/tools":222,"prop-types":44,"react":93,"react-router-dom":76}],124:[function(require,module,exports){
+},{"../../models/tools":223,"prop-types":44,"react":93,"react-router-dom":76}],124:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40050,7 +40068,7 @@ CartItemView.defaultProps = {
 
 exports.default = CartItemView;
 
-},{"../../models/tools":222,"prop-types":44,"react":93,"react-router-dom":76}],125:[function(require,module,exports){
+},{"../../models/tools":223,"prop-types":44,"react":93,"react-router-dom":76}],125:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40199,7 +40217,7 @@ CartView.propTypes = {
 
 exports.default = CartView;
 
-},{"../../models/tools":222,"../cartItemView/cartItemView":124,"prop-types":44,"react":93}],126:[function(require,module,exports){
+},{"../../models/tools":223,"../cartItemView/cartItemView":124,"prop-types":44,"react":93}],126:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41155,7 +41173,7 @@ CheckoutView.propTypes = {
 
 exports.default = CheckoutView;
 
-},{"../../models/session":221,"../../models/tools":222,"prop-types":44,"react":93}],132:[function(require,module,exports){
+},{"../../models/session":222,"../../models/tools":223,"prop-types":44,"react":93}],132:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -41262,7 +41280,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CongratulationPurchase);
 
-},{"../../strings":239,"prop-types":44,"react":93,"react-redux":58}],133:[function(require,module,exports){
+},{"../../strings":240,"prop-types":44,"react":93,"react-redux":58}],133:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42238,7 +42256,7 @@ HomeSectionModal.propTypes = {
 
 exports.default = HomeSectionModal;
 
-},{"../../models/tools":222,"prop-types":44,"react":93}],145:[function(require,module,exports){
+},{"../../models/tools":223,"prop-types":44,"react":93}],145:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42354,7 +42372,7 @@ ItemCarousel.propTypes = {
 
 exports.default = ItemCarousel;
 
-},{"../../models/tools":222,"prop-types":44,"react":93}],146:[function(require,module,exports){
+},{"../../models/tools":223,"prop-types":44,"react":93}],146:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42576,7 +42594,7 @@ ItemContent.propTypes = {
 
 exports.default = ItemContent;
 
-},{"../../models/tools":222,"../itemContentAttributes/itemContentAttributes":147,"../itemContentShipping/itemContentShipping":148,"prop-types":44,"react":93}],147:[function(require,module,exports){
+},{"../../models/tools":223,"../itemContentAttributes/itemContentAttributes":147,"../itemContentShipping/itemContentShipping":148,"prop-types":44,"react":93}],147:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42741,7 +42759,7 @@ ItemContentAttributes.propTypes = {
 
 exports.default = ItemContentAttributes;
 
-},{"../../models/tools":222,"prop-types":44,"react":93}],148:[function(require,module,exports){
+},{"../../models/tools":223,"prop-types":44,"react":93}],148:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42821,7 +42839,7 @@ ItemContentShipping.propTypes = {
 
 exports.default = ItemContentShipping;
 
-},{"../../models/tools":222,"prop-types":44,"react":93}],149:[function(require,module,exports){
+},{"../../models/tools":223,"prop-types":44,"react":93}],149:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -44164,7 +44182,7 @@ PreviewItem.propTypes = {
 
 exports.default = PreviewItem;
 
-},{"../../models/tools.js":222,"prop-types":44,"react":93,"react-router-dom":76}],159:[function(require,module,exports){
+},{"../../models/tools.js":223,"prop-types":44,"react":93,"react-router-dom":76}],159:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45182,7 +45200,7 @@ ProductsList.propTypes = {
 
 exports.default = ProductsList;
 
-},{"../../models/tools.js":222,"prop-types":44,"react":93,"react-router-dom":76}],170:[function(require,module,exports){
+},{"../../models/tools.js":223,"prop-types":44,"react":93,"react-router-dom":76}],170:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45560,7 +45578,7 @@ PurchaseView.propTypes = {
 
 exports.default = PurchaseView;
 
-},{"../../models/tools.js":222,"../cartItemView/cartItemView":124,"prop-types":44,"react":93}],172:[function(require,module,exports){
+},{"../../models/tools.js":223,"../cartItemView/cartItemView":124,"prop-types":44,"react":93}],172:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45671,7 +45689,7 @@ PurchasesList.propTypes = {
 
 exports.default = PurchasesList;
 
-},{"../../models/tools.js":222,"prop-types":44,"react":93,"react-router-dom":76}],173:[function(require,module,exports){
+},{"../../models/tools.js":223,"prop-types":44,"react":93,"react-router-dom":76}],173:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46067,7 +46085,7 @@ SaleView.propTypes = {
 
 exports.default = SaleView;
 
-},{"../../../models/tools.js":222,"../../cartItemView/cartItemView":124,"prop-types":44,"react":93}],176:[function(require,module,exports){
+},{"../../../models/tools.js":223,"../../cartItemView/cartItemView":124,"prop-types":44,"react":93}],176:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46178,7 +46196,7 @@ SalesList.propTypes = {
 
 exports.default = SalesList;
 
-},{"../../../models/tools.js":222,"prop-types":44,"react":93,"react-router-dom":76}],177:[function(require,module,exports){
+},{"../../../models/tools.js":223,"prop-types":44,"react":93,"react-router-dom":76}],177:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46870,11 +46888,11 @@ var ENV_PROD = {
   "FIREBASE_DATABASE_URL": "",
   "GOOGLE_SERVICE_ACCOUNT": "./ServicesAccount.json",
   "FIRESTORE_DATABASE_URL": "https://playground-demnio.firebaseio.com",
-  "COLLECTION_USERS": "shUsers",
-  "COLLECTION_STORES": "shStores",
-  "COLLECTION_PROVIDER": "shProviders",
-  "COLLECTION_ITEM": "shItems",
-  "COLLECTION_PURCHASE": "shPurchases",
+  "COLLECTION_USERS": "users",
+  "COLLECTION_STORES": "stores",
+  "COLLECTION_PUBLIC": "public",
+  "COLLECTION_ITEMS": "items",
+  "COLLECTION_PURCHASE": "purchases",
   "ANALYTICS_TRACK_ID": "UA-54697040-5",
   "FACEBOOK_PIXEL_ID": "195304191192601",
   "APP_ID_FACEBOOK": "123762241591576",
@@ -46898,11 +46916,11 @@ var ENV_DEV = {
   "FIREBASE_DATABASE_URL": "",
   "GOOGLE_SERVICE_ACCOUNT": "./ServicesAccount.json",
   "FIRESTORE_DATABASE_URL": "https://playground-demnio.firebaseio.com",
-  "COLLECTION_USERS": "dev_shUsers",
-  "COLLECTION_STORES": "dev_shStores",
-  "COLLECTION_PROVIDER": "dev_shProviders",
-  "COLLECTION_ITEM": "dev_shItems",
-  "COLLECTION_PURCHASE": "dev_shPurchases",
+  "COLLECTION_USERS": "dev_users",
+  "COLLECTION_STORES": "dev_stores",
+  "COLLECTION_PUBLIC": "dev_public",
+  "COLLECTION_ITEMS": "dev_items",
+  "COLLECTION_PURCHASE": "dev_purchases",
   "ANALYTICS_TRACK_ID": "UA-54697040-5",
   "FACEBOOK_PIXEL_ID": "195304191192601",
   "APP_ID_FACEBOOK": "1594595550592061",
@@ -47158,7 +47176,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(AccountPage));
 
-},{"../actions/account":108,"../components/accountView/accountView":122,"../components/breadcrumbs/breadcrumbs":123,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":221,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],190:[function(require,module,exports){
+},{"../actions/account":108,"../components/accountView/accountView":122,"../components/breadcrumbs/breadcrumbs":123,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":222,"../strings":240,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],190:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47303,7 +47321,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CartPage));
 
-},{"../actions/cart":109,"../components/cartView/cartView":125,"../components/emptyCartView/emptyCartView":139,"../models/analytics":214,"../models/facebookPixel":216,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],191:[function(require,module,exports){
+},{"../actions/cart":109,"../components/cartView/cartView":125,"../components/emptyCartView/emptyCartView":139,"../models/analytics":214,"../models/facebookPixel":216,"../strings":240,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],191:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47476,7 +47494,7 @@ mapDispatchToProps)(CategoriesPage);
 />
 */
 
-},{"../actions/store":115,"../components/categories":130,"../components/terms":182,"../models/analytics":214,"../models/facebookPixel":216,"../models/tools":222,"../strings":239,"prop-types":44,"react":93,"react-redux":58}],192:[function(require,module,exports){
+},{"../actions/store":115,"../components/categories":130,"../components/terms":182,"../models/analytics":214,"../models/facebookPixel":216,"../models/tools":223,"../strings":240,"prop-types":44,"react":93,"react-redux":58}],192:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47674,7 +47692,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CategoryPage));
 
-},{"../actions":111,"../components/breadcrumbs/breadcrumbs":123,"../components/pagination/pagination":156,"../components/previewList/previewList":159,"../components/previewListPlaceholder/previewListPlaceholder":160,"../components/resultCount/resultCount":173,"../models/analytics":214,"../models/facebookPixel":216,"../models/tools":222,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],193:[function(require,module,exports){
+},{"../actions":111,"../components/breadcrumbs/breadcrumbs":123,"../components/pagination/pagination":156,"../components/previewList/previewList":159,"../components/previewListPlaceholder/previewListPlaceholder":160,"../components/resultCount/resultCount":173,"../models/analytics":214,"../models/facebookPixel":216,"../models/tools":223,"../strings":240,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],193:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -47792,7 +47810,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(CheckoutPage));
 
-},{"../actions/cart":109,"../components/checkoutView/checkoutView":131,"../models/analytics":214,"../models/facebookPixel":216,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],194:[function(require,module,exports){
+},{"../actions/cart":109,"../components/checkoutView/checkoutView":131,"../models/analytics":214,"../models/facebookPixel":216,"../strings":240,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],194:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48106,7 +48124,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Hero));
 
-},{"../actions/store":115,"../components/profile/profile.js":170,"../components/tabsHero/tabsHero.js":181,"../models/canvas":215,"../strings":239,"./coverContainer":195,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],197:[function(require,module,exports){
+},{"../actions/store":115,"../components/profile/profile.js":170,"../components/tabsHero/tabsHero.js":181,"../models/canvas":215,"../strings":240,"./coverContainer":195,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],197:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48289,7 +48307,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(HomePage);
 
-},{"../actions/store":115,"../components/createSection/createSection":138,"../models/analytics":214,"../models/canvas":215,"../models/facebookPixel":216,"../models/tools":222,"../strings":239,"./homeSectionContainer.jsx":198,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],198:[function(require,module,exports){
+},{"../actions/store":115,"../components/createSection/createSection":138,"../models/analytics":214,"../models/canvas":215,"../models/facebookPixel":216,"../models/tools":223,"../strings":240,"./homeSectionContainer.jsx":198,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],198:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48552,7 +48570,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(ItemPage));
 
-},{"../actions":111,"../actions/item":112,"../components/breadcrumbs/breadcrumbs":123,"../components/itemView/itemView":149,"../components/itemViewPlaceholder/itemViewPlaceholder":150,"../models/analytics":214,"../models/facebookPixel":216,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],200:[function(require,module,exports){
+},{"../actions":111,"../actions/item":112,"../components/breadcrumbs/breadcrumbs":123,"../components/itemView/itemView":149,"../components/itemViewPlaceholder/itemViewPlaceholder":150,"../models/analytics":214,"../models/facebookPixel":216,"../strings":240,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],200:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48684,7 +48702,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(LoginPage));
 
-},{"../actions/login":113,"../components/loginView/loginView":151,"../models/analytics":214,"../models/facebookPixel":216,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],201:[function(require,module,exports){
+},{"../actions/login":113,"../components/loginView/loginView":151,"../models/analytics":214,"../models/facebookPixel":216,"../strings":240,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],201:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -48904,7 +48922,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(MarketingPage));
 
-},{"../actions/store":115,"../components/breadcrumbs/breadcrumbs":123,"../components/marketingView/marketingView.jsx":154,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":221,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],203:[function(require,module,exports){
+},{"../actions/store":115,"../components/breadcrumbs/breadcrumbs":123,"../components/marketingView/marketingView.jsx":154,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":222,"../strings":240,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],203:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49051,7 +49069,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(PaymentGatewayPage));
 
-},{"../actions/store":115,"../components/breadcrumbs/breadcrumbs":123,"../components/paymentGatewayView/paymentGatewayView.jsx":157,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":221,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],204:[function(require,module,exports){
+},{"../actions/store":115,"../components/breadcrumbs/breadcrumbs":123,"../components/paymentGatewayView/paymentGatewayView.jsx":157,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":222,"../strings":240,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],204:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49206,7 +49224,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(ProductPage));
 
-},{"../actions/store":115,"../components/breadcrumbs/breadcrumbs":123,"../components/product":161,"../models/analytics":214,"../models/canvas":215,"../models/facebookPixel":216,"../models/session":221,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],205:[function(require,module,exports){
+},{"../actions/store":115,"../components/breadcrumbs/breadcrumbs":123,"../components/product":161,"../models/analytics":214,"../models/canvas":215,"../models/facebookPixel":216,"../models/session":222,"../strings":240,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],205:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49398,7 +49416,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(ProductsPage));
 
-},{"../actions/pagination":114,"../actions/store":115,"../components/breadcrumbs/breadcrumbs":123,"../components/pagination/pagination":156,"../components/product":161,"../components/productsList/productsList.jsx":169,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":221,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],206:[function(require,module,exports){
+},{"../actions/pagination":114,"../actions/store":115,"../components/breadcrumbs/breadcrumbs":123,"../components/pagination/pagination":156,"../components/product":161,"../components/productsList/productsList.jsx":169,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":222,"../strings":240,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],206:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49561,7 +49579,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(PurchasePage));
 
-},{"../actions/account":108,"../components/breadcrumbs/breadcrumbs":123,"../components/purchaseView/purchaseView":171,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":221,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],207:[function(require,module,exports){
+},{"../actions/account":108,"../components/breadcrumbs/breadcrumbs":123,"../components/purchaseView/purchaseView":171,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":222,"../strings":240,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],207:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49745,7 +49763,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(PurchasesPage));
 
-},{"../actions/account":108,"../actions/pagination":114,"../components/breadcrumbs/breadcrumbs":123,"../components/pagination/pagination":156,"../components/purchasesList/purchasesList":172,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":221,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],208:[function(require,module,exports){
+},{"../actions/account":108,"../actions/pagination":114,"../components/breadcrumbs/breadcrumbs":123,"../components/pagination/pagination":156,"../components/purchasesList/purchasesList":172,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":222,"../strings":240,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],208:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -49908,7 +49926,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(PurchasePage));
 
-},{"../actions/store":115,"../components/breadcrumbs/breadcrumbs":123,"../components/sale":174,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":221,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],209:[function(require,module,exports){
+},{"../actions/store":115,"../components/breadcrumbs/breadcrumbs":123,"../components/sale":174,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":222,"../strings":240,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],209:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50093,7 +50111,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(SalesPage));
 
-},{"../actions/pagination":114,"../actions/store":115,"../components/breadcrumbs/breadcrumbs":123,"../components/pagination/pagination":156,"../components/sale":174,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":221,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],210:[function(require,module,exports){
+},{"../actions/pagination":114,"../actions/store":115,"../components/breadcrumbs/breadcrumbs":123,"../components/pagination/pagination":156,"../components/sale":174,"../models/analytics":214,"../models/facebookPixel":216,"../models/session":222,"../strings":240,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],210:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50288,7 +50306,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(SearchPage));
 
-},{"../actions":111,"../components/breadcrumbs/breadcrumbs":123,"../components/pagination/pagination":156,"../components/previewList/previewList":159,"../components/previewListPlaceholder/previewListPlaceholder":160,"../components/resultCount/resultCount":173,"../models/analytics":214,"../models/facebookPixel":216,"../models/tools":222,"../strings":239,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],211:[function(require,module,exports){
+},{"../actions":111,"../components/breadcrumbs/breadcrumbs":123,"../components/pagination/pagination":156,"../components/previewList/previewList":159,"../components/previewListPlaceholder/previewListPlaceholder":160,"../components/resultCount/resultCount":173,"../models/analytics":214,"../models/facebookPixel":216,"../models/tools":223,"../strings":240,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],211:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50666,7 +50684,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(Store));
 
-},{"../actions":111,"../actions/login":113,"../actions/store":115,"../components/congratulationPurchase/congratulationPurchase.js":132,"../components/footer/footer.js":140,"../components/navbar/navbar.js":155,"../components/spinner/spinner.js":180,"../models/session":221,"../strings":239,"./accountPage.js":189,"./cartPage.js":190,"./categoriesPage.jsx":191,"./categoryPage.js":192,"./checkoutPage.js":193,"./contactContainer.jsx":194,"./hero.js":196,"./homePage.js":197,"./itemPage.js":199,"./loginPage.js":200,"./marketingPage.jsx":202,"./paymentGatewayPage.jsx":203,"./productPage.jsx":204,"./productsPage.jsx":205,"./purchasePage.js":206,"./purchasesPage.js":207,"./salePage.jsx":208,"./salesPage.jsx":209,"./searchPage.js":210,"./termsPage.js":213,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],213:[function(require,module,exports){
+},{"../actions":111,"../actions/login":113,"../actions/store":115,"../components/congratulationPurchase/congratulationPurchase.js":132,"../components/footer/footer.js":140,"../components/navbar/navbar.js":155,"../components/spinner/spinner.js":180,"../models/session":222,"../strings":240,"./accountPage.js":189,"./cartPage.js":190,"./categoriesPage.jsx":191,"./categoryPage.js":192,"./checkoutPage.js":193,"./contactContainer.jsx":194,"./hero.js":196,"./homePage.js":197,"./itemPage.js":199,"./loginPage.js":200,"./marketingPage.jsx":202,"./paymentGatewayPage.jsx":203,"./productPage.jsx":204,"./productsPage.jsx":205,"./purchasePage.js":206,"./purchasesPage.js":207,"./salePage.jsx":208,"./salesPage.jsx":209,"./searchPage.js":210,"./termsPage.js":213,"prop-types":44,"react":93,"react-redux":58,"react-router-dom":76}],213:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50811,7 +50829,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, // Note 1
 mapDispatchToProps)(TermsPage);
 
-},{"../actions/store":115,"../components/terms":182,"../models/analytics":214,"../models/facebookPixel":216,"../strings":239,"prop-types":44,"react":93,"react-redux":58}],214:[function(require,module,exports){
+},{"../actions/store":115,"../components/terms":182,"../models/analytics":214,"../models/facebookPixel":216,"../strings":240,"prop-types":44,"react":93,"react-redux":58}],214:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -50945,6 +50963,72 @@ var pixelPageView = exports.pixelPageView = function pixelPageView(storePixelId)
 },{"../config":186}],217:[function(require,module,exports){
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getStoreByUserId = exports.getProductsList = undefined;
+
+var _config = require('../../config');
+
+var firebase = require('./firebaseInit.js')();
+
+
+var db = firebase.firestore();
+
+var getProductsList = exports.getProductsList = function getProductsList(storeId, callback) {
+  var result = {
+    error: null,
+    products: []
+  };
+  db.collection((0, _config.getEnv)().COLLECTION_STORES).doc(storeId).collection((0, _config.getEnv)().COLLECTION_ITEMS).get().then(function (querySnapshot) {
+    var itemsList = [];
+    querySnapshot.forEach(function (doc) {
+      var item = {
+        id: doc.id,
+        stock: doc.data().stock,
+        picture1: doc.data().picture1,
+        shortTitle: doc.data().shortTitle,
+        currency: doc.data().currency,
+        symbol: doc.data().symbol,
+        price: doc.data().price
+      };
+      itemsList.push(item);
+    });
+    result.products = itemsList;
+
+    callback(result);
+  }).catch(function (error) {
+    console.log("Error getting documents: ", error);
+    callback(result);
+  });
+};
+
+var getStoreByUserId = exports.getStoreByUserId = function getStoreByUserId(userId, callback) {
+  var result = null;
+  db.collection((0, _config.getEnv)().COLLECTION_STORES).where('userId', '==', userId).get().then(function (querySnapshot) {
+    querySnapshot.forEach(function (doc) {
+      // doc.data() is never undefined for query doc snapshots
+      //console.log(doc.id, " => ", doc.data())
+      result = {
+        name: doc.data().name,
+        username: doc.data().username,
+        phone: doc.data().phone,
+        profile: doc.data().profile,
+        cover: doc.data().cover,
+        userId: doc.data().userId
+      };
+    });
+    callback(result);
+  }).catch(function (error) {
+    console.log("Error getting documents: ", error);
+    callback(false);
+  });
+  //shStoreSession.setStoreSession({username:this.props.match.params.storeusername, type:'store'})
+};
+
+},{"../../config":186,"./firebaseInit.js":218}],218:[function(require,module,exports){
+'use strict';
+
 var _config = require('../../config');
 
 module.exports = function () {
@@ -50957,7 +51041,7 @@ module.exports = function () {
   return firebase;
 };
 
-},{"../../config":186}],218:[function(require,module,exports){
+},{"../../config":186}],219:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -51038,7 +51122,7 @@ var uploadPicture = exports.uploadPicture = function uploadPicture(file, fileNam
  * @param {string} downloadURL - picture's download url
  */
 
-},{"./firebaseInit.js":217}],219:[function(require,module,exports){
+},{"./firebaseInit.js":218}],220:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51049,7 +51133,7 @@ var _history = require("history");
 
 exports.default = (0, _history.createBrowserHistory)({ basename: "/" });
 
-},{"history":23}],220:[function(require,module,exports){
+},{"history":23}],221:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -51104,7 +51188,7 @@ Diners Club       3600 020000 0006      01/2020   230   fraudulent
 
  */
 
-},{"../tools":222}],221:[function(require,module,exports){
+},{"../tools":223}],222:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -51184,7 +51268,7 @@ exports.default = {
   inCartSession: inCartSession
 };
 
-},{}],222:[function(require,module,exports){
+},{}],223:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51333,7 +51417,7 @@ var getRandomString = exports.getRandomString = function getRandomString() {
   }return text;
 };
 
-},{}],223:[function(require,module,exports){
+},{}],224:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -51468,7 +51552,7 @@ var Cart = function Cart() {
 
 exports.default = Cart;
 
-},{"../constants/ActionTypes":187,"../models/session":221}],224:[function(require,module,exports){
+},{"../constants/ActionTypes":187,"../models/session":222}],225:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -51499,7 +51583,7 @@ var inSession = function inSession() {
 
 exports.default = inSession;
 
-},{"../constants/ActionTypes":187,"../models/session":221}],225:[function(require,module,exports){
+},{"../constants/ActionTypes":187,"../models/session":222}],226:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -51578,7 +51662,7 @@ exports.default = (0, _redux.combineReducers)({
   store: _store2.default
 });
 
-},{"./cart":223,"./inSession":224,"./isAdmin":226,"./isEditable":227,"./isFetching":228,"./isResultLoaded":229,"./item":230,"./language":231,"./pagination":232,"./purchase":233,"./result":234,"./sale":235,"./store":236,"redux":101}],226:[function(require,module,exports){
+},{"./cart":224,"./inSession":225,"./isAdmin":227,"./isEditable":228,"./isFetching":229,"./isResultLoaded":230,"./item":231,"./language":232,"./pagination":233,"./purchase":234,"./result":235,"./sale":236,"./store":237,"redux":101}],227:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -51613,7 +51697,7 @@ var isAdmin = function isAdmin() {
 
 exports.default = isAdmin;
 
-},{"../constants/ActionTypes":187,"../models/session":221}],227:[function(require,module,exports){
+},{"../constants/ActionTypes":187,"../models/session":222}],228:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -51648,7 +51732,7 @@ var isEditable = function isEditable() {
 
 exports.default = isEditable;
 
-},{"../constants/ActionTypes":187,"../models/session":221}],228:[function(require,module,exports){
+},{"../constants/ActionTypes":187,"../models/session":222}],229:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -51673,7 +51757,7 @@ var isFetching = function isFetching() {
 
 exports.default = isFetching;
 
-},{"../constants/ActionTypes":187}],229:[function(require,module,exports){
+},{"../constants/ActionTypes":187}],230:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -51698,7 +51782,7 @@ var isResultLoaded = function isResultLoaded() {
 
 exports.default = isResultLoaded;
 
-},{"../constants/ActionTypes":187}],230:[function(require,module,exports){
+},{"../constants/ActionTypes":187}],231:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51761,7 +51845,7 @@ var item = function item() {
 
 exports.default = item;
 
-},{"../constants/ActionTypes":187}],231:[function(require,module,exports){
+},{"../constants/ActionTypes":187}],232:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -51786,7 +51870,7 @@ var language = function language() {
 
 exports.default = language;
 
-},{"../constants/ActionTypes":187}],232:[function(require,module,exports){
+},{"../constants/ActionTypes":187}],233:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -51831,7 +51915,7 @@ var pagination = function pagination() {
 
 exports.default = pagination;
 
-},{"../constants/ActionTypes":187}],233:[function(require,module,exports){
+},{"../constants/ActionTypes":187}],234:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51887,7 +51971,7 @@ var purchase = function purchase() {
 
 exports.default = purchase;
 
-},{"../constants/ActionTypes":187}],234:[function(require,module,exports){
+},{"../constants/ActionTypes":187}],235:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -51910,7 +51994,7 @@ var result = function result() {
 
 exports.default = result;
 
-},{"../constants/ActionTypes":187}],235:[function(require,module,exports){
+},{"../constants/ActionTypes":187}],236:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51966,7 +52050,7 @@ var sale = function sale() {
 
 exports.default = sale;
 
-},{"../constants/ActionTypes":187}],236:[function(require,module,exports){
+},{"../constants/ActionTypes":187}],237:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -52017,7 +52101,7 @@ var storeState = function storeState() {
 
 exports.default = storeState;
 
-},{"../constants/ActionTypes":187}],237:[function(require,module,exports){
+},{"../constants/ActionTypes":187}],238:[function(require,module,exports){
 module.exports={
 	"store":{
 		"text1":"text"
@@ -52028,7 +52112,7 @@ module.exports={
 		"navbarItemAccount":"Mi cuenta"
 	}
 }
-},{}],238:[function(require,module,exports){
+},{}],239:[function(require,module,exports){
 module.exports={
 	"store":{
 		"text1":"text"
@@ -52392,7 +52476,10 @@ module.exports={
 			"labelCategoryTitle":"Categoría",
 			"labelCategorySelect":"Elige la categoría",
 			"errorAmount":"La cantidad solicitada debe ser mayor o igual a uno",
-			"errorNegativeStock":"La cantidad solicitada excede a la disponibilidad del artículo"
+			"errorNegativeStock":"La cantidad solicitada excede a la disponibilidad del artículo",
+			"errorCategory":"Debe seleccionar una categoría",
+			"errorPriceCurrency":"Debe seleccionar una moneda para el precio",
+			"errorShippingCurrency":"Debe seleccionar una moneda para el envío"
 		},
 		"sales":{
 			"breadcrumbHome":"Inicio",
@@ -52441,7 +52528,7 @@ module.exports={
 	}
 }
 
-},{}],239:[function(require,module,exports){
+},{}],240:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -52467,7 +52554,7 @@ Notes
 var userLang = navigator.language || navigator.userLanguage; 
  */
 
-},{"./EN.json":237,"./ES.json":238}],240:[function(require,module,exports){
+},{"./EN.json":238,"./ES.json":239}],241:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -52538,4 +52625,4 @@ Notes
  */
 
 }).call(this,require('_process'))
-},{"./containers/store.js":212,"./models/history":219,"./reducers":225,"_process":40,"jquery":26,"react":93,"react-dom":48,"react-redux":58,"react-router-dom":76,"redux":101,"redux-logger":94,"redux-thunk":95}]},{},[240]);
+},{"./containers/store.js":212,"./models/history":220,"./reducers":226,"_process":40,"jquery":26,"react":93,"react-dom":48,"react-redux":58,"react-router-dom":76,"redux":101,"redux-logger":94,"redux-thunk":95}]},{},[241]);

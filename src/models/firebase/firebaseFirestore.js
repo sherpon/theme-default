@@ -3,6 +3,39 @@ import { getEnv } from '../../config'
 
 const db = firebase.firestore()
 
+export const getProductsList = (storeId, callback) => {
+  let result = {
+    error:null,
+    products:[]
+  }
+  db.collection( getEnv().COLLECTION_STORES )
+    .doc(storeId)
+    .collection( getEnv().COLLECTION_ITEMS )
+    .get()
+  .then(function(querySnapshot) {
+    let itemsList = []
+    querySnapshot.forEach(function(doc) {
+      const item = {
+        id:doc.id,
+        stock:doc.data().stock,
+        picture1:doc.data().picture1,
+        shortTitle:doc.data().shortTitle,
+        currency:doc.data().currency,
+        symbol:doc.data().symbol,
+        price:doc.data().price
+      }
+      itemsList.push(item)
+    })
+    result.products = itemsList
+
+    callback(result)
+  })
+  .catch(function(error) {
+    console.log("Error getting documents: ", error)
+    callback(result)
+  })
+}
+
 export const getStoreByUserId = (userId, callback) => {
   let result = null
   db.collection( getEnv().COLLECTION_STORES ).where('userId','==',userId)

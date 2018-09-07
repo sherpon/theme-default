@@ -5,6 +5,7 @@
 
 import { post } from './post.js'
 import { uploadPicture } from '../models/firebase/firebaseStorage'
+import { getProductsList } from '../models/firebase/firebaseFirestore'
 
 const TIMEOUT = 500
 
@@ -50,7 +51,8 @@ export const uploadImageStore = (file, fileName, storeId, callback) => {
  * @param {getProducts~callback} callback - The callback that handles the response.
  */
 export const getProducts = (userId, storeId, callback) => {
-  post( "product/list", { userId, storeId }, callback )
+  //post( "product/list", { userId, storeId }, callback )
+  getProductsList(storeId, callback)
 }
 /**
  * @callback getProducts~callback
