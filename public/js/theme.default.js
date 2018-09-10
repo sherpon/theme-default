@@ -46931,7 +46931,7 @@ var ENV_PROD = {
 };
 
 var ENV_STAGE = {
-  "ENDPOINT": "https://staging.sherpon.com/",
+  "ENDPOINT": "https://stage.sherpon.com/",
   "API_ENDPOINT_V1": "/api/v1/",
   "MONGODB_URI": "",
   "SERVICE_ACCOUNT_JSON": "",
@@ -46983,7 +46983,7 @@ var getState = exports.getState = function getState() {
     // DEV
     window.mSTATE = STATE_DEVELOPMENT;
     return STATE_DEVELOPMENT;
-  } else if (location.hostname === 'staging.sherpon.com') {
+  } else if (location.hostname === 'stage.sherponcom.appspot.com') {
     // STAGING
     window.mSTATE = STATE_STAGE;
     return STATE_STAGE;
@@ -52852,7 +52852,6 @@ var userLang = navigator.language || navigator.userLanguage;
  */
 
 },{"./EN.json":238,"./ES.json":239}],241:[function(require,module,exports){
-(function (process){
 'use strict';
 
 var _react = require('react');
@@ -52890,13 +52889,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // import { BrowserRouter as Router } from 'react-router-dom'
 window.$ = require('jquery'); // Note 1
 
-var middleware = [_reduxThunk2.default];
-if (process.env.NODE_ENV !== 'production') {
-  middleware.push((0, _reduxLogger.createLogger)());
-}
-
+/**
+ * here is the prod difference
+ */
+var middleware = [_reduxThunk2.default, (0, _reduxLogger.createLogger)()];
 var store = (0, _redux.createStore)(_reducers2.default, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), // for chrome extension
 _redux.applyMiddleware.apply(undefined, middleware));
+/**
+ * ends
+ */
 
 (0, _reactDom.render)(_react2.default.createElement(
   _reactRedux.Provider,
@@ -52921,5 +52922,4 @@ Notes
     -import 'jquery'
  */
 
-}).call(this,require('_process'))
-},{"./containers/store.js":212,"./models/history":220,"./reducers":226,"_process":40,"jquery":26,"react":93,"react-dom":48,"react-redux":58,"react-router-dom":76,"redux":101,"redux-logger":94,"redux-thunk":95}]},{},[241]);
+},{"./containers/store.js":212,"./models/history":220,"./reducers":226,"jquery":26,"react":93,"react-dom":48,"react-redux":58,"react-router-dom":76,"redux":101,"redux-logger":94,"redux-thunk":95}]},{},[241]);
