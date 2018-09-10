@@ -27,7 +27,7 @@ const ENV_PROD = {
 }
 
 const ENV_STAGE = {
-  "ENDPOINT":"https://staging.sherpon.com/",
+  "ENDPOINT":"https://stage.sherpon.com/",
   "API_ENDPOINT_V1":"/api/v1/",
   "MONGODB_URI":"",
   "SERVICE_ACCOUNT_JSON":"",
@@ -84,7 +84,7 @@ export const getState = () => {
     // DEV
     window.mSTATE = STATE_DEVELOPMENT
     return STATE_DEVELOPMENT
-  } else if ( location.hostname === 'staging.sherpon.com' ) {
+  } else if ( location.hostname === 'stage.sherponcom.appspot.com' ) {
     // STAGING
     window.mSTATE = STATE_STAGE
     return STATE_STAGE

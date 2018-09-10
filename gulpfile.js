@@ -31,11 +31,12 @@ var config = {
     },
     js: {
       main: srcPath + 'theme.default.js',
+      mainDist: srcPath + 'theme.default.prod.js',
       watchJs: srcPath + '**/**/*.js',
       watchJsx: srcPath + '**/**/*.jsx',
       bundle: publicPath + 'js',
       bundlefile: 'theme.default.js',
-      distBundlefile: 'theme.default.min.js'
+      bundlefileDist: 'theme.default.min.js'
     }
   }
 }
@@ -70,11 +71,11 @@ gulp.task('postcss-dev', function () {
 })
 
 gulp.task('js', function () {
-  browserify(config.theme.js.main)
+  browserify(config.theme.js.mainDist)
     .transform("babelify", {presets: ["env", "react"], plugins: ["transform-object-rest-spread"]})
     .bundle()
     /* version MINIFY para prod */
-    .pipe(source(config.theme.js.distBundlefile)) // (minify) gives streaming vinyl file object
+    .pipe(source(config.theme.js.bundlefileDist)) // (minify) gives streaming vinyl file object
     .pipe(buffer()) //  (minify) <----- convert from streaming to buffered vinyl file object
     .pipe(uglify()) //  (minify) now gulp-uglify works
     .pipe(gulp.dest(distPath)) // (minify)

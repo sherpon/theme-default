@@ -18,10 +18,9 @@ import Store from './containers/store.js'
 /**
  * here is the prod difference
  */
-const middleware = [ thunk, createLogger() ]
+const middleware = [ thunk ]
 const store = createStore(
   reducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), // for chrome extension
   applyMiddleware(...middleware)
 )
 /**
