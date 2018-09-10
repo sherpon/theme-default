@@ -37290,7 +37290,8 @@ var updatePassword = exports.updatePassword = function updatePassword(password1,
 
     dispatch((0, _fetching.startFetching)());
     var id = _session2.default.getUser().id;
-    (0, _account.updatePassword)({ id: id, password1: password1 }, function (response) {
+    var password = password1;
+    (0, _account.updatePassword)({ id: id, password: password }, function (response) {
       if (response.error === null) {
         dispatch((0, _fetching.stopFetching)());
         M.toast({ html: (0, _strings2.default)(getState().language).accountPage.successUpdate });
@@ -39325,27 +39326,21 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.loadPurchase = exports.loadPurchasesList = exports.updatePassword = exports.updateAccount = undefined;
 
+var _post = require('./post.js');
+
 var _firebaseFirestore = require('../models/firebase/firebaseFirestore');
 
-var updateAccount = exports.updateAccount = function updateAccount(payload, callback) {
-  console.log('API.apiUpdateAccount.payload');
-  console.log(payload);
+/**
+ * @module api/account
+ * @author Grover Lee
+ */
 
-  callback({
-    error: null
-  });
-}; /**
-    * @module api/account
-    * @author Grover Lee
-    */
+var updateAccount = exports.updateAccount = function updateAccount(payload, callback) {
+  (0, _post.post)("user/update/data", payload, callback);
+};
 
 var updatePassword = exports.updatePassword = function updatePassword(payload, callback) {
-  console.log('API.apiUpdatePassword.payload');
-  console.log(payload);
-
-  callback({
-    error: null
-  });
+  (0, _post.post)("user/update/password", payload, callback);
 };
 
 var loadPurchasesList = exports.loadPurchasesList = function loadPurchasesList(storeId, userId, callback) {
@@ -39366,7 +39361,7 @@ var loadPurchase = exports.loadPurchase = function loadPurchase(storeId, purchas
  * @param {object} purchase - purchase's object
  */
 
-},{"../models/firebase/firebaseFirestore":217}],117:[function(require,module,exports){
+},{"../models/firebase/firebaseFirestore":217,"./post.js":118}],117:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

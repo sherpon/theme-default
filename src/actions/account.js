@@ -52,7 +52,8 @@ export const updatePassword = (password1, password2) => (dispatch, getState) => 
 
   dispatch(startFetching())
   const id = session.getUser().id
-  apiUpdatePassword({ id, password1 }, (response) => {
+  const password = password1
+  apiUpdatePassword({ id, password }, (response) => {
     if (response.error===null) {
       dispatch(stopFetching())
       M.toast({ html: Strings(getState().language).accountPage.successUpdate })

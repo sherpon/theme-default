@@ -3,27 +3,19 @@
  * @author Grover Lee
  */
 
+import { post } from './post.js'
+
  import {
    getSalesListByUserId,
    getSaleAsUser
  } from '../models/firebase/firebaseFirestore'
 
 export const updateAccount = (payload, callback) => {
-  console.log('API.apiUpdateAccount.payload')
-  console.log(payload)
-
-  callback({
-    error: null
-  })
+  post( "user/update/data", payload, callback )
 }
 
 export const updatePassword = (payload, callback) => {
-  console.log('API.apiUpdatePassword.payload')
-  console.log(payload)
-
-  callback({
-    error: null
-  })
+  post( "user/update/password", payload, callback )
 }
 
 export const loadPurchasesList = (storeId, userId, callback) => {
