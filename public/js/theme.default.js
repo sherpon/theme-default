@@ -37307,8 +37307,13 @@ var loadPurchasesList = exports.loadPurchasesList = function loadPurchasesList()
     dispatch((0, _fetching.startFetching)());
     var userId = _session2.default.getUser().id;
     var storeId = getState().store.id;
-    (0, _account.loadPurchasesList)({ storeId: storeId, userId: userId }, function (_list) {
-      dispatch((0, _pagination.setPages)(_list, 30));
+    (0, _account.loadPurchasesList)(storeId, userId, function (response) {
+      if (response.error !== null) {
+        dispatch((0, _fetching.stopFetching)());
+        // show an error message
+        return false;
+      }
+      dispatch((0, _pagination.setPages)(response.sales, 30));
     });
   };
 };
@@ -37318,7 +37323,13 @@ var loadPurchase = exports.loadPurchase = function loadPurchase(purchaseId) {
     dispatch((0, _fetching.startFetching)());
     dispatch({ type: types.CLEAN_PURCHASE });
     var storeId = getState().store.id;
-    (0, _account.loadPurchase)(storeId, purchaseId, function (purchase) {
+    (0, _account.loadPurchase)(storeId, purchaseId, function (response) {
+      if (response.error !== null) {
+        dispatch((0, _fetching.stopFetching)());
+        // show an error message
+        return false;
+      }
+      var purchase = response.sale;
       dispatch({
         type: types.LOAD_PURCHASE,
         purchase: purchase
@@ -39312,38 +39323,34 @@ var loadSale = exports.loadSale = function loadSale(saleId) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.loadPurchase = exports.loadPurchasesList = exports.updatePassword = exports.updateAccount = undefined;
 
-var TIMEOUT = 500;
+var _firebaseFirestore = require('../models/firebase/firebaseFirestore');
 
 var updateAccount = exports.updateAccount = function updateAccount(payload, callback) {
   console.log('API.apiUpdateAccount.payload');
   console.log(payload);
 
-  setTimeout(function () {
-    callback({
-      error: null
-    });
-  }, TIMEOUT);
-};
+  callback({
+    error: null
+  });
+}; /**
+    * @module api/account
+    * @author Grover Lee
+    */
 
 var updatePassword = exports.updatePassword = function updatePassword(payload, callback) {
   console.log('API.apiUpdatePassword.payload');
   console.log(payload);
 
-  setTimeout(function () {
-    callback({
-      error: null
-    });
-  }, TIMEOUT);
+  callback({
+    error: null
+  });
 };
 
-var loadPurchasesList = exports.loadPurchasesList = function loadPurchasesList(payload, callback) {}
-/*console.log('API.loadPurchasesList.payload')
-console.log(payload)
- setTimeout( () => {
-  callback(_purchasesList)
-},TIMEOUT )*/
-
+var loadPurchasesList = exports.loadPurchasesList = function loadPurchasesList(storeId, userId, callback) {
+  (0, _firebaseFirestore.getSalesListByUserId)(storeId, userId, callback);
+};
 
 /**
  * Returns the user's purchase json
@@ -39351,20 +39358,15 @@ console.log(payload)
  * @param {string} purchaseId - purchase's id.
  * @param {loadPurchase~callback} callback - The callback that handles the response.
  */
-;var loadPurchase = exports.loadPurchase = function loadPurchase(storeId, purchaseId, callback) {}
-/*console.log('API.loadPurchase.payload')
-console.log({storeId, purchaseId})
- setTimeout( () => {
-  callback(_purchaseItem)
-},TIMEOUT )*/
-
+var loadPurchase = exports.loadPurchase = function loadPurchase(storeId, purchaseId, callback) {
+  (0, _firebaseFirestore.getSaleAsUser)(storeId, purchaseId, callback);
+};
 /**
  * @callback loadPurchase~callback
  * @param {object} purchase - purchase's object
  */
-;
 
-},{}],117:[function(require,module,exports){
+},{"../models/firebase/firebaseFirestore":217}],117:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39380,8 +39382,6 @@ var _tools = require('../models/tools');
  * @module api/item
  * @author Grover Lee
  */
-
-var TIMEOUT = 500;
 
 var getItemsByCategory = exports.getItemsByCategory = function getItemsByCategory(storeId, category, callback) {
   (0, _firebaseFirestore.getProductsListByCategory)(storeId, category, callback);
@@ -39404,15 +39404,6 @@ var getItemsBySearch = exports.getItemsBySearch = function getItemsBySearch(stor
 };
 var getItemById = exports.getItemById = function getItemById(storeId, itemId, callback) {
   (0, _firebaseFirestore.getProductById)(storeId, itemId, callback);
-  /*if (itemId==='Hu3fU02Bdhgpo476Fej1') {
-    setTimeout( () => { callback(_itemById1) },TIMEOUT )
-  } else if (itemId==='Hu3fU02Bdhgpo476Fej2') {
-    setTimeout( () => { callback(_itemById2) },TIMEOUT )
-  } else if (itemId==='Hu3fU02Bdhgpo476Fej3') {
-    setTimeout( () => { callback(_itemById3) },TIMEOUT )
-  } else {
-    setTimeout( () => { callback(_itemById4) },TIMEOUT )
-  }*/
 };
 
 /*
@@ -39482,14 +39473,12 @@ var _firebaseStorage = require('../models/firebase/firebaseStorage');
 
 var _firebaseFirestore = require('../models/firebase/firebaseFirestore');
 
-var TIMEOUT = 500; /**
-                    * @module api/store
-                    * @author Grover Lee
-                    */
-
 var updateDataTheme = exports.updateDataTheme = function updateDataTheme(userId, storeId, newDataTheme, callback) {
   (0, _post.post)("store/theme/data/update", { userId: userId, storeId: storeId, newDataTheme: newDataTheme }, callback);
-};
+}; /**
+    * @module api/store
+    * @author Grover Lee
+    */
 
 var updateDataStore = exports.updateDataStore = function updateDataStore(userId, storeId, newDataStore, callback) {
   (0, _post.post)("store/data/update", { userId: userId, storeId: storeId, newDataStore: newDataStore }, callback);
@@ -39598,7 +39587,8 @@ var createNewProduct = exports.createNewProduct = function createNewProduct(user
  * @param {getSales~callback} callback - The callback that handles the response.
  */
 var getSales = exports.getSales = function getSales(userId, storeId, callback) {
-  (0, _post.post)("sale/list", { userId: userId, storeId: storeId }, callback);
+  //post( "sale/list", { userId, storeId }, callback )
+  (0, _firebaseFirestore.getSalesList)(userId, storeId, callback);
 };
 /**
  * @callback getSales~callback
@@ -39622,7 +39612,8 @@ var getSales = exports.getSales = function getSales(userId, storeId, callback) {
  * @param {getSale~callback} callback - The callback that handles the response.
  */
 var getSale = exports.getSale = function getSale(userId, storeId, saleId, callback) {
-  (0, _post.post)("sale/get", { userId: userId, storeId: storeId, saleId: saleId }, callback);
+  //post( "sale/get", { userId, storeId, saleId }, callback )
+  (0, _firebaseFirestore.getSaleById)(userId, storeId, saleId, callback);
 };
 /**
  * @callback getSale~callback
@@ -46917,24 +46908,20 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var STATE_PRODUCTION = "PRODUCTION";
+var STATE_STAGE = "STAGE";
 var STATE_DEVELOPMENT = "DEVELOPMENT";
 
 var ENV_PROD = {
   "ENDPOINT": "https://sherpon.com/",
-  "BACKEND_ENDPOINT": "https://sherpon.com/",
-  "API_ENDPOINT_V1": "https://sherpon.com/api/v1/",
-  "BACKOFFICE_BACKEND_ENDPOINT": "https://backoffice.sherpon.com/",
+  "API_ENDPOINT_V1": "/api/v1/",
   "MONGODB_URI": "",
   "SERVICE_ACCOUNT_JSON": "",
   "FIREBASE_DATABASE_URL": "",
   "GOOGLE_SERVICE_ACCOUNT": "./ServicesAccount.json",
-  "FIRESTORE_DATABASE_URL": "https://playground-demnio.firebaseio.com",
   "COLLECTION_USERS": "users",
   "COLLECTION_STORES": "stores",
   "COLLECTION_PRODUCTS": "products",
-  "COLLECTION_PUBLIC": "public",
-  "COLLECTION_ITEMS": "items",
-  "COLLECTION_PURCHASE": "purchases",
+  "COLLECTION_SALES": "sales",
   "ANALYTICS_TRACK_ID": "UA-54697040-5",
   "FACEBOOK_PIXEL_ID": "195304191192601",
   "APP_ID_FACEBOOK": "123762241591576",
@@ -46948,22 +46935,41 @@ var ENV_PROD = {
   }
 };
 
-var ENV_DEV = {
-  "ENDPOINT": "http://sherpon.localhost:3000/",
-  "BACKEND_ENDPOINT": "http://sherpon.localhost:3000/",
-  "API_ENDPOINT_V1": "http://sherpon.localhost:3000/api/v1/",
-  "BACKOFFICE_BACKEND_ENDPOINT": "http://backoffice.sherpon.localhost:3000/",
+var ENV_STAGE = {
+  "ENDPOINT": "https://staging.sherpon.com/",
+  "API_ENDPOINT_V1": "/api/v1/",
   "MONGODB_URI": "",
   "SERVICE_ACCOUNT_JSON": "",
   "FIREBASE_DATABASE_URL": "",
   "GOOGLE_SERVICE_ACCOUNT": "./ServicesAccount.json",
-  "FIRESTORE_DATABASE_URL": "https://playground-demnio.firebaseio.com",
+  "COLLECTION_USERS": "stage_users",
+  "COLLECTION_STORES": "stage_stores",
+  "COLLECTION_PRODUCTS": "stage_products",
+  "COLLECTION_SALES": "stage_sales",
+  "ANALYTICS_TRACK_ID": "UA-54697040-5",
+  "FACEBOOK_PIXEL_ID": "195304191192601",
+  "APP_ID_FACEBOOK": "1594595550592061",
+  "FIREBASE_APP": {
+    apiKey: "AIzaSyAvS0Q6iuqo1xqzgBFl5ybVUCvu3Qkb1zY",
+    authDomain: "sherponcom.firebaseapp.com",
+    databaseURL: "https://sherponcom.firebaseio.com",
+    projectId: "sherponcom",
+    storageBucket: "sherponcom.appspot.com",
+    messagingSenderId: "1072437189631"
+  }
+};
+
+var ENV_DEV = {
+  "ENDPOINT": "http://sherpon.localhost:3000/",
+  "API_ENDPOINT_V1": "/api/v1/",
+  "MONGODB_URI": "",
+  "SERVICE_ACCOUNT_JSON": "",
+  "FIREBASE_DATABASE_URL": "",
+  "GOOGLE_SERVICE_ACCOUNT": "./ServicesAccount.json",
   "COLLECTION_USERS": "dev_users",
   "COLLECTION_STORES": "dev_stores",
   "COLLECTION_PRODUCTS": "dev_products",
-  "COLLECTION_PUBLIC": "dev_public",
-  "COLLECTION_ITEMS": "dev_items",
-  "COLLECTION_PURCHASE": "dev_purchases",
+  "COLLECTION_SALES": "dev_sales",
   "ANALYTICS_TRACK_ID": "UA-54697040-5",
   "FACEBOOK_PIXEL_ID": "195304191192601",
   "APP_ID_FACEBOOK": "1594595550592061",
@@ -46978,15 +46984,15 @@ var ENV_DEV = {
 };
 
 var getState = exports.getState = function getState() {
-  //tool.log ( "config.getState ( )", "START.", null, false)
   if (location.hostname === "localhost" || location.hostname === "sherpon.localhost" || location.hostname === "backoffice.sherpon.localhost" || location.hostname === "supplier.sherpon.localhost" || location.hostname === "0.0.0.0") {
-    //DEV
-    //console.log("State: " + STATE_DEVELOPMENT)
-    //tool.log ( "config.getState ( )", "STATE_DEVELOPMENT: ", STATE_DEVELOPMENT, false)
+    // DEV
     window.mSTATE = STATE_DEVELOPMENT;
     return STATE_DEVELOPMENT;
+  } else if (location.hostname === 'staging.sherpon.com') {
+    // STAGING
+    window.mSTATE = STATE_STAGE;
+    return STATE_STAGE;
   } else {
-    //tool.log ( "config.getState ( )", "STATE_PRODUCTION: ", STATE_PRODUCTION, false)
     window.mSTATE = STATE_PRODUCTION;
     return STATE_PRODUCTION;
   }
@@ -46996,6 +47002,9 @@ var getEnv = exports.getEnv = function getEnv() {
   if (getState() === STATE_DEVELOPMENT) {
     //DEV
     return ENV_DEV;
+  } else if (getState() === STATE_STAGE) {
+    // STAGING
+    return ENV_STAGE;
   } else {
     // PRODUCTION
     return ENV_PROD;
@@ -51009,7 +51018,7 @@ var pixelPageView = exports.pixelPageView = function pixelPageView(storePixelId)
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getProductById = exports.getProductsListBySearch = exports.getProductsListByCategory = exports.getProductsList = undefined;
+exports.getSaleAsUser = exports.getSalesListByUserId = exports.getSaleById = exports.getSalesList = exports.getProductById = exports.getProductsListBySearch = exports.getProductsListByCategory = exports.getProductsList = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -51199,31 +51208,124 @@ var getProductById = exports.getProductById = function getProductById(storeId, i
 };
 /******************************************************************************/
 
-/*export const getStoreByUserId = (userId, callback) => {
-  let result = null
-  db.collection( getEnv().COLLECTION_STORES ).where('userId','==',userId)
-  .get()
-  .then(function(querySnapshot) {
-    querySnapshot.forEach(function(doc) {
-      // doc.data() is never undefined for query doc snapshots
-      //console.log(doc.id, " => ", doc.data())
-      result = {
-        name:doc.data().name,
-        username:doc.data().username,
-        phone:doc.data().phone,
-        profile:doc.data().profile,
-        cover:doc.data().cover,
-        userId:doc.data().userId
-      }
-    })
-    callback(result)
-  })
-  .catch(function(error) {
-    console.log("Error getting documents: ", error)
-    callback(false)
-  })
-  //shStoreSession.setStoreSession({username:this.props.match.params.storeusername, type:'store'})
-}*/
+/******************************************************************************/
+/**
+ * @function getSalesList
+ * @description Get the store's sales list as admin
+ */
+var getSalesList = exports.getSalesList = function getSalesList(userId, storeId, callback) {
+  var result = {
+    error: null,
+    sales: []
+    /** DO-TO check if is admin */
+  };db.collection((0, _config.getEnv)().COLLECTION_STORES).doc(storeId).collection((0, _config.getEnv)().COLLECTION_SALES).get().then(function (querySnapshot) {
+    var salesList = [];
+    querySnapshot.forEach(function (doc) {
+      var sale = {
+        id: doc.id,
+        timestamp: doc.data().timestamp,
+        state: doc.data().state,
+        currency: doc.data().cart.total.currency,
+        symbol: doc.data().cart.total.symbol,
+        amount: doc.data().cart.total.price
+      };
+      salesList.push(sale);
+    });
+    result.sales = salesList;
+
+    callback(result);
+  }).catch(function (error) {
+    console.log("Error getting documents: ", error);
+    callback(result);
+  });
+};
+/******************************************************************************/
+
+/******************************************************************************/
+/**
+ * @function getSaleById
+ * @description Get the store's sale by id
+ */
+var getSaleById = exports.getSaleById = function getSaleById(userId, storeId, saleId, callback) {
+  var result = {
+    error: null,
+    sale: null
+    /** DO-TO check if is admin */
+  };db.collection((0, _config.getEnv)().COLLECTION_STORES).doc(storeId).collection((0, _config.getEnv)().COLLECTION_SALES).doc(saleId).get().then(function (doc) {
+    if (doc.exists) {
+      var mSale = _extends({ id: doc.id }, doc.data());
+      result.sale = mSale;
+      callback(result);
+    } else {
+      callback(result);
+    }
+  }).catch(function (error) {
+    console.log("Error getting documents: ", error);
+    callback(result);
+  });
+};
+/******************************************************************************/
+
+/******************************************************************************/
+/**
+ * @function getSalesListByUserId
+ * @description Get the store's sales list by user's id
+ */
+var getSalesListByUserId = exports.getSalesListByUserId = function getSalesListByUserId(storeId, userId, callback) {
+  var result = {
+    error: null,
+    sales: []
+    /** DO-TO check if is admin */
+  };db.collection((0, _config.getEnv)().COLLECTION_STORES).doc(storeId).collection((0, _config.getEnv)().COLLECTION_SALES).where('user.id', '==', userId).get().then(function (querySnapshot) {
+    var salesList = [];
+    querySnapshot.forEach(function (doc) {
+      var sale = {
+        id: doc.id,
+        timestamp: doc.data().timestamp,
+        state: doc.data().state,
+        currency: doc.data().cart.total.currency,
+        symbol: doc.data().cart.total.symbol,
+        amount: doc.data().cart.total.price
+      };
+      salesList.push(sale);
+    });
+    result.sales = salesList;
+
+    callback(result);
+  }).catch(function (error) {
+    console.log("Error getting documents: ", error);
+    result.error = error;
+    callback(result);
+  });
+};
+/******************************************************************************/
+
+/******************************************************************************/
+/**
+ * @function getSaleAsUser
+ * @description Get the store's sale as user
+ */
+var getSaleAsUser = exports.getSaleAsUser = function getSaleAsUser(storeId, saleId, callback) {
+  var result = {
+    error: null,
+    sale: null
+  };
+
+  db.collection((0, _config.getEnv)().COLLECTION_STORES).doc(storeId).collection((0, _config.getEnv)().COLLECTION_SALES).doc(saleId).get().then(function (doc) {
+    if (doc.exists) {
+      var mSale = _extends({ id: doc.id }, doc.data());
+      result.sale = mSale;
+      callback(result);
+    } else {
+      callback(result);
+    }
+  }).catch(function (error) {
+    console.log("Error getting documents: ", error);
+    result.error = error;
+    callback(result);
+  });
+};
+/******************************************************************************/
 
 },{"../../config":186,"./firebaseInit.js":218}],218:[function(require,module,exports){
 'use strict';

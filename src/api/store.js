@@ -5,9 +5,11 @@
 
 import { post } from './post.js'
 import { uploadPicture } from '../models/firebase/firebaseStorage'
-import { getProductsList } from '../models/firebase/firebaseFirestore'
-
-const TIMEOUT = 500
+import {
+  getProductsList,
+  getSalesList,
+  getSaleById
+} from '../models/firebase/firebaseFirestore'
 
 export const updateDataTheme = (userId, storeId, newDataTheme, callback) => {
   post( "store/theme/data/update", { userId, storeId, newDataTheme }, callback )
@@ -120,7 +122,8 @@ export const createNewProduct = ( userId, storeId, newProduct, callback ) => {
  * @param {getSales~callback} callback - The callback that handles the response.
  */
 export const getSales = (userId, storeId, callback) => {
-  post( "sale/list", { userId, storeId }, callback )
+  //post( "sale/list", { userId, storeId }, callback )
+  getSalesList( userId, storeId, callback )
 }
 /**
  * @callback getSales~callback
@@ -144,7 +147,8 @@ export const getSales = (userId, storeId, callback) => {
  * @param {getSale~callback} callback - The callback that handles the response.
  */
 export const getSale = (userId, storeId, saleId, callback) => {
-  post( "sale/get", { userId, storeId, saleId }, callback )
+  //post( "sale/get", { userId, storeId, saleId }, callback )
+  getSaleById( userId, storeId, saleId, callback )
 }
 /**
  * @callback getSale~callback

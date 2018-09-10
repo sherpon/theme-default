@@ -1,35 +1,33 @@
+/**
+ * @module api/account
+ * @author Grover Lee
+ */
 
-const TIMEOUT = 500
+ import {
+   getSalesListByUserId,
+   getSaleAsUser
+ } from '../models/firebase/firebaseFirestore'
 
 export const updateAccount = (payload, callback) => {
   console.log('API.apiUpdateAccount.payload')
   console.log(payload)
 
-  setTimeout( () => {
-    callback({
-      error: null
-    })
-  },TIMEOUT )
+  callback({
+    error: null
+  })
 }
 
 export const updatePassword = (payload, callback) => {
   console.log('API.apiUpdatePassword.payload')
   console.log(payload)
 
-  setTimeout( () => {
-    callback({
-      error: null
-    })
-  },TIMEOUT )
+  callback({
+    error: null
+  })
 }
 
-export const loadPurchasesList = (payload, callback) => {
-  /*console.log('API.loadPurchasesList.payload')
-  console.log(payload)
-
-  setTimeout( () => {
-    callback(_purchasesList)
-  },TIMEOUT )*/
+export const loadPurchasesList = (storeId, userId, callback) => {
+  getSalesListByUserId(storeId, userId, callback)
 }
 
 /**
@@ -39,12 +37,7 @@ export const loadPurchasesList = (payload, callback) => {
  * @param {loadPurchase~callback} callback - The callback that handles the response.
  */
 export const loadPurchase = (storeId, purchaseId, callback) => {
-  /*console.log('API.loadPurchase.payload')
-  console.log({storeId, purchaseId})
-
-  setTimeout( () => {
-    callback(_purchaseItem)
-  },TIMEOUT )*/
+  getSaleAsUser( storeId, purchaseId, callback )
 }
 /**
  * @callback loadPurchase~callback

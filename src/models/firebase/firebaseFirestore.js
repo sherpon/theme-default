@@ -220,28 +220,145 @@ export const getProductsList = (storeId, callback) => {
  }
 /******************************************************************************/
 
-/*export const getStoreByUserId = (userId, callback) => {
-  let result = null
-  db.collection( getEnv().COLLECTION_STORES ).where('userId','==',userId)
-  .get()
+/******************************************************************************/
+/**
+ * @function getSalesList
+ * @description Get the store's sales list as admin
+ */
+export const getSalesList = ( userId, storeId, callback ) => {
+  let result = {
+    error:null,
+    sales:[]
+  }
+  /** DO-TO check if is admin */
+  db.collection( getEnv().COLLECTION_STORES )
+    .doc(storeId)
+    .collection( getEnv().COLLECTION_SALES )
+    .get()
   .then(function(querySnapshot) {
+    let salesList = []
     querySnapshot.forEach(function(doc) {
-      // doc.data() is never undefined for query doc snapshots
-      //console.log(doc.id, " => ", doc.data())
-      result = {
-        name:doc.data().name,
-        username:doc.data().username,
-        phone:doc.data().phone,
-        profile:doc.data().profile,
-        cover:doc.data().cover,
-        userId:doc.data().userId
+      const sale = {
+        id:doc.id,
+        timestamp:doc.data().timestamp,
+        state:doc.data().state,
+        currency:doc.data().cart.total.currency,
+        symbol:doc.data().cart.total.symbol,
+        amount:doc.data().cart.total.price
       }
+      salesList.push(sale)
     })
+    result.sales = salesList
+
     callback(result)
   })
   .catch(function(error) {
     console.log("Error getting documents: ", error)
-    callback(false)
+    callback(result)
   })
-  //shStoreSession.setStoreSession({username:this.props.match.params.storeusername, type:'store'})
-}*/
+}
+/******************************************************************************/
+
+/******************************************************************************/
+/**
+ * @function getSaleById
+ * @description Get the store's sale by id
+ */
+ export const getSaleById = ( userId, storeId, saleId, callback ) => {
+   let result = {
+     error:null,
+     sale:null
+   }
+   /** DO-TO check if is admin */
+   db.collection( getEnv().COLLECTION_STORES )
+     .doc(storeId)
+     .collection( getEnv().COLLECTION_SALES )
+     .doc(saleId)
+     .get()
+   .then(function(doc) {
+      if (doc.exists) {
+        const mSale = { id:doc.id, ...doc.data() }
+        result.sale = mSale
+        callback(result)
+      } else {
+        callback(result)
+      }
+    }).catch(function(error) {
+      console.log("Error getting documents: ", error)
+      callback(result)
+    })
+ }
+/******************************************************************************/
+
+/******************************************************************************/
+/**
+ * @function getSalesListByUserId
+ * @description Get the store's sales list by user's id
+ */
+export const getSalesListByUserId = (storeId, userId, callback) => {
+  let result = {
+    error:null,
+    sales:[]
+  }
+  /** DO-TO check if is admin */
+  db.collection( getEnv().COLLECTION_STORES )
+   .doc(storeId)
+   .collection( getEnv().COLLECTION_SALES )
+   .where('user.id','==',userId)
+   .get()
+  .then(function(querySnapshot) {
+   let salesList = []
+   querySnapshot.forEach(function(doc) {
+     const sale = {
+       id:doc.id,
+       timestamp:doc.data().timestamp,
+       state:doc.data().state,
+       currency:doc.data().cart.total.currency,
+       symbol:doc.data().cart.total.symbol,
+       amount:doc.data().cart.total.price
+     }
+     salesList.push(sale)
+   })
+   result.sales = salesList
+
+   callback(result)
+  })
+  .catch(function(error) {
+    console.log("Error getting documents: ", error)
+    result.error = error
+    callback(result)
+  })
+}
+/******************************************************************************/
+
+/******************************************************************************/
+/**
+ * @function getSaleAsUser
+ * @description Get the store's sale as user
+ */
+ export const getSaleAsUser = ( storeId, saleId, callback ) => {
+   let result = {
+     error:null,
+     sale:null
+   }
+
+   db.collection( getEnv().COLLECTION_STORES )
+     .doc(storeId)
+     .collection( getEnv().COLLECTION_SALES )
+     .doc(saleId)
+     .get()
+   .then(function(doc) {
+      if (doc.exists) {
+        const mSale = { id:doc.id, ...doc.data() }
+        result.sale = mSale
+        callback(result)
+      } else {
+        callback(result)
+      }
+    }).catch(function(error) {
+      console.log("Error getting documents: ", error)
+      result.error = error
+      callback(result)
+    })
+ }
+/******************************************************************************/
