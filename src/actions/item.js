@@ -53,15 +53,20 @@ export const loadItem = (itemId) => (dispatch, getState) => {
   dispatch(clearItem())
   const { store } = getState()
   getItemById(store.id, itemId, (result) => {
-    result['warning'] = ''
-    result = isInCart(result, getState().cart)
-    if ( result.stock !== undefined ) {
-      if ( result.stock < 1 ) {
-        result['warning'] = Strings(getState().language).itemPage.errorItemNoStock
+    if (result.error !== null) {
+      /** show error message */
+      dispatch(stopFetching())
+    }
+    let mProduct = result.product
+    mProduct['warning'] = ''
+    mProduct = isInCart(mProduct, getState().cart)
+    if ( mProduct.stock !== undefined ) {
+      if ( mProduct.stock < 1 ) {
+        mProduct['warning'] = Strings(getState().language).itemPage.errorItemNoStock
       }
     }
 
-    dispatch(saveItem(result))
+    dispatch(saveItem(mProduct))
     dispatch(stopFetching())
   })
 }

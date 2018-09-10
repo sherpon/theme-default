@@ -90,7 +90,7 @@ const mapStateToProps = ( state, ownProps ) => ({
   username: state.store.username,
   analyticsTrackerId: state.store.data.analytics,
   facebookPixelId: state.store.data.facebookPixel,
-  query: getQueryValue('search'),
+  query: noLinkUnderscore(getQueryValue('search')),
   isResultLoaded: state.isResultLoaded,
   pagination: {
     index: state.pagination.index,

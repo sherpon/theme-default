@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { getPriceFormat } from '../../models/tools'
 
-const ItemContentShipping = ({ labelShipping, labelFree, shipping }) => {
+const ItemContentShipping = ({ labelShipping, labelDays, labelFree, shipping }) => {
   if (shipping.length===0) {
     return (
       <div/>
@@ -17,11 +17,11 @@ const ItemContentShipping = ({ labelShipping, labelFree, shipping }) => {
 
     const selectOptions = shipping.map( (option, i) => {
       const price = (option.price===0) ? (labelFree) : (`${option.symbol} ${getPriceFormat(option.price)}`)
-      return (<option 
+      return (<option
         key={i}
         value={ JSON.stringify(option) }
       >
-        {`${option.description} (${option.days}) - ${price}`}
+        {`${option.description} (${option.days} ${labelDays}) - ${price}`}
       </option>)
     } )
 

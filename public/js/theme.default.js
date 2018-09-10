@@ -37450,7 +37450,7 @@ var placeOrder = exports.placeOrder = function placeOrder() {
       return false;
     }
     var personalInformation = {
-      id: _session2.default.inUserSession() ? _session2.default.getUser() : null, // if there's a session give the user's id, else give 'null'
+      id: _session2.default.inUserSession() ? _session2.default.getUser().id : false, // if there's a session give the user's id, else give 'false'
       name: _name,
       lastname: _lastname,
       phone: _phone,
@@ -37550,11 +37550,12 @@ var placeOrder = exports.placeOrder = function placeOrder() {
             console.log(Culqi.token);
 
             var _order = {
+              storeId: getState().store.id,
               user: personalInformation,
               cart: getState().cart,
               payment: {
                 token: token,
-                card_number: Culqi.token.card_number
+                cardNumber: Culqi.token.card_number
               },
               shipping: shipping,
               billing: billing
@@ -37695,7 +37696,7 @@ var search = exports.search = function search(event) {
       // history.push( store.username + '/search/?search=' + tag.split(" ").join("_") )
       _history2.default.push({
         pathname: "/" + store.username + '/search',
-        search: "?search=" + tag, //  search: "?search=" + tag.split(" ").join("_")
+        search: "?search=" + (0, _tools.noLinkEspace)(tag), //  search: "?search=" + tag.split(" ").join("_")
         state: { some: "state" }
       });
 
@@ -37713,20 +37714,25 @@ var loadSearch = exports.loadSearch = function loadSearch(search) {
     var _getState2 = getState(),
         store = _getState2.store;
 
-    (0, _item.getItemsBySearch)(store.id, search, function (result) {
+    (0, _item.getItemsBySearch)(store.id, search.toLowerCase(), function (result) {
+      if (result.error !== null) {
+        /** show error message */
+        dispatch(stopFetching());
+      }
+      var productsList = result.products;
       //console.log('result is %s', result) // ================================================>> debug
       var itemsByPage = 30; // cantidad de items por pagina
-      var itemsCount = result.length; // cantidad de items totales
+      var itemsCount = productsList.length; // cantidad de items totales
       var pages = [];
       var pagesCount = Math.ceil(itemsCount / itemsByPage);
 
       for (var i = 0; i < pagesCount; i++) {
-        var tmpPage = result.slice(i * itemsByPage, i * itemsByPage + itemsByPage);
+        var tmpPage = productsList.slice(i * itemsByPage, i * itemsByPage + itemsByPage);
         pages.push(tmpPage);
       }
       dispatch(savePagination(pagesCount, pages[0], pages, itemsCount));
 
-      //dispatch(saveResult(result))
+      //dispatch(saveResult(productsList))
       dispatch(pushResultLoadedTrue());
       dispatch(stopFetching());
     });
@@ -37791,19 +37797,24 @@ var loadCategory = exports.loadCategory = function loadCategory(category) {
     var _getState3 = getState(),
         store = _getState3.store;
 
-    (0, _item.getItemsByCategory)(store.id, category, function (result) {
+    (0, _item.getItemsByCategory)(store.id, category.toLowerCase(), function (result) {
+      if (result.error !== null) {
+        /** show error message */
+        dispatch(stopFetching());
+      }
+      var productsList = result.products;
       var itemsByPage = 30; // cantidad de items por pagina
-      var itemsCount = result.length; // cantidad de items totales
+      var itemsCount = productsList.length; // cantidad de items totales
       var pages = [];
       var pagesCount = Math.ceil(itemsCount / itemsByPage);
 
       for (var i = 0; i < pagesCount; i++) {
-        var tmpPage = result.slice(i * itemsByPage, i * itemsByPage + itemsByPage);
+        var tmpPage = productsList.slice(i * itemsByPage, i * itemsByPage + itemsByPage);
         pages.push(tmpPage);
       }
       dispatch(savePagination(pagesCount, pages[0], pages, itemsCount));
 
-      //dispatch(saveResult(result))
+      //dispatch(saveResult(productsList))
       dispatch(pushResultLoadedTrue());
       dispatch(stopFetching());
     });
@@ -37909,15 +37920,20 @@ var loadItem = exports.loadItem = function loadItem(itemId) {
         store = _getState.store;
 
     (0, _item5.getItemById)(store.id, itemId, function (result) {
-      result['warning'] = '';
-      result = isInCart(result, getState().cart);
-      if (result.stock !== undefined) {
-        if (result.stock < 1) {
-          result['warning'] = (0, _strings2.default)(getState().language).itemPage.errorItemNoStock;
+      if (result.error !== null) {
+        /** show error message */
+        dispatch((0, _fetching.stopFetching)());
+      }
+      var mProduct = result.product;
+      mProduct['warning'] = '';
+      mProduct = isInCart(mProduct, getState().cart);
+      if (mProduct.stock !== undefined) {
+        if (mProduct.stock < 1) {
+          mProduct['warning'] = (0, _strings2.default)(getState().language).itemPage.errorItemNoStock;
         }
       }
 
-      dispatch(saveItem(result));
+      dispatch(saveItem(mProduct));
       dispatch((0, _fetching.stopFetching)());
     });
   };
@@ -39349,39 +39365,62 @@ console.log({storeId, purchaseId})
 ;
 
 },{}],117:[function(require,module,exports){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.getItemById = exports.getItemsBySearch = exports.getItemsByCategory = undefined;
+
+var _firebaseFirestore = require('../models/firebase/firebaseFirestore');
+
+var _tools = require('../models/tools');
+
+/**
+ * @module api/item
+ * @author Grover Lee
+ */
 
 var TIMEOUT = 500;
 
 var getItemsByCategory = exports.getItemsByCategory = function getItemsByCategory(storeId, category, callback) {
-  //setTimeout( () => { callback(_itemsByCategory) },TIMEOUT )
+  (0, _firebaseFirestore.getProductsListByCategory)(storeId, category, callback);
 };
 var getItemsBySearch = exports.getItemsBySearch = function getItemsBySearch(storeId, search, callback) {
-  //setTimeout( () => { callback(_itemsBySearch) },TIMEOUT )
+  var newSearch = (0, _tools.noLinkUnderscore)(search);
+  newSearch = newSearch.split(' ');
+  var words = [newSearch[0], newSearch[0], newSearch[0]];
+  var wordsLength = newSearch.length;
+  var forCount = 0;
+  if (wordsLength > 3) {
+    forCount = 3;
+  } else {
+    forCount = wordsLength;
+  }
+  for (var i = 0; i < forCount; i++) {
+    words[i] = newSearch[i];
+  }
+  (0, _firebaseFirestore.getProductsListBySearch)(storeId, words[0], words[1], words[2], callback);
 };
-var getItemById = exports.getItemById = function getItemById(storeId, itemId, callback) {}
-/*if (itemId==='Hu3fU02Bdhgpo476Fej1') {
-  setTimeout( () => { callback(_itemById1) },TIMEOUT )
-} else if (itemId==='Hu3fU02Bdhgpo476Fej2') {
-  setTimeout( () => { callback(_itemById2) },TIMEOUT )
-} else if (itemId==='Hu3fU02Bdhgpo476Fej3') {
-  setTimeout( () => { callback(_itemById3) },TIMEOUT )
-} else {
-  setTimeout( () => { callback(_itemById4) },TIMEOUT )
-}*/
-
+var getItemById = exports.getItemById = function getItemById(storeId, itemId, callback) {
+  (0, _firebaseFirestore.getProductById)(storeId, itemId, callback);
+  /*if (itemId==='Hu3fU02Bdhgpo476Fej1') {
+    setTimeout( () => { callback(_itemById1) },TIMEOUT )
+  } else if (itemId==='Hu3fU02Bdhgpo476Fej2') {
+    setTimeout( () => { callback(_itemById2) },TIMEOUT )
+  } else if (itemId==='Hu3fU02Bdhgpo476Fej3') {
+    setTimeout( () => { callback(_itemById3) },TIMEOUT )
+  } else {
+    setTimeout( () => { callback(_itemById4) },TIMEOUT )
+  }*/
+};
 
 /*
 
 
  */
-;
 
-},{}],118:[function(require,module,exports){
+},{"../models/firebase/firebaseFirestore":217,"../models/tools":223}],118:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39413,23 +39452,23 @@ var post = exports.post = function post(api, payload, callback) {
 };
 
 },{"../config":186,"cross-fetch":1}],119:[function(require,module,exports){
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var TIMEOUT = 500;
+exports.createPurchase = undefined;
+
+var _post = require("./post.js");
 
 var createPurchase = exports.createPurchase = function createPurchase(payload, callback) {
-  console.log('API.signup.payload');
-  console.log(payload);
+  (0, _post.post)("sale/create", payload, callback);
+}; /**
+    * @module api/sale
+    * @author Grover Lee
+    */
 
-  setTimeout(function () {
-    callback(true);
-  }, TIMEOUT);
-};
-
-},{}],120:[function(require,module,exports){
+},{"./post.js":118}],120:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -42444,6 +42483,7 @@ var ItemContent = function ItemContent(_ref) {
     ),
     _react2.default.createElement(_itemContentShipping2.default, {
       labelShipping: strings.labelShipping,
+      labelDays: strings.labelDays,
       labelFree: strings.labelFree,
       shipping: item.shipping
     }),
@@ -42780,6 +42820,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var ItemContentShipping = function ItemContentShipping(_ref) {
   var labelShipping = _ref.labelShipping,
+      labelDays = _ref.labelDays,
       labelFree = _ref.labelFree,
       shipping = _ref.shipping;
 
@@ -42800,7 +42841,7 @@ var ItemContentShipping = function ItemContentShipping(_ref) {
           key: i,
           value: JSON.stringify(option)
         },
-        option.description + ' (' + option.days + ') - ' + price
+        option.description + ' (' + option.days + ' ' + labelDays + ') - ' + price
       );
     });
 
@@ -46890,6 +46931,7 @@ var ENV_PROD = {
   "FIRESTORE_DATABASE_URL": "https://playground-demnio.firebaseio.com",
   "COLLECTION_USERS": "users",
   "COLLECTION_STORES": "stores",
+  "COLLECTION_PRODUCTS": "products",
   "COLLECTION_PUBLIC": "public",
   "COLLECTION_ITEMS": "items",
   "COLLECTION_PURCHASE": "purchases",
@@ -46918,6 +46960,7 @@ var ENV_DEV = {
   "FIRESTORE_DATABASE_URL": "https://playground-demnio.firebaseio.com",
   "COLLECTION_USERS": "dev_users",
   "COLLECTION_STORES": "dev_stores",
+  "COLLECTION_PRODUCTS": "dev_products",
   "COLLECTION_PUBLIC": "dev_public",
   "COLLECTION_ITEMS": "dev_items",
   "COLLECTION_PURCHASE": "dev_purchases",
@@ -50275,7 +50318,7 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
     username: state.store.username,
     analyticsTrackerId: state.store.data.analytics,
     facebookPixelId: state.store.data.facebookPixel,
-    query: (0, _tools.getQueryValue)('search'),
+    query: (0, _tools.noLinkUnderscore)((0, _tools.getQueryValue)('search')),
     isResultLoaded: state.isResultLoaded,
     pagination: {
       index: state.pagination.index,
@@ -50966,21 +51009,33 @@ var pixelPageView = exports.pixelPageView = function pixelPageView(storePixelId)
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getStoreByUserId = exports.getProductsList = undefined;
+exports.getProductById = exports.getProductsListBySearch = exports.getProductsListByCategory = exports.getProductsList = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _config = require('../../config');
+
+/**
+ * @module firebase/firestore
+ * @description Firestore interface
+ */
 
 var firebase = require('./firebaseInit.js')();
 
 
 var db = firebase.firestore();
 
+/******************************************************************************/
+/**
+ * @function getProductsList
+ * @description Get the store's products list as admin
+ */
 var getProductsList = exports.getProductsList = function getProductsList(storeId, callback) {
   var result = {
     error: null,
     products: []
-  };
-  db.collection((0, _config.getEnv)().COLLECTION_STORES).doc(storeId).collection((0, _config.getEnv)().COLLECTION_ITEMS).get().then(function (querySnapshot) {
+    /** DO-TO check if is admin */
+  };db.collection((0, _config.getEnv)().COLLECTION_STORES).doc(storeId).collection((0, _config.getEnv)().COLLECTION_PRODUCTS).get().then(function (querySnapshot) {
     var itemsList = [];
     querySnapshot.forEach(function (doc) {
       var item = {
@@ -51002,29 +51057,173 @@ var getProductsList = exports.getProductsList = function getProductsList(storeId
     callback(result);
   });
 };
+/******************************************************************************/
 
-var getStoreByUserId = exports.getStoreByUserId = function getStoreByUserId(userId, callback) {
-  var result = null;
-  db.collection((0, _config.getEnv)().COLLECTION_STORES).where('userId', '==', userId).get().then(function (querySnapshot) {
+/******************************************************************************/
+/**
+ * @function getProductsListByCategory
+ * @description Get the store's products list by category
+ */
+var getProductsListByCategory = exports.getProductsListByCategory = function getProductsListByCategory(storeId, category, callback) {
+  var result = {
+    error: null,
+    products: []
+    /** DO-TO check if is admin */
+  };db.collection((0, _config.getEnv)().COLLECTION_STORES).doc(storeId).collection((0, _config.getEnv)().COLLECTION_PRODUCTS).where('tags.' + category, '==', true).get().then(function (querySnapshot) {
+    var itemsList = [];
     querySnapshot.forEach(function (doc) {
-      // doc.data() is never undefined for query doc snapshots
-      //console.log(doc.id, " => ", doc.data())
-      result = {
-        name: doc.data().name,
-        username: doc.data().username,
-        phone: doc.data().phone,
-        profile: doc.data().profile,
-        cover: doc.data().cover,
-        userId: doc.data().userId
+      var item = {
+        id: doc.id,
+        stock: doc.data().stock,
+        picture1: doc.data().picture1,
+        shortTitle: doc.data().shortTitle,
+        currency: doc.data().currency,
+        symbol: doc.data().symbol,
+        price: doc.data().price
       };
+      itemsList.push(item);
     });
+    result.products = itemsList;
+
     callback(result);
   }).catch(function (error) {
     console.log("Error getting documents: ", error);
-    callback(false);
+    callback(result);
   });
-  //shStoreSession.setStoreSession({username:this.props.match.params.storeusername, type:'store'})
 };
+/******************************************************************************/
+
+/******************************************************************************/
+/**
+ * @function getProductsListBySearch
+ * @description Get the store's products list by search
+ */
+var getProductsListBySearch = exports.getProductsListBySearch = function getProductsListBySearch(storeId, word1, word2, word3, callback) {
+  var result = {
+    error: null,
+    products: []
+    /** DO-TO check if is admin */
+  };var itemsList = [];
+
+  var searchWord1 = function searchWord1() {
+    db.collection((0, _config.getEnv)().COLLECTION_STORES).doc(storeId).collection((0, _config.getEnv)().COLLECTION_PRODUCTS).where('tags.' + word1, '==', true).get().then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        var item = {
+          id: doc.id,
+          stock: doc.data().stock,
+          picture1: doc.data().picture1,
+          shortTitle: doc.data().shortTitle,
+          currency: doc.data().currency,
+          symbol: doc.data().symbol,
+          price: doc.data().price
+        };
+        itemsList.push(item);
+      });
+      searchWord2();
+    }).catch(function (error) {
+      console.log("Error getting documents: ", error);
+      callback(result);
+    });
+  };
+
+  var searchWord2 = function searchWord2() {
+    db.collection((0, _config.getEnv)().COLLECTION_STORES).doc(storeId).collection((0, _config.getEnv)().COLLECTION_PRODUCTS).where('tags.' + word2, '==', true).get().then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        var item = {
+          id: doc.id,
+          stock: doc.data().stock,
+          picture1: doc.data().picture1,
+          shortTitle: doc.data().shortTitle,
+          currency: doc.data().currency,
+          symbol: doc.data().symbol,
+          price: doc.data().price
+        };
+        itemsList.push(item);
+      });
+      searchWord3();
+    }).catch(function (error) {
+      console.log("Error getting documents: ", error);
+      callback(result);
+    });
+  };
+
+  var searchWord3 = function searchWord3() {
+    db.collection((0, _config.getEnv)().COLLECTION_STORES).doc(storeId).collection((0, _config.getEnv)().COLLECTION_PRODUCTS).where('tags.' + word3, '==', true).get().then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        var item = {
+          id: doc.id,
+          stock: doc.data().stock,
+          picture1: doc.data().picture1,
+          shortTitle: doc.data().shortTitle,
+          currency: doc.data().currency,
+          symbol: doc.data().symbol,
+          price: doc.data().price
+        };
+        itemsList.push(item);
+      });
+      result.products = itemsList;
+      callback(result);
+    }).catch(function (error) {
+      console.log("Error getting documents: ", error);
+      callback(result);
+    });
+  };
+
+  /** here start */
+  searchWord1();
+};
+/******************************************************************************/
+
+/******************************************************************************/
+/**
+ * @function getProductById
+ * @description Get the store's product by id
+ */
+var getProductById = exports.getProductById = function getProductById(storeId, itemId, callback) {
+  var result = {
+    error: null,
+    product: null
+    /** DO-TO check if is admin */
+  };db.collection((0, _config.getEnv)().COLLECTION_STORES).doc(storeId).collection((0, _config.getEnv)().COLLECTION_PRODUCTS).doc(itemId).get().then(function (doc) {
+    if (doc.exists) {
+      var mProduct = _extends({ id: doc.id }, doc.data());
+      result.product = mProduct;
+      callback(result);
+    } else {
+      callback(result);
+    }
+  }).catch(function (error) {
+    console.log("Error getting documents: ", error);
+    callback(result);
+  });
+};
+/******************************************************************************/
+
+/*export const getStoreByUserId = (userId, callback) => {
+  let result = null
+  db.collection( getEnv().COLLECTION_STORES ).where('userId','==',userId)
+  .get()
+  .then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+      // doc.data() is never undefined for query doc snapshots
+      //console.log(doc.id, " => ", doc.data())
+      result = {
+        name:doc.data().name,
+        username:doc.data().username,
+        phone:doc.data().phone,
+        profile:doc.data().profile,
+        cover:doc.data().cover,
+        userId:doc.data().userId
+      }
+    })
+    callback(result)
+  })
+  .catch(function(error) {
+    console.log("Error getting documents: ", error)
+    callback(false)
+  })
+  //shStoreSession.setStoreSession({username:this.props.match.params.storeusername, type:'store'})
+}*/
 
 },{"../../config":186,"./firebaseInit.js":218}],218:[function(require,module,exports){
 'use strict';
@@ -52286,6 +52485,7 @@ module.exports={
 		"breadcrumbHome":"Inicio",
 		"labelId":"Id",
 		"labelShipping":"Método de envío",
+		"labelDays":"día(s)",
 		"labelFree":"Gratis",
 		"labelModel":"Modelo",
 		"labelSize":"Tamaño",

@@ -81,7 +81,7 @@ export const placeOrder = () => (dispatch, getState) => {
     return false
   }
   const personalInformation = {
-    id: ( session.inUserSession() ) ? ( session.getUser() ) : ( null ), // if there's a session give the user's id, else give 'null'
+    id: ( session.inUserSession() ) ? ( session.getUser().id ) : ( false ), // if there's a session give the user's id, else give 'false'
     name: _name,
     lastname: _lastname,
     phone: _phone,
@@ -205,11 +205,12 @@ export const placeOrder = () => (dispatch, getState) => {
             console.log(Culqi.token)
 
             const _order = {
+              storeId: getState().store.id,
               user: personalInformation,
               cart: getState().cart,
               payment: {
                 token:token,
-                card_number:Culqi.token.card_number
+                cardNumber:Culqi.token.card_number
               },
               shipping,
               billing

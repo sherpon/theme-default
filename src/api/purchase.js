@@ -1,10 +1,10 @@
-const TIMEOUT = 500
+/**
+ * @module api/sale
+ * @author Grover Lee
+ */
+
+import { post } from './post.js'
 
 export const createPurchase = (payload, callback) => {
-  console.log('API.signup.payload')
-  console.log(payload)
-
-  setTimeout( () => {
-    callback(true)
-  },TIMEOUT )
+  post( "sale/create", payload, callback )
 }

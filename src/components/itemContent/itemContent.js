@@ -37,6 +37,7 @@ const ItemContent = ({ strings, username, item, onChangedSelect, addToCart, shar
 
       <ItemContentShipping
         labelShipping={strings.labelShipping}
+        labelDays={strings.labelDays}
         labelFree={strings.labelFree}
         shipping={item.shipping}
       />

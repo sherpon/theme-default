@@ -4,7 +4,7 @@ import session from '../models/session'
 import Strings from '../strings'
 import history from '../models/history'
 import { getEnv } from '../config'
-import { sortCategories } from '../models/tools'
+import { sortCategories, noLinkEspace } from '../models/tools'
 import { getItemsByCategory, getItemsBySearch } from '../api/item'
 
 const startFetching = () => (
@@ -40,10 +40,10 @@ export const search = (event) => (dispatch, getState) => {
     // history.push( store.username + '/search/?search=' + tag.split(" ").join("_") )
     history.push({
       pathname: "/" + store.username + '/search',
-      search: "?search=" + tag,  //  search: "?search=" + tag.split(" ").join("_")
+      search: "?search=" + noLinkEspace(tag),  //  search: "?search=" + tag.split(" ").join("_")
       state: { some: "state" }
     })
-    
+
     document.getElementById('search-input').value = ""
   }
 }
@@ -53,20 +53,25 @@ export const loadSearch = (search) => (dispatch, getState) => {
   dispatch(pushResultLoadedFalse())
   dispatch(clearPagination())
   const { store } = getState()
-  getItemsBySearch(store.id, search, (result) => {
+  getItemsBySearch(store.id, search.toLowerCase(), (result) => {
+    if (result.error !== null) {
+      /** show error message */
+      dispatch(stopFetching())
+    }
+    const productsList = result.products
     //console.log('result is %s', result) // ================================================>> debug
     const itemsByPage = 30 // cantidad de items por pagina
-    const itemsCount = result.length // cantidad de items totales
+    const itemsCount = productsList.length // cantidad de items totales
     let pages = []
     const pagesCount = Math.ceil(itemsCount/itemsByPage)
 
     for (let i=0;i<pagesCount;i++) {
-      const tmpPage = result.slice(i*itemsByPage, (i*itemsByPage)+itemsByPage)
+      const tmpPage = productsList.slice(i*itemsByPage, (i*itemsByPage)+itemsByPage)
       pages.push(tmpPage)
     }
     dispatch(savePagination(pagesCount, pages[0], pages, itemsCount))
 
-    //dispatch(saveResult(result))
+    //dispatch(saveResult(productsList))
     dispatch(pushResultLoadedTrue())
     dispatch(stopFetching())
   })
@@ -124,19 +129,24 @@ export const loadCategory = (category) => (dispatch, getState) => {
   dispatch(pushResultLoadedFalse())
   dispatch(clearPagination())
   const { store } = getState()
-  getItemsByCategory(store.id, category, (result) => {
+  getItemsByCategory(store.id, category.toLowerCase(), (result) => {
+    if (result.error !== null) {
+      /** show error message */
+      dispatch(stopFetching())
+    }
+    const productsList = result.products
     const itemsByPage = 30 // cantidad de items por pagina
-    const itemsCount = result.length // cantidad de items totales
+    const itemsCount = productsList.length // cantidad de items totales
     let pages = []
     const pagesCount = Math.ceil(itemsCount/itemsByPage)
 
     for (let i=0;i<pagesCount;i++) {
-      const tmpPage = result.slice(i*itemsByPage, (i*itemsByPage)+itemsByPage)
+      const tmpPage = productsList.slice(i*itemsByPage, (i*itemsByPage)+itemsByPage)
       pages.push(tmpPage)
     }
     dispatch(savePagination(pagesCount, pages[0], pages, itemsCount))
 
-    //dispatch(saveResult(result))
+    //dispatch(saveResult(productsList))
     dispatch(pushResultLoadedTrue())
     dispatch(stopFetching())
   })
