@@ -84,7 +84,7 @@ export const getState = () => {
     // DEV
     window.mSTATE = STATE_DEVELOPMENT
     return STATE_DEVELOPMENT
-  } else if ( location.hostname === 'stage.sherponcom.appspot.com' ) {
+  } else if ( location.hostname === 'stage-dot-sherponcom.appspot.com' ) {
     // STAGING
     window.mSTATE = STATE_STAGE
     return STATE_STAGE
