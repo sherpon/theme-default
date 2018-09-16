@@ -37587,7 +37587,8 @@ var placeOrder = exports.placeOrder = function placeOrder() {
                 });
               } else {
                 dispatch((0, _fetching.stopFetching)());
-                M.toast({ html: (0, _strings2.default)(getState().language).checkoutPage.errorPayment });
+                //M.toast({html: Strings(getState().language).checkoutPage.errorPayment})
+                M.toast({ html: response.body.user_message });
               }
             });
           } else {

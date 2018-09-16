@@ -231,7 +231,8 @@ export const placeOrder = () => (dispatch, getState) => {
                   })
                 } else {
                   dispatch(stopFetching())
-                  M.toast({html: Strings(getState().language).checkoutPage.errorPayment})
+                  //M.toast({html: Strings(getState().language).checkoutPage.errorPayment})
+                  M.toast({html: response.body.user_message})
                 }
 
               }
