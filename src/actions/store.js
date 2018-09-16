@@ -399,13 +399,15 @@ export const paymentGatewaySaveButton = () => (dispatch, getState) => {
   const storeId = getState().store.id
   const userId = session.getUser().id
   const newPaymentGatewayName = document.getElementById('payment-gateway-view__name').value
-  const newPaymentGatewayPublicKey = document.getElementById('payment-gateway-view__key').value
+  const newPaymentGatewayPublicKey = document.getElementById('payment-gateway-view__public-key').value
+  const newPaymentGatewayPrivateKey = document.getElementById('payment-gateway-view__private-key').value
 
   dispatch(startFetching())
 
   const dataStore = getState().store.data
   dataStore.paymentGateway.name = newPaymentGatewayName
   dataStore.paymentGateway.publicKey = newPaymentGatewayPublicKey
+  dataStore.paymentGateway.privateKey = newPaymentGatewayPrivateKey
   const newDataStore = dataStore
   apiUpdateDataStore(userId, storeId, newDataStore, (response) => {
     // update local dataStore store state, then...

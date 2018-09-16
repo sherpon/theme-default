@@ -92,7 +92,8 @@
 		"breadcrumbAccount":"Método de pago",
 		"labelTitle":"Método de pago",
 		"labelPaymentGateway":"Pasarela de pago",
-		"labelPublicKey":"Llave personal",
+		"labelPublicKey":"Llave pública",
+		"labelPrivateKey":"Llave privada",
 		"buttonSave":"Guardar",
 		"errorUpdate":"No se pudo actualizar la información",
 		"successUpdate":"Se actualizó la información"
@@ -270,7 +271,8 @@
 			"labelTitle":"Información de facturación",
 			"labelOption":"usar la misma información de envío"
 		},
-		"errorIncompletedForm":"Debes completar todos los campos"
+		"errorIncompletedForm":"Debes completar todos los campos",
+		"errorPayment":"Se produjo un error con el pago"
 	},
 	"congratulationPurchase":{
 		"labelTitle":"¡Muchas gracias por tu compra!",

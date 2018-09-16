@@ -2,6 +2,7 @@ import * as types from '../constants/ActionTypes'
 import { startFetching, stopFetching } from './fetching'
 import history from '../models/history'
 import session from '../models/session'
+import { getPriceFormat } from '../models/tools'
 import { culqi } from '../models/paymentGateway/culqi'
 import { createPurchase } from '../api/purchase'
 import Strings from '../strings'
@@ -196,41 +197,43 @@ export const placeOrder = () => (dispatch, getState) => {
         getState().store.data.paymentGateway.publicKey,
         () => {
           // callback
-          //$("#loading").show()
           if (Culqi.token) { // Token creado exitosamente!
             // Obtener el token ID
             var token = Culqi.token.id;
-            console.log('Se ha creado un token: '+token)
-            console.log('Culqi.token: ')
-            console.log(Culqi.token)
 
             const _order = {
               storeId: getState().store.id,
               user: personalInformation,
               cart: getState().cart,
               payment: {
+                gateway: 'culqi',
+                privateKey: getState().store.data.paymentGateway.privateKey,
                 token:token,
+                amount:( (getPriceFormat(getState().cart.total.price)) * 100 ),
+                currencyCode: getState().cart.total.currency,
+                email: personalInformation.email,
                 cardNumber:Culqi.token.card_number
               },
               shipping,
               billing
             }
-
-            console.log(_order)
-            //console.log(Culqi.error)
-            //console.log(Culqi.error.mensaje)
-
             createPurchase (
               _order,
               (response) => {
                 // .......limpiar carrito
                 // session.unsetCart()
-                dispatch(cleanCart())
-                dispatch(stopFetching())
-                history.replace({
-                  pathname: "/" + getState().store.username + '/congratulation/purchase',
-                  state: { some: "state" }
-                })
+                if (response.code===201) {
+                  dispatch(cleanCart())
+                  dispatch(stopFetching())
+                  history.replace({
+                    pathname: "/" + getState().store.username + '/congratulation/purchase',
+                    state: { some: "state" }
+                  })
+                } else {
+                  dispatch(stopFetching())
+                  M.toast({html: Strings(getState().language).checkoutPage.errorPayment})
+                }
+
               }
             )
           } else { // Hubo algun problema!
@@ -239,7 +242,7 @@ export const placeOrder = () => (dispatch, getState) => {
             console.log(Culqi.error.mensaje)
             //$("#loading").hide()
             dispatch(stopFetching())
-            M.toast({html: 'Se produjo un error con el pago'})
+            M.toast({html: Strings(getState().language).checkoutPage.errorPayment})
           }
         }
       )

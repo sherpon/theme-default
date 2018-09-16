@@ -29,8 +29,12 @@ const PaymentGatewayView = ({
         <label htmlFor="payment-gateway-view__name">{strings.labelPaymentGateway}</label>
       </div>
       <div className="input-field">
-        <input id="payment-gateway-view__key" type="text" defaultValue={paymentGateway.publicKey}/>
-        <label htmlFor="payment-gateway-view__key">{strings.labelPublicKey}</label>
+        <input id="payment-gateway-view__public-key" type="text" defaultValue={paymentGateway.publicKey}/>
+        <label htmlFor="payment-gateway-view__public-key">{strings.labelPublicKey}</label>
+      </div>
+      <div className="input-field">
+        <input id="payment-gateway-view__private-key" type="text" defaultValue={paymentGateway.privateKey}/>
+        <label htmlFor="payment-gateway-view__private-key">{strings.labelPrivateKey}</label>
       </div>
       <div className="payment-gateway-view__button">
         <a

@@ -37362,6 +37362,8 @@ var _session = require('../models/session');
 
 var _session2 = _interopRequireDefault(_session);
 
+var _tools = require('../models/tools');
+
 var _culqi = require('../models/paymentGateway/culqi');
 
 var _purchase = require('../api/purchase');
@@ -37552,40 +37554,41 @@ var placeOrder = exports.placeOrder = function placeOrder() {
         dispatch((0, _fetching.startFetching)());
         (0, _culqi.culqi)(getState().store.name, getState().store.theme.data.shortDescription, getState().cart, getState().store.data.paymentGateway.publicKey, function () {
           // callback
-          //$("#loading").show()
           if (Culqi.token) {
             // Token creado exitosamente!
             // Obtener el token ID
             var token = Culqi.token.id;
-            console.log('Se ha creado un token: ' + token);
-            console.log('Culqi.token: ');
-            console.log(Culqi.token);
 
             var _order = {
               storeId: getState().store.id,
               user: personalInformation,
               cart: getState().cart,
               payment: {
+                gateway: 'culqi',
+                privateKey: getState().store.data.paymentGateway.privateKey,
                 token: token,
+                amount: (0, _tools.getPriceFormat)(getState().cart.total.price) * 100,
+                currencyCode: getState().cart.total.currency,
+                email: personalInformation.email,
                 cardNumber: Culqi.token.card_number
               },
               shipping: shipping,
               billing: billing
             };
-
-            console.log(_order);
-            //console.log(Culqi.error)
-            //console.log(Culqi.error.mensaje)
-
             (0, _purchase.createPurchase)(_order, function (response) {
               // .......limpiar carrito
               // session.unsetCart()
-              dispatch(cleanCart());
-              dispatch((0, _fetching.stopFetching)());
-              _history2.default.replace({
-                pathname: "/" + getState().store.username + '/congratulation/purchase',
-                state: { some: "state" }
-              });
+              if (response.code === 201) {
+                dispatch(cleanCart());
+                dispatch((0, _fetching.stopFetching)());
+                _history2.default.replace({
+                  pathname: "/" + getState().store.username + '/congratulation/purchase',
+                  state: { some: "state" }
+                });
+              } else {
+                dispatch((0, _fetching.stopFetching)());
+                M.toast({ html: (0, _strings2.default)(getState().language).checkoutPage.errorPayment });
+              }
             });
           } else {
             // Hubo algun problema!
@@ -37594,7 +37597,7 @@ var placeOrder = exports.placeOrder = function placeOrder() {
             console.log(Culqi.error.mensaje);
             //$("#loading").hide()
             dispatch((0, _fetching.stopFetching)());
-            M.toast({ html: 'Se produjo un error con el pago' });
+            M.toast({ html: (0, _strings2.default)(getState().language).checkoutPage.errorPayment });
           }
         });
         break;
@@ -37604,7 +37607,7 @@ var placeOrder = exports.placeOrder = function placeOrder() {
   };
 };
 
-},{"../api/purchase":119,"../constants/ActionTypes":187,"../models/history":220,"../models/paymentGateway/culqi":221,"../models/session":222,"../strings":240,"./fetching":110}],110:[function(require,module,exports){
+},{"../api/purchase":119,"../constants/ActionTypes":187,"../models/history":220,"../models/paymentGateway/culqi":221,"../models/session":222,"../models/tools":223,"../strings":240,"./fetching":110}],110:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -38950,13 +38953,15 @@ var paymentGatewaySaveButton = exports.paymentGatewaySaveButton = function payme
     var storeId = getState().store.id;
     var userId = _session2.default.getUser().id;
     var newPaymentGatewayName = document.getElementById('payment-gateway-view__name').value;
-    var newPaymentGatewayPublicKey = document.getElementById('payment-gateway-view__key').value;
+    var newPaymentGatewayPublicKey = document.getElementById('payment-gateway-view__public-key').value;
+    var newPaymentGatewayPrivateKey = document.getElementById('payment-gateway-view__private-key').value;
 
     dispatch((0, _fetching.startFetching)());
 
     var dataStore = getState().store.data;
     dataStore.paymentGateway.name = newPaymentGatewayName;
     dataStore.paymentGateway.publicKey = newPaymentGatewayPublicKey;
+    dataStore.paymentGateway.privateKey = newPaymentGatewayPrivateKey;
     var newDataStore = dataStore;
     (0, _store.updateDataStore)(userId, storeId, newDataStore, function (response) {
       // update local dataStore store state, then...
@@ -44116,11 +44121,21 @@ var PaymentGatewayView = function PaymentGatewayView(_ref) {
     _react2.default.createElement(
       'div',
       { className: 'input-field' },
-      _react2.default.createElement('input', { id: 'payment-gateway-view__key', type: 'text', defaultValue: paymentGateway.publicKey }),
+      _react2.default.createElement('input', { id: 'payment-gateway-view__public-key', type: 'text', defaultValue: paymentGateway.publicKey }),
       _react2.default.createElement(
         'label',
-        { htmlFor: 'payment-gateway-view__key' },
+        { htmlFor: 'payment-gateway-view__public-key' },
         strings.labelPublicKey
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'input-field' },
+      _react2.default.createElement('input', { id: 'payment-gateway-view__private-key', type: 'text', defaultValue: paymentGateway.privateKey }),
+      _react2.default.createElement(
+        'label',
+        { htmlFor: 'payment-gateway-view__private-key' },
+        strings.labelPrivateKey
       )
     ),
     _react2.default.createElement(
@@ -52503,7 +52518,8 @@ module.exports={
 		"breadcrumbAccount":"Método de pago",
 		"labelTitle":"Método de pago",
 		"labelPaymentGateway":"Pasarela de pago",
-		"labelPublicKey":"Llave personal",
+		"labelPublicKey":"Llave pública",
+		"labelPrivateKey":"Llave privada",
 		"buttonSave":"Guardar",
 		"errorUpdate":"No se pudo actualizar la información",
 		"successUpdate":"Se actualizó la información"
@@ -52681,7 +52697,8 @@ module.exports={
 			"labelTitle":"Información de facturación",
 			"labelOption":"usar la misma información de envío"
 		},
-		"errorIncompletedForm":"Debes completar todos los campos"
+		"errorIncompletedForm":"Debes completar todos los campos",
+		"errorPayment":"Se produjo un error con el pago"
 	},
 	"congratulationPurchase":{
 		"labelTitle":"¡Muchas gracias por tu compra!",
