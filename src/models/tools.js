@@ -45,7 +45,12 @@ export const sortCategories = (callback) => {
   callback()
 }
 
-export const noLinkEspace = (link) => link.split(" ").join("_")
+export const noLinkEspace = (link) => {
+  if (link===undefined) {
+    return ''
+  }
+  return link.split(" ").join("_")
+}
 
 export const cleanLink = (link) => noLinkEspace(link)
 

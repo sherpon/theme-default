@@ -39044,6 +39044,7 @@ var categoriesSaveButton = exports.categoriesSaveButton = function categoriesSav
  */
 var loadProductsList = exports.loadProductsList = function loadProductsList() {
   return function (dispatch, getState) {
+    dispatch((0, _pagination.clearPagination)());
     dispatch((0, _fetching.startFetching)());
     var userId = _session2.default.getUser().id;
     var storeId = getState().store.id;
@@ -51580,7 +51581,7 @@ exports.default = {
 };
 
 },{}],223:[function(require,module,exports){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -51636,6 +51637,9 @@ var sortCategories = exports.sortCategories = function sortCategories(callback) 
 };
 
 var noLinkEspace = exports.noLinkEspace = function noLinkEspace(link) {
+  if (link === undefined) {
+    return '';
+  }
   return link.split(" ").join("_");
 };
 

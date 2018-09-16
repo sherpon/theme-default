@@ -5,7 +5,7 @@
 
 import * as types from '../constants/ActionTypes'
 import { startFetching, stopFetching } from './fetching'
-import { setPages } from './pagination'
+import { clearPagination, setPages } from './pagination'
 import Strings from '../strings'
 import history from '../models/history'
 import session from '../models/session'
@@ -488,6 +488,7 @@ export const categoriesSaveButton = () => (dispatch, getState) => {
  * // - src/containers/productsPage.jsx
  */
 export const loadProductsList = () => (dispatch, getState) => {
+  dispatch(clearPagination())
   dispatch(startFetching())
   const userId = session.getUser().id
   const storeId = getState().store.id
