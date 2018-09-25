@@ -8,12 +8,12 @@ import { createPurchase } from '../api/purchase'
 import Strings from '../strings'
 
 const updateCart = () => (dispatch, getState) => {
-  session.setCart( getState().cart )
+  session.setCart( getState().store.id, getState().cart )
   dispatch(stopFetching())
 }
 
 const cleanCart = () => (dispatch, getState) => {
-  session.unsetCart()
+  session.unsetCart(getState().store.id)
   dispatch({
     type: types.CLEAN_CART
   })

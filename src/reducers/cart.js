@@ -32,7 +32,11 @@ const _initStateCart = {
     "symbol":"",
     "price":0
   },
-  "taxes":[], // {'name':'', 'percent':'', 'amountToAdd':''}
+  "taxes":{
+    "currency":"",
+    "symbol":"",
+    "price":0
+  }, // {'name':'', 'percent':'', 'amountToAdd':''}
   "total":{
     "currency":"",
     "symbol":"",
@@ -41,7 +45,7 @@ const _initStateCart = {
 }
 
 // se carga cart session si hay registrado
-const initStateCart = ( session.inCartSession() ) ? ( session.getCart() ) : ( _initStateCart )
+const initStateCart = ( session.inCartSession(_store.id) ) ? ( session.getCart(_store.id) ) : ( _initStateCart )
 
 const addItemToItemsArray = (_itemsArray, item) => {
   let itemsArray = _itemsArray

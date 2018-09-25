@@ -144,8 +144,8 @@ export const onChangedSelect = () => (dispatch, getState) => {
   }
 }
 
-const goToCart = (cart, username) => {
-  session.setCart( cart )
+const goToCart = (storeId, cart, username) => {
+  session.setCart( storeId, cart )
   history.push({
     pathname: "/" + username + '/cart',
     state: { some: "state" }
@@ -169,7 +169,7 @@ const addToCartState = (item) => {
     // and optimizing in addition to audience building)
     //fbq('track', 'AddToCart', {currency: 'PEN', value: amount});
 
-    return goToCart(getState().cart, getState().store.username)
+    return goToCart(getState().store.id, getState().cart, getState().store.username)
   }
 }
 

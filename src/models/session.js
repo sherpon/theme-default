@@ -32,16 +32,16 @@ const isAdmin = () => {
   return _isAdmin
 }
 
-const CART_NAME = 'cartSession'
+const CART_NAME = 'cartId'
 
-const setCart = ( cart ) => localStorage.setItem(CART_NAME,JSON.stringify(cart))
+const setCart = ( storeId, cart ) => localStorage.setItem(CART_NAME+storeId,JSON.stringify(cart))
 
-const getCart = () => ( JSON.parse(localStorage.getItem(CART_NAME)) )
+const getCart = (storeId) => ( JSON.parse(localStorage.getItem(CART_NAME+storeId)) )
 
-const unsetCart = () => localStorage.removeItem(CART_NAME)
+const unsetCart = (storeId) => localStorage.removeItem(CART_NAME+storeId)
 
-const inCartSession = () => {
-  if ( localStorage.getItem(CART_NAME) === null ) {
+const inCartSession = (storeId) => {
+  if ( localStorage.getItem(CART_NAME+storeId) === null ) {
     return false
   } else {
     return true

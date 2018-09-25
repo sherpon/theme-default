@@ -1,4 +1,5 @@
 var firebase = require('./firebaseInit.js')();
+import { getEnv } from '../../config'
 
 /******************************************************************************/
 /**
@@ -24,7 +25,7 @@ export const uploadPicture = ( file, fileName, storeId, callback ) => {
       contentType: 'image/' + fileExtension
     };
 
-    var uploadTask = storageRef.child(`stores/${storeId}/${fileName}`).put(file, metadata);
+    var uploadTask = storageRef.child(`${getEnv().STORAGE_STORES}/${storeId}/${fileName}`).put(file, metadata);
 
     // Listen for state changes, errors, and completion of the upload.
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
