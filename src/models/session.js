@@ -34,14 +34,14 @@ const isAdmin = () => {
 
 const CART_NAME = 'cartId'
 
-const setCart = ( storeId, cart ) => localStorage.setItem(CART_NAME+storeId,JSON.stringify(cart))
+const setCart = (  cart ) => localStorage.setItem(CART_NAME+_store.id,JSON.stringify(cart))
 
-const getCart = (storeId) => ( JSON.parse(localStorage.getItem(CART_NAME+storeId)) )
+const getCart = () => ( JSON.parse(localStorage.getItem(CART_NAME+_store.id)) )
 
-const unsetCart = (storeId) => localStorage.removeItem(CART_NAME+storeId)
+const unsetCart = () => localStorage.removeItem(CART_NAME+_store.id)
 
-const inCartSession = (storeId) => {
-  if ( localStorage.getItem(CART_NAME+storeId) === null ) {
+const inCartSession = () => {
+  if ( localStorage.getItem(CART_NAME+_store.id) === null ) {
     return false
   } else {
     return true

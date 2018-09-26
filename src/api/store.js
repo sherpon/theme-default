@@ -3,7 +3,7 @@
  * @author Grover Lee
  */
 
-import { post } from './post.js'
+import { post } from './httpRequest.js'
 import { uploadPicture } from '../models/firebase/firebaseStorage'
 import {
   getProductsList,

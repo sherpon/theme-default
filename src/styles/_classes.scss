@@ -1,0 +1,54 @@
+@charset "UTF-8";
+@import './variables.scss';
+/**
+ * @mixin
+ * @name box
+ * @description simple block pattern
+ * @example
+ * @include box;
+ */
+@mixin box {
+	margin-bottom: $box__margin-bottom;
+	padding: $box__padding;
+}
+
+/**
+ * @mixin
+ * @name box--empty
+ * @description empty block pattern
+ * @example
+ * @include box--empty;
+ */
+@mixin box--empty {
+	@include box;
+	border: $box__border solid $box__border-color;
+	border-bottom-left-radius: $box__border-radius;
+	border-bottom-right-radius: $box__border-radius;
+	border-top-left-radius: $box__border-radius;
+	border-top-right-radius: $box__border-radius;
+}
+
+/**
+ * @mixin
+ * @name box--white
+ * @description empty block pattern
+ * @example
+ * @include box--white;
+ */
+@mixin box--white {
+	@include box--empty;
+	background-color: white;
+}
+
+/******************************************************************************/
+/**
+ * @mixin
+ * @name box__title
+ * @description block's title
+ * @example
+ * @include box__title;
+ */
+@mixin box__title {
+  color: $box__title-color;
+	font-size: $box__title-size;
+}

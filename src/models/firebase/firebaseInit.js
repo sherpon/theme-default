@@ -1,6 +1,6 @@
 import { getEnv } from '../../config'
 
-module.exports = function ( ) {
+const firebaseInit = () => {
 
   if (!firebase.apps.length) {
     firebase.initializeApp( getEnv().FIREBASE_APP )
@@ -8,5 +8,6 @@ module.exports = function ( ) {
 
   //firebase.initializeApp(config);
   return firebase;
-  
 }
+
+export default firebaseInit

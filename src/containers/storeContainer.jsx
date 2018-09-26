@@ -1,0 +1,73 @@
+import React from 'react'
+import { Switch, Route, withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+
+/** actions */
+import { editStoreSwitch } from '../actions/store/store'
+import { loadStore } from '../actions/store/loadStore'
+import { logout } from '../actions/user/session'
+
+/** models */
+import session from '../models/session'
+
+/** components */
+import Spinner from '../components/spinner/spinner.jsx'
+import Navbar from '../components/navbar/navbar.jsx'
+//import Footer from '../components/footer/footer.js'
+
+class Store extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+    const { loadStore } = this.props
+    loadStore()
+  }
+
+  render() {
+    const { isFetching } = this.props /** spinner */
+    const { language, inSession, isAdmin, isEditable, editStoreSwitch, search, user, username, logout } = this.props /** navbar */
+
+    return (
+      <div>
+        <Spinner
+          isFetching={isFetching}
+        />
+        <Navbar
+          language={language}
+          inSession={inSession}
+          isAdmin={isAdmin}
+          isEditable={isEditable}
+          editStoreSwitch={editStoreSwitch}
+          search={search}
+          user={user}
+          username={username}
+          logout={logout}
+        />
+        holi
+      </div>
+    )
+  }
+}
+
+const mapStateToProps = state => ({
+  language: state.language,
+  isFetching: state.isFetching,
+  isEditable: state.isEditable,
+  inSession: state.inSession,
+  isAdmin: state.isAdmin,
+  user: session.getUser(),
+  username: state.store.username
+})
+
+const mapDispatchToProps = dispatch => ({
+  loadStore: () => dispatch(loadStore()),
+  search: (event) => dispatch(search(event)),
+  editStoreSwitch: () => dispatch(editStoreSwitch()),
+  logout: () => dispatch(logout())
+})
+
+export default withRouter(connect(
+  mapStateToProps,  // Note 1
+  mapDispatchToProps
+)(Store))

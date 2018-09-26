@@ -1,0 +1,101 @@
+header {
+  z-index:100;
+}
+
+.sherpon-search {
+  display: inline-block;
+  width: 100%;
+  background: #FFFFFF;
+  border: 0 solid #DFDEDE;
+  box-shadow: 0 1px 6px 0 rgba(0,0,0,0.19);
+  border-radius: 2px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  line-height: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.sherpon-search-input {
+  border-bottom: 0px solid #9e9e9e !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.sherpon-sidenav {
+  margin: 0px !important;
+}
+
+input::placeholder {
+  font-weight: 100;
+}
+
+.sidenav .sidenav__user-name {
+    color: rgba(0, 0, 0, 0.87);
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    height: 48px;
+    line-height: 48px;
+    padding: 0 32px;
+}
+
+/*
+
+.sherpon-logo {
+  font-family: 'Black Han Sans', sans-serif;
+  height: 100%;
+  vertical-align: middle;
+}
+.logo-s {
+  width: 30px;
+  vertical-align: middle;
+  margin-left: 1rem;
+}
+.sherpon-search {
+  display: inline-block;
+  width: 100%;
+  background: #FFFFFF;
+  border: 0 solid #DFDEDE;
+  box-shadow: 0 1px 6px 0 rgba(0,0,0,0.19);
+  border-radius: 2px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  line-height: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.sherpon-search-input {
+  border-bottom: 0px solid #9e9e9e !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+.sherpon-search-input:holder {
+  border-bottom: 0px solid #6078EA !important;
+  box-shadow: 0 1px 0 0 #6078EA !important;
+}
+
+.fieldset {
+    margin: -0.42857em;
+    zoom: 1;
+}
+.field {
+    width: 100%;
+    float: left;
+    padding: 0.42857em;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.field__input-wrapper {
+    position: relative;
+}
+.floating-labels .main .field__label {
+    color: #737373;
+}
+.main .field__input {
+    background-color: white;
+    color: #333333;
+    border-color: #d9d9d9;
+}
+
+ */

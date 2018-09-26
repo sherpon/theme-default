@@ -3,9 +3,11 @@
  * @description Firestore interface
  */
 
-var firebase = require('./firebaseInit.js')()
+//var firebase = require('./firebaseInit.js')()
+import firebaseInit from './firebaseInit.js'
 import { getEnv } from '../../config'
 
+const firebase = firebaseInit()
 const db = firebase.firestore()
 
 /******************************************************************************/

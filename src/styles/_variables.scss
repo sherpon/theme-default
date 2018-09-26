@@ -1,18 +1,15 @@
-$sherpon-color-text-body: #4A4A4A;
-$sherpon-color-text-body-secundary: #757575;
-$sherpon-color-placeholder-image: #F1F1F1;
-$sherpon-color-box-border: #e5e5e5;
-
 /************ colors *************/
 //materialize
-//$primary-color: #6078EA !default;
+$primary-color: #6078EA !default;
 //$primary-color-light: lighten($primary-color, 15%) !default;
 //$primary-color-dark: darken($primary-color, 15%) !default;
-$body-background-color: #F5F5F5;
-$body-text-color: #4A4A4A;
-$body-text-color-secundary: #757575;
 
-$box-white__border-color: #e5e5e5;
+/**
+ * body's variables
+ */
+ $body__background-color: #fafafa;
+ $body__text-color-primary: #4A4A4A;
+ $body__text-color-secundary: #757575;
 
 /**
  * box's variables
@@ -25,3 +22,8 @@ $box__padding: 1em;
 
 $box__title-color: $primary-color;
 $box__title-size: 1.3em;
+
+/**
+ * white box's variables
+ */
+$box-white__border-color: #e5e5e5;
