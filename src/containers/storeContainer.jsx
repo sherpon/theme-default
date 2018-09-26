@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 /** actions */
 import { editStoreSwitch } from '../actions/store/store'
 import { loadStore } from '../actions/store/loadStore'
+import { search } from '../actions/store/search'
 import { logout } from '../actions/user/session'
 
 /** models */

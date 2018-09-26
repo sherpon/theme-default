@@ -14,8 +14,12 @@ nav {
   }
 
   color: $navbar-font-color;
-  @extend .z-depth-1;
-  background-color: $primary-color;
+  //@extend .z-depth-1;
+  @extend .z-depth-0;
+  //background-color: $primary-color;
+  background-color: white;
+  // added
+  border-bottom: 1px solid rgba(0,0,0,.0975);
   width: 100%;
   height: $navbar-height-mobile;
   line-height: $navbar-line-height-mobile;
