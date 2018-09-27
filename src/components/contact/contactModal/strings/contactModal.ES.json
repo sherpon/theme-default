@@ -1,0 +1,11 @@
+{
+  "title":"Editar información de contacto",
+  "labelFacebook":"Enlace de Facebook",
+  "labelInstagram":"Enlace de Instagram",
+  "labelWhatsapp":"Número de Whatsapp",
+  "labelPhone":"Número de teléfono",
+  "labelEmail":"Correo electrónico",
+  "labelAddress":"Dirección",
+  "buttonCancel":"Cancelar",
+  "buttonSave":"Guardar"
+}

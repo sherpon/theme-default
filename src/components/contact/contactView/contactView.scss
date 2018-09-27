@@ -1,0 +1,16 @@
+@charset "UTF-8";
+@import '../../../styles/classes.scss';
+@import '../../../styles/variables.scss';
+
+.contact-view {
+	border-top: 1px solid $box__border-color;
+	padding: 1em;
+
+	.contact-icon {
+		width: 25px;
+	}
+
+	.label {
+		font-style: normal;
+	}
+}

@@ -56,7 +56,7 @@ const ENV_STAGE = {
 
 const ENV_DEV = {
   "ENDPOINT":"http://sherpon.localhost:3000/",
-  "API_ENDPOINT_V1":"/api/v1/",
+  "API_ENDPOINT_V1":"http://sherpon.localhost:3000/api/v1/",
   "MONGODB_URI":"",
   "SERVICE_ACCOUNT_JSON":"",
   "FIREBASE_DATABASE_URL":"",

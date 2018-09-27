@@ -1,3 +1,6 @@
+@charset "UTF-8";
+@import '../../styles/variables.scss';
+
 header {
   z-index:100;
 }
@@ -42,6 +45,9 @@ input::placeholder {
     padding: 0 32px;
 }
 
+nav li > a {
+  color: $body__text-color-strong !important;
+}
 /*
 
 .sherpon-logo {

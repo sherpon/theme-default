@@ -15,7 +15,11 @@ import session from '../models/session'
 /** components */
 import Spinner from '../components/spinner/spinner.jsx'
 import Navbar from '../components/navbar/navbar.jsx'
-//import Footer from '../components/footer/footer.js'
+import Footer from '../components/footer/footer.jsx'
+import Jordi from '../components/jordi/jordi.jsx'
+
+/** containers */
+import ContactContainer from './contactContainer.jsx'
 
 class Store extends React.Component {
   constructor(props) {
@@ -45,7 +49,11 @@ class Store extends React.Component {
           username={username}
           logout={logout}
         />
-        holi
+        <ContactContainer/>
+        <Footer
+          language={language}
+        />
+        <Jordi/>
       </div>
     )
   }

@@ -1,0 +1,17 @@
+{
+  "searchInputPlaceholder":"Estoy buscando...",
+  "iconMenu":"menu",
+  "navbarItemGreeting":"Hola, ",
+  "navbarItemAccount":"Mi cuenta",
+  "navbarItemPurchases":"Compras",
+  "navbarItemLogout":"Salir",
+  "navbarItemLogin":"Entrar",
+  "navbarItemEdit":"Editar tienda",
+  "navbarItemEditCompleted":"Ver como visitante",
+  "navbarItemCategories":"Categorías",
+  "navbarItemProducts":"Productos",
+  "navbarItemSales":"Ventas",
+  "navbarItemPayment":"Método de pago",
+  "navbarItemMarketing":"Marketing",
+  "navbarItemSupportMe":"Apoya a Sherpon"
+}

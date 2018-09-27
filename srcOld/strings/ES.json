@@ -1,0 +1,417 @@
+{
+	"store":{
+		"text1":"text"
+	},
+	"navbar":{
+		"searchInputPlaceholder":"Estoy buscando...",
+		"iconMenu":"menu",
+		"navbarItemGreeting":"Hola, ",
+		"navbarItemAccount":"Mi cuenta",
+		"navbarItemPurchases":"Compras",
+		"navbarItemLogout":"Salir",
+		"navbarItemLogin":"Entrar",
+		"navbarItemEdit":"Editar tienda",
+		"navbarItemEditCompleted":"Ver como visitante",
+		"navbarItemCategories":"Categorías",
+		"navbarItemProducts":"Productos",
+		"navbarItemSales":"Ventas",
+		"navbarItemPayment":"Método de pago",
+		"navbarItemMarketing":"Marketing",
+		"navbarItemSupportMe":"Apoya a Sherpon"
+	},
+	"coverContainer":{
+		"labelEdit":"Editar cover",
+		"modal":{
+			"title":"Editar cover",
+			"label":"Presiona la imagen para cambiarla",
+			"buttonCancel":"Cancelar",
+			"buttonSave":"Guardar",
+			"errorCoverPicture":"Debes seleccionar una imagen distinta"
+		}
+	},
+	"logoContainer":{
+		"labelEdit":"Editar",
+		"modal":{
+			"title":"Editar logo",
+			"label":"Presiona la imagen para cambiarla",
+			"buttonCancel":"Cancelar",
+			"buttonSave":"Guardar",
+			"errorCoverPicture":"Debes seleccionar una imagen distinta"
+		}
+	},
+	"shortDescriptionContainer":{
+		"labelEdit":"Editar descripción",
+		"modal":{
+			"title":"Editar descripción",
+			"label":"Escribe una pequeña descripción de tu tienda",
+			"buttonCancel":"Cancelar",
+			"buttonSave":"Guardar"
+		}
+	},
+	"profile":{
+		"labelEdit":"Editar",
+		"labelSave":"Guardar"
+	},
+	"tabsHero":{
+		"tabHome":"Inicio",
+		"tabCategories":"Categorías",
+		"tabCart":"Carrito",
+		"tabContact":"Contacto",
+		"tabTerms":"Términos y Condiciones"
+	},
+	"accountPage":{
+		"breadcrumbHome":"Inicio",
+		"breadcrumbAccount":"Mi cuenta",
+		"labelInformationTitle":"Mi cuenta",
+		"labelInformationName":"nombre",
+		"labelInformationlastname":"apellido",
+		"labelInformationPhone":"teléfono",
+		"labelInformationEmail":"email",
+		"buttonInformation":"Actualizar cuenta",
+		"labelPasswordTitle":"Mi contraseña",
+		"labelPassword1":"nueva contraseña",
+		"labelPassword2":"repita la contraseña",
+		"buttonPassword":"Actualizar contraseña",
+		"errorIncompletedForm":"Debes completar todos los campos",
+		"errorSamePassword":"Las contraseñas no son iguales",
+		"errorUpdate":"No se pudo actualizar la información",
+		"successUpdate":"Se actualizó la información"
+	},
+	"marketingPage":{
+		"breadcrumbHome":"Inicio",
+		"breadcrumbAccount":"Marketing",
+		"labelTitle":"Marketing",
+		"labelAnalytics":"Google Analytics Key",
+		"labelFacebookPixel":"Facebook Pixel",
+		"buttonSave":"Guardar",
+		"errorUpdate":"No se pudo actualizar la información",
+		"successUpdate":"Se actualizó la información"
+	},
+	"paymentGatewayPage":{
+		"breadcrumbHome":"Inicio",
+		"breadcrumbAccount":"Método de pago",
+		"labelTitle":"Método de pago",
+		"labelPaymentGateway":"Pasarela de pago",
+		"labelPublicKey":"Llave pública",
+		"labelPrivateKey":"Llave privada",
+		"buttonSave":"Guardar",
+		"errorUpdate":"No se pudo actualizar la información",
+		"successUpdate":"Se actualizó la información"
+	},
+	"purchasesPage":{
+		"breadcrumbHome":"Inicio",
+		"breadcrumbPurchases":"Mis compras",
+		"headerDate":"Fecha",
+		"headerId":"Id",
+		"headerState":"Estado",
+		"headerAmount":"Total"
+	},
+	"purchasePage":{
+		"breadcrumbHome":"Inicio",
+		"breadcrumbPurchases":"Mis compras",
+		"itemView": {
+			"labelId":"Id",
+			"labelModel":"Modelo",
+			"labelSize":"Tamaño",
+			"labelColor":"Color",
+			"labelFree":"Gratis",
+			"labelDelete":"Eliminar",
+			"price":"Precio",
+			"amount":"Cantidad",
+			"total":"Cantidad"
+		},
+		"purchaseInformation":{
+			"title":"Información de venta",
+			"id":"Id",
+			"date":"Fecha",
+			"state":"Estado",
+			"labelSubTotal":"Sub total",
+			"labelShipping":"Costo de envío",
+			"labelTaxes":"Impuestos",
+			"labelTotal":"Total"
+		},
+		"personalInformation":{
+			"title":"Información de usuario"
+		},
+		"shippingInformation":"Información de envío",
+		"billingInformation":"Información de facturación"
+	},
+	"homePage":{
+		"labelDelete":"Eliminar sección de abajo",
+		"labelEdit":"Editar",
+		"labelSave":"Guardar"
+	},
+	"loginPage":{
+		"login":{
+			"labelTitle":"Entrar con mi email",
+			"labelComment":"Ingresa con una cuenta existente para continuar con la compra",
+			"labelEmail":"email",
+			"labelPassword":"contraseña",
+			"buttonLogin":"Entrar",
+			"labelForgotPassword":"¿No recuerdas tu contraseña?"
+		},
+		"signup":{
+			"labelTitle":"Crear cuenta con mi email",
+			"labelName":"nombre",
+			"labelLastname":"apellido",
+			"labelPhone":"teléfono",
+			"labelEmail":"email",
+			"labelPassword":"contraseña",
+			"buttonSignup":"Crear cuenta"
+		},
+		"guest":{
+			"labelTitle":"Continuar como invitado",
+			"labelComment":"Puedes crear una cuenta al finalizar la compra",
+			"buttonGuest":"Continuar como invitado"
+		},
+		"errorIncompletedForm":"Debes completar todos los campos",
+		"errorNotFoundUser":"El usuario no se encuentra registrado",
+		"errorEmailAlreadyUsed":"El email ya se encuentra registrado"
+	},
+	"itemPage":{
+		"breadcrumbHome":"Inicio",
+		"labelId":"Id",
+		"labelShipping":"Método de envío",
+		"labelDays":"día(s)",
+		"labelFree":"Gratis",
+		"labelModel":"Modelo",
+		"labelSize":"Tamaño",
+		"labelColor":"Color",
+		"buttonAddToCart":"Agregar al carrito",
+		"labelShare":"Compartir",
+		"tabDescription":"Descripción",
+		"tabCharacteristics":"Características",
+		"tabInclude":"Incluye",
+		"errorShippingEmpty":"Debes seleccionar una opción de envío",
+		"errorModelEmpty":"Debes seleccionar una opción de modelo",
+		"errorSizeEmpty":"Debes seleccionar una opción de tamaño",
+		"errorColorEmpty":"Debes seleccionar una opción de color",
+		"errorNoStock":"No hay cantidad disponible para la opción seleccionada",
+		"errorItemNoStock":"No hay cantidad disponible para el artículo",
+		"errorAmount":"La cantidad solicitada debe ser mayor o igual a uno",
+		"errorNegativeStock":"La cantidad solicitada excede a la disponibilidad del artículo"
+	},
+	"categoriesPage":{
+		"titleCreator":"Crear nueva categoría",
+		"edit":{
+			"headerName":"Título",
+			"headerOrder":"Orden",
+			"headerDelete":"Opción"
+		},
+		"modal":{
+			"title":"Crear nueva categoría",
+			"labelName":"Nombre de la categoría",
+			"labelOrder":"Orden",
+			"labelPrimary":"Categoría principal",
+			"labelSecundary":"Categoría secundaria",
+			"labelParent":"Selecciona la categoría padre",
+			"buttonCancel":"Cancelar",
+			"buttonSave":"Guardar"
+		}
+	},
+	"categoryPage":{
+		"breadcrumbHome":"Inicio",
+		"labelResult":"resultados para"
+	},
+	"searchPage":{
+		"breadcrumbHome":"Inicio",
+		"labelResult":"resultados para",
+		"labelSearch":"Búsqueda"
+	},
+	"cartPage":{
+		"breadcrumbHome":"Inicio",
+		"labelCartEmpty":"Tu carrito de compra está vacía",
+		"labelCartSummary":"Resumen del carrito",
+		"labelSummarySubTotal":"Sub total",
+		"labelSummaryShipping":"Costo de envío",
+		"labelSummaryTaxes":"Impuestos",
+		"labelSummaryTotal":"Total",
+		"buttonCheckout":"Confirmar compra",
+		"itemView": {
+			"labelId":"Id",
+			"labelModel":"Modelo",
+			"labelSize":"Tamaño",
+			"labelColor":"Color",
+			"labelFree":"Gratis",
+			"labelDelete":"Eliminar",
+			"price":"Precio",
+			"amount":"Cantidad",
+			"total":"Cantidad"
+		}
+	},
+	"checkoutPage":{
+		"breadcrumbHome":"Inicio",
+		"labelCartEmpty":"Tu carrito de compra está vacía",
+		"labelCartSummary":"Resumen del carrito",
+		"labelSummarySubTotal":"Sub total",
+		"labelSummaryShipping":"Costo de envío",
+		"labelSummaryTaxes":"Impuestos",
+		"labelSummaryTotal":"Total",
+		"labelSummaryTerms":"Acepto los Términos y Condiciones",
+		"buttonCheckout":"Confirmar compra",
+		"personalInformation":{
+			"labelTitle":"Tu información personal",
+			"labelName":"nombre",
+			"labelLastname":"apellido",
+			"labelPhone":"teléfono",
+			"labelEmail":"email"
+		},
+		"shippingInformation":{
+			"labelTitle":"Información de envío",
+			"labelName":"nombre",
+			"labelLastname":"apellido",
+			"labelAddress1":"dirección línea 1",
+			"labelAddress2":"dirección línea 2 (opcional)",
+			"labelCity":"ciudad",
+			"labelState":"estado/provincia",
+			"labelZipCode":"código postal",
+			"labelCountry":"país"
+		},
+		"billingInformation":{
+			"labelTitle":"Información de facturación",
+			"labelOption":"usar la misma información de envío"
+		},
+		"errorIncompletedForm":"Debes completar todos los campos",
+		"errorPayment":"Se produjo un error con el pago"
+	},
+	"congratulationPurchase":{
+		"labelTitle":"¡Muchas gracias por tu compra!",
+		"label1":"Te estamos enviando un email con la información de tu compra.",
+		"label2":"Además, puedes verla en la sección “Compras” en el menú principal.",
+		"label3":"No olvides calificarla al recibirla.",
+		"label4":"Si tienes alguna pregunta o incoveniente no dudes en ponerte en contacto."
+	},
+	"contactContainer":{
+		"labelEdit":"Editar información de contacto",
+		"modal":{
+			"title":"Editar información de contacto",
+			"labelFacebook":"Enlace de Facebook",
+			"labelInstagram":"Enlace de Instagram",
+			"labelWhatsapp":"Número de Whatsapp",
+			"labelPhone":"Número de teléfono",
+			"labelEmail":"Correo electrónico",
+			"labelAddress":"Dirección",
+			"buttonCancel":"Cancelar",
+			"buttonSave":"Guardar"
+		}
+	},
+	"footer":{
+		"message":"Una tienda creada en sherpon",
+		"copyright":"© 2018 sherpon.com"
+	},
+	"termsPage":{
+		"labelExchange":"Política de cambio",
+		"labelRefund":"Política de reembolso",
+		"labelEdit":"Editar términos y condiciones",
+		"modal":{
+			"title":"Editar términos y condiciones",
+			"labelExchange":"Política de cambio",
+			"labelRefund":"Política de reembolso",
+			"buttonCancel":"Cancelar",
+			"buttonSave":"Guardar"
+		}
+	},
+	"components":{
+		"homeSectionModal":{
+			"title":"Crear sección",
+			"labelMobile":"sube una foto para móvil",
+			"labelMobileDimension":"1020x1600",
+			"labelDesktop":"sube una foto para escritorio",
+			"labelDesktopDimension":"1600x900",
+			"labelDestination":"Seleccionar destino",
+			"buttonCancel":"Cancelar",
+			"buttonPublish":"Publicar",
+			"errorMobilePicture":"Selecciona una foto para móvil",
+			"errorDesktopPicture":"Selecciona una foto para escritorio",
+			"errorDestination":"Selecciona una categoría de destino de la sección"
+		}
+	},
+	"pages":{
+		"products":{
+			"breadcrumbHome":"Inicio",
+			"breadcrumbProducts":"Mis productos",
+			"creatorButton":"Crear nuevo producto",
+			"headerId":"Id",
+			"headerTitle":"Título",
+			"headerPrice":"Precio",
+			"headerStock":"Disponible"
+		},
+		"product":{
+			"breadcrumbHome":"Inicio",
+			"breadcrumbNewProduct":"Crear nuevo producto",
+			"labelTitle":"Crear nuevo producto",
+			"buttonCreateProduct":"Crear nuevo producto",
+			"labelPicturesTitle":"Fotos del artículo",
+			"labelPicturesDimension":"tamaño recomendado de cada imagen es 1020x1600",
+			"labelPicturesMain":"Imagen principal",
+			"labelPicturesMessage":"Presiona la imagen para cambiarla",
+			"labelInformationTitle":"Información del producto",
+			"labelInformationShortTitle":"Título corto",
+			"labelInformationLongTitle":"Título largo",
+			"labelInformationDescription":"Descripción",
+			"labelInformationCharacteristics":"Características",
+			"labelInformationInclude":"Incluye",
+			"labelInformationStock":"Cantidad disponible",
+			"labelPriceTitle":"Precio",
+			"labelPriceAmount":"Monto",
+			"labelPriceCurrency":"Moneda",
+			"labelShippingTitle":"Opciones de envío",
+			"labelShippingCheckbox":"No necesita envío",
+			"labelShippingPrice":"Costo de envío",
+			"labelShippingCurrency":"Moneda",
+			"labelShippingTime":"Tiempo estimado de envío en días",
+			"errorShippingEmpty":"Debes seleccionar una opción de envío",
+			"labelCategoryTitle":"Categoría",
+			"labelCategorySelect":"Elige la categoría",
+			"errorAmount":"La cantidad solicitada debe ser mayor o igual a uno",
+			"errorNegativeStock":"La cantidad solicitada excede a la disponibilidad del artículo",
+			"errorCategory":"Debe seleccionar una categoría",
+			"errorPriceCurrency":"Debe seleccionar una moneda para el precio",
+			"errorShippingCurrency":"Debe seleccionar una moneda para el envío"
+		},
+		"sales":{
+			"breadcrumbHome":"Inicio",
+			"breadcrumbSales":"Mis Ventas",
+			"list":{
+				"headerDate":"Fecha",
+				"headerId":"Id",
+				"headerState":"Estado",
+				"headerAmount":"Total"
+			}
+		},
+		"sale":{
+			"breadcrumbHome":"Inicio",
+			"breadcrumbSales":"Mis ventas",
+			"itemView": {
+				"labelId":"Id",
+				"labelModel":"Modelo",
+				"labelSize":"Tamaño",
+				"labelColor":"Color",
+				"labelFree":"Gratis",
+				"labelDelete":"Eliminar",
+				"price":"Precio",
+				"amount":"Cantidad",
+				"total":"Cantidad"
+			},
+			"purchaseInformation":{
+				"title":"Información de venta",
+				"id":"Id",
+				"date":"Fecha",
+				"state":"Estado",
+				"labelSubTotal":"Sub total",
+				"labelShipping":"Costo de envío",
+				"labelTaxes":"Impuestos",
+				"labelTotal":"Total"
+			},
+			"personalInformation":{
+				"title":"Información de usuario"
+			},
+			"shippingInformation":"Información de envío",
+			"billingInformation":"Información de facturación",
+			"UpdateInformation":{
+				"title":"Actualiza la venta",
+				"buttonUpdateToSended":"Actualizar a enviado"
+			}
+		}
+	}
+}
