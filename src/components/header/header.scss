@@ -1,0 +1,11 @@
+@charset "UTF-8";
+@import '../../styles/variables.scss';
+.header {
+  padding: 1em;
+
+  h1 {
+    color: $body__text-color-strong;
+  	font-size: 1.5em !important;
+  	margin: 0px !important;
+  }
+}
