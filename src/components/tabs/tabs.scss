@@ -1,0 +1,33 @@
+.tabs {
+	border-top: 1px solid #e5e5e5;
+	margin-bottom: 10px;
+
+	.tab a {
+		color: #757575 !important;
+    font-size: 12px;
+	}
+
+	.tab a.active {
+		color: #6078EA !important;
+	}
+
+	.tab a:hover {
+		color: #6078EA !important;
+	}
+}
+
+
+.quantity-cart__badge {
+	font-weight: 300;
+  font-size: 0.8rem;
+  color: #fff;
+  background-color: #6078EA;
+  border-radius: 2px;
+  min-width: 3rem;
+  padding: 0.5em 1em;
+  margin-left: 5px;
+  text-align: center;
+  line-height: 22px;
+  height: 22px;
+  box-sizing: border-box;
+}

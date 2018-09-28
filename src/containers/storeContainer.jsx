@@ -16,6 +16,7 @@ import session from '../models/session'
 import Spinner from '../components/spinner/spinner.jsx'
 import Navbar from '../components/navbar/navbar.jsx'
 import Header from '../components/header/header.jsx'
+import Tabs from '../components/tabs/tabs.jsx'
 import Footer from '../components/footer/footer.jsx'
 import Jordi from '../components/jordi/jordi.jsx'
 
@@ -51,6 +52,7 @@ class Store extends React.Component {
           logout={logout}
         />
         <Header/>
+        <Tabs/>
         <ContactContainer/>
         <Footer
           language={language}
