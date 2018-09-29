@@ -24,6 +24,7 @@ class LogoModal extends React.Component {
     var elems = document.querySelectorAll('#logo-modal')
     var instances = M.Modal.init(elems)
     instances[0].close()
+    document.body.style.overflow = ''
   }
 
   _save() {
@@ -32,6 +33,7 @@ class LogoModal extends React.Component {
       var elems = document.querySelectorAll('#logo-modal')
       var instances = M.Modal.init(elems)
       instances[0].close()
+      document.body.style.overflow = ''
     })
   }
 

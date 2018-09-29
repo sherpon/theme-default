@@ -1,5 +1,5 @@
 import React from 'react'
-import { Switch, Route, withRouter } from 'react-router-dom'
+import {  withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
@@ -22,6 +22,7 @@ import Jordi from '../components/jordi/jordi.jsx'
 
 /** containers */
 import ContactContainer from './contactContainer.jsx'
+import ViewportContainer from './viewport.jsx'
 
 class Store extends React.Component {
   constructor(props) {
@@ -53,6 +54,7 @@ class Store extends React.Component {
         />
         <Header/>
         <Tabs/>
+        <ViewportContainer/>
         <ContactContainer/>
         <Footer
           language={language}

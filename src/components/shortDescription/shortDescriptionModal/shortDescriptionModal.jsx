@@ -26,6 +26,7 @@ class ShortDescriptionModal extends React.Component {
     var elems = document.querySelectorAll('#short-description-modal')
     var instances = M.Modal.init(elems)
     instances[0].close()
+    document.body.style.overflow = ''
   }
 
   _save() {
@@ -34,6 +35,7 @@ class ShortDescriptionModal extends React.Component {
       var elems = document.querySelectorAll('#short-description-modal')
       var instances = M.Modal.init(elems)
       instances[0].close()
+      document.body.style.overflow = ''
     })
   }
 

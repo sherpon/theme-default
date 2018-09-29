@@ -2999,6 +2999,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       key: "_handleOverlayClick",
       value: function _handleOverlayClick() {
         if (this.options.dismissible) {
+          document.body.style.overflow = '' // I added this line
           this.close();
         }
       }
@@ -3219,6 +3220,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       key: "close",
       value: function close() {
         if (!this.isOpen) {
+          document.body.style.overflow = '' // I added this line
           return;
         }
 

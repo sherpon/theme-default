@@ -33,6 +33,7 @@ class ContactModal extends React.Component {
     var elems = document.querySelectorAll('#contact-modal');
     var instances = M.Modal.init(elems)
     instances[0].close()
+    document.body.style.overflow = ''
   }
 
   _save() {
@@ -42,6 +43,7 @@ class ContactModal extends React.Component {
       var elems = document.querySelectorAll('#contact-modal');
       var instances = M.Modal.init(elems)
       instances[0].close()
+      document.body.style.overflow = ''
     })
   }
 

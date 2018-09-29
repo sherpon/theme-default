@@ -1,0 +1,13 @@
+{
+  "title":"Crear sección",
+  "labelMobile":"sube una foto para móvil",
+  "labelMobileDimension":"1020x1600",
+  "labelDesktop":"sube una foto para escritorio",
+  "labelDesktopDimension":"1600x900",
+  "labelDestination":"Seleccionar destino",
+  "buttonCancel":"Cancelar",
+  "buttonPublish":"Publicar",
+  "errorMobilePicture":"Selecciona una foto para móvil",
+  "errorDesktopPicture":"Selecciona una foto para escritorio",
+  "errorDestination":"Selecciona una categoría de destino de la sección"
+}
