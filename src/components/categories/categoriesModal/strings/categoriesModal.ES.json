@@ -1,0 +1,10 @@
+{
+  "title":"Crear nueva categoría",
+  "labelName":"Nombre de la categoría",
+  "labelOrder":"Orden",
+  "labelPrimary":"Categoría principal",
+  "labelSecundary":"Categoría secundaria",
+  "labelParent":"Selecciona la categoría padre",
+  "buttonCancel":"Cancelar",
+  "buttonSave":"Guardar"
+}

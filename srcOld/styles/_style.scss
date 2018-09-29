@@ -1,0 +1,20 @@
+@charset "UTF-8";
+@import './variables.scss';
+
+body {
+	background-color: $body__background-color;
+  color: $body__text-color-primary;
+}
+
+.header-container h1 {
+	font-size: 1.5em !important;
+	margin: 0px !important;
+}
+
+.hero__section {
+  background-color: white;
+  border: 1px solid #e5e5e5;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  margin-bottom: 10px;
+}

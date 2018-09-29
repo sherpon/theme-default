@@ -1,0 +1,30 @@
+/************ colors *************/
+//materialize
+$primary-color: #6078EA !default;
+//$primary-color-light: lighten($primary-color, 15%) !default;
+//$primary-color-dark: darken($primary-color, 15%) !default;
+
+/**
+ * body's variables
+ */
+ $body__background-color: #fafafa;
+ $body__text-color-strong: #262626;
+ $body__text-color-primary: #4A4A4A;
+ $body__text-color-secundary: #757575;
+
+/**
+ * box's variables
+ */
+$box__border: 1px;
+$box__border-color: #e5e5e5;
+$box__border-radius: 3px;
+$box__margin-bottom: 10px;
+$box__padding: 1em;
+
+$box__title-color: $primary-color;
+$box__title-size: 1.3em;
+
+/**
+ * white box's variables
+ */
+$box-white__border-color: #e5e5e5;

@@ -35,12 +35,18 @@ class HomePage extends React.Component {
 
   init() {
     /** this load the modals */
-    document.addEventListener('DOMContentLoaded', function() {
+    /*document.addEventListener('DOMContentLoaded', function() {
       var elems = document.querySelectorAll('.modal')
       var instances = M.Modal.init(elems)
       var elems = document.querySelectorAll('select')
       var instances = M.FormSelect.init(elems)
-    })
+    })*/
+    setTimeout( () => {
+      var elems = document.querySelectorAll('.modal')
+      var instances = M.Modal.init(elems)
+      var elems = document.querySelectorAll('select')
+      var instances = M.FormSelect.init(elems)
+    },100 )
   }
 
   render() {

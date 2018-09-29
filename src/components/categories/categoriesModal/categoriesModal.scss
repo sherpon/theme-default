@@ -1,0 +1,10 @@
+.categories-modal {
+
+  &__parent--hidden {
+    display: none;
+  }
+
+  .modal-footer {
+    padding: 4px 10px !important;
+  }
+}
