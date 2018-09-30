@@ -26,7 +26,7 @@ const db = firebase.firestore()
        const item = {
          id:doc.id,
          stock:doc.data().stock,
-         picture1:doc.data().picture1,
+         picture1:doc.data().pictures[0],
          shortTitle:doc.data().shortTitle,
          currency:doc.data().currency,
          symbol:doc.data().symbol,

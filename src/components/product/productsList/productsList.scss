@@ -1,0 +1,15 @@
+@charset "UTF-8";
+@import '../../../styles/classes.scss';
+@import '../../../styles/variables.scss';
+
+.products-list {
+  @include box--white;
+
+  &__item {
+    //color: $body-text-color-secundary;
+  }
+
+  &__header {
+    font-size: 1.1em;
+  }
+}
