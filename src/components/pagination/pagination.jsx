@@ -11,7 +11,7 @@ const Pagination = ({ index, pages, onClick }) => {
     <li className="waves-effect"><a className="page-button" onClick={ () => onClick(index-1) }><i className="material-icons">chevron_left</i></a></li>
   )
 
-  const arrowRight = (index===(pages-1) ) ? (
+  const arrowRight = (index>=(pages-1) ) ? (
     <li className="disabled"><a className="page-disabled"><i className="material-icons">chevron_right</i></a></li>
   ) : (
     <li className="waves-effect"><a className="page-button" onClick={ () => onClick(index+1) }><i className="material-icons">chevron_right</i></a></li>

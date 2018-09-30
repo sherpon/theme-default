@@ -64,6 +64,7 @@ const Tabs = ({ language, username, quantityCart }) => {
         </li>
         */}
 
+        {/*
         <li className="tab col s3">
           <NavLink
             to={`/${username}/terms`}
@@ -72,6 +73,7 @@ const Tabs = ({ language, username, quantityCart }) => {
             {strings.tabTerms}
           </NavLink>
         </li>
+        */}
 
       </ul>
     </div>
