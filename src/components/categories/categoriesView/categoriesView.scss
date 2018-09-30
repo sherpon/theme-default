@@ -2,5 +2,10 @@
 @import '../../../styles/classes.scss';
 
 .categories__view {
-	@include box--white;
+	//@include box--white;
+	background-color: white;
+
+	.collection-item {
+		border-bottom: 0px !important;
+	}
 }

@@ -1,0 +1,23 @@
+@charset "UTF-8";
+@import '../../../styles/classes.scss';
+@import '../../../styles/variables.scss';
+
+.preview-item {
+	@include box--white;
+	padding: 0px !important;
+}
+
+.sherpon-preview-item-body {
+	padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 1em;
+}
+
+.sherpon-preview-item-body-title {
+		color: $box__title-color !important;
+    margin-bottom: 1em;
+    margin-top: 0.75em;
+}
+
+.sherpon-preview-item-body-price {
+}

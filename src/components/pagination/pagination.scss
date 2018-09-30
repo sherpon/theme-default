@@ -1,0 +1,14 @@
+@charset "UTF-8";
+@import '../../styles/variables.scss';
+
+.pagination {
+	padding: 1em;
+
+	.page-disabled {
+		color: $box__border-color !important;
+	}
+
+	.page-button {
+		color: $body__text-color-secundary;
+	}
+}

@@ -1,0 +1,26 @@
+.product-editor {
+  @include box--white;
+  padding: 2em;
+
+  &__title {
+    @include box__title;
+  }
+
+  &__row {
+    margin-top: 1em;
+  }
+
+  &__button {}
+
+  .row {
+    margin-bottom: 10px !important;
+  }
+
+  .product-editor-pictures__canvas {
+    width: 100%;
+  }
+
+  .product-editor-pictures__input {
+    display: none;
+  }
+}
