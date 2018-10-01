@@ -1,0 +1,5 @@
+{
+  "errorCategory":"Debe seleccionar una categoría",
+  "errorPriceCurrency":"Debe seleccionar una moneda para el precio",
+  "errorShippingCurrency":"Debe seleccionar una moneda para el envío"
+}

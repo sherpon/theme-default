@@ -7,11 +7,24 @@ import ProductEditorPrice from './partials/productEditorPrice.jsx'
 import ProductEditorShipping from './partials/productEditorShipping.jsx'
 import ProductEditorCategory from './partials/productEditorCategory.jsx'
 
-const ProductEditor = ({ strings, categories, loadCanvas, loadPicture, createNewProduct }) => {
+import style from './productEditor.scss'
+
+const _strings = {
+  ES: require('./strings/productEditor.ES.json'),
+  EN: require('./strings/productEditor.EN.json')
+}
+
+const ProductEditor = ({ language, categories, loadCanvas, loadPicture, createNewProduct }) => {
+  const strings = _strings[language]
   const init = () => {
-    $(document).ready(function(){
+    /*$(document).ready(function(){
       $('select').formSelect()
-    })
+    })*/
+    setTimeout( () => {
+      M.updateTextFields()
+      var elems = document.querySelectorAll('select')
+      var instances = M.FormSelect.init(elems)
+    },100 )
   }
 
   return (
@@ -59,7 +72,7 @@ const ProductEditor = ({ strings, categories, loadCanvas, loadPicture, createNew
 }
 
 ProductEditor.propTypes = {
-  strings: PropTypes.object.isRequired
+  language: PropTypes.string.isRequired
 }
 
 export default ProductEditor

@@ -1,5 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+//import defaultPicture from '../../../../images/store/placeholderSectionPicture.png'
+import defaultPicture from '../img/placeholderSectionPicture.png'
 
 class ProductEditorPictures extends React.Component {
   constructor(props) {
@@ -8,7 +10,7 @@ class ProductEditorPictures extends React.Component {
 
   componentDidMount() {
     const { loadCanvas } = this.props
-    const defaultPicture = '/images/store/placeholderSectionPicture.png'
+    //const defaultPicture = '/images/store/placeholderSectionPicture.png'
     loadCanvas('product-editor-pictures__picture-1__canvas', defaultPicture)
     loadCanvas('product-editor-pictures__picture-2__canvas', defaultPicture)
     loadCanvas('product-editor-pictures__picture-3__canvas', defaultPicture)
@@ -20,7 +22,7 @@ class ProductEditorPictures extends React.Component {
 
   render() {
     const { strings, loadPicture } = this.props
-    const defaultPicture = '/images/store/placeholderSectionPicture.png'
+    //const defaultPicture = '/images/store/placeholderSectionPicture.png'
 
     return (
       <div className="product-editor-pictures">

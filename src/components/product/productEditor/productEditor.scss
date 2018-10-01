@@ -1,3 +1,7 @@
+@charset "UTF-8";
+@import '../../../styles/classes.scss';
+@import '../../../styles/variables.scss';
+
 .product-editor {
   @include box--white;
   padding: 2em;
