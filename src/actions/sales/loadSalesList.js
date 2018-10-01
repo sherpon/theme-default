@@ -1,9 +1,9 @@
 import * as types from '../../constants/ActionTypes'
 import { startFetching, stopFetching } from '../fetching'
 import { clearPagination, setPages } from '../pagination'
+import session from '../../models/session'
 
 import { getSales as apiGetSales } from '../../api/sale'
-import session from '../../models/session'
 
 /******************************************************************************/
 /**

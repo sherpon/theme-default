@@ -1,5 +1,7 @@
 import {
-  getSalesList
+  getSalesList,
+  getSalesListByUserId,
+  getSaleAsUser
 } from '../models/firebase/firestore/sales'
 
 /******************************************************************************/
@@ -25,3 +27,24 @@ export const getSales = (userId, storeId, callback) => {
  * @property {Sales[]} result.sales - show the array of sales
  */
 /******************************************************************************/
+
+/******************************************************************************/
+export const loadPurchasesList = (storeId, userId, callback) => {
+  getSalesListByUserId(storeId, userId, callback)
+}
+/******************************************************************************/
+
+/******************************************************************************/
+/**
+ * Returns the user's purchase json
+ * @param {string} storeId - store's id.
+ * @param {string} purchaseId - purchase's id.
+ * @param {loadPurchase~callback} callback - The callback that handles the response.
+ */
+export const loadPurchase = (storeId, purchaseId, callback) => {
+  getSaleAsUser( storeId, purchaseId, callback )
+}
+/**
+ * @callback loadPurchase~callback
+ * @param {object} purchase - purchase's object
+ */
