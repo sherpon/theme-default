@@ -1,0 +1,12 @@
+{
+  "labelInformationTitle":"Mi cuenta",
+  "labelInformationName":"nombre",
+  "labelInformationlastname":"apellido",
+  "labelInformationPhone":"teléfono",
+  "labelInformationEmail":"email",
+  "buttonInformation":"Actualizar cuenta",
+  "labelPasswordTitle":"Mi contraseña",
+  "labelPassword1":"nueva contraseña",
+  "labelPassword2":"repita la contraseña",
+  "buttonPassword":"Actualizar contraseña"
+}

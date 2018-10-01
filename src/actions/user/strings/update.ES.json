@@ -1,0 +1,6 @@
+{
+  "errorIncompletedForm":"Debes completar todos los campos",
+  "errorSamePassword":"Las contraseñas no son iguales",
+  "errorUpdate":"No se pudo actualizar la información",
+  "successUpdate":"Se actualizó la información"
+}
