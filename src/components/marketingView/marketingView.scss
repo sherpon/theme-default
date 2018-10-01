@@ -1,0 +1,12 @@
+@charset "UTF-8";
+@import '../../styles/classes.scss';
+@import '../../styles/variables.scss';
+
+.marketing-view{
+  @include box--white;
+
+  &__title {
+    color: $body__text-color-strong;
+  	font-size: 1.3em;
+  }
+}

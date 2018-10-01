@@ -22,3 +22,7 @@ export const uploadImageStore = (file, fileName, storeId, callback) => {
 export const updateDataTheme = (userId, storeId, newDataTheme, callback) => {
   put( "stores/"+storeId+"/theme/data?id="+userId, { newDataTheme }, callback )
 }
+
+export const updateDataStore = (userId, storeId, newDataStore, callback) => {
+  put( "stores/"+storeId+"/data?id="+userId, { newDataStore }, callback )
+}

@@ -1,0 +1,9 @@
+{
+  "labelTitle":"Método de pago",
+  "labelPaymentGateway":"Pasarela de pago",
+  "labelPublicKey":"Llave pública",
+  "labelPrivateKey":"Llave privada",
+  "buttonSave":"Guardar",
+  "errorUpdate":"No se pudo actualizar la información",
+  "successUpdate":"Se actualizó la información"
+}

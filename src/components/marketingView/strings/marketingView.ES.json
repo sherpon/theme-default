@@ -1,0 +1,8 @@
+{
+  "labelTitle":"Marketing",
+  "labelAnalytics":"Google Analytics Key",
+  "labelFacebookPixel":"Facebook Pixel",
+  "buttonSave":"Guardar",
+  "errorUpdate":"No se pudo actualizar la información",
+  "successUpdate":"Se actualizó la información"
+}
