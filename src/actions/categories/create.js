@@ -1,6 +1,6 @@
 import * as types from '../../constants/ActionTypes'
 import { startFetching, stopFetching } from '../fetching'
-
+import session from '../../models/session'
 import {
   createCategoriesStore as apiCreateCategoriesStore
 } from '../../api/category'
@@ -26,7 +26,8 @@ export const categoriesCreateButton = () => (dispatch, getState) => {
 
   apiCreateCategoriesStore(userId, storeId, newCategory, (status, response) => {
     // update local dataStore store state, then...
-    if (status!==httpStatusCodes.OK || status!==httpStatusCodes.CREATED) {
+
+    if (status!==httpStatusCodes.CREATED) {
       // if there's an error...
       dispatch(stopFetching())
       // show an error message

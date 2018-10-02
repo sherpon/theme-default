@@ -11,7 +11,7 @@
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "watch": "webpack --watch --mode development",
-    "start": "webpack-dev-server --inline --open --mode development"
+    "start": "webpack-dev-server --open --mode development"
   },
   "keywords": [
     "sherpon",

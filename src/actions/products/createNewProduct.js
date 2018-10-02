@@ -5,6 +5,7 @@ import { startFetching, stopFetching } from '../fetching'
 //import { getProducts as apiGetProducts } from '../../api/product'
 import session from '../../models/session'
 import history from '../../models/history'
+import { getRandomString } from '../../models/tools'
 
 import { uploadImageStore as apiUploadImageStore } from '../../api/store'
 import { createNewProduct as apiCreateNewProduct } from '../../api/product'
@@ -55,7 +56,7 @@ export const createNewProduct = () => (dispatch, getState) => {
   const inputPicture7 = document.getElementById('product-editor-pictures__picture-7')
 
   const tmpCategoriesStr = document.getElementById('product-editor-category__category').value
-  if ( tmpCategoriesStr === '{}' ) {
+  if ( tmpCategoriesStr === '[]' ) {
     M.toast({html: strings.errorCategory})
     return false
   }
@@ -182,9 +183,10 @@ export const createNewProduct = () => (dispatch, getState) => {
     //tags: [],  // default empty
 
     const tmpCategories = JSON.parse( tmpCategoriesStr )  // give the category object
-    newProduct.categories = [
+    /*newProduct.categories = [
       tmpCategories
-    ]
+    ]*/
+    newProduct.categories = tmpCategories
 
     newProduct.description = document.getElementById('product-editor-information__description').value
     newProduct.include = document.getElementById('product-editor-information__include').value

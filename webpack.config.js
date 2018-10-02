@@ -59,5 +59,19 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: '[id].css'
     })
-  ]
+  ],
+  devServer: {
+    proxy: {
+      '**': {
+        target: 'http://localhost:8080',
+        pathRewrite: {
+          '^/fashionpet/category/categoria_1' : '',
+          '^/fashionpet/products' : '',
+          //'^/fashionpet/^' : '',
+          '^/fashionpet' : ''
+
+        }
+      }
+    }
+  }
 }

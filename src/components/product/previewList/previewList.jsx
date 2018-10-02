@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
+import $ from 'jquery'
 import PreviewItem from '../previewItem/previewItem.jsx'
 
 const getMediaQueryRanges = () => {

@@ -12,7 +12,7 @@ const ProductEditorCategory = ({ strings, categories }) => {
     selectDestinationOptions.push(
       <option
         key={parentKey}
-        value={JSON.stringify(tmpParent)}
+        value={JSON.stringify([tmpParent])}
       >
         {`${parent.name}`}
       </option>
@@ -24,7 +24,7 @@ const ProductEditorCategory = ({ strings, categories }) => {
       selectDestinationOptions.push(
         <option
           key={childKey}
-          value={JSON.stringify(child)}
+          value={JSON.stringify([tmpParent,child])}
         >
           {`${parent.name} - ${child.name}`}
         </option>
@@ -41,8 +41,8 @@ const ProductEditorCategory = ({ strings, categories }) => {
       </div>
 
       <div className="input-field product-editor__row">
-        <select id="product-editor-category__category" defaultValue="{}">
-          <option value="{}" disabled>-</option>
+        <select id="product-editor-category__category" defaultValue="[]">
+          <option value="[]" disabled>-</option>
           { selectDestinationOptions.map( (option) => (option) ) }
         </select>
         <label htmlFor="product-editor-category__category">
