@@ -13,23 +13,16 @@ const initStateProduct = {
   "tags":"",
   "categories":[
     {
-      "name":"Na",
+      "name":"",
       "orden":0,
       "type":"primary",
-      "parent":"Na"
+      "parent":""
     }
   ],
   "shipping":[],
   "attributes":[],
   "variations":[],
-  "picture1":"",
-  "picture2":"",
-  "picture3":"",
-  "picture4":"",
-  "picture5":"",
-  "picture6":"",
-  "picture7":"",
-  "warning":""
+  "pictures":[]
 }
 
 const product = (state = initStateProduct, action) => {

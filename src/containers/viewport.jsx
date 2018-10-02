@@ -8,6 +8,7 @@ import CategoriesPage from '../pages/categoriesPage.jsx'
 import CategoryPage from '../pages/categoryPage.jsx'
 import ProductsPage from '../pages/productsPage.jsx'
 import ProductPage from '../pages/productPage.jsx'
+import ItemPage from '../pages/itemPage.js'
 import SalesPage from '../pages/salesPage.jsx'
 import PaymentGatewayPage from '../pages/paymentGatewayPage.jsx'
 import MarketingPage from '../pages/marketingPage.jsx'
@@ -18,6 +19,8 @@ const Viewport = ({}) => {
   return (
     <main className="container">
       <Switch>
+        <Route exact path="/:storeusername/item/:title/:id" component={ ItemPage } />
+        <Route exact path="/:storeusername/product/:title/:id" component={ ItemPage } />
         <Route exact path="/:storeusername/category/:parent/:category" component={ CategoryPage } />
         <Route exact path="/:storeusername/category/:category" component={ CategoryPage } />
         <Route exact path="/:storeusername/categories" component={ CategoriesPage } />

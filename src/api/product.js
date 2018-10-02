@@ -1,5 +1,6 @@
 import {
-  getProductsList
+  getProductsList,
+  getProductById
 } from '../models/firebase/firestore/product'
 
 import { post, put } from './httpRequest.js'
@@ -65,4 +66,10 @@ export const createNewProduct = ( userId, storeId, newProduct, callback ) => {
  * @param {Object} result - products list array
  * @property {?number} result.error - show any error in the response or show null value
  */
+/******************************************************************************/
+
+/******************************************************************************/
+export const getItemById = (storeId, itemId, callback) => {
+  getProductById(storeId, itemId, callback)
+}
 /******************************************************************************/

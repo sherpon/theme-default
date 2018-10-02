@@ -1,0 +1,9 @@
+@charset "UTF-8";
+@import '../../../styles/classes.scss';
+@import '../../../styles/variables.scss';
+
+.item-view {
+	//@extend .row;
+	@include box--white;
+	//padding: 1em 0em;
+}

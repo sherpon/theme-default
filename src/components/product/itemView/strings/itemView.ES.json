@@ -1,0 +1,14 @@
+{
+  "labelId":"Id",
+  "labelShipping":"Método de envío",
+  "labelDays":"día(s)",
+  "labelFree":"Gratis",
+  "labelModel":"Modelo",
+  "labelSize":"Tamaño",
+  "labelColor":"Color",
+  "buttonAddToCart":"Agregar al carrito",
+  "labelShare":"Compartir",
+  "tabDescription":"Descripción",
+  "tabCharacteristics":"Características",
+  "tabInclude":"Incluye"
+}

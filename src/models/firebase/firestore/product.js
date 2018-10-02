@@ -43,3 +43,34 @@ export const getProductsList = (storeId, callback) => {
   })
 }
 /******************************************************************************/
+
+/******************************************************************************/
+/**
+ * @function getProductById
+ * @description Get the store's product by id
+ */
+ export const getProductById = (storeId, itemId, callback) => {
+   let result = {
+     error:null,
+     product:null
+   }
+   /** DO-TO check if is admin */
+   db.collection( getEnv().COLLECTION_STORES )
+     .doc(storeId)
+     .collection( getEnv().COLLECTION_PRODUCTS )
+     .doc(itemId)
+     .get()
+   .then(function(doc) {
+      if (doc.exists) {
+        const mProduct = { id:doc.id, ...doc.data() }
+        result.product = mProduct
+        callback(result)
+      } else {
+        callback(result)
+      }
+    }).catch(function(error) {
+      console.log("Error getting documents: ", error)
+      callback(result)
+    })
+ }
+/******************************************************************************/
