@@ -4,6 +4,12 @@ import {
   getSaleAsUser
 } from '../models/firebase/firestore/sales'
 
+import { post } from './httpRequest.js'
+
+export const createPurchase = (storeId, payload, callback) => {
+  post( 'sales?storeid='+storeId, payload, callback )
+}
+
 /******************************************************************************/
 /**
  * @function

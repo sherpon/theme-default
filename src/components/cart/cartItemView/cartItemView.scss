@@ -1,0 +1,46 @@
+@charset "UTF-8";
+@import '../../../styles/classes.scss';
+@import '../../../styles/variables.scss';
+
+.cart-item-view__container {
+	@include box--white;
+}
+
+.cart-item-view__body {
+	//@extend .row;
+	//margin-bottom: 0px !important;
+}
+
+.cart-item-view__body__title {
+	color: $body__text-color-strong;
+	font-size: 1.3em;
+}
+
+.cart-item-view__body__id {
+	font-size: 0.75em;
+}
+
+.cart-item-view__body__model {
+	margin: 1em 0em;
+}
+
+.cart-item-view__body__delete {
+	cursor: pointer;
+}
+
+.cart-item-view__footer {
+	//@extend .row;
+	margin-top: 1em;
+	padding-top: 1em;
+	//margin-bottom: 0px !important;
+	border-top: $box__border-color 1px solid;
+}
+
+.cart-item-view__footer__title {
+	color: $body__text-color-secundary;
+	text-align: center;
+}
+
+.cart-item-view__footer__content {
+	text-align: center;
+}

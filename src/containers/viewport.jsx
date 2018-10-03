@@ -14,6 +14,7 @@ import PaymentGatewayPage from '../pages/paymentGatewayPage.jsx'
 import MarketingPage from '../pages/marketingPage.jsx'
 import AccountPage from '../pages/accountPage.jsx'
 import PurchasesPage from '../pages/purchasesPage.jsx'
+import CartPage from '../pages/cartPage.js'
 
 const Viewport = ({}) => {
   return (
@@ -31,6 +32,7 @@ const Viewport = ({}) => {
         <Route exact path="/:storeusername/marketing" component={ MarketingPage } />
         <Route exact path="/:storeusername/account" component={ AccountPage } />
         <Route exact path="/:storeusername/purchases" component={ PurchasesPage } />
+        <Route exact path="/:storeusername/cart" component={ CartPage } />
         <Route exact path="/:storeusername" component={HomePage} />
         <Route component={HomePage}/>
       </Switch>

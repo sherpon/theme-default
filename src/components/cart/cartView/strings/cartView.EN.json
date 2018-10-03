@@ -1,0 +1,19 @@
+{
+  "labelCartSummary":"",
+  "labelSummarySubTotal":"",
+  "labelSummaryShipping":"",
+  "labelSummaryTaxes":"",
+  "labelSummaryTotal":"",
+  "buttonCheckout":"",
+  "itemView": {
+    "labelId":"",
+    "labelModel":"",
+    "labelSize":"",
+    "labelColor":"",
+    "labelFree":"",
+    "labelDelete":"",
+    "price":"",
+    "amount":"",
+    "total":""
+  }
+}

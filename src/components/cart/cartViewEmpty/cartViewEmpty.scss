@@ -1,0 +1,6 @@
+@charset "UTF-8";
+@import '../../../styles/classes.scss';
+
+.cart-view-empty {
+	@include box--white;
+}

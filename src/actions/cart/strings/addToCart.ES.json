@@ -1,0 +1,8 @@
+{
+  "errorShippingEmpty":"Debes seleccionar una opción de envío",
+  "errorModelEmpty":"Debes seleccionar una opción de modelo",
+  "errorSizeEmpty":"Debes seleccionar una opción de tamaño",
+  "errorColorEmpty":"Debes seleccionar una opción de color",
+  "errorAmount":"La cantidad solicitada debe ser mayor o igual a uno",
+  "errorNegativeStock":"La cantidad solicitada excede a la disponibilidad del artículo"
+}

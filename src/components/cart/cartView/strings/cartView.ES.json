@@ -1,0 +1,19 @@
+{
+  "labelCartSummary":"Resumen del carrito",
+  "labelSummarySubTotal":"Sub total",
+  "labelSummaryShipping":"Costo de envío",
+  "labelSummaryTaxes":"Impuestos",
+  "labelSummaryTotal":"Total",
+  "buttonCheckout":"Confirmar compra",
+  "itemView": {
+    "labelId":"Id",
+    "labelModel":"Modelo",
+    "labelSize":"Tamaño",
+    "labelColor":"Color",
+    "labelFree":"Gratis",
+    "labelDelete":"Eliminar",
+    "price":"Precio",
+    "amount":"Cantidad",
+    "total":"Cantidad"
+  }
+}

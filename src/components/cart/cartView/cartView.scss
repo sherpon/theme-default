@@ -1,0 +1,41 @@
+@charset "UTF-8";
+@import '../../../styles/classes.scss';
+@import '../../../styles/variables.scss';
+
+.cart-view__container {
+	//@extend .row;
+	//margin-bottom: 0px !important;
+}
+
+.cart-view__item-list {}
+
+.cart-view__summary {
+	@include box--white;
+}
+
+.cart-view__summary__title {
+	//@extend .row;
+	margin-bottom: 0.5em !important;
+	color:  $body__text-color-strong;
+	font-size: 1.3em;
+    /*font-weight: 100;*/
+}
+
+.cart-view__summary__line {
+	//@extend .row;
+	margin-bottom: 0.5em !important;
+}
+
+.cart-view__summary__line-total {
+	//@extend .row;
+	margin-bottom: 0.5em !important;
+	color:  $body__text-color-strong;
+}
+
+.cart-view__summary__line__price {
+	text-align: right;
+}
+
+.cart-view__summary__button {
+	width: 100%;
+}

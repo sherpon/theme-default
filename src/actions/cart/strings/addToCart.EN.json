@@ -1,0 +1,8 @@
+{
+  "errorShippingEmpty":"",
+  "errorModelEmpty":"",
+  "errorSizeEmpty":"",
+  "errorColorEmpty":"",
+  "errorAmount":"",
+  "errorNegativeStock":""
+}

@@ -6,11 +6,12 @@ import { withRouter } from 'react-router-dom'
 import {
   loadItem,
   onChangedSelect,
-  addToCart,
+  //addToCart,
   shareFacebook,
   shareWhatsapp
 } from '../actions/products/loadItem'
 
+import { addToCart } from '../actions/cart/addToCart'
 import { loadCategory } from '../actions/categories/loadCategory'
 
 import { pageView } from '../models/analytics'
