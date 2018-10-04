@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { NavLink } from 'react-router-dom'
+import { withRouter, NavLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import style from './tabs.scss'
@@ -93,7 +93,7 @@ const mapStateToProps = state => ({
   quantityCart: state.cart.quantity
 })
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   {}
-)(Tabs)
+)(Tabs))

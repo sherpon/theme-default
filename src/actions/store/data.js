@@ -5,6 +5,7 @@ import httpStatusCodes from '../../constants/httpStatusCodes.json'
 import {
   updateDataStore as apiUpdateDataStore
 } from '../../api/store'
+import session from '../../models/session'
 
 const strings = {
   ES:require('./strings/data.ES.json'),

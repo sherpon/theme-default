@@ -2,6 +2,7 @@ import fetch from 'cross-fetch'
 import { getEnv } from '../config'
 
 export const post = ( api, payload, callback ) => {
+  let status
   fetch(getEnv().API_ENDPOINT_V1 + api,
       {
         method: "POST",
@@ -12,15 +13,19 @@ export const post = ( api, payload, callback ) => {
         //credentials: "same-origin"
       })
       .then(response => {
-        return ({ status: response.status , body: response.json() })
+        status = response.status
+        return (response.json())
       })
-      .then(json => callback(json.status, json.body))
+      .then(json => {
+        callback(status, json)
+      })
       .catch(err => {
         console.error(err)
       })
 }
 
 export const put = ( api, payload, callback ) => {
+  let status
   fetch(getEnv().API_ENDPOINT_V1 + api,
       {
         method: "PUT",
@@ -31,9 +36,12 @@ export const put = ( api, payload, callback ) => {
         //credentials: "same-origin"
       })
       .then(response => {
-        return ({ status: response.status , body: response.json() })
+        status = response.status
+        return (response.json())
       })
-      .then(json => callback(json.status, json.body))
+      .then(json => {
+        callback(status, json)
+      })
       .catch(err => {
         console.error(err)
       })

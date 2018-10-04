@@ -5,6 +5,7 @@ import {
   uploadImageStore as apiUploadImageStore,
   updateDataTheme as apiUpdateDataTheme
 } from '../../api/store'
+import session from '../../models/session'
 
 import httpStatusCodes from '../../constants/httpStatusCodes.json'
 

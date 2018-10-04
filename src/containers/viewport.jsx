@@ -8,13 +8,15 @@ import CategoriesPage from '../pages/categoriesPage.jsx'
 import CategoryPage from '../pages/categoryPage.jsx'
 import ProductsPage from '../pages/productsPage.jsx'
 import ProductPage from '../pages/productPage.jsx'
-import ItemPage from '../pages/itemPage.js'
+import ItemPage from '../pages/itemPage.jsx'
 import SalesPage from '../pages/salesPage.jsx'
 import PaymentGatewayPage from '../pages/paymentGatewayPage.jsx'
 import MarketingPage from '../pages/marketingPage.jsx'
 import AccountPage from '../pages/accountPage.jsx'
 import PurchasesPage from '../pages/purchasesPage.jsx'
-import CartPage from '../pages/cartPage.js'
+import CartPage from '../pages/cartPage.jsx'
+import CheckoutPage from '../pages/checkoutPage.jsx'
+import CongratulationPurchase from '../components/checkout/congratulationPurchase/congratulationPurchase.jsx'
 
 const Viewport = ({}) => {
   return (
@@ -33,6 +35,8 @@ const Viewport = ({}) => {
         <Route exact path="/:storeusername/account" component={ AccountPage } />
         <Route exact path="/:storeusername/purchases" component={ PurchasesPage } />
         <Route exact path="/:storeusername/cart" component={ CartPage } />
+        <Route exact path="/:storeusername/checkout" component={ CheckoutPage } />
+        <Route exact path="/:storeusername/congratulation/purchase" component={ CongratulationPurchase } />
         <Route exact path="/:storeusername" component={HomePage} />
         <Route component={HomePage}/>
       </Switch>

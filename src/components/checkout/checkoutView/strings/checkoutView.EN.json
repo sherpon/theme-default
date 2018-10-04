@@ -1,0 +1,31 @@
+{
+  "labelCartSummary":"Resumen del carrito",
+  "labelSummarySubTotal":"Sub total",
+  "labelSummaryShipping":"Costo de envío",
+  "labelSummaryTaxes":"Impuestos",
+  "labelSummaryTotal":"Total",
+  "labelSummaryTerms":"Acepto los Términos y Condiciones",
+  "buttonCheckout":"Confirmar compra",
+  "personalInformation":{
+    "labelTitle":"Tu información personal",
+    "labelName":"nombre",
+    "labelLastname":"apellido",
+    "labelPhone":"teléfono",
+    "labelEmail":"email"
+  },
+  "shippingInformation":{
+    "labelTitle":"Información de envío",
+    "labelName":"nombre",
+    "labelLastname":"apellido",
+    "labelAddress1":"dirección línea 1",
+    "labelAddress2":"dirección línea 2 (opcional)",
+    "labelCity":"ciudad",
+    "labelState":"estado/provincia",
+    "labelZipCode":"código postal",
+    "labelCountry":"país"
+  },
+  "billingInformation":{
+    "labelTitle":"Información de facturación",
+    "labelOption":"usar la misma información de envío"
+  }
+}

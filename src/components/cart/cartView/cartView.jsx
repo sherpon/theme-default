@@ -31,60 +31,61 @@ const CartView = ({username, language, cart, deleteItemCart, checkout}) => {
         {itemListComp}
       </div>
 
-      <div className="col s12 m12 l5 cart-view__summary">
+      <div className="col s12 m12 l5">
+        <div className="cart-view__summary">
+          <div className="cart-view__summary__title row">
+            <div className="col s12">
+              {strings.labelCartSummary}
+            </div>
+          </div>
 
-        <div className="cart-view__summary__title row">
-          <div className="col s12">
-            {strings.labelCartSummary}
+          <div className="cart-view__summary__line row">
+            <div className="col s8">
+              {strings.labelSummarySubTotal}
+            </div>
+            <div className="col s4 cart-view__summary__line__price">
+              {`${cart.subTotal.symbol} ${getPriceFormat(cart.subTotal.price)}`}
+            </div>
           </div>
-        </div>
 
-        <div className="cart-view__summary__line row">
-          <div className="col s8">
-            {strings.labelSummarySubTotal}
+          <div className="cart-view__summary__line row">
+            <div className="col s8">
+              {strings.labelSummaryShipping}
+            </div>
+            <div className="col s4 cart-view__summary__line__price">
+              {`${cart.shipping.symbol} ${getPriceFormat(cart.shipping.price)}`}
+            </div>
           </div>
-          <div className="col s4 cart-view__summary__line__price">
-            {`${cart.subTotal.symbol} ${getPriceFormat(cart.subTotal.price)}`}
-          </div>
-        </div>
 
-        <div className="cart-view__summary__line row">
-          <div className="col s8">
-            {strings.labelSummaryShipping}
+          {/*
+          <div className="cart-view__summary__line row">
+            <div className="col s8">
+              {strings.labelSummaryTaxes}
+            </div>
+            <div className="col s4 cart-view__summary__line__price">
+              {`${cart.total.symbol} ${getPriceFormat(0)}`}
+            </div>
           </div>
-          <div className="col s4 cart-view__summary__line__price">
-            {`${cart.shipping.symbol} ${getPriceFormat(cart.shipping.price)}`}
-          </div>
-        </div>
+          */}
 
-        {/*
-        <div className="cart-view__summary__line row">
-          <div className="col s8">
-            {strings.labelSummaryTaxes}
+          <div className="cart-view__summary__line-total row">
+            <div className="col s8">
+              {strings.labelSummaryTotal}
+            </div>
+            <div className="col s4 cart-view__summary__line__price">
+              {`${cart.total.symbol} ${getPriceFormat(cart.total.price)}`}
+            </div>
           </div>
-          <div className="col s4 cart-view__summary__line__price">
-            {`${cart.total.symbol} ${getPriceFormat(0)}`}
-          </div>
-        </div>
-        */}
 
-        <div className="cart-view__summary__line-total row">
-          <div className="col s8">
-            {strings.labelSummaryTotal}
-          </div>
-          <div className="col s4 cart-view__summary__line__price">
-            {`${cart.total.symbol} ${getPriceFormat(cart.total.price)}`}
-          </div>
-        </div>
-
-        <div className="cart-view__summary__line row">
-          <div className="col s12">
-            <a
-              onClick={ () => checkout() }
-              className="waves-effect waves-light btn-small z-depth-0 cart-view__summary__button"
-            >
-              {strings.buttonCheckout}
-            </a>
+          <div className="cart-view__summary__line row">
+            <div className="col s12">
+              <a
+                onClick={ () => checkout() }
+                className="waves-effect waves-light btn-small z-depth-0 cart-view__summary__button"
+              >
+                {strings.buttonCheckout}
+              </a>
+            </div>
           </div>
         </div>
 

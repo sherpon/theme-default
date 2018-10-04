@@ -1,6 +1,7 @@
 import * as types from '../../constants/ActionTypes'
 import httpStatusCodes from '../../constants/httpStatusCodes.json'
 import { startFetching, stopFetching } from '../fetching'
+import { clearPagination, setPages } from '../pagination'
 import session from '../../models/session'
 
 import {

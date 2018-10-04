@@ -1,0 +1,13 @@
+@charset "UTF-8";
+@import '../../../styles/classes.scss';
+@import '../../../styles/variables.scss';
+
+.congratulation-purchase {
+  @include box--white;
+  padding: 2em !important;
+}
+
+.congratulation-purchase__title {
+  font-size: 1.5em;
+  color:  $body__text-color-strong;
+}

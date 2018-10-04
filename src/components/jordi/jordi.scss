@@ -76,7 +76,7 @@
   background: #efe7dd url('./images/bg2.png') repeat;
   border-top-left-radius: 3px;
   z-index: 10000;
-display: none;
+  display: none;
 }
 
 .jordi  .close {
@@ -192,6 +192,7 @@ display: none;
   right: 10px;
   width: 240px;
   cursor: pointer;
+  z-index: 100;
 }
 
 .jordi  .img-profile {
