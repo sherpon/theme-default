@@ -1,0 +1,24 @@
+{
+  "login":{
+    "labelTitle":"Entrar con mi email",
+    "labelComment":"Ingresa con una cuenta existente para continuar con la compra",
+    "labelEmail":"email",
+    "labelPassword":"contraseña",
+    "buttonLogin":"Entrar",
+    "labelForgotPassword":"¿No recuerdas tu contraseña?"
+  },
+  "signup":{
+    "labelTitle":"Crear cuenta con mi email",
+    "labelName":"nombre",
+    "labelLastname":"apellido",
+    "labelPhone":"teléfono",
+    "labelEmail":"email",
+    "labelPassword":"contraseña",
+    "buttonSignup":"Crear cuenta"
+  },
+  "guest":{
+    "labelTitle":"Continuar como invitado",
+    "labelComment":"Puedes crear una cuenta al finalizar la compra",
+    "buttonGuest":"Continuar como invitado"
+  }
+}

@@ -1,26 +1,41 @@
 import * as types from '../../constants/ActionTypes'
+import httpStatusCodes from '../../constants/httpStatusCodes.json'
 import { startFetching, stopFetching } from '../fetching'
 import history from '../../models/history'
 import session from '../../models/session'
-import Strings from '../../strings'
-import codes from '../../constants/codes.json'
+//import codes from '../../constants/codes.json'
 
 import { login as apiLogin, signup as apiSignup } from '../../api/user'
 
+const _strings = {
+  ES: {
+    errorIncompletedForm: 'Debes completar todos los campos',
+		errorNotFoundUser: 'El usuario no se encuentra registrado',
+		errorEmailAlreadyUsed: 'El email ya se encuentra registrado'
+  },
+  EN: {
+    errorIncompletedForm: 'Debes completar todos los campos',
+		errorNotFoundUser: 'El usuario no se encuentra registrado',
+		errorEmailAlreadyUsed: 'El email ya se encuentra registrado'
+  }
+}
+
 export const login = (email, password) => (dispatch, getState) => {
+  const strings = _strings[getState().language]
 
   if (email === "" || password === "") {
-    M.toast({html: Strings(getState().language).loginPage.errorIncompletedForm})
+    M.toast({html: strings.errorIncompletedForm})
     return false
   }
 
   dispatch(startFetching())
 
-  apiLogin({ email, password }, (response) => {
-    if (response.error === codes.API_USER_LOGIN_NO_FOUND) {
-      console.log('error code: ',codes.API_USER_LOGIN_NO_FOUND)
+  apiLogin({ email, password }, (status, response) => {
+    //if (response.error === codes.API_USER_LOGIN_NO_FOUND) {
+    if (status!==httpStatusCodes.ACCEPTED) {
+      //console.log('error code: ',codes.API_USER_LOGIN_NO_FOUND)
       dispatch(stopFetching())
-      M.toast({html: Strings(getState().language).loginPage.errorNotFoundUser})
+      M.toast({html: strings.errorNotFoundUser})
     } else {
       session.setUser(response.user)
       dispatch({ type: types.LOGIN })
@@ -46,7 +61,8 @@ export const login = (email, password) => (dispatch, getState) => {
 }
 
 export const signup = ( name, lastname, phone, email, password ) => (dispatch, getState) => {
-
+  const strings = _strings[getState().language]
+  
   if (
     name === "" ||
     lastname === "" ||
@@ -54,17 +70,18 @@ export const signup = ( name, lastname, phone, email, password ) => (dispatch, g
     email === "" ||
     password === ""
   ) {
-    M.toast({html: Strings(getState().language).loginPage.errorIncompletedForm})
+    M.toast({html: strings.errorIncompletedForm})
     return false
   }
 
   dispatch(startFetching())
 
-  apiSignup({ name, lastname, phone, email, password }, (response) => {
+  apiSignup({ name, lastname, phone, email, password }, (status, response) => {
 
-    if (response.error === codes.API_USER_SIGNUP_EMAIL_EXIST) {
+    //if (response.error === codes.API_USER_SIGNUP_EMAIL_EXIST) {
+    if (status!==httpStatusCodes.CREATED) {
       dispatch(stopFetching())
-      M.toast({html: Strings(getState().language).loginPage.errorEmailAlreadyUsed})
+      M.toast({html: strings.errorEmailAlreadyUsed})
     } else {
       session.setUser(response.user)
       dispatch({ type: types.LOGIN })

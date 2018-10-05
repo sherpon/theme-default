@@ -21,6 +21,7 @@ import CartPage from '../pages/cartPage.jsx'
 import CheckoutPage from '../pages/checkoutPage.jsx'
 import SalePage from '../pages/salePage.jsx'
 import PurchasePage from '../pages/purchasePage.jsx'
+import LoginPage from '../pages/loginPage.jsx'
 
 
 const Viewport = ({}) => {
@@ -44,6 +45,9 @@ const Viewport = ({}) => {
         <Route exact path="/:storeusername/cart" component={ CartPage } />
         <Route exact path="/:storeusername/checkout" component={ CheckoutPage } />
         <Route exact path="/:storeusername/congratulation/purchase" component={ CongratulationPurchase } />
+          <Route exact path="/:storeusername/login/checkout" component={ () => <LoginPage guest={false} mode={"login"} /> } />
+          <Route exact path="/:storeusername/login" component={ () => <LoginPage guest={false} mode={"login"} /> } />
+          <Route exact path="/:storeusername/signup" component={ () => <LoginPage guest={false} mode={"signup"} /> } />
         <Route exact path="/:storeusername" component={HomePage} />
         <Route component={HomePage}/>
       </Switch>

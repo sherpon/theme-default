@@ -1,0 +1,43 @@
+@charset "UTF-8";
+@import '../../styles/classes.scss';
+@import '../../styles/variables.scss';
+
+.login-view {
+	//@extend .row;
+	//margin-bottom: 0px !important;
+}
+
+.login-view__login, .login-view__signup, .login-view__guest {
+	//@extend .row;
+	@include box--white;
+	padding: 2em;
+}
+
+.col .login-view__login, .col .login-view__signup, .col .login-view__guest {
+	margin-left: 0rem !important;
+  margin-right: 0rem !important;
+}
+
+.login-view__login__title, .login-view__login__comment,
+.login-view__login__email, .login-view__login__password,
+.login-view__login__button {
+	margin-bottom: 1em;
+}
+
+.login-view__login__title, .login-view__signup__title, .login-view__guest__title {
+	color: $body__text-color-strong;
+	font-size: 1.3em;
+}
+
+.login-view__login__button a, .login-view__signup__button a{
+	min-width: 100%;
+}
+
+.login-view__signup__title, .login-view__signup__email,
+.login-view__signup__password, .login-view__signup__button {
+	margin-bottom: 1em;
+}
+
+.login-view__guest__title, .login-view__guest__comment {
+	margin-bottom: 1em;
+}
