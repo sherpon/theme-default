@@ -23,6 +23,7 @@ export const loadPurchasesList = () => (dispatch, getState) => {
   })
 }
 
+/** deprecade */
 export const loadPurchase = (purchaseId) => (dispatch, getState) => {
   dispatch(startFetching())
   dispatch({ type: types.CLEAN_PURCHASE })

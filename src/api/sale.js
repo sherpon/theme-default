@@ -1,7 +1,8 @@
 import {
   getSalesList,
   getSalesListByUserId,
-  getSaleAsUser
+  getSaleAsUser,
+  getSaleById
 } from '../models/firebase/firestore/sales'
 
 import { post } from './httpRequest.js'
@@ -54,3 +55,28 @@ export const loadPurchase = (storeId, purchaseId, callback) => {
  * @callback loadPurchase~callback
  * @param {object} purchase - purchase's object
  */
+
+ /******************************************************************************/
+ /**
+  * @function
+  * @name getSale
+  * @description get the store's sale by id
+  * // where's this function used?
+  * // - src/actions/store.js
+  * // module:actions/store~
+  * @param {string} userId - user's id.
+  * @param {string} storeId - store's id.
+  * @param {string} saleId - sale's id.
+  * @param {getSale~callback} callback - The callback that handles the response.
+  */
+ export const getSale = (userId, storeId, saleId, callback) => {
+   //post( "sale/get", { userId, storeId, saleId }, callback )
+   getSaleById( userId, storeId, saleId, callback )
+ }
+ /**
+  * @callback getSale~callback
+  * @param {Object} result - result's object
+  * @property {?number} result.error - show any error in the response or show null value
+  * @property {Object} result.sale - show the sale's object
+  */
+ /******************************************************************************/

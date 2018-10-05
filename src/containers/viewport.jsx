@@ -2,6 +2,9 @@ import React from 'react'
 import { Switch, Route, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 
+/** components */
+import CongratulationPurchase from '../components/checkout/congratulationPurchase/congratulationPurchase.jsx'
+
 /** containers */
 import HomePage from '../pages/homePage.jsx'
 import CategoriesPage from '../pages/categoriesPage.jsx'
@@ -16,7 +19,9 @@ import AccountPage from '../pages/accountPage.jsx'
 import PurchasesPage from '../pages/purchasesPage.jsx'
 import CartPage from '../pages/cartPage.jsx'
 import CheckoutPage from '../pages/checkoutPage.jsx'
-import CongratulationPurchase from '../components/checkout/congratulationPurchase/congratulationPurchase.jsx'
+import SalePage from '../pages/salePage.jsx'
+import PurchasePage from '../pages/purchasePage.jsx'
+
 
 const Viewport = ({}) => {
   return (
@@ -26,6 +31,8 @@ const Viewport = ({}) => {
         <Route exact path="/:storeusername/product/:title/:id" component={ ItemPage } />
         <Route exact path="/:storeusername/category/:parent/:category" component={ CategoryPage } />
         <Route exact path="/:storeusername/category/:category" component={ CategoryPage } />
+        <Route exact path="/:storeusername/sale/:id" component={ SalePage } />
+        <Route exact path="/:storeusername/purchase/:id" component={ PurchasePage } />
         <Route exact path="/:storeusername/categories" component={ CategoriesPage } />
         <Route exact path="/:storeusername/products" component={ ProductsPage } />
         <Route exact path="/:storeusername/product/new" component={ ProductPage } />

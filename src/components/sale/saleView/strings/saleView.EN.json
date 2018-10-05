@@ -1,0 +1,32 @@
+{
+  "itemView": {
+    "labelId":"Id",
+    "labelModel":"Modelo",
+    "labelSize":"Tamaño",
+    "labelColor":"Color",
+    "labelFree":"Gratis",
+    "labelDelete":"Eliminar",
+    "price":"Precio",
+    "amount":"Cantidad",
+    "total":"Cantidad"
+  },
+  "purchaseInformation":{
+    "title":"Información de venta",
+    "id":"Id",
+    "date":"Fecha",
+    "state":"Estado",
+    "labelSubTotal":"Sub total",
+    "labelShipping":"Costo de envío",
+    "labelTaxes":"Impuestos",
+    "labelTotal":"Total"
+  },
+  "personalInformation":{
+    "title":"Información de usuario"
+  },
+  "shippingInformation":"Información de envío",
+  "billingInformation":"Información de facturación",
+  "UpdateInformation":{
+    "title":"Actualiza la venta",
+    "buttonUpdateToSended":"Actualizar a enviado"
+  }
+}

@@ -1,26 +1,31 @@
+@charset "UTF-8";
+@import '../../../styles/classes.scss';
+@import '../../../styles/variables.scss';
+
 .sale-view {
-  @extend .row;
-  margin-bottom: 0px !important;
+  //@extend .row;
+  //margin-bottom: 0px !important;
 
   .purchase-information,
   .personal-information,
   .update-information {
-    @extend .box-white;
+    //@extend .box-white;
+    @include box--white;
 
     .purchase-information__title,
     .personal-information__title,
     .update-information__title {
-      color: $primary-color;
+      color: $body__text-color-strong;
       font-size: 1.3em;
     }
 
     .purchase-information__line--primary-color {
-      color: $primary-color;
+      color: $body__text-color-strong;
     }
 
     .purchase-information__line {
-      @extend .row;
-      margin-bottom: 0px !important;
+      //@extend .row;
+      //margin-bottom: 0px !important;
 
       .col-right {
         text-align: right;

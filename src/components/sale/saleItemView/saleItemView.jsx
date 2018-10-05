@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 
 import { noLinkEspace, getPriceFormat } from '../../../models/tools'
 
+import style from './saleItemView.scss'
+
 const CartItemView = ({index, username, strings, item, deleteItemCart, deleteButton}) => {
   let attributesComp
   let shippingComp
@@ -59,7 +61,7 @@ const CartItemView = ({index, username, strings, item, deleteItemCart, deleteBut
 
   return(
     <div className="cart-item-view__container">
-      <div className="cart-item-view__body">
+      <div className="cart-item-view__body row">
         <div className="col s4 m2 l4">
           <img
             className="responsive-img"
@@ -81,7 +83,7 @@ const CartItemView = ({index, username, strings, item, deleteItemCart, deleteBut
         </div>
       </div>
 
-      <div className="cart-item-view__footer">
+      <div className="cart-item-view__footer row">
         <div className="col s4">
           <div className="cart-item-view__footer__title">
             {strings.price}

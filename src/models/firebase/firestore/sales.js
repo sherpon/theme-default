@@ -115,3 +115,34 @@ export const getSalesListByUserId = (storeId, userId, callback) => {
     })
  }
 /******************************************************************************/
+
+/******************************************************************************/
+/**
+ * @function getSaleById
+ * @description Get the store's sale by id
+ */
+ export const getSaleById = ( userId, storeId, saleId, callback ) => {
+   let result = {
+     error:null,
+     sale:null
+   }
+   /** DO-TO check if is admin */
+   db.collection( getEnv().COLLECTION_STORES )
+     .doc(storeId)
+     .collection( getEnv().COLLECTION_SALES )
+     .doc(saleId)
+     .get()
+   .then(function(doc) {
+      if (doc.exists) {
+        const mSale = { id:doc.id, ...doc.data() }
+        result.sale = mSale
+        callback(result)
+      } else {
+        callback(result)
+      }
+    }).catch(function(error) {
+      console.log("Error getting documents: ", error)
+      callback(result)
+    })
+ }
+/******************************************************************************/
