@@ -82,21 +82,23 @@ const ItemContent = ({ strings, username, item, onChangedSelect, addToCart, shar
         </div>
       </div>
 
-      <div className="item-content__share row">
-        <div className="col s3 item-content__share-label">
-          {strings.labelShare}
+      {/*
+        <div className="item-content__share row">
+          <div className="col s3 item-content__share-label">
+            {strings.labelShare}
+          </div>
+          <div className="col s2">
+            <a className="" onClick={ () => shareFacebook() }>
+              <img src="../../../images/store/icons8-facebook-64.png" className="responsive-img item-content__share-icon"/>
+            </a>
+          </div>
+          <div className="col s2">
+            <a className="" onClick={ () => shareWhatsapp() }>
+              <img src="../../../images/store/icons8-whatsapp-64.png" className="responsive-img item-content__share-icon"/>
+            </a>
+          </div>
         </div>
-        <div className="col s2">
-          <a className="" onClick={ () => shareFacebook() }>
-            <img src="../../../images/store/icons8-facebook-64.png" className="responsive-img item-content__share-icon"/>
-          </a>
-        </div>
-        <div className="col s2">
-          <a className="" onClick={ () => shareWhatsapp() }>
-            <img src="../../../images/store/icons8-whatsapp-64.png" className="responsive-img item-content__share-icon"/>
-          </a>
-        </div>
-      </div>
+      */}
 
       <div className="item-content__information">
           <div className="row">

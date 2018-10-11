@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const ProductEditorPrice = ({ strings }) => {
+const ProductEditorPrice = ({ strings, product }) => {
 
   return (
     <div className="product-editor-price">
@@ -11,14 +11,18 @@ const ProductEditorPrice = ({ strings }) => {
       </div>
 
       <div className="input-field product-editor__row">
-        <input id="product-editor-price__amount" type="number" defaultValue={0}/>
+        <input id="product-editor-price__amount" type="number"
+          defaultValue={ ( product === undefined ) ? (0) : (product.price) }
+        />
         <label htmlFor="product-editor-price__amount">
           {strings.labelPriceAmount}
         </label>
       </div>
 
       <div className="input-field product-editor__row">
-        <select id="product-editor-price__currency" defaultValue='{}'>
+        <select id="product-editor-price__currency"
+          defaultValue={ ( product === undefined ) ? ('{}') : (`{ "symbol":"${product.symbol}", "currency":"${product.currency}" }`) }
+        >
           <option value='{}' disabled>-</option>
           <option value='{ "symbol":"S/.", "currency":"PEN" }'>Soles</option>
           <option value='{ "symbol":"$", "currency":"USD" }'>Dólares</option>

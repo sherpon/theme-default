@@ -19,7 +19,7 @@ const SaleInformation = ({className, strings, purchase}) => (
       <div className="col s6">
         {strings.purchaseInformation.id}
       </div>
-      <div className="col s6 col-right">
+      <div className="col s6 col-right purchase-information__id">
         {purchase.id}
       </div>
     </div>

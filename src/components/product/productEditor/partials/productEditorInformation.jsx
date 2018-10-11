@@ -1,7 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import $ from 'jquery'
 
-const ProductEditorInformation = ({ strings }) => {
+const ProductEditorInformation = ({ strings, product }) => {
+
+  const init = () => {
+    setTimeout( () => {
+      $('#product-editor-information__description').val( ( product === undefined ) ? ('') : (product.description) )
+      $('#product-editor-information__characteristics').val( ( product === undefined ) ? ('') : (product.characteristics) )
+      $('#product-editor-information__include').val( ( product === undefined ) ? ('') : (product.include) )
+      M.updateTextFields()
+      M.textareaAutoResize($('#product-editor-information__description'))
+      M.textareaAutoResize($('#product-editor-information__characteristics'))
+      M.textareaAutoResize($('#product-editor-information__include'))
+    },1000 )
+  }
 
   return (
     <div className="product-editor-information">
@@ -10,14 +23,18 @@ const ProductEditorInformation = ({ strings }) => {
       </div>
 
       <div className="input-field product-editor__row">
-        <input id="product-editor-information__shortTitle" type="text" defaultValue={''}/>
+        <input id="product-editor-information__shortTitle" type="text"
+          defaultValue={ ( product === undefined ) ? ('') : (product.shortTitle) }
+        />
         <label htmlFor="product-editor-information__shortTitle">
           {strings.labelInformationShortTitle}
         </label>
       </div>
 
       <div className="input-field product-editor__row">
-        <input id="product-editor-information__longTitle" type="text" defaultValue={''}/>
+        <input id="product-editor-information__longTitle" type="text"
+          defaultValue={ ( product === undefined ) ? ('') : (product.longTitle) }
+        />
         <label htmlFor="product-editor-information__longTitle">
           {strings.labelInformationLongTitle}
         </label>
@@ -45,12 +62,14 @@ const ProductEditorInformation = ({ strings }) => {
       </div>
 
       <div className="input-field product-editor__row">
-        <input id="product-editor-information__stock" type="number" defaultValue={0}/>
+        <input id="product-editor-information__stock" type="number"
+          defaultValue={ ( product === undefined ) ? (0) : (product.stock) }
+        />
         <label htmlFor="product-editor-information__stock">
           {strings.labelInformationStock}
         </label>
       </div>
-
+      {init()}
     </div>
   )
 }

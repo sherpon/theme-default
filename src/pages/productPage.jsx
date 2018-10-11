@@ -58,6 +58,7 @@ class ProductPage extends React.Component {
           loadCanvas={loadCanvas}
           loadPicture={loadPicture}
           createNewProduct={createNewProduct}
+          product={undefined}
         />
       </section>
     )

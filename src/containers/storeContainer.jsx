@@ -59,7 +59,7 @@ class Store extends React.Component {
         <Footer
           language={language}
         />
-        <Jordi/>
+      {/*<Jordi/>*/}
       </div>
     )
   }

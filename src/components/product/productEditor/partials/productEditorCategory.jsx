@@ -1,7 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const ProductEditorCategory = ({ strings, categories }) => {
+const ProductEditorCategory = ({ strings, categories, product }) => {
+  let categoryDefault
+
+  if (product===undefined) {
+    categoryDefault = "[]"
+    //if (product.categories.length===1) {
+    //  categoryDefault = JSON.stringify([product.categories])
+    //}
+  } else {
+    categoryDefault = product.categories
+  }
+
   //const categories = []
   let selectDestinationOptions = []
   for ( let i = 0 ; i < categories.length ; i++ ) {
@@ -41,7 +52,7 @@ const ProductEditorCategory = ({ strings, categories }) => {
       </div>
 
       <div className="input-field product-editor__row">
-        <select id="product-editor-category__category" defaultValue="[]">
+        <select id="product-editor-category__category" defaultValue={categoryDefault}>
           <option value="[]" disabled>-</option>
           { selectDestinationOptions.map( (option) => (option) ) }
         </select>

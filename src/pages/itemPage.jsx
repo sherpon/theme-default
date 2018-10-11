@@ -10,16 +10,20 @@ import {
   shareFacebook,
   shareWhatsapp
 } from '../actions/products/loadItem'
+import { updateProduct } from '../actions/products/updateProduct'
 
 import { addToCart } from '../actions/cart/addToCart'
 import { loadCategory } from '../actions/categories/loadCategory'
+
+import { loadCanvas, loadPicture } from '../models/canvas'
 
 import { pageView } from '../models/analytics'
 import { pixelPageView } from '../models/facebookPixel'
 
 import Breadcrumbs from '../components/breadcrumbs/breadcrumbs.jsx'
-import ItemViewPlaceholder from '../components/product/itemViewPlaceholder/itemViewPlaceholder.jsx'
-import ItemView from '../components/product/itemView/itemView.jsx'
+//import ItemViewPlaceholder from '../components/product/itemViewPlaceholder/itemViewPlaceholder.jsx'
+//import ItemView from '../components/product/itemView/itemView.jsx'
+import Product from '../components/product'
 
 class ItemPage extends React.Component {
   constructor(props) {
@@ -32,13 +36,14 @@ class ItemPage extends React.Component {
 
   render() {
 
-    const { language, username, isFetching, item, loadCategory, onChangedSelect, addToCart } = this.props
+    const { language, isEditable, categories, username, isFetching, item, loadCategory, onChangedSelect, addToCart, updateProduct } = this.props
 
-    let itemViewComp, breadcrumbsComp
+    let itemViewComp
+    let breadcrumbsComp
 
-    if (isFetching) {
+    if (isFetching && item.id === '') {
       breadcrumbsComp = (<div/>)
-      itemViewComp = (<ItemViewPlaceholder/>)
+      itemViewComp = (<Product.ViewPlaceholder/>)
     } else {
 
       breadcrumbsComp = (
@@ -51,16 +56,32 @@ class ItemPage extends React.Component {
           onClick={loadCategory}
           disabledChild={false}
         />)
-      itemViewComp = (
-        <ItemView
-          language={language}
-          username={username}
-          item={item}
-          onChangedSelect={onChangedSelect}
-          addToCart={addToCart}
-          shareFacebook={shareFacebook}
-          shareWhatsapp={shareWhatsapp}
-        />)
+
+      if (isEditable) {
+        itemViewComp = (
+          <Product.Editor
+            language={language}
+            categories={categories}
+            loadCanvas={loadCanvas}
+            loadPicture={loadPicture}
+            createNewProduct={ () => true }
+            updateProduct={updateProduct}
+            product={item}
+          />
+        )
+      } else {
+        itemViewComp = (
+          <Product.View
+            language={language}
+            username={username}
+            item={item}
+            onChangedSelect={onChangedSelect}
+            addToCart={addToCart}
+            shareFacebook={shareFacebook}
+            shareWhatsapp={shareWhatsapp}
+          />
+        )
+      }
     }
 
     return (
@@ -74,6 +95,8 @@ class ItemPage extends React.Component {
 
 ItemPage.propTypes = {
   language: PropTypes.string.isRequired,
+  isEditable: PropTypes.bool.isRequired,
+  categories: PropTypes.array.isRequired,
   username: PropTypes.string.isRequired,
   analyticsTrackerId: PropTypes.string.isRequired,
   facebookPixelId: PropTypes.string.isRequired,
@@ -90,6 +113,8 @@ ItemPage.propTypes = {
 
 const mapStateToProps = ( state, ownProps ) => ({
   language: state.language,
+  isEditable: state.isEditable,
+  categories: state.store.categories,
   username: state.store.username,
   analyticsTrackerId: state.store.data.analytics,
   facebookPixelId: state.store.data.facebookPixel,
@@ -104,7 +129,8 @@ const mapDispatchToProps = dispatch => ({
   loadItem: (itemId) => dispatch(loadItem(itemId)),
   loadCategory: (category) => dispatch(loadCategory(category)),
   onChangedSelect: () => dispatch(onChangedSelect()),
-  addToCart: () => dispatch(addToCart())
+  addToCart: () => dispatch(addToCart()),
+  updateProduct: (productId) => dispatch(updateProduct(productId))
 })
 
 export default withRouter(connect(

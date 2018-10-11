@@ -5,6 +5,7 @@ import {
   uploadImageStore as apiUploadImageStore,
   updateDataTheme as apiUpdateDataTheme
 } from '../../api/store'
+import session from '../../models/session'
 
 import httpStatusCodes from '../../constants/httpStatusCodes.json'
 
@@ -15,7 +16,7 @@ const _strings = {
 
 export const logoSaveButton = (callback) => (dispatch, getState) => {
   const strings = _strings[getState().language]
-  
+
   const storeId = getState().store.id
   const userId = session.getUser().id
   const logoInput = document.getElementById('logo-modal__input')

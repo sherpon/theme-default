@@ -1,6 +1,7 @@
 {
   "labelTitle":"Crear nuevo producto",
   "buttonCreateProduct":"Crear nuevo producto",
+  "buttonUpdateProduct":"Actualizar producto",
   "labelPicturesTitle":"Fotos del artículo",
   "labelPicturesDimension":"tamaño recomendado de cada imagen es 1020x1600",
   "labelPicturesMain":"Imagen principal",

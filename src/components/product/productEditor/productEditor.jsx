@@ -14,7 +14,7 @@ const _strings = {
   EN: require('./strings/productEditor.EN.json')
 }
 
-const ProductEditor = ({ language, categories, loadCanvas, loadPicture, createNewProduct }) => {
+const ProductEditor = ({ language, categories, loadCanvas, loadPicture, createNewProduct, updateProduct, product }) => {
   const strings = _strings[language]
   const init = () => {
     /*$(document).ready(function(){
@@ -25,6 +25,26 @@ const ProductEditor = ({ language, categories, loadCanvas, loadPicture, createNe
       var elems = document.querySelectorAll('select')
       var instances = M.FormSelect.init(elems)
     },100 )
+  }
+  let actionButton
+  if (product===undefined) {
+    actionButton = (
+      <a
+        onClick={ () => createNewProduct() }
+        className="waves-effect waves-light btn-small z-depth-0"
+      >
+        {strings.buttonCreateProduct}
+      </a>
+    )
+  } else {
+    actionButton = (
+      <a
+        onClick={ () => updateProduct(product.id) }
+        className="waves-effect waves-light btn-small z-depth-0"
+      >
+        {strings.buttonUpdateProduct}
+      </a>
+    )
   }
 
   return (
@@ -37,33 +57,31 @@ const ProductEditor = ({ language, categories, loadCanvas, loadPicture, createNe
         strings={strings}
         loadCanvas={loadCanvas}
         loadPicture={loadPicture}
+        product={product}
       />
 
       <ProductEditorInformation
         strings={strings}
+        product={product}
       />
 
       <ProductEditorPrice
         strings={strings}
+        product={product}
       />
 
       <ProductEditorShipping
         strings={strings}
+        product={product}
       />
 
       <ProductEditorCategory
         strings={strings}
         categories={categories}
+        product={product}
       />
 
-      <div className="product-editor__button">
-        <a
-          onClick={ () => createNewProduct() }
-          className="waves-effect waves-light btn-small z-depth-0"
-        >
-          {strings.buttonCreateProduct}
-        </a>
-      </div>
+      {actionButton}
 
       {init()}
 

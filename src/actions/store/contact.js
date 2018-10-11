@@ -1,6 +1,6 @@
 import * as types from '../../constants/ActionTypes'
 import { startFetching, stopFetching } from '../fetching'
-
+import session from '../../models/session'
 import {
   updateDataTheme as apiUpdateDataTheme
 } from '../../api/store'
