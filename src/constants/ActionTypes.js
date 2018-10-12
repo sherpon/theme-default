@@ -22,6 +22,8 @@ export const CLEAR_ITEM = 'CLEAR_ITEM'
 export const SET_WARNING = 'SET_WARNING'
 export const UPDATE_PRICE = 'UPDATE_PRICE'
 export const ADD_TO_CART = 'ADD_TO_CART'
+export const CLEAR_LATEST_PRODUCTS = 'CLEAR_LATEST_PRODUCTS'
+export const SET_LATEST_PRODUCTS = 'SET_LATEST_PRODUCTS'
 
 /****** cart ******/
 export const DELETE_ITEM_CART = 'DELETE_ITEM_CART'

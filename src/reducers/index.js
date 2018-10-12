@@ -9,6 +9,7 @@ import product from './product'
 import cart from './cart'
 import sale from './sale'
 import store from './store'
+import latestProducts from './latestProducts'
 
 export default combineReducers({
   isFetching,
@@ -20,5 +21,6 @@ export default combineReducers({
   product,
   cart,
   sale,
-  store
+  store,
+  latestProducts
 })

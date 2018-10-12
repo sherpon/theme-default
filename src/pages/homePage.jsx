@@ -9,6 +9,7 @@ import {
   homeSectionModalPublishButton,
   homeSectionDeleteButton
 } from '../actions/store/theme'
+import { loadLatestProductsList } from '../actions/products/loadLatestProductsList'
 
 /** models */
 import { loadCanvas, loadPicture } from '../models/canvas'
@@ -18,6 +19,7 @@ import { pixelPageView } from '../models/facebookPixel'
 
 /** components */
 import HomeSection from '../components/homeSection'
+import Product from '../components/product'
 //import CreateSection from '../components/createSection/createSection'
 //import HomeSectionModal from '../components/homeSectionModal/homeSectionModal'
 
@@ -27,9 +29,10 @@ import HomeSectionContainer from '../containers/homeSectionContainer.jsx'
 class HomePage extends React.Component {
   constructor(props) {
     super(props)
-    const { analytics, facebookPixel, analyticsTrackerId, facebookPixelId } = this.props
+    const { analytics, facebookPixel, analyticsTrackerId, facebookPixelId, loadLatestProductsList } = this.props
     analytics(analyticsTrackerId)
     facebookPixel(facebookPixelId)
+    loadLatestProductsList()
     this.init = this.init.bind(this)
   }
 
@@ -57,6 +60,7 @@ class HomePage extends React.Component {
       username,
       categories,
       sections,
+      latestProducts,
       homeSectionModalPublishButton,
       homeSectionDeleteButton
     } = this.props
@@ -107,6 +111,11 @@ class HomePage extends React.Component {
             />
           ))
         }
+        <Product.LatestProducts
+          language={language}
+          username={username}
+          latestProducts={latestProducts}
+        />
         {init()}
       </section>
     )
@@ -120,12 +129,14 @@ const mapStateToProps = state => ({
   analyticsTrackerId: state.store.data.analytics,
   facebookPixelId: state.store.data.facebookPixel,
   isEditable: state.isEditable,
-  sections: state.store.theme.data.sections
+  sections: state.store.theme.data.sections,
+  latestProducts: state.latestProducts
 })
 
 const mapDispatchToProps = dispatch => ({
   analytics: (analyticsTrackerId) => pageView(analyticsTrackerId),
   facebookPixel: (facebookPixelId) => pixelPageView(facebookPixelId),
+  loadLatestProductsList: () => dispatch(loadLatestProductsList()),
   homeSectionModalPublishButton: (sectionModalId, callback) => dispatch(homeSectionModalPublishButton(sectionModalId, callback)),
   homeSectionDeleteButton: (homeSectionIndex) => dispatch(homeSectionDeleteButton(homeSectionIndex))
 })

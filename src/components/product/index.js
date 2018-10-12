@@ -5,6 +5,7 @@ import ProductEditor from './productEditor/productEditor.jsx'
 import ProductsList from './productsList/productsList.jsx'
 import PreviewList from './previewList/previewList.jsx'
 import PreviewListPlaceholder from './previewListPlaceholder/previewListPlaceholder.jsx'
+import LatestProducts from './latestProducts/latestProducts.jsx'
 
 const Product = {
   CreatorButton: ProductCreatorButton,
@@ -13,7 +14,8 @@ const Product = {
   Editor: ProductEditor,
   List: ProductsList,
   PreviewList: PreviewList,
-  PreviewListPlaceholder: PreviewListPlaceholder
+  PreviewListPlaceholder: PreviewListPlaceholder,
+  LatestProducts: LatestProducts
 }
 
 export default Product
