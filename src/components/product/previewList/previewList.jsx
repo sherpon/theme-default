@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import $ from 'jquery'
 import PreviewItem from '../previewItem/previewItem.jsx'
 
+import style from './previewList.scss'
+
 const getMediaQueryRanges = () => {
   const widthAvailable = $(document).width()
 
