@@ -27,12 +27,15 @@ export const contactSaveButton = (callback) => (dispatch, getState) => {
   dispatch(startFetching())
 
   const dataTheme = getState().store.theme.data
-  dataTheme.contact.facebook = newFacebook
-  dataTheme.contact.instagram = newInstagram
-  dataTheme.contact.whatsapp = newWhatsapp
-  dataTheme.contact.phone = newPhone
-  dataTheme.contact.email = newEmail
-  dataTheme.contact.address = newAddress
+  const newContact = {
+    facebook: newFacebook,
+    instagram: newInstagram,
+    whatsapp: newWhatsapp,
+    phone: newPhone,
+    email: newEmail,
+    address: newAddress,
+  }
+  dataTheme.contact = newContact
 
   const newDataTheme = dataTheme
   apiUpdateDataTheme(userId, storeId, newDataTheme, (status, response) => {

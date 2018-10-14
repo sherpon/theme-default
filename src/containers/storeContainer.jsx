@@ -18,7 +18,7 @@ import Navbar from '../components/navbar/navbar.jsx'
 import Header from '../components/header/header.jsx'
 import Tabs from '../components/tabs/tabs.jsx'
 import Footer from '../components/footer/footer.jsx'
-import Jordi from '../components/jordi/jordi.jsx'
+//import Jordi from '../components/jordi/jordi.jsx'
 
 /** containers */
 import ContactContainer from './contactContainer.jsx'

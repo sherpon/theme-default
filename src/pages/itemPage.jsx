@@ -45,8 +45,8 @@ class ItemPage extends React.Component {
       breadcrumbsComp = (<div/>)
       itemViewComp = (<Product.ViewPlaceholder/>)
     } else {
-
-      breadcrumbsComp = (
+      breadcrumbsComp = (<div/>)
+      /*breadcrumbsComp = (
         <Breadcrumbs
           username={username}
           language={language}
@@ -55,7 +55,7 @@ class ItemPage extends React.Component {
           child={item.categories[0].name}
           onClick={loadCategory}
           disabledChild={false}
-        />)
+        />)*/
 
       if (isEditable) {
         itemViewComp = (

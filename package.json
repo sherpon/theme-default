@@ -8,10 +8,10 @@
   },
   "scripts": {
     "test": "test",
-    "dev": "webpack --mode development",
-    "build": "webpack --mode production",
-    "watch": "webpack --watch --mode development",
-    "start": "webpack-dev-server --open --mode development"
+    "dev": "webpack --mode development --env.NODE_ENV=development",
+    "build": "webpack --mode production --env.NODE_ENV=production",
+    "watch": "webpack --watch --mode development --env.NODE_ENV=development",
+    "start": "webpack-dev-server --open --mode development --env.NODE_ENV=development"
   },
   "keywords": [
     "sherpon",

@@ -50,7 +50,7 @@ const CategoriesEdit = ({
     categoriesComp.push(
       <Category
         key={parentKey}
-        to={`/${username}/category/${noLinkEspace(parent.name)}`}
+        to={`/${username}/category/${noLinkEspace(parent.name)}--${parent.id}`}
         name={`${parent.name}`}
         order={parseInt(parent.order)}
       />
@@ -62,7 +62,7 @@ const CategoriesEdit = ({
       categoriesComp.push(
         <Category
           key={childKey}
-          to={`/${username}/category/${noLinkEspace(parent.name)}/${noLinkEspace(child.name)}`}
+          to={`/${username}/category/${noLinkEspace(parent.name)}--${parent.id}/${noLinkEspace(child.name)}--${child.id}`}
           name={`${parent.name} - ${child.name}`}
           order={parseInt(child.order)}
         />

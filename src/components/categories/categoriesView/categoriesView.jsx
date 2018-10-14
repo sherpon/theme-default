@@ -35,7 +35,7 @@ const Categories = ({
               <ul className="collection">
                 <li className="collection-item sherpon-border-0px">
                   <Link
-                    to={`/${username}/category/${noLinkEspace(category.name)}`}>
+                    to={`/${username}/category/${noLinkEspace(category.name)}--${category.id}`}>
                     {category.name}
                   </Link>
                 </li>
@@ -46,7 +46,7 @@ const Categories = ({
                       className="collection-item sherpon-border-0px"
                     >
                       <Link
-                        to={`/${username}/category/${noLinkEspace(category.name)}/${noLinkEspace(child.name)}`}>
+                        to={`/${username}/category/${noLinkEspace(category.name)}--${category.id}/${noLinkEspace(child.name)}--${child.id}`}>
                         {child.name}
                       </Link>
                     </li>

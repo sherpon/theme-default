@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import $ from 'jquery'
+//import $ from 'jquery'
 
 import style from './homeSectionModal.scss'
 
@@ -35,14 +35,14 @@ class HomeSectionModal extends React.Component {
     loadCanvas(`${id}__desktopCanvas`, defaultPicture)
 
     /** when a canvas has been clicked, trigger the input's onclick event */
-    $(`#${id}__mobileCol`).click( () => $(`#${id}__mobileInput`).trigger('click') )
-    $(`#${id}__desktopCol`).click( () => $(`#${id}__desktopInput`).trigger('click') )
+    //$(`#${id}__mobileCol`).click( () => $(`#${id}__mobileInput`).trigger('click') )
+    //$(`#${id}__desktopCol`).click( () => $(`#${id}__desktopInput`).trigger('click') )
   }
 
   _cancel() {
     const { id } = this.props
     //$(`#${id}`).modal('close')
-    var elems = document.querySelectorAll(`#${id}`)
+    var elems = document.querySelectorAll('#sectionModal')
     var instances = M.Modal.init(elems)
     instances[0].close()
     document.body.style.overflow = ''
@@ -53,10 +53,13 @@ class HomeSectionModal extends React.Component {
     const { id, homeSectionModalPublishButton } = this.props
     homeSectionModalPublishButton(id, () => {
       //$(`#${id}`).modal('close')
-      var elems = document.querySelectorAll(`#${id}`)
+      var elems = document.querySelectorAll(`#sectionModal`)
       var instances = M.Modal.init(elems)
       instances[0].close()
       document.body.style.overflow = ''
+      //setTimeout( () => {
+      //  document.body.style.overflow = ''
+      //},100 )
     })
   }
 
@@ -73,7 +76,7 @@ class HomeSectionModal extends React.Component {
       selectDestinationOptions.push(
         <option
           key={parentKey}
-          value={`/category/${noLinkEspace(parent.name)}`}
+          value={`{ "type":"category", "id":"${parent.id}" }`}
         >
           {`${parent.name}`}
         </option>
@@ -85,7 +88,7 @@ class HomeSectionModal extends React.Component {
         selectDestinationOptions.push(
           <option
             key={childKey}
-            value={`/category/${noLinkEspace(parent.name)}/${noLinkEspace(child.name)}`}
+            value={`{ "type":"category", "id":"${child.id}" }`}
           >
             {`${parent.name} - ${child.name}`}
           </option>
@@ -96,7 +99,7 @@ class HomeSectionModal extends React.Component {
 
     return(
       <div
-        id={id}
+        id="sectionModal"
         className="modal section-modal"
       >
         <div className="modal-content">
@@ -104,14 +107,18 @@ class HomeSectionModal extends React.Component {
 
           <div className="section-modal__picture row">
             <div id={`${id}__mobileCol`} className="col s6 section-modal__picture__col">
-              <canvas id={`${id}__mobileCanvas`} className="section-modal__picture__canvas"></canvas>
+              <label htmlFor={`${id}__mobileInput`}>
+                <canvas id={`${id}__mobileCanvas`} className="section-modal__picture__canvas"></canvas>
+              </label>
               <input type='file' id={`${id}__mobileInput`} className="section-modal__picture__input"
                 onChange={ () => loadPicture(`${id}__mobileInput`, `${id}__mobileCanvas`, defaultPicture) }
               />
               {`${strings.labelMobile} (${strings.labelMobileDimension})`}
             </div>
             <div id={`${id}__desktopCol`} className="col s6 section-modal__picture__col">
-              <canvas id={`${id}__desktopCanvas`} className="section-modal__picture__canvas"></canvas>
+              <label htmlFor={`${id}__desktopInput`}>
+                <canvas id={`${id}__desktopCanvas`} className="section-modal__picture__canvas"></canvas>
+              </label>
               <input type='file' id={`${id}__desktopInput`} className="section-modal__picture__input"
                 onChange={ () => loadPicture(`${id}__desktopInput`, `${id}__desktopCanvas`, defaultPicture) }
               />

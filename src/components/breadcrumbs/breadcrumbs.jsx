@@ -11,15 +11,46 @@ const _strings = {
 
 import { noLinkEspace } from '../../models/tools'
 
-const Breadcrumbs = ({ username, language, route, parent, child, onClick, disabledChild=false }) => {
+const Breadcrumbs = ({ username, language, route, parent, child, onClick, disabledChild = false, categoryMode = false }) => {
   const strings = _strings[language]
+  let parentId
+  let parentTitle
+  let parentLinkParam
+  let childId
+  let childTitle
+  let childLinkParam
+
+  if (categoryMode) {
+    const childArray = child.split("--")
+    childTitle = childArray[0]
+    childId = childArray[1]
+    childLinkParam = child
+
+    if (parent !== null) {
+      const parentArray = parent.split("--")
+      parentTitle = parentArray[0]
+      parentId = parentArray[1]
+      parentLinkParam = parent
+    }
+  } else {
+    childTitle = child
+    childId = child
+    childLinkParam = child
+
+    if (parent !== null) {
+      parentTitle = parent
+      parentId = parent
+      parentLinkParam = parent
+    }
+  }
+
   const parentComp = parent !== null ? (
     <Link
       to={`/${username}${route}/${noLinkEspace(parent)}`}
       className="breadcrumb valign-wrapper"
-      onClick={ () => onClick(parent)}
+      onClick={ () => onClick(parentId)}
     >
-      {parent}
+      {parentTitle}
     </Link>
   ) : (<a/>)
 
@@ -30,9 +61,9 @@ const Breadcrumbs = ({ username, language, route, parent, child, onClick, disabl
   )
 
   const childComp = disabledChild ? (
-    <a className="breadcrumb valign-wrapper">{child}</a>
+    <a className="breadcrumb valign-wrapper">{childTitle}</a>
   ) : (
-    <Link to={childLink} className="breadcrumb valign-wrapper">{child}</Link>
+    <Link to={childLink} className="breadcrumb valign-wrapper">{childTitle}</Link>
   )
 
   return (

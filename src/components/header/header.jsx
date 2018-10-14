@@ -12,11 +12,11 @@ const Header = ({ name }) => {
     <div className="header container">
       <div className="row">
 
-        <div className="col s4 m2 l2">
+        <div className="col s3 m1 l1 xl1">
           <LogoContainer/>
         </div>
 
-        <div className="col s8 m10 l10">
+        <div className="col s9 m11 l11 xl11">
           <h1>{name}</h1>
           <ShortDescriptionContainer/>
         </div>

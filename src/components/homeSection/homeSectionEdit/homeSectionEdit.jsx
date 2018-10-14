@@ -15,6 +15,7 @@ const HomeSectionEdit = ({
     language,
     username,
     section,
+    sectionLink,
     noLinkEspace,
     homeSectionDeleteButton
   }) => {
@@ -36,6 +37,7 @@ const HomeSectionEdit = ({
       <HomeSectionView
         username={username}
         section={section}
+        sectionLink={sectionLink}
         noLinkEspace={noLinkEspace}
       />
     </div>

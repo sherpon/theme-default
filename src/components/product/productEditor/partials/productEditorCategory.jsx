@@ -1,6 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+export const json2array = (json) => {
+  var result = [];
+  var keys = Object.keys(json);
+  keys.forEach(function(key){
+    result.push(key);
+  });
+  return result;
+}
+
 const ProductEditorCategory = ({ strings, categories, product }) => {
   let categoryDefault
 
@@ -10,7 +19,7 @@ const ProductEditorCategory = ({ strings, categories, product }) => {
     //  categoryDefault = JSON.stringify([product.categories])
     //}
   } else {
-    categoryDefault = product.categories
+    categoryDefault = "[\"" + json2array(product.categories)[0] + "\"]"
   }
 
   //const categories = []
@@ -23,7 +32,7 @@ const ProductEditorCategory = ({ strings, categories, product }) => {
     selectDestinationOptions.push(
       <option
         key={parentKey}
-        value={JSON.stringify([tmpParent])}
+        value={JSON.stringify([tmpParent.id])}
       >
         {`${parent.name}`}
       </option>
@@ -35,11 +44,19 @@ const ProductEditorCategory = ({ strings, categories, product }) => {
       selectDestinationOptions.push(
         <option
           key={childKey}
-          value={JSON.stringify([tmpParent,child])}
+          value={JSON.stringify([child.id])}
         >
           {`${parent.name} - ${child.name}`}
         </option>
       )
+      /*selectDestinationOptions.push(
+        <option
+          key={childKey}
+          value={JSON.stringify([tmpParent.id,child.id])}
+        >
+          {`${parent.name} - ${child.name}`}
+        </option>
+      )*/
     }
 
   }

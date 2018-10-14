@@ -14,6 +14,9 @@ const sortArrayCategory = (category) => {
 }
 
 const sortCategories = (callback) => {
+  /** deja una lista de categorias para usarla despues para edicion */
+  _store.categoriesList = _store.categories
+
   let primaryCategories = []
   let secundaryCategories = []
 

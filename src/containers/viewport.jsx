@@ -45,9 +45,9 @@ const Viewport = ({}) => {
         <Route exact path="/:storeusername/cart" component={ CartPage } />
         <Route exact path="/:storeusername/checkout" component={ CheckoutPage } />
         <Route exact path="/:storeusername/congratulation/purchase" component={ CongratulationPurchase } />
-          <Route exact path="/:storeusername/login/checkout" component={ () => <LoginPage guest={false} mode={"login"} /> } />
-          <Route exact path="/:storeusername/login" component={ () => <LoginPage guest={false} mode={"login"} /> } />
-          <Route exact path="/:storeusername/signup" component={ () => <LoginPage guest={false} mode={"signup"} /> } />
+        <Route exact path="/:storeusername/login/checkout" component={ () => <LoginPage guest={false} mode={"login"} /> } />
+        <Route exact path="/:storeusername/login" component={ () => <LoginPage guest={false} mode={"login"} /> } />
+        <Route exact path="/:storeusername/signup" component={ () => <LoginPage guest={false} mode={"signup"} /> } />
         <Route exact path="/:storeusername" component={HomePage} />
         <Route component={HomePage}/>
       </Switch>

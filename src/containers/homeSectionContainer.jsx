@@ -4,14 +4,24 @@ import PropTypes from 'prop-types'
 import HomeSection from '../components/homeSection'
 
 const HomeSectionContainer = ({
-    isEditable,
-    language,
-    index,
-    username,
-    section,
-    noLinkEspace,
-    homeSectionDeleteButton
-  }) => {
+  isEditable,
+  language,
+  index,
+  username,
+  section,
+  categoriesList,
+  noLinkEspace,
+  homeSectionDeleteButton
+}) => {
+  let sectionLink = ''
+  if (section.to.type === 'category') {
+    for (let i = 0 ; i < categoriesList.length ; i++ ) {
+      if (section.to.id === categoriesList[i].id) {
+        sectionLink = `/${username}/category/${noLinkEspace(categoriesList[i].name)}--${section.to.id}`
+        break
+      }
+    }
+  }
 
   if (isEditable) {
     return(
@@ -21,6 +31,7 @@ const HomeSectionContainer = ({
           language={language}
           username={username}
           section={section}
+          sectionLink={sectionLink}
           noLinkEspace={noLinkEspace}
           homeSectionDeleteButton={homeSectionDeleteButton}
         />
@@ -38,6 +49,7 @@ const HomeSectionContainer = ({
       <HomeSection.View
         username={username}
         section={section}
+        sectionLink={sectionLink}
         noLinkEspace={noLinkEspace}
       />
     )

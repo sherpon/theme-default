@@ -9,7 +9,7 @@ const db = firebase.firestore()
  * @function getProductsListByCategory
  * @description Get the store's products list by category
  */
- export const getProductsListByCategory = (storeId, category, callback) => {
+ export const getProductsListByCategory = (storeId, categoryId, callback) => {
    let result = {
      error:null,
      products:[]
@@ -18,7 +18,7 @@ const db = firebase.firestore()
    db.collection( getEnv().COLLECTION_STORES )
      .doc(storeId)
      .collection( getEnv().COLLECTION_PRODUCTS )
-     .where(`tags.${category}`,'==',true)
+     .where(`categories.${categoryId}`,'==',true)
      .get()
    .then(function(querySnapshot) {
      let itemsList = []

@@ -23,11 +23,17 @@ class CategoryPage extends React.Component {
     const { analytics, facebookPixel, analyticsTrackerId, facebookPixelId, category, loadCategory } = this.props
     analytics(analyticsTrackerId)
     facebookPixel(facebookPixelId)
-    loadCategory(category)
+    const categoryArray = category.split("--")
+    const categoryTitle = categoryArray[0]
+    const categoryId = categoryArray[1]
+    loadCategory(categoryId)
   }
 
   render () {
     const { isEditable, username, language, parent, category, isFetching, pagination, loadCategory, goToPage } = this.props
+    const categoryArray = category.split("--")
+    const categoryTitle = categoryArray[0]
+    const categoryId = categoryArray[1]
 
     let child
     let resultCountComp
@@ -46,7 +52,7 @@ class CategoryPage extends React.Component {
       child = (<Product.PreviewListPlaceholder/>)
     } else {
       if ( pagination.itemsCount === 0 ) {
-        resultCountComp = (<ResultCount itemsCount={pagination.itemsCount} language={language} query={category} />)
+        resultCountComp = (<ResultCount itemsCount={pagination.itemsCount} language={language} query={categoryTitle} />)
         paginationComp = (<div/>)
         child = (<div/>)
       } else {
@@ -66,6 +72,7 @@ class CategoryPage extends React.Component {
           child={category}
           onClick={loadCategory}
           disabledChild={true}
+          categoryMode={true}
         />
         {productCreatorButton}
         {resultCountComp}

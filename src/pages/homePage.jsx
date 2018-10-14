@@ -59,6 +59,7 @@ class HomePage extends React.Component {
       isEditable,
       username,
       categories,
+      categoriesList,
       sections,
       latestProducts,
       homeSectionModalPublishButton,
@@ -106,6 +107,7 @@ class HomePage extends React.Component {
               index={i}
               username={username}
               section={section}
+              categoriesList={categoriesList}
               noLinkEspace={noLinkEspace}
               homeSectionDeleteButton={homeSectionDeleteButton}
             />
@@ -126,6 +128,7 @@ const mapStateToProps = state => ({
   language: state.language,
   username: state.store.username,
   categories: state.store.categories,
+  categoriesList: state.store.categoriesList,
   analyticsTrackerId: state.store.data.analytics,
   facebookPixelId: state.store.data.facebookPixel,
   isEditable: state.isEditable,

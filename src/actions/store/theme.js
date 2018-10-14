@@ -6,6 +6,7 @@ import {
   updateDataTheme as apiUpdateDataTheme
 } from '../../api/store'
 import session from '../../models/session'
+import { getRandomString } from '../../models/tools'
 
 import httpStatusCodes from '../../constants/httpStatusCodes.json'
 
@@ -44,6 +45,20 @@ export const shortDescriptionSaveButton = (callback) => (dispatch, getState) => 
 
 }
 
+/**
+ * Create a new homeSection Object and push to the store's sections array
+ */
+const createNewHomeSection = (pictureMobile, pictureDesktop, pictureAlt, to, dataTheme) => {
+  const newHomeSectionObject = {
+    pictureMobile,
+    pictureDesktop,
+    pictureAlt,
+    to
+  }
+  dataTheme.sections.push(newHomeSectionObject)
+  return dataTheme
+}
+
 export const homeSectionModalPublishButton = (sectionModalId, callback) => (dispatch, getState) => {
   const id = sectionModalId
   const storeId = getState().store.id
@@ -75,7 +90,7 @@ export const homeSectionModalPublishButton = (sectionModalId, callback) => (disp
   const pictureAlt = document.getElementById(`${id}__section-modal__destination__select`).options[selectDestinationIndex].text
   let pictureMobile = ''
   let pictureDesktop= ''
-  const to = selectDestination
+  const to = JSON.parse(selectDestination)
 
   const uploadMobilePicture = () => {
     const timestamp = (new Date()).getTime()
@@ -100,9 +115,9 @@ export const homeSectionModalPublishButton = (sectionModalId, callback) => (disp
     const dataTheme = getState().store.theme.data
     const newDataTheme = createNewHomeSection(pictureMobile, pictureDesktop, pictureAlt, to, dataTheme)
     const userId = session.getUser().id
-    apiUpdateDataTheme(userId, storeId, newDataTheme, (response) => {
+    apiUpdateDataTheme(userId, storeId, newDataTheme, (status, response) => {
       // update local dataTheme store state, then...
-      if (response.error!==null) {
+      if (status!==httpStatusCodes.OK) {
         // if there's an error...
         dispatch(stopFetching())
         // show an error message
@@ -137,9 +152,9 @@ export const homeSectionDeleteButton = (homeSectionIndex) => (dispatch, getState
   const dataTheme = getState().store.theme.data
   dataTheme.sections.splice(homeSectionIndex, 1)  // delete the section with index...
   const newDataTheme = dataTheme
-  apiUpdateDataTheme(userId, storeId, newDataTheme, (response) => {
+  apiUpdateDataTheme(userId, storeId, newDataTheme, (status, response) => {
     // update local dataTheme store state, then...
-    if (response.error!==null) {
+    if (status!==httpStatusCodes.OK) {
       // if there's an error...
       dispatch(stopFetching())
       // show an error message

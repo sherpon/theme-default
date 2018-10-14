@@ -4,11 +4,11 @@ import { clearPagination, setPages } from '../pagination'
 
 import { getItemsByCategory } from '../../api/category'
 
-export const loadCategory = (category) => (dispatch, getState) => {
+export const loadCategory = (categoryId) => (dispatch, getState) => {
   dispatch(startFetching())
   dispatch(clearPagination())
   const { store } = getState()
-  getItemsByCategory(store.id, category.toLowerCase(), (result) => {
+  getItemsByCategory(store.id, categoryId, (result) => {
     if (result.error !== null) {
       /** show error message */
       dispatch(stopFetching())
