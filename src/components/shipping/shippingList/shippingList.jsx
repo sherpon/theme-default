@@ -11,16 +11,24 @@ const _strings = {
   EN:require('./strings/shippingList.EN.json')
 }
 
-const Shipping = ({ strings, shipping }) => (
+const Shipping = ({ index, strings, shipping, shippingDeleteButton }) => (
   <div className="row">
-    <div className="col s12 m4">
+    <div className="col s12 m3">
       <b>{shipping.description}</b>
     </div>
     <div className="col s12 m3">
       {`${shipping.currency} - ${shipping.symbol} ${getPriceFormat(shipping.price)}`}
     </div>
-    <div className="col s12 m5">
+    <div className="col s12 m4">
       {`${strings.labelTime}: ${shipping.days} ${strings.labelDays}`}
+    </div>
+    <div className="col s12 m2">
+      <a
+        onClick={ () => shippingDeleteButton(index) }
+        className="shipping-list__delete"
+      >
+        {strings.labelDelete}
+      </a>
     </div>
   </div>
 )
@@ -32,7 +40,8 @@ Shipping.propTypes = {
 
 const ShippingList = ({
     language,
-    shippingList
+    shippingList,
+    shippingDeleteButton
   }) => {
   const strings = _strings[language]
   let listComp = []
@@ -42,8 +51,10 @@ const ShippingList = ({
     listComp.push(
       <Shipping
         key={i}
+        index={i}
         strings={strings}
         shipping={shipping}
+        shippingDeleteButton={shippingDeleteButton}
       />
     )
     if ( (i+1) < shippingList.length ) {
@@ -62,7 +73,8 @@ const ShippingList = ({
 
 ShippingList.propTypes = {
   language: PropTypes.string.isRequired,
-  shippingList: PropTypes.array.isRequired
+  shippingList: PropTypes.array.isRequired,
+  shippingDeleteButton: PropTypes.func.isRequired
 }
 
 export default ShippingList

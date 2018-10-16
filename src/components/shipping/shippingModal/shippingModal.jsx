@@ -58,6 +58,7 @@ class ShippingModal extends React.Component {
         var instances = M.Modal.init(elems)
         var elems = document.querySelectorAll('select')
         var instances = M.FormSelect.init(elems)
+        M.updateTextFields()
       },100 )
     }
 

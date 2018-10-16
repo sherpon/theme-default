@@ -1,7 +1,8 @@
 import {
   ADD_TO_CART,
   DELETE_ITEM_CART,
-  CLEAN_CART
+  CLEAN_CART,
+  CHOOSE_SHIPPING
 } from '../constants/ActionTypes'
 
 import session from '../models/session'
@@ -25,7 +26,9 @@ const _initStateCart = {
   "shipping":{
     "currency":"",
     "symbol":"",
-    "price":0
+    "price":-1,
+    "description":"",
+    "days":""
   },
   "subTotal":{
     "currency":"",
@@ -119,6 +122,11 @@ const Cart = (state = initStateCart, action) => {
         items: action.items,
         shipping: action.shipping,
         subTotal: action.subTotal,
+        total: action.total
+      }
+    case CHOOSE_SHIPPING:
+      return { ...state,
+        shipping: action.shipping,
         total: action.total
       }
     case CLEAN_CART:

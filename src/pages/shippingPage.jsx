@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom'
 import session from '../models/session'
 import { pageView } from '../models/analytics'
 import { pixelPageView } from '../models/facebookPixel'
-import { shippingCreateButton } from '../actions/store/data'
+import { shippingCreateButton, shippingDeleteButton } from '../actions/store/data'
 
 import Breadcrumbs from '../components/breadcrumbs/breadcrumbs.jsx'
 import Shipping from '../components/shipping'
@@ -30,7 +30,7 @@ class ShippingPage extends React.Component {
   }
 
   render() {
-    const { language, username, isFetching, shipping, shippingCreateButton } = this.props
+    const { language, username, isFetching, shipping, shippingCreateButton, shippingDeleteButton } = this.props
 
     if ( !session.inUserSession() ) {
       return (
@@ -59,6 +59,7 @@ class ShippingPage extends React.Component {
         <Shipping.List
           language={language}
           shippingList={shipping}
+          shippingDeleteButton={shippingDeleteButton}
         />
       </section>
     )
@@ -78,7 +79,8 @@ const mapStateToProps = ( state, ownProps ) => ({
 const mapDispatchToProps = dispatch => ({
   analytics: (analyticsTrackerId) => pageView(analyticsTrackerId),
   facebookPixel: (facebookPixelId) => pixelPageView(facebookPixelId),
-  shippingCreateButton: () => dispatch(shippingCreateButton())
+  shippingCreateButton: () => dispatch(shippingCreateButton()),
+  shippingDeleteButton: (index) => dispatch(shippingDeleteButton(index))
 })
 
 export default withRouter(connect(

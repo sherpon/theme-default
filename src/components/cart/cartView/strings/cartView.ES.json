@@ -1,4 +1,8 @@
 {
+  "labelCartShipping":"Método de envío",
+  "labelCartShippingInput":"Seleccionar método de envío",
+  "labelCartShippingDays":"días estimados",
+  "labelFree":"gratis",
   "labelCartSummary":"Resumen del carrito",
   "labelSummarySubTotal":"Sub total",
   "labelSummaryShipping":"Costo de envío",

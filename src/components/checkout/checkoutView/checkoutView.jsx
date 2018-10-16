@@ -51,19 +51,19 @@ const CheckoutView = ({language, cart, placeOrder}) => {
             {strings.personalInformation.labelTitle}
           </div>
           <div className="input-field">
-            <input id="checkout-view__form__name__input" type="text" defaultValue={_name}/>
+            <input disabled id="checkout-view__form__name__input" type="text" defaultValue={_name}/>
             <label htmlFor="checkout-view__form__name__input">{strings.personalInformation.labelName}</label>
           </div>
           <div className="input-field">
-            <input id="checkout-view__form__lastname__input" type="text" defaultValue={_lastname}/>
+            <input disabled id="checkout-view__form__lastname__input" type="text" defaultValue={_lastname}/>
             <label htmlFor="checkout-view__form__lastname__input">{strings.personalInformation.labelLastname}</label>
           </div>
           <div className="input-field">
-            <input id="checkout-view__form__phone__input" type="text" defaultValue={_phone}/>
+            <input disabled id="checkout-view__form__phone__input" type="text" defaultValue={_phone}/>
             <label htmlFor="checkout-view__form__phone__input">{strings.personalInformation.labelPhone}</label>
           </div>
           <div className="input-field">
-            <input id="checkout-view__form__email__input" type="text" defaultValue={_email}/>
+            <input disabled id="checkout-view__form__email__input" type="text" defaultValue={_email}/>
             <label htmlFor="checkout-view__form__email__input">{strings.personalInformation.labelEmail}</label>
           </div>
         </div>
@@ -189,14 +189,16 @@ const CheckoutView = ({language, cart, placeOrder}) => {
           </div>
         </div>
 
-        <div className="checkout-view__summary__line row">
-          <div className="col s8">
-            {strings.labelSummaryTaxes}
+        {/*
+          <div className="checkout-view__summary__line row">
+            <div className="col s8">
+              {strings.labelSummaryTaxes}
+            </div>
+            <div className="col s4 checkout-view__summary__line__price">
+              {`${cart.total.symbol} ${getPriceFormat(0)}`}
+            </div>
           </div>
-          <div className="col s4 checkout-view__summary__line__price">
-            {`${cart.total.symbol} ${getPriceFormat(0)}`}
-          </div>
-        </div>
+        */}
 
         <div className="checkout-view__summary__line-total row">
           <div className="col s8">

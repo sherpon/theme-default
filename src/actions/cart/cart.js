@@ -51,6 +51,31 @@ export const deleteItemCart = (index) => (dispatch, getState) => {
   return dispatch(updateCart())
 }
 
+export const onChangedShippingSelect = () => (dispatch, getState) => {
+  const { cart } = getState()
+  const selectShipping = document.getElementById('cart-view__shipping__select').value
+  if (selectShipping === '{}') {
+    return
+  }
+  const newShipping = JSON.parse(selectShipping)
+  const newTotal = {
+    currency: cart.total.currency,
+    symbol: cart.total.symbol,
+    price: cart.subTotal.price + newShipping.price
+  }
+
+  dispatch({
+    type: types.CHOOSE_SHIPPING,
+    shipping: newShipping,
+    total: newTotal
+  })
+
+  /** update the session cart */
+  session.setCart( getState().cart )
+
+}
+
+
 export const checkout = () => (dispatch, getState) => {
   const checkoutUrl = `/${getState().store.username}/checkout`
   const loginUrl = `/${getState().store.username}/login/checkout`

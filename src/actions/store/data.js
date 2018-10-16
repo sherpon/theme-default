@@ -106,7 +106,7 @@ export const shippingCreateButton = () => (dispatch, getState) => {
     description: shippingDescription,
     currency: JSON.parse(shippingCurrencyStr).currency,
     symbol: JSON.parse(shippingCurrencyStr).symbol,
-    price: shippingPrice,
+    price: parseFloat(shippingPrice),
     days: shippingTime,
   }
 
@@ -133,6 +133,41 @@ export const shippingCreateButton = () => (dispatch, getState) => {
     var instances = M.Modal.init(elems)
     instances[0].close()
     document.body.style.overflow = ''
+
+    dispatch(stopFetching())
+    M.toast({html: strings[getState().language].successUpdate})
+  })
+
+}
+
+export const shippingDeleteButton = (shippingIndex) => (dispatch, getState) => {
+  const storeId = getState().store.id
+  const userId = session.getUser().id
+  //if (!logoInput.files[0]) {
+  //  M.toast({html: Strings(getState().language).coverContainer.modal.errorCoverPicture})
+  //  return false
+  //}
+
+  dispatch(startFetching())
+
+  /** delete section's pictures */
+
+  const dataStore = getState().store.data
+  dataStore.shipping.splice(shippingIndex, 1)  // delete the section with index...
+  const newDataStore = dataStore
+  apiUpdateDataStore(userId, storeId, newDataStore, (status, response) => {
+    // update local dataStore store state, then...
+    if (status!==httpStatusCodes.OK) {
+      // if there's an error...
+      dispatch(stopFetching())
+      // show an error message
+      console.log('Error')
+      return false
+    }
+    dispatch({
+      type: types.UPDATE_DATA_STORE,
+      dataStore: newDataStore
+    })
 
     dispatch(stopFetching())
     M.toast({html: strings[getState().language].successUpdate})

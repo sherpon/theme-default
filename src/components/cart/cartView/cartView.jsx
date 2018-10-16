@@ -12,7 +12,7 @@ const _strings = {
   EN: require('./strings/cartView.EN.json')
 }
 
-const CartView = ({username, language, cart, deleteItemCart, checkout}) => {
+const CartView = ({username, language, cart, shipping, onChangedShippingSelect, deleteItemCart, checkout}) => {
   const strings = _strings[language]
   const itemListComp = cart.items.map( (item, i) => (
     <CartItemView
@@ -25,13 +25,60 @@ const CartView = ({username, language, cart, deleteItemCart, checkout}) => {
     />
   ) )
 
+  let shippingComp
+
+  if (shipping.length === 0) {
+    shippingComp = (<div/>)
+  } else {
+    const shippingItemComp = shipping.map( (shippingItem, i) => {
+      const price = (shippingItem.price===0) ? (strings.labelFree) : (`${shippingItem.symbol} ${getPriceFormat(shippingItem.price)}`)
+      return (<option
+        key={i}
+        value={ JSON.stringify(shippingItem) }
+      >
+        {`${shippingItem.description} (${shippingItem.days} ${strings.labelCartShippingDays}) - ${price}`}
+      </option>)
+    } )
+
+    shippingComp = (
+      <div className="cart-view__shipping">
+
+        <div className="cart-view__shipping__title row">
+          <div className="col s12">
+            {strings.labelCartShipping}
+          </div>
+        </div>
+
+        <div className="input-field cart-view__shipping__select">
+          <select id="cart-view__shipping__select"
+            defaultValue={ (cart.shipping.price===-1) ? ('{}') : (JSON.stringify(cart.shipping)) }
+            onChange={ () => onChangedShippingSelect() }
+          >
+            <option value='{}' className="input-field cart-view__shipping__label" disabled>{strings.labelCartShippingInput}</option>
+            {shippingItemComp}
+          </select>
+        </div>
+
+      </div>
+    )
+  }
+
+  const init = () => {
+    setTimeout( () => {
+      var elems = document.querySelectorAll('select')
+      var instances = M.FormSelect.init(elems)
+    },100 )
+  }
+
   return (
-    <div className="cart-view__container row">
-      <div className="col s12 m12 l7 cart-view__item-list">
+    <div className="cart-view row">
+      <div className="col s12 m12 l7">
         {itemListComp}
       </div>
 
       <div className="col s12 m12 l5">
+        {shippingComp}
+
         <div className="cart-view__summary">
           <div className="cart-view__summary__title row">
             <div className="col s12">
@@ -90,6 +137,7 @@ const CartView = ({username, language, cart, deleteItemCart, checkout}) => {
         </div>
 
       </div>
+      {init()}
     </div>
   )
 }

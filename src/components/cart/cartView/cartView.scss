@@ -2,40 +2,53 @@
 @import '../../../styles/classes.scss';
 @import '../../../styles/variables.scss';
 
-.cart-view__container {
+.cart-view {
 	//@extend .row;
 	//margin-bottom: 0px !important;
-}
+	&__shipping {
+		@include box--white;
 
-.cart-view__item-list {}
+		&__title {
+			//@extend .row;
+			margin-bottom: 0.5em !important;
+			color:  $body__text-color-strong;
+			font-size: 1.3em;
+		    /*font-weight: 100;*/
+		}
 
-.cart-view__summary {
-	@include box--white;
-}
+		&__label {
+			color:  $body__text-color-secundary;
+		}
+	}
 
-.cart-view__summary__title {
-	//@extend .row;
-	margin-bottom: 0.5em !important;
-	color:  $body__text-color-strong;
-	font-size: 1.3em;
-    /*font-weight: 100;*/
-}
+	&__summary {
+		@include box--white;
 
-.cart-view__summary__line {
-	//@extend .row;
-	margin-bottom: 0.5em !important;
-}
+		&__title {
+			//@extend .row;
+			margin-bottom: 0.5em !important;
+			color:  $body__text-color-strong;
+			font-size: 1.3em;
+		    /*font-weight: 100;*/
+		}
 
-.cart-view__summary__line-total {
-	//@extend .row;
-	margin-bottom: 0.5em !important;
-	color:  $body__text-color-strong;
-}
+		&__line {
+			//@extend .row;
+			margin-bottom: 0.5em !important;
+		}
 
-.cart-view__summary__line__price {
-	text-align: right;
-}
+		&__line-total {
+			//@extend .row;
+			margin-bottom: 0.5em !important;
+			color:  $body__text-color-strong;
+		}
 
-.cart-view__summary__button {
-	width: 100%;
+		&__line__price {
+			text-align: right;
+		}
+
+		&__button {
+			width: 100%;
+		}
+	}
 }

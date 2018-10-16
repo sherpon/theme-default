@@ -28,6 +28,7 @@ export const SET_LATEST_PRODUCTS = 'SET_LATEST_PRODUCTS'
 /****** cart ******/
 export const DELETE_ITEM_CART = 'DELETE_ITEM_CART'
 export const CLEAN_CART = 'CLEAN_CART'
+export const CHOOSE_SHIPPING = 'CHOOSE_SHIPPING'
 
 /****** session ******/
 export const LOGIN = 'LOGIN'

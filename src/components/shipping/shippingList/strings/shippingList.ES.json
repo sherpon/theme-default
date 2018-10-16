@@ -1,4 +1,5 @@
 {
   "labelTime":"Tiempo estimado de envío",
-  "labelDays":" días"
+  "labelDays":" días",
+  "labelDelete":" Eliminar"
 }

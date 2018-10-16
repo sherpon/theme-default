@@ -3,7 +3,12 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
-import { deleteItemCart, checkout } from '../actions/cart/cart'
+import {
+  deleteItemCart,
+  checkout,
+  onChangedShippingSelect
+} from '../actions/cart/cart'
+
 import Strings from '../strings'
 import { pageView } from '../models/analytics'
 import { pixelPageView } from '../models/facebookPixel'
@@ -21,7 +26,7 @@ class CartPage extends React.Component {
   }
 
   render() {
-    const { quantityCart, language, username, cart, deleteItemCart, checkout } = this.props
+    const { quantityCart, language, username, cart, shipping, deleteItemCart, checkout, onChangedShippingSelect } = this.props
 
     if (quantityCart===0) {
       return(
@@ -36,6 +41,8 @@ class CartPage extends React.Component {
             username={username}
             language={language}
             cart={cart}
+            shipping={shipping}
+            onChangedShippingSelect={onChangedShippingSelect}
             deleteItemCart={deleteItemCart}
             checkout={checkout}
           />
@@ -45,7 +52,7 @@ class CartPage extends React.Component {
   }
 }
 
-CartPage.propTypes = {
+/*CartPage.propTypes = {
   language: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   analyticsTrackerId: PropTypes.string.isRequired,
@@ -56,7 +63,7 @@ CartPage.propTypes = {
   facebookPixel: PropTypes.func.isRequired,
   deleteItemCart: PropTypes.func.isRequired,
   checkout: PropTypes.func.isRequired
-}
+}*/
 
 const mapStateToProps = ( state, ownProps ) => ({
   language: state.language,
@@ -64,14 +71,16 @@ const mapStateToProps = ( state, ownProps ) => ({
   analyticsTrackerId: state.store.data.analytics,
   facebookPixelId: state.store.data.facebookPixel,
   quantityCart: state.cart.quantity,
-  cart: state.cart
+  cart: state.cart,
+  shipping: state.store.data.shipping
 })
 
 const mapDispatchToProps = dispatch => ({
   analytics: (analyticsTrackerId) => pageView(analyticsTrackerId),
   facebookPixel: (facebookPixelId) => pixelPageView(facebookPixelId),
   deleteItemCart: (index) => dispatch(deleteItemCart(index)),
-  checkout: () => dispatch(checkout())
+  checkout: () => dispatch(checkout()),
+  onChangedShippingSelect: () => dispatch(onChangedShippingSelect())
 })
 
 export default withRouter(connect(
