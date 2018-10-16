@@ -1,3 +1,7 @@
 {
-  "successUpdate":"Se actualizó la información"
+  "successUpdate":"Se actualizó la información",
+  "errorShippingDescription":"Debe indicar la descripción de la opción de envío",
+  "errorShippingPrice":"Debe indicar el costo de envío",
+  "errorShippingCurrency":"Debe seleccionar una moneda para el envío",
+  "errorShippingTime":"Debe indicar el tiempo estimado del envío en días"
 }

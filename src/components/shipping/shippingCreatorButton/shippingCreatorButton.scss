@@ -1,0 +1,7 @@
+@charset "UTF-8";
+@import '../../../styles/classes.scss';
+
+.shipping-creator-button {
+  @include box--empty;
+  text-align: center;
+}

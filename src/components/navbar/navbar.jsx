@@ -33,19 +33,20 @@ const Navbar = ({ language, search, inSession, isAdmin, isEditable, editStoreSwi
       }
 
       const menuListComp = [
-        <li key={1}><a onClick={ () => editStoreSwitch() }>{labelEdit}</a></li>,
+        <li key={1}><a className="sidenav-close" onClick={ () => editStoreSwitch() }>{labelEdit}</a></li>,
         //<li key={2}><Link to={`/${username}/account`}>{strings[language].navbarItemCategories}</Link></li>,
-        <li key={3}><Link to={`/${username}/products`}>{strings[language].navbarItemProducts}</Link></li>,
-        <li key={4}><Link to={`/${username}/sales`}>{strings[language].navbarItemSales}</Link></li>,
-        <li key={5}><Link to={`/${username}/paymentgateway`}>{strings[language].navbarItemPayment}</Link></li>,
-        <li key={6}><Link to={`/${username}/marketing`}>{strings[language].navbarItemMarketing}</Link></li>,
+        <li key={3}><Link className="sidenav-close" to={`/${username}/products`}>{strings[language].navbarItemProducts}</Link></li>,
+        <li key={4}><Link className="sidenav-close" to={`/${username}/sales`}>{strings[language].navbarItemSales}</Link></li>,
+        <li key={5}><Link className="sidenav-close" to={`/${username}/paymentgateway`}>{strings[language].navbarItemPayment}</Link></li>,
+        <li key={6}><Link className="sidenav-close" to={`/${username}/marketing`}>{strings[language].navbarItemMarketing}</Link></li>,
+        <li key={7}><Link className="sidenav-close" to={`/${username}/shipping`}>{strings[language].navbarItemShipping}</Link></li>,
         //<li key={7} className="divider"></li>,
         //<li key={8}><Link to={`/${username}/account`}>{strings[language].navbarItemSupportMe}</Link></li>,
         <li key={9} className="divider"></li>,
-        <li key={10}><Link to={`/${username}/account`}>{strings[language].navbarItemAccount}</Link></li>,
-        <li key={11}><Link to={`/${username}/purchases`}>{strings[language].navbarItemPurchases}</Link></li>,
+        <li key={10}><Link className="sidenav-close" to={`/${username}/account`}>{strings[language].navbarItemAccount}</Link></li>,
+        <li key={11}><Link className="sidenav-close" to={`/${username}/purchases`}>{strings[language].navbarItemPurchases}</Link></li>,
         <li key={12} className="divider"></li>,
-        <li key={13}><a onClick={ () => logout() }>{strings[language].navbarItemLogout}</a></li>
+        <li key={13}><a className="sidenav-close" onClick={ () => logout() }>{strings[language].navbarItemLogout}</a></li>
       ]
 
       // Items de menu account dropdown
@@ -66,20 +67,20 @@ const Navbar = ({ language, search, inSession, isAdmin, isEditable, editStoreSwi
       // Items de menu account dropdown
       dropdownComp = (
         <ul id="dropdown1" className="dropdown-content">
-          <li><Link to={`/${username}/account`}>{strings[language].navbarItemAccount}</Link></li>
-          <li><Link to={`/${username}/purchases`}>{strings[language].navbarItemPurchases}</Link></li>
+          <li><Link className="sidenav-close" to={`/${username}/account`}>{strings[language].navbarItemAccount}</Link></li>
+          <li><Link className="sidenav-close" to={`/${username}/purchases`}>{strings[language].navbarItemPurchases}</Link></li>
           <li className="divider"></li>
-          <li><a onClick={ () => logout() }>{strings[language].navbarItemLogout}</a></li>
+          <li><a className="sidenav-close" onClick={ () => logout() }>{strings[language].navbarItemLogout}</a></li>
         </ul>
       )
 
       sidenavComp = (
         <ul className="sidenav" id="mobile-demo">
           <li className="sidenav__user-name">{`${strings[language].navbarItemGreeting}${user.name}`}</li>
-          <li><Link to={`/${username}/account`}>{strings[language].navbarItemAccount}</Link></li>
-          <li><Link to={`/${username}/purchases`}>{strings[language].navbarItemPurchases}</Link></li>
+          <li><Link className="sidenav-close" to={`/${username}/account`}>{strings[language].navbarItemAccount}</Link></li>
+          <li><Link className="sidenav-close" to={`/${username}/purchases`}>{strings[language].navbarItemPurchases}</Link></li>
           <li className="divider"></li>
-          <li><a onClick={ () => logout() }>{strings[language].navbarItemLogout}</a></li>
+          <li><a className="sidenav-close" onClick={ () => logout() }>{strings[language].navbarItemLogout}</a></li>
         </ul>
       )
     }
@@ -120,14 +121,16 @@ const Navbar = ({ language, search, inSession, isAdmin, isEditable, editStoreSwi
         <div className="nav-wrapper container row">
 
           <div className="col s10 m10 l8">
-            <div className="sherpon-search">
-              <input
-                id="search-input"
-                type="text"
-                className="sherpon-search-input"
-                placeholder={strings[language].searchInputPlaceholder}
-                onKeyPress={ (e) => search(e) }/>
-            </div>
+            {/*
+              <div className="sherpon-search">
+                <input
+                  id="search-input"
+                  type="text"
+                  className="sherpon-search-input"
+                  placeholder={strings[language].searchInputPlaceholder}
+                  onKeyPress={ (e) => search(e) }/>
+              </div>
+            */}
           </div>
 
           <div className="col s2 m2 l4">

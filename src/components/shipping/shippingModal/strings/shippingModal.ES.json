@@ -1,0 +1,11 @@
+{
+  "title":"Crear nuevo método de envío",
+  "labelShippingDescription":"Descripción de envío",
+  "labelShippingPrice":"Costo de envío",
+  "labelShippingCurrency":"Moneda",
+  "labelShippingTime":"Tiempo estimado de envío en días",
+  "labelShippingCurrencyPEN":"Soles",
+  "labelShippingCurrencyUSD":"Dólares",
+  "buttonCancel":"Cancelar",
+  "buttonSave":"Guardar"
+}

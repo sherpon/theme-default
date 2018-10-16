@@ -1,0 +1,21 @@
+@charset "UTF-8";
+@import '../../../styles/classes.scss';
+@import '../../../styles/variables.scss';
+
+.shipping-list {
+  @include box--white;
+
+  &__category {
+    color: $body__text-color-secundary;
+  }
+
+  &__header {
+    font-size: 1.1em;
+  }
+
+  &__hr {
+    margin: 1em auto;
+    width: 95%;
+    border-top: solid 1px $box__border-color;
+  }
+}

@@ -73,3 +73,69 @@ export const marketingSaveButton = () => (dispatch, getState) => {
   })
 
 }
+
+export const shippingCreateButton = () => (dispatch, getState) => {
+  const storeId = getState().store.id
+  const userId = session.getUser().id
+
+  const shippingDescription = document.getElementById('shipping-modal__description').value
+  if ( shippingDescription === '' ) {
+    M.toast({html: strings[getState().language].errorShippingDescription})
+    return false
+  }
+
+  const shippingPrice = document.getElementById('shipping-modal__price').value
+  if ( shippingPrice === '' ) {
+    M.toast({html: strings[getState().language].errorShippingPrice})
+    return false
+  }
+
+  const shippingCurrencyStr = document.getElementById('shipping-modal__currency').value
+  if ( shippingCurrencyStr === '{}' ) {
+    M.toast({html: strings[getState().language].errorShippingCurrency})
+    return false
+  }
+
+  const shippingTime = document.getElementById('shipping-modal__time').value
+  if ( shippingTime === '' ) {
+    M.toast({html: strings[getState().language].errorShippingTime})
+    return false
+  }
+
+  const newShipping = {
+    description: shippingDescription,
+    currency: JSON.parse(shippingCurrencyStr).currency,
+    symbol: JSON.parse(shippingCurrencyStr).symbol,
+    price: shippingPrice,
+    days: shippingTime,
+  }
+
+  dispatch(startFetching())
+
+  const dataStore = getState().store.data
+  dataStore.shipping.push(newShipping)
+  const newDataStore = dataStore
+  apiUpdateDataStore(userId, storeId, newDataStore, (status, response) => {
+    // update local dataStore store state, then...
+    if (status!==httpStatusCodes.OK) {
+      // if there's an error...
+      dispatch(stopFetching())
+      // show an error message
+      console.log('Error')
+      return false
+    }
+    dispatch({
+      type: types.UPDATE_DATA_STORE,
+      dataStore: newDataStore
+    })
+    /** close the modal */
+    var elems = document.querySelectorAll('#shipping-modal')
+    var instances = M.Modal.init(elems)
+    instances[0].close()
+    document.body.style.overflow = ''
+
+    dispatch(stopFetching())
+    M.toast({html: strings[getState().language].successUpdate})
+  })
+
+}

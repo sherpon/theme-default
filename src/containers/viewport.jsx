@@ -15,6 +15,7 @@ import ItemPage from '../pages/itemPage.jsx'
 import SalesPage from '../pages/salesPage.jsx'
 import PaymentGatewayPage from '../pages/paymentGatewayPage.jsx'
 import MarketingPage from '../pages/marketingPage.jsx'
+import ShippingPage from '../pages/shippingPage.jsx'
 import AccountPage from '../pages/accountPage.jsx'
 import PurchasesPage from '../pages/purchasesPage.jsx'
 import CartPage from '../pages/cartPage.jsx'
@@ -40,6 +41,7 @@ const Viewport = ({}) => {
         <Route exact path="/:storeusername/sales" component={ SalesPage } />
         <Route exact path="/:storeusername/paymentgateway" component={ PaymentGatewayPage } />
         <Route exact path="/:storeusername/marketing" component={ MarketingPage } />
+        <Route exact path="/:storeusername/shipping" component={ ShippingPage } />
         <Route exact path="/:storeusername/account" component={ AccountPage } />
         <Route exact path="/:storeusername/purchases" component={ PurchasesPage } />
         <Route exact path="/:storeusername/cart" component={ CartPage } />

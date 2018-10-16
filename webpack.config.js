@@ -1,16 +1,16 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-const fileName = 'theme.default'
-const fileVersion = '1.1.2'
+const fileName = 'theme-default'
+const fileVersion = '1.1.3'
 
 module.exports = (env) => {
-  console.log(`env.NODE_ENV ===> ${env.NODE_ENV}`)
+  //console.log(`env.NODE_ENV ===> ${env.NODE_ENV}`)
   let productionMode = false
   if (env.NODE_ENV==='production') {
     productionMode = true
   }
-  const fullFileName = (productionMode) ? (`${fileName}.${fileVersion}.min`) : (`${fileName}.${fileVersion}`)
+  const fullFileName = (productionMode) ? (`${fileName}-${fileVersion}.min`) : (`${fileName}`)
 
   return {
     output: {
