@@ -8,7 +8,7 @@ import style from './saleItemView.scss'
 
 const CartItemView = ({index, username, strings, item, deleteItemCart, deleteButton}) => {
   let attributesComp
-  let shippingComp
+  //let shippingComp
   let deleteButtonComp
 
   if (item.type==='clothes') {
@@ -33,7 +33,7 @@ const CartItemView = ({index, username, strings, item, deleteItemCart, deleteBut
     attributesComp = (<div/>)
   }
 
-  if (JSON.stringify(item.shipping)!==JSON.stringify({ "currency":"", "symbol":"", "price":Number(0)})) {
+  /*if (JSON.stringify(item.shipping)!==JSON.stringify({ "currency":"", "symbol":"", "price":Number(0)})) {
     const price = (item.shipping.price===0) ? (strings.labelFree) : (`${item.shipping.symbol} ${getPriceFormat(item.shipping.price)}`)
     shippingComp = (
       <div className="cart-item-view__body__model">
@@ -42,7 +42,7 @@ const CartItemView = ({index, username, strings, item, deleteItemCart, deleteBut
     )
   } else {
     shippingComp = (<div/>)
-  }
+  }*/
 
   if (deleteButton) {
     deleteButtonComp = (
@@ -78,7 +78,7 @@ const CartItemView = ({index, username, strings, item, deleteItemCart, deleteBut
             {`${strings.labelId}: ${item.id}`}
           </div>
           {attributesComp}
-          {shippingComp}
+          {/*shippingComp*/}
           {deleteButtonComp}
         </div>
       </div>

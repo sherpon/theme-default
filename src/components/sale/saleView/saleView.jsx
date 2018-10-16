@@ -12,70 +12,89 @@ const _strings = {
   EN: require('./strings/saleView.EN.json')
 }
 
-const SaleInformation = ({className, strings, purchase}) => (
-  <div className={`purchase-information ${className}`}>
-    <div className="purchase-information__title">{strings.purchaseInformation.title}</div>
-    <div className="purchase-information__line row">
-      <div className="col s6">
-        {strings.purchaseInformation.id}
-      </div>
-      <div className="col s6 col-right purchase-information__id">
-        {purchase.id}
-      </div>
-    </div>
-    <div className="purchase-information__line row">
-      <div className="col s6">
-        {strings.purchaseInformation.date}
-      </div>
-      <div className="col s6 col-right">
-        {getFormattedTime(purchase.timestamp)}
-      </div>
-    </div>
-    <div className="purchase-information__line row">
-      <div className="col s6">
-        {strings.purchaseInformation.state}
-      </div>
-      <div className="col s6 col-right">
-        {purchase.state}
-      </div>
-    </div>
-    <div className="purchase-information__line row">
-      <div className="col s6">
-        {strings.purchaseInformation.labelSubTotal}
-      </div>
-      <div className="col s6 col-right">
-        {`${purchase.cart.subTotal.symbol} ${getPriceFormat(purchase.cart.subTotal.price)}`}
-      </div>
-    </div>
-    <div className="purchase-information__line row">
-      <div className="col s6">
-        {strings.purchaseInformation.labelShipping}
-      </div>
-      <div className="col s6 col-right">
-        {`${purchase.cart.shipping.symbol} ${getPriceFormat(purchase.cart.shipping.price)}`}
-      </div>
-    </div>
-    {/*
+const SaleInformation = ({className, strings, purchase}) => {
+  let shippingMethod
+  if (purchase.cart.shipping.description === 'NaN') {
+    shippingMethod = (<div/>)
+  } else {
+    shippingMethod = (
       <div className="purchase-information__line row">
         <div className="col s6">
-          {strings.purchaseInformation.labelTaxes}
+          {strings.purchaseInformation.labelShippingMethod}
         </div>
         <div className="col s6 col-right">
-          {`${purchase.cart.total.symbol} ${getPriceFormat(0)}`}
+          {`${purchase.cart.shipping.description} - ${purchase.cart.shipping.days} ${strings.purchaseInformation.labelShippingDays}`}
         </div>
       </div>
-    */}
-
-    <div className="purchase-information__line row purchase-information__line--primary-color">
-      <div className="col s6">
-        {strings.purchaseInformation.labelTotal}
+    )
+  }
+  return (
+    <div className={`purchase-information ${className}`}>
+      <div className="purchase-information__title">{strings.purchaseInformation.title}</div>
+      <div className="purchase-information__line row">
+        <div className="col s6">
+          {strings.purchaseInformation.id}
+        </div>
+        <div className="col s6 col-right purchase-information__id">
+          {purchase.id}
+        </div>
       </div>
-      <div className="col s6 col-right">
-        {`${purchase.cart.total.symbol} ${getPriceFormat(purchase.cart.total.price)}`}
+      <div className="purchase-information__line row">
+        <div className="col s6">
+          {strings.purchaseInformation.date}
+        </div>
+        <div className="col s6 col-right">
+          {getFormattedTime(purchase.timestamp)}
+        </div>
+      </div>
+      <div className="purchase-information__line row">
+        <div className="col s6">
+          {strings.purchaseInformation.state}
+        </div>
+        <div className="col s6 col-right">
+          {purchase.state}
+        </div>
+      </div>
+      <div className="purchase-information__line row">
+        <div className="col s6">
+          {strings.purchaseInformation.labelSubTotal}
+        </div>
+        <div className="col s6 col-right">
+          {`${purchase.cart.subTotal.symbol} ${getPriceFormat(purchase.cart.subTotal.price)}`}
+        </div>
+      </div>
+      <div className="purchase-information__line row">
+        <div className="col s6">
+          {strings.purchaseInformation.labelShipping}
+        </div>
+        <div className="col s6 col-right">
+          {`${purchase.cart.shipping.symbol} ${getPriceFormat(purchase.cart.shipping.price)}`}
+        </div>
+      </div>
+      {shippingMethod}
+      {/*
+        <div className="purchase-information__line row">
+          <div className="col s6">
+            {strings.purchaseInformation.labelTaxes}
+          </div>
+          <div className="col s6 col-right">
+            {`${purchase.cart.total.symbol} ${getPriceFormat(0)}`}
+          </div>
+        </div>
+      */}
+
+      <div className="purchase-information__line row purchase-information__line--primary-color">
+        <div className="col s6">
+          {strings.purchaseInformation.labelTotal}
+        </div>
+        <div className="col s6 col-right">
+          {`${purchase.cart.total.symbol} ${getPriceFormat(purchase.cart.total.price)}`}
+        </div>
       </div>
     </div>
-  </div>
-)
+  )
+}
+
 
 const PersonalInformation = ({strings, purchase}) => (
   <div className="personal-information">

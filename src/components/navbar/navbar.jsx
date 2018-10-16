@@ -90,7 +90,7 @@ const Navbar = ({ language, search, inSession, isAdmin, isEditable, editStoreSwi
       <ul
         id="nav-mobile"
         className="right hide-on-med-and-down">
-        <li><Link to={`/${username}/login`}>{strings[language].navbarItemLogin}</Link></li>
+        <li><Link className="sidenav-close" to={`/${username}/login`}>{strings[language].navbarItemLogin}</Link></li>
       </ul>
     )
 
@@ -99,7 +99,7 @@ const Navbar = ({ language, search, inSession, isAdmin, isEditable, editStoreSwi
 
     sidenavComp = (
       <ul className="sidenav" id="mobile-demo">
-        <li><Link to={`/${username}/login`}>{strings[language].navbarItemLogin}</Link></li>
+        <li><Link className="sidenav-close" to={`/${username}/login`}>{strings[language].navbarItemLogin}</Link></li>
       </ul>
     )
   }

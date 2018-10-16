@@ -42,7 +42,7 @@ export const updateProduct = (productId) => (dispatch, getState) => {
     symbol: '',
     price: 0,
     stock: 0,
-    shipping: [],
+    //shipping: [],
     attributes: [],
     variations: [],
     pictures: []
@@ -68,11 +68,11 @@ export const updateProduct = (productId) => (dispatch, getState) => {
     return false
   }
 
-  const tmpShippingCurrencyStr = document.getElementById('product-editor-shipping__currency').value
+  /*const tmpShippingCurrencyStr = document.getElementById('product-editor-shipping__currency').value
   if ( tmpShippingCurrencyStr === '{}' ) {
     M.toast({html: strings.errorShippingCurrency})
     return false
-  }
+  }*/
 
   const uploadPicture1 = () => {
 
@@ -239,7 +239,7 @@ export const updateProduct = (productId) => (dispatch, getState) => {
     newProduct.price = document.getElementById('product-editor-price__amount').value
     newProduct.stock = document.getElementById('product-editor-information__stock').value
     /** temporaly, allow just one option of shipping */
-    newProduct.shipping = [
+    /*newProduct.shipping = [
       {
         description: '',
   			currency: JSON.parse(tmpShippingCurrencyStr).currency,
@@ -247,7 +247,7 @@ export const updateProduct = (productId) => (dispatch, getState) => {
   			price: document.getElementById('product-editor-shipping__price').value,
   			days: document.getElementById('product-editor-shipping__time').value,
       }
-    ]
+    ]*/
     //attributes: [],
     //variations: [],
     apiUpdateProduct( userId, storeId, productId, newProduct, (status, result) => {

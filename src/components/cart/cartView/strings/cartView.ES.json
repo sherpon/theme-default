@@ -19,5 +19,6 @@
     "price":"Precio",
     "amount":"Cantidad",
     "total":"Cantidad"
-  }
+  },
+  "errorNoShipping":"Primero, debes seleccionar una opción de envío"
 }

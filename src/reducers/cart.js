@@ -16,8 +16,9 @@ const _item = {
   "symbol":"",
   "price":0,
   "amount":0,
-  "attributes":[],
-  "shipping":{}
+  "attributes":[]
+  //"attributes":[],
+  //"shipping":{}
 }
 
 const _initStateCart = {
@@ -26,9 +27,9 @@ const _initStateCart = {
   "shipping":{
     "currency":"",
     "symbol":"",
-    "price":-1,
-    "description":"",
-    "days":""
+    "price":0,
+    "description":"NaN",
+    "days":"NaN"
   },
   "subTotal":{
     "currency":"",
@@ -80,12 +81,15 @@ const addItemToItemsArray = (_itemsArray, item) => {
             return itemsArray
           }
         } else {
-          if ( JSON.stringify(row.shipping) === JSON.stringify(item.shipping) ) {
+          /*if ( JSON.stringify(row.shipping) === JSON.stringify(item.shipping) ) {
             // si cumple los mismos atributos, solo se suma 'amount'
             row.amount += item.amount
             itemsArray[i] = row
             return itemsArray
-          }
+          }*/
+          row.amount += item.amount
+          itemsArray[i] = row
+          return itemsArray
         }
       }
     }
@@ -99,11 +103,11 @@ const Cart = (state = initStateCart, action) => {
     case ADD_TO_CART:
       const quantity = state.quantity + action.item.amount
       const items = addItemToItemsArray(state.items, action.item) //  [...state.items, action.item]
-      const shipping = {
+      /*const shipping = {
         "currency": action.item.currency,
         "symbol": action.item.symbol,
         "price": state.shipping.price + (action.item.shipping.price * action.item.amount)
-      }
+      }*/
       const subTotal = {
         "currency": action.item.currency,
         "symbol": action.item.symbol,
@@ -113,14 +117,15 @@ const Cart = (state = initStateCart, action) => {
       const total = {
         "currency": subTotal.currency,
         "symbol": subTotal.symbol,
-        "price": subTotal.price + shipping.price
+        "price": subTotal.price + state.shipping.price
       }
-      return { ...state, quantity, items, shipping, subTotal, total}
+      //return { ...state, quantity, items, shipping, subTotal, total}
+      return { ...state, quantity, items, subTotal, total}
     case DELETE_ITEM_CART:
       return { ...state,
         quantity: action.quantity,
         items: action.items,
-        shipping: action.shipping,
+        //shipping: action.shipping,
         subTotal: action.subTotal,
         total: action.total
       }

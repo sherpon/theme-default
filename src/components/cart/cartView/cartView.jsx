@@ -51,7 +51,7 @@ const CartView = ({username, language, cart, shipping, onChangedShippingSelect, 
 
         <div className="input-field cart-view__shipping__select">
           <select id="cart-view__shipping__select"
-            defaultValue={ (cart.shipping.price===-1) ? ('{}') : (JSON.stringify(cart.shipping)) }
+            defaultValue={ (cart.shipping.description==="NaN" && cart.shipping.days==="NaN") ? ('{}') : (JSON.stringify(cart.shipping)) }
             onChange={ () => onChangedShippingSelect() }
           >
             <option value='{}' className="input-field cart-view__shipping__label" disabled>{strings.labelCartShippingInput}</option>
@@ -68,6 +68,20 @@ const CartView = ({username, language, cart, shipping, onChangedShippingSelect, 
       var elems = document.querySelectorAll('select')
       var instances = M.FormSelect.init(elems)
     },100 )
+  }
+
+  const _checkout = () => {
+    if (shipping.length === 0) {
+      checkout()
+    } else {
+      const selectShipping = document.getElementById('cart-view__shipping__select').value
+      if (selectShipping === '{}') {
+        M.toast({html: strings.errorNoShipping})
+        return
+      } else {
+        checkout()
+      }
+    }
   }
 
   return (
@@ -127,7 +141,7 @@ const CartView = ({username, language, cart, shipping, onChangedShippingSelect, 
           <div className="cart-view__summary__line row">
             <div className="col s12">
               <a
-                onClick={ () => checkout() }
+                onClick={ () => _checkout() }
                 className="waves-effect waves-light btn-small z-depth-0 cart-view__summary__button"
               >
                 {strings.buttonCheckout}

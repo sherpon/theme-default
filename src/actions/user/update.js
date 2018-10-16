@@ -28,9 +28,11 @@ export const updateAccount = (name, lastname, phone, email) => (dispatch, getSta
 
   dispatch(startFetching())
   const id = session.getUser().id
+  const privateKey = session.getUser().privateKey
+  const publicKey = session.getUser().publicKey
   apiUpdateAccount( id, { name, lastname, phone, email } , (status, response) => {
-    if (status!==httpStatusCodes.OK) {
-      session.setUser({ id, name, lastname, phone, email })  // let's update the local session information
+    if (status===httpStatusCodes.OK) {
+      session.setUser({ id, name, lastname, phone, email, privateKey, publicKey })  // let's update the local session information
       dispatch(stopFetching())
       M.toast({ html: strings.successUpdate })
     } else {
@@ -59,7 +61,7 @@ export const updatePassword = (password1, password2) => (dispatch, getState) => 
   const id = session.getUser().id
   const password = password1
   apiUpdatePassword( id, { password } , (status, response) => {
-    if (status!==httpStatusCodes.OK) {
+    if (status===httpStatusCodes.OK) {
       dispatch(stopFetching())
       M.toast({ html: strings.successUpdate })
     } else {

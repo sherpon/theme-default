@@ -5,7 +5,7 @@ import style from './itemContent.scss'
 
 import { getPriceFormat } from '../../../models/tools'
 
-import ItemContentShipping from '../itemContentShipping/itemContentShipping.jsx'
+//import ItemContentShipping from '../itemContentShipping/itemContentShipping.jsx'
 import ItemContentAttributes from '../itemContentAttributes/itemContentAttributes.jsx'
 
 const ItemContent = ({ strings, username, item, onChangedSelect, addToCart, shareFacebook, shareWhatsapp }) => {
@@ -44,12 +44,14 @@ const ItemContent = ({ strings, username, item, onChangedSelect, addToCart, shar
         {`${item.symbol} ${getPriceFormat(item.price)}`}
       </div>
 
-      <ItemContentShipping
-        labelShipping={strings.labelShipping}
-        labelDays={strings.labelDays}
-        labelFree={strings.labelFree}
-        shipping={item.shipping}
-      />
+      {/*
+        <ItemContentShipping
+          labelShipping={strings.labelShipping}
+          labelDays={strings.labelDays}
+          labelFree={strings.labelFree}
+          shipping={item.shipping}
+        />
+      */}
 
       <ItemContentAttributes
         type={item.type}

@@ -34,16 +34,17 @@ export const deleteItemCart = (index) => (dispatch, getState) => {
 
   quantity -= _item.amount
   items.splice(index, 1)
-  shipping.price -= _item.amount * _item.shipping.price
+  //shipping.price -= _item.amount * _item.shipping.price
   subTotal.price -= _item.amount * _item.price
   //taxes
-  total.price -= ( (_item.amount * _item.shipping.price) + (_item.amount * _item.price) )
+  //total.price -= ( (_item.amount * _item.shipping.price) + (_item.amount * _item.price) )
+  total.price -= _item.amount * _item.price
 
   dispatch({
     type: types.DELETE_ITEM_CART,
     quantity,
     items,
-    shipping,
+    //shipping,
     subTotal,
     total
   })

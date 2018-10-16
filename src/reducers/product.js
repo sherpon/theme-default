@@ -11,15 +11,10 @@ const initStateProduct = {
   "shortTitle":"",
   "longTitle":"",
   "tags":"",
-  "categories":[
-    {
-      "name":"",
-      "orden":0,
-      "type":"primary",
-      "parent":""
-    }
-  ],
-  "shipping":[],
+  "categories":{
+    "categoryId":true
+  },
+  //"shipping":[],
   "attributes":[],
   "variations":[],
   "pictures":[]

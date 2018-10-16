@@ -17,6 +17,8 @@
     "state":"Estado",
     "labelSubTotal":"Sub total",
     "labelShipping":"Costo de envío",
+    "labelShippingMethod":"Método de envío",
+    "labelShippingDays":"días",
     "labelTaxes":"Impuestos",
     "labelTotal":"Total"
   },

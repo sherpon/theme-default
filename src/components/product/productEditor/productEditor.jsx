@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import ProductEditorPictures from './partials/productEditorPictures.jsx'
 import ProductEditorInformation from './partials/productEditorInformation.jsx'
 import ProductEditorPrice from './partials/productEditorPrice.jsx'
-import ProductEditorShipping from './partials/productEditorShipping.jsx'
+//import ProductEditorShipping from './partials/productEditorShipping.jsx'
 import ProductEditorCategory from './partials/productEditorCategory.jsx'
 
 import style from './productEditor.scss'
@@ -70,10 +70,14 @@ const ProductEditor = ({ language, categories, loadCanvas, loadPicture, createNe
         product={product}
       />
 
-      <ProductEditorShipping
-        strings={strings}
-        product={product}
-      />
+      {/*
+        <ProductEditorShipping
+          strings={strings}
+          product={product}
+        />
+      */}
+
+
 
       <ProductEditorCategory
         strings={strings}

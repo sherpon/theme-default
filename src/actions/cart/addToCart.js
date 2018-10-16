@@ -44,6 +44,7 @@ export const addToCart = () => (dispatch, getState) => {
   const { product } = getState()
   const item = product
 
+  /*
   // se verifica que haya metodo de envio
   if (item.shipping.length===0) {
     // no hay metodo de envio
@@ -55,6 +56,7 @@ export const addToCart = () => (dispatch, getState) => {
       return null
     }
   }
+  */
   //
   // se verifica el tipo de item
   if (item.type==='clothes') {
@@ -215,8 +217,9 @@ export const addToCart = () => (dispatch, getState) => {
       "symbol":item.symbol,
       "price":item.price,
       "amount": Number(amount),
-      "attributes":[],
-      "shipping": (item.shipping.length===0) ? ({ "currency":"", "symbol":"", "price":Number(0)}) : ( JSON.parse(document.getElementById('item-content-shipping__select').value) )
+      "attributes":[]
+      //"attributes":[],
+      //"shipping": (item.shipping.length===0) ? ({ "currency":"", "symbol":"", "price":Number(0)}) : ( JSON.parse(document.getElementById('item-content-shipping__select').value) )
     }
 
     // por ultimo, se agrega al carrito y se descuenta en el inventario
