@@ -2,7 +2,7 @@ const HtmlWebPackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const fileName = 'theme-default'
-const fileVersion = '1.1.3'
+const fileVersion = '1.2.2'
 
 module.exports = (env) => {
   //console.log(`env.NODE_ENV ===> ${env.NODE_ENV}`)

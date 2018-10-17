@@ -44,7 +44,7 @@ const ProductEditorCategory = ({ strings, categories, product }) => {
       selectDestinationOptions.push(
         <option
           key={childKey}
-          value={JSON.stringify([child.id])}
+          value={JSON.stringify([parent.id,child.id])}
         >
           {`${parent.name} - ${child.name}`}
         </option>
