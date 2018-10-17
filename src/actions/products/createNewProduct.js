@@ -47,6 +47,13 @@ export const createNewProduct = () => (dispatch, getState) => {
     pictures: []
   }
 
+  newProduct.shortTitle = document.getElementById('product-editor-information__shortTitle').value
+  newProduct.longTitle = document.getElementById('product-editor-information__longTitle').value
+  
+  newProduct.description = document.getElementById('product-editor-information__description').value
+  newProduct.include = document.getElementById('product-editor-information__include').value
+  newProduct.characteristics = document.getElementById('product-editor-information__characteristics').value
+
   const inputPicture1 = document.getElementById('product-editor-pictures__picture-1')
   const inputPicture2 = document.getElementById('product-editor-pictures__picture-2')
   const inputPicture3 = document.getElementById('product-editor-pictures__picture-3')
@@ -178,8 +185,8 @@ export const createNewProduct = () => (dispatch, getState) => {
   }
 
   const next = () => {
-    newProduct.shortTitle = document.getElementById('product-editor-information__shortTitle').value
-    newProduct.longTitle = document.getElementById('product-editor-information__longTitle').value
+    //newProduct.shortTitle = document.getElementById('product-editor-information__shortTitle').value
+    //newProduct.longTitle = document.getElementById('product-editor-information__longTitle').value
     //tags: [],  // default empty
 
     const tmpCategories = JSON.parse( tmpCategoriesStr )  // give the category object
@@ -188,9 +195,9 @@ export const createNewProduct = () => (dispatch, getState) => {
     ]*/
     newProduct.categories = tmpCategories
 
-    newProduct.description = document.getElementById('product-editor-information__description').value
-    newProduct.include = document.getElementById('product-editor-information__include').value
-    newProduct.characteristics = document.getElementById('product-editor-information__characteristics').value
+    //newProduct.description = document.getElementById('product-editor-information__description').value
+    //newProduct.include = document.getElementById('product-editor-information__include').value
+    //newProduct.characteristics = document.getElementById('product-editor-information__characteristics').value
 
     newProduct.currency = JSON.parse(tmpPriceCurrencyStr).currency
     newProduct.symbol = JSON.parse(tmpPriceCurrencyStr).symbol
@@ -209,6 +216,7 @@ export const createNewProduct = () => (dispatch, getState) => {
     ]*/
     //attributes: [],
     //variations: [],
+    debugger
     apiCreateNewProduct( userId, storeId, newProduct, (status, result) => {
       if (status!==httpStatusCodes.CREATED) {
         /** show error message */
